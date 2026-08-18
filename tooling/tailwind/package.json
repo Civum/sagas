@@ -1,0 +1,17 @@
+{
+  "name": "@sagas/tailwind-config",
+  "private": true, "version": "0.1.0", "type": "module",
+  "exports": { "./web": "./web.ts" },
+  "scripts": { "clean": "git clean -xdf .cache .turbo node_modules" },
+  "dependencies": {
+    "postcss": "^8.5.1",
+    "tailwindcss": "catalog:",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@sagas/prettier-config": "workspace:*",
+    "@sagas/tsconfig": "workspace:*",
+    "prettier": "catalog:", "typescript": "catalog:"
+  },
+  "prettier": "@sagas/prettier-config"
+}

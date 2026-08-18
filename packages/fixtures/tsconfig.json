@@ -1,0 +1,1 @@
+{ "extends": "@sagas/tsconfig/base.json", "include": ["src", "fixtures", "scripts", "test", "conformance"], "exclude": ["node_modules", "states"] }

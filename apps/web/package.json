@@ -1,0 +1,35 @@
+{
+  "name": "@sagas/web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "clean": "git clean -xdf .cache .next .turbo node_modules",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sagas/contracts": "workspace:*",
+    "@sagas/fixtures": "workspace:*",
+    "mapbox-gl": "catalog:",
+    "next": "^15.1.6",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19"
+  },
+  "devDependencies": {
+    "@sagas/eslint-config": "workspace:*",
+    "@sagas/prettier-config": "workspace:*",
+    "@sagas/tailwind-config": "workspace:*",
+    "@sagas/tsconfig": "workspace:*",
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
+    "@types/node": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1"
+  },
+  "prettier": "@sagas/prettier-config"
+}

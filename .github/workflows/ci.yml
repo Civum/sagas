@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Nothing here needs a secret. If you are adding one, ask first — the
+  # scaffold is public and students develop against local services.
+  TURBO_TELEMETRY_DISABLED: 1
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Turbo needs history to work out what actually changed, so a PR
+          # touching only apps/web does not re-run everything else.
+          fetch-depth: 2
+      - uses: ./tooling/github/setup
+
+      - name: Regenerate fixture states
+        # States are derived, never authored. If a committed state does not
+        # match what the reducer produces from the event log, the two have
+        # drifted and the committed one is a lie.
+        run: pnpm fixtures:build
+
+      - name: Fail if derived states drifted from the event log
+        run: git diff --exit-code -- packages/fixtures/states
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Conformance
+        run: pnpm conformance
+
+      - name: Test
+        run: pnpm test

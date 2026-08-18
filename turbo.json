@@ -1,0 +1,20 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "topo": { "dependsOn": ["^topo"] },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".cache/tsbuildinfo.json", "dist/**", ".next/**", "!.next/cache/**"]
+    },
+    "build:states": { "cache": false, "outputs": ["states/**"] },
+    "dev": { "cache": false, "persistent": true },
+    "format": { "outputs": [".cache/.prettiercache"], "outputLogs": "new-only" },
+    "lint": { "dependsOn": ["^topo", "^build"], "outputs": [".cache/.eslintcache"] },
+    "test": { "dependsOn": ["^build"] },
+    "conformance": { "dependsOn": ["^build"] },
+    "typecheck": { "dependsOn": ["^topo", "^build"], "outputs": [".cache/tsbuildinfo.json"] },
+    "clean": { "cache": false }
+  },
+  "globalEnv": ["NODE_ENV", "DATABASE_URL", "NEXT_PUBLIC_MAPBOX_TOKEN"]
+}

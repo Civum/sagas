@@ -1,0 +1,16 @@
+{
+  "name": "@sagas/contracts",
+  "private": true, "version": "0.1.0", "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo node_modules",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": { "zod": "catalog:" },
+  "devDependencies": {
+    "@sagas/tsconfig": "workspace:*",
+    "@sagas/prettier-config": "workspace:*",
+    "prettier": "catalog:", "typescript": "catalog:"
+  },
+  "prettier": "@sagas/prettier-config"
+}
