@@ -39,3 +39,8 @@ coverage
 
 # scaffold delivery artifact — safe to delete
 *.tar.gz
+
+# working notes — undistilled, not for students
+NOTES.md
+OPEN-QUESTIONS.md
+CALENDAR.md

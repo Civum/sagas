@@ -249,13 +249,13 @@ export const events: ContributionEvent[] = [
   {
     id: 'ev-019', at: '2026-04-06T14:00:00Z', actorId: 'system',
     kind: 'contributor_registered',
-    contributorId: 'c-teresa',
-    displayName: 'Teresa Goikoetxea',
+    contributorId: 'c-maite',
+    displayName: 'Maite Elorriaga',
     institution: 'Basque Museum & Cultural Center',
   },
 
   {
-    id: 'ev-020', at: '2026-04-06T14:35:00Z', actorId: 'c-teresa',
+    id: 'ev-020', at: '2026-04-06T14:35:00Z', actorId: 'c-maite',
     kind: 'claim_extended',
     claimId: 'cl-register',
     parentClaimId: 'cl-boarding',
@@ -278,7 +278,7 @@ export const events: ContributionEvent[] = [
   /* The dispute targets ONLY the date element. Place, use, and person on the
      same claim remain undisputed. This is the granular-resolution case. */
   {
-    id: 'ev-021', at: '2026-04-06T14:42:00Z', actorId: 'c-teresa',
+    id: 'ev-021', at: '2026-04-06T14:42:00Z', actorId: 'c-maite',
     kind: 'claim_disputed',
     edgeId: 'dis-001',
     targetClaimId: 'cl-boarding',
@@ -337,7 +337,7 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-027', at: '2026-04-19T15:10:00Z', actorId: 'c-teresa',
+    id: 'ev-027', at: '2026-04-19T15:10:00Z', actorId: 'c-maite',
     kind: 'claim_affirmed',
     affirmationId: 'af-005',
     claimId: 'cl-fronton',
@@ -470,7 +470,7 @@ export const events: ContributionEvent[] = [
   /* An extension that may satisfy the disputeTargets of both branches of the
      livery/blacksmith disagreement — a reconciliation candidate. */
   {
-    id: 'ev-041', at: '2026-06-22T16:12:00Z', actorId: 'c-teresa',
+    id: 'ev-041', at: '2026-06-22T16:12:00Z', actorId: 'c-maite',
     kind: 'claim_extended',
     claimId: 'cl-prelot-both',
     parentClaimId: 'cl-prelot',
@@ -544,7 +544,7 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-047', at: '2026-07-09T14:50:00Z', actorId: 'c-teresa',
+    id: 'ev-047', at: '2026-07-09T14:50:00Z', actorId: 'c-maite',
     kind: 'claim_affirmed',
     affirmationId: 'af-012',
     claimId: 'cl-afterhours',

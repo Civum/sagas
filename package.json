@@ -1,7 +1,10 @@
 {
   "name": "sagas",
   "private": true,
-  "engines": { "node": ">=22.10.0", "pnpm": "^9.15.4" },
+  "engines": {
+    "node": ">=22.10.0",
+    "pnpm": "^9.15.4"
+  },
   "packageManager": "pnpm@9.15.4",
   "scripts": {
     "build": "turbo run build",
@@ -14,7 +17,12 @@
     "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
     "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
     "test": "turbo run test",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down",
+    "db:reset": "docker compose down -v",
+    "db:verify": "bash scripts/verify-db.sh",
+    "db:psql": "docker exec -it sagas-postgres psql -U sagas -d sagas"
   },
   "devDependencies": {
     "@sagas/prettier-config": "workspace:*",

@@ -1,0 +1,38 @@
+# Local development database.
+#
+# This gives you a Postgres instance with PostGIS enabled and an empty
+# database. The tables are not here on purpose — designing the persistence
+# schema is the intelligence layer's work, not something the scaffold decides
+# for you.
+#
+#   pnpm db:up       start it
+#   pnpm db:verify   confirm it works and PostGIS is available
+#   pnpm db:down     stop it (data survives)
+#   pnpm db:reset    stop it and delete the volume (data does not survive)
+#
+# Nothing here talks to a cloud service. There are no credentials to request.
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: sagas-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sagas
+      POSTGRES_PASSWORD: sagas
+      POSTGRES_DB: sagas
+    ports:
+      # 5433 on the host, not 5432, so this does not collide with a Postgres
+      # you may already be running for something else.
+      - "5433:5432"
+    volumes:
+      - sagas-pgdata:/var/lib/postgresql/data
+      - ./docker/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sagas -d sagas"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  sagas-pgdata:

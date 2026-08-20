@@ -109,7 +109,9 @@ pnpm conformance          # check the fixtures against the contract
 pnpm dev:web              # the experience layer
 ```
 
-Node 22, pnpm 9. That's the whole setup.
+Node 22, pnpm 9. That's the whole setup. **[SETUP.md](./SETUP.md)** has the
+detail — registering a Mapbox token, running the local database, and a
+where-to-start section per team.
 
 **There are no sponsor-provided credentials.** You register your own free-tier
 Mapbox token, and Postgres runs locally when it's needed. Nothing in this repo

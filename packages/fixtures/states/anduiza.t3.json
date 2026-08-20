@@ -90,7 +90,7 @@
         {
           "id": "af-005",
           "claimId": "cl-fronton",
-          "contributorId": "c-teresa",
+          "contributorId": "c-maite",
           "createdAt": "2026-04-19T15:10:00Z"
         },
         {
@@ -308,7 +308,7 @@
       "claim": {
         "id": "cl-prelot-both",
         "siteId": "site-anduiza",
-        "contributorId": "c-teresa",
+        "contributorId": "c-maite",
         "text": "Both may be right. A Sanborn sheet shows a smithy on the corner of this lot and stabling behind it in the same year. People who remember it as a livery and people who find a blacksmith in the directories are describing different parts of the same yard.",
         "sourceLanguage": "en",
         "elements": [
@@ -337,8 +337,8 @@
         "awaitingTranslation": false
       },
       "contributor": {
-        "id": "c-teresa",
-        "displayName": "Teresa Goikoetxea",
+        "id": "c-maite",
+        "displayName": "Maite Elorriaga",
         "institution": "Basque Museum & Cultural Center",
         "joinedAt": "2026-04-06T14:00:00Z",
         "fictional": true
@@ -381,7 +381,7 @@
               "value": "smithy and stabling coexisting",
               "count": 1,
               "contributorIds": [
-                "c-teresa"
+                "c-maite"
               ]
             }
           ]
@@ -399,7 +399,7 @@
               "value": "Sanborn fire insurance map",
               "count": 1,
               "contributorIds": [
-                "c-teresa"
+                "c-maite"
               ]
             }
           ]
@@ -532,7 +532,7 @@
         {
           "id": "af-012",
           "claimId": "cl-afterhours",
-          "contributorId": "c-teresa",
+          "contributorId": "c-maite",
           "createdAt": "2026-07-09T14:50:00Z"
         },
         {
@@ -714,7 +714,7 @@
       "claim": {
         "id": "cl-register",
         "siteId": "site-anduiza",
-        "contributorId": "c-teresa",
+        "contributorId": "c-maite",
         "text": "We hold a boarding register from this building. The earliest entries in our copy are from 1914, which is earlier than the date given in the account above. The register does not name kitchen staff, so it neither confirms nor contradicts who was cooking.",
         "sourceLanguage": "en",
         "elements": [
@@ -748,8 +748,8 @@
         "awaitingTranslation": false
       },
       "contributor": {
-        "id": "c-teresa",
-        "displayName": "Teresa Goikoetxea",
+        "id": "c-maite",
+        "displayName": "Maite Elorriaga",
         "institution": "Basque Museum & Cultural Center",
         "joinedAt": "2026-04-06T14:00:00Z",
         "fictional": true
@@ -779,7 +779,7 @@
               "value": "1914",
               "count": 1,
               "contributorIds": [
-                "c-teresa"
+                "c-maite"
               ]
             }
           ]
@@ -797,7 +797,7 @@
               "value": "boarding register, museum holding",
               "count": 1,
               "contributorIds": [
-                "c-teresa"
+                "c-maite"
               ]
             }
           ]
@@ -815,7 +815,7 @@
               "value": "register omits staff",
               "count": 1,
               "contributorIds": [
-                "c-teresa"
+                "c-maite"
               ]
             }
           ]
@@ -1070,7 +1070,7 @@
               "targetElementId": "cl-boarding-e-date",
               "reasoning": "The register in our holdings has entries from 1914. The 1922 date may be when this particular cook began rather than when the boarding operation started. Those are different claims and the account may be conflating them.",
               "proposedValue": "1914",
-              "contributorId": "c-teresa",
+              "contributorId": "c-maite",
               "createdAt": "2026-04-06T14:42:00Z"
             },
             {
@@ -1099,7 +1099,7 @@
               "value": "1914",
               "count": 2,
               "contributorIds": [
-                "c-teresa",
+                "c-maite",
                 "c-robert"
               ]
             },
@@ -1202,8 +1202,8 @@
       "fictional": true
     },
     {
-      "id": "c-teresa",
-      "displayName": "Teresa Goikoetxea",
+      "id": "c-maite",
+      "displayName": "Maite Elorriaga",
       "institution": "Basque Museum & Cultural Center",
       "joinedAt": "2026-04-06T14:00:00Z",
       "fictional": true
