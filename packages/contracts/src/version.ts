@@ -1,11 +1,11 @@
 /**
- * The contract revision. Bump this in the same commit as any change to the
- * shapes in this package, and add a line to CHANGELOG.md saying what changed
- * and what a consumer has to do about it.
+ * Which version of the shared types this copy of the repo has.
  *
- * Forks pin to a tag, not to main. A team that started at v1.0 keeps building
- * against v1.0 until we agree at a sync to pull forward. A fixture or contract
- * change that lands mid-sprint without that conversation is a bug on our side,
- * not theirs.
+ * Your fork stays on the version it started with. It doesn't update on its own,
+ * so nothing changes under you while you're working. When there's a newer one,
+ * we talk about it at a check-in and you pull it when it suits you.
+ *
+ * If you're changing the types in this package, change this number too and add
+ * an entry to CHANGELOG.md.
  */
 export const CONTRACT_VERSION = '1.0.0' as const;

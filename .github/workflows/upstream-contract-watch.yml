@@ -1,0 +1,110 @@
+# Watches the upstream contract and tells you when it has moved.
+#
+# WHY THIS EXISTS
+#
+# Your fork is pinned. Upstream changes do not reach you automatically, and that
+# is deliberate — nothing should shift under you mid-sprint. But that only works
+# if you *know* when something has changed, and "remember to check every Monday"
+# stops happening around week five.
+#
+# So: awareness is automatic, adoption is not. This opens an issue when the
+# upstream contract version differs from yours. Pulling forward is still a
+# decision you make with the sponsor at a check-in.
+#
+# ENABLING IT (one time, after you fork)
+#
+# GitHub disables Actions on new forks. Go to the Actions tab, click
+# "I understand my workflows, go ahead and enable them". That's it.
+#
+# If your team would rather run it by hand, use the "Run workflow" button — the
+# workflow_dispatch trigger below allows that.
+
+name: Upstream contract watch
+
+on:
+  schedule:
+    # 15:00 UTC Monday — 8am Pacific, 9am Mountain. Before anyone starts work.
+    - cron: "0 15 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    # No point running this in the upstream repo — it would compare against
+    # itself.
+    if: github.repository != 'Civum/sagas'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compare contract versions
+        id: compare
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          UPSTREAM=Civum/sagas
+          VERSION_PATH=packages/contracts/src/version.ts
+
+          extract() { grep -oE "'[0-9]+\.[0-9]+\.[0-9]+'" | head -1 | tr -d "'"; }
+
+          MINE=$(extract < "$VERSION_PATH")
+          THEIRS=$(gh api "repos/$UPSTREAM/contents/$VERSION_PATH" \
+                     --jq '.content' | base64 -d | extract)
+
+          echo "mine=$MINE"   >> "$GITHUB_OUTPUT"
+          echo "theirs=$THEIRS" >> "$GITHUB_OUTPUT"
+
+          if [ "$MINE" = "$THEIRS" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "✓ Contract is current: v$MINE"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "→ Upstream is at v$THEIRS, this fork is on v$MINE"
+          fi
+
+          # Grab the upstream changelog so the issue says what actually changed
+          # rather than just that something did.
+          gh api "repos/$UPSTREAM/contents/CHANGELOG.md" --jq '.content' \
+            | base64 -d | head -60 > /tmp/upstream-changelog.md || true
+
+      - name: Open an issue if the contract moved
+        if: steps.compare.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MINE: ${{ steps.compare.outputs.mine }}
+          THEIRS: ${{ steps.compare.outputs.theirs }}
+        run: |
+          set -euo pipefail
+          TITLE="Upstream contract is at v$THEIRS (this fork is on v$MINE)"
+
+          # Don't reopen the same conversation every Monday.
+          EXISTING=$(gh issue list --state open --search "in:title \"v$THEIRS\"" --json number --jq 'length')
+          if [ "$EXISTING" != "0" ]; then
+            echo "Issue already open for v$THEIRS — nothing to do."
+            exit 0
+          fi
+
+          {
+            echo "The sponsor-owned contract has moved. **This is not urgent and"
+            echo "nothing in your fork has changed.** Your build still works."
+            echo
+            echo "- This fork: \`v$MINE\`"
+            echo "- Upstream:  \`v$THEIRS\`"
+            echo
+            echo "## What changed"
+            echo
+            sed -n '1,60p' /tmp/upstream-changelog.md
+            echo
+            echo "## What to do"
+            echo
+            echo "Bring it to the next check-in. Pulling forward is a decision made"
+            echo "together — mid-sprint is usually the wrong moment, and skipping a"
+            echo "version is often the right call. Close this issue once you've"
+            echo "either pulled or decided not to."
+          } > /tmp/issue-body.md
+
+          gh issue create --title "$TITLE" --body-file /tmp/issue-body.md

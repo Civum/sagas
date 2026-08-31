@@ -20,9 +20,14 @@
     "typecheck": "turbo run typecheck",
     "db:up": "docker compose up -d --wait",
     "db:down": "docker compose down",
-    "db:reset": "docker compose down -v",
+    "db:reset": "bash scripts/reset-volume.sh postgres",
     "db:verify": "bash scripts/verify-db.sh",
-    "db:psql": "docker exec -it sagas-postgres psql -U sagas -d sagas"
+    "db:psql": "docker exec -it sagas-postgres psql -U sagas -d sagas",
+    "storage:up": "docker compose --profile media up -d minio",
+    "storage:down": "docker compose --profile media stop minio",
+    "storage:reset": "bash scripts/reset-volume.sh minio",
+    "storage:verify": "bash scripts/verify-storage.sh",
+    "storage:mc": "docker compose --profile media run --rm mc"
   },
   "devDependencies": {
     "@sagas/prettier-config": "workspace:*",

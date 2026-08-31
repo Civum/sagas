@@ -74,6 +74,7 @@ there is no single authoritative translation slot.
 Each school forks this repo into its own GitHub organization. All student work
 happens in the fork, for grading. PRs upstream are welcome and reviewed —
 that's the open-source contribution loop, and it's part of the point.
+[`docs/GIT.md`](./docs/GIT.md) has the mechanics.
 
 **No team is ever blocked by another team's timeline.** That is a hard
 guarantee, not an aspiration. It is why the fixtures exist.
@@ -99,6 +100,21 @@ Read that file before you consider anything done.
 It also lists **known gaps** — situations no fixture covers yet. Every gap is a
 design decision made by omission, and closing one is a genuinely useful PR.
 
+## Things we know are unfinished
+
+[`docs/DESIGN-QUESTIONS.md`](./docs/DESIGN-QUESTIONS.md) is a list of decisions
+in this codebase that are wrong, or unsettled, or right for reasons that might
+not survive contact with real work.
+
+It's sorted by how much conversation an answer needs. Some you can settle with a
+pull request. Some change the model and should come to a check-in first. Some
+nobody has answered anywhere.
+
+Read the part that touches your work before you refactor something. A few things
+in here look like sloppiness and aren't, and a few look deliberate and aren't.
+And if you find one we missed, adding it to that file is as useful as changing
+the code.
+
 ## Getting started
 
 ```bash
@@ -109,9 +125,10 @@ pnpm conformance          # check the fixtures against the contract
 pnpm dev:web              # the experience layer
 ```
 
-Node 22, pnpm 9. That's the whole setup. **[SETUP.md](./SETUP.md)** has the
-detail — registering a Mapbox token, running the local database, and a
-where-to-start section per team.
+Node 22, pnpm 9, and Docker. **[SETUP.md](./SETUP.md)** has the rest:
+registering a Mapbox token, running the local database, object storage and
+ffmpeg for the content layer, and which file to open first depending on which
+layer you are on.
 
 **There are no sponsor-provided credentials.** You register your own free-tier
 Mapbox token, and Postgres runs locally when it's needed. Nothing in this repo
@@ -124,11 +141,15 @@ deploys are ours to run; development is entirely yours.
 - **A design system or design tokens.** BYU-I owns this. You get a brand brief,
   not a component library. Handing over a design system would remove the most
   interesting work in your scope.
-- **A synthesis API.** There is no endpoint this semester. `loadState()` reads a
-  derived graph state off disk, and that is enough to build every view in the
-  experience scope. UofI builds the real engine later.
-- **A database schema.** Designing it is UofI's deliverable. The shapes in
-  `@sagas/contracts` are the constraint; how they're stored is the research.
+- **A synthesis engine.** Nothing works out what a narrative should say. The
+  experience layer reads derived graph states, which is enough to build every
+  view in its scope, and the intelligence layer builds the real thing later.
+- **Any database schema.** Two teams design one. The experience layer needs a
+  read model shaped for map and article queries; the intelligence layer needs the
+  authoritative store. The shapes in `@sagas/contracts` are the constraint, and
+  how they get persisted is the work.
+- **An upload pipeline.** Object storage is running and empty. Presigned
+  uploads, transcoding, and metadata extraction are the content layer's build.
 - **A weight propagation algorithm.** `packages/fixtures/src/weight.ts` is
   arithmetic that exists so claims have an ordering to render. It is not a
   baseline, not a specification, and not an opinion. It will be deleted.
@@ -138,16 +159,94 @@ assuming it's an oversight.
 
 ## Working together
 
-Weekly: a short async review before a 30-minute sync. Post a note before each
-sync — what you built, what you're unsure about, what you assumed. **The
-assumptions are the valuable part**; they become spec updates.
+### The rhythm
 
-If you're blocked, route around it and flag it. Don't wait. The scope is
+**Check-in — 30 minutes.** Weekly for the first month while scope is still being
+worked out, then every other week once you know what you're building. Your
+programme's exact day is set with your team.
+
+**Office hours — 30 minutes, every week, immediately before the check-in slot.**
+Not a meeting. A door that's open. It runs if there's an agenda and is cancelled
+if there isn't, so most weeks it won't happen — and that's fine. It exists so
+that "we're stuck" has somewhere to go that isn't an email at eleven at night.
+
+**A short note before each check-in:** what you built, what you're unsure about,
+what you assumed. This doubles as the office-hours agenda — if the note has open
+questions in it, we use the slot; if it doesn't, we skip it.
+
+**The assumptions are the most valuable part of that note.** They regularly
+become contract changes. Writing down "we assumed X" is a normal engineering
+artefact, not an admission — and it's how we find out the spec was ambiguous
+before you've built a fortnight on top of it.
+
+**One in-person session** where geography allows, deliberately timed for around
+week three or four — while design is still being locked and the bandwidth
+difference actually matters.
+
+### Pull requests
+
+**PRs open by the stated cutoff get reviewed before that check-in.** Later ones
+roll to the next cycle. That's not a penalty — it's so you can predict when
+feedback arrives instead of pushing something rushed at 5:55pm.
+
+**One PR per feature. Open it as a draft early.** Genuinely — we would rather see
+the shape at 20% and say "not that direction" than review 800 lines and ask you
+to redo it. If a PR takes more than about fifteen minutes to read, it is probably
+two PRs.
+
+This is the single biggest factor in how useful review is to you. Small, early,
+frequent beats large, late, and finished.
+
+### When the contract changes
+
+`@sagas/contracts` and `@sagas/fixtures` are sponsor-owned, and they *will*
+change during the semester. That is the point — a change here is how a discovery
+on one team, or a conversation with someone in the community, reaches everyone
+else. Four rules make that safe:
+
+1. **Changes land on Mondays and only on Mondays.** The contract cannot move
+   mid-week. This is a constraint on us, not a release schedule — expect three to
+   five changes across a semester, not one a week.
+2. **Nothing lands cold.** A significant change is raised at a check-in *before*
+   it is built, then published the following Monday. You will hear "we might
+   change X" before you see X change.
+3. **Your fork is pinned to a tag.** A change is *available* to you, never
+   imposed. Pulling forward is a decision made together at a check-in, not
+   something that happens to you mid-sprint.
+
+   **Awareness is weekly; adoption is deliberate.** Don't pull every Monday —
+   that puts you back on a moving target. Instead, `.github/workflows/upstream-contract-watch.yml`
+   runs each Monday morning, compares your pinned contract version against
+   upstream, and opens an issue with the changelog if they differ. Nothing in
+   your fork changes; you just find out. **Enable Actions on your fork once
+   after forking** — GitHub disables them by default, so open the Actions tab
+   and click through the confirmation.
+4. **Every change carries a version bump, a CHANGELOG entry, and its reason.**
+   The reason matters more than the diff — "a translator pointed out that dialect
+   can't be recovered from text after the fact, so it has to be captured at
+   contribution time" tells you something the diff never will.
+
+   There is **one** changelog, not one per school, and entries name *layers*
+   rather than universities. Seeing that the intelligence team hit a problem the
+   experience team is now working around is the entire reason the contract sits
+   in the middle of three teams.
+
+**Freeze windows.** The contract does not move after your team's design lock
+(around week three) except to fix something genuinely broken, and it does not
+move at all in the last three weeks of a semester. Anything learned during a
+freeze goes into the notes and lands the following term. If a change arrives
+outside these rules, that is a mistake on our side — say so.
+
+### Two standing expectations
+
+**If you're blocked, route around it and flag it. Don't wait.** The scope is
 parallelizable by design, and a week spent waiting is a week nobody gets back.
+[`docs/GIT.md`](./docs/GIT.md) explains how work actually moves between the three
+forks, and why nothing you need from another team should ever stop you.
 
-Disagree with the design. These scopes describe where the work looks like it
-should go from where we're standing in August; the interesting problems here are
-genuinely open and students routinely see things sponsors don't. The goal is
+**Disagree with the design.** These scopes describe where the work looked like it
+should go from where we were standing in August. The interesting problems here
+are genuinely open, and students routinely see things sponsors don't. The goal is
 good engineering, not obedience to an initial guess.
 
 ## A note on the fixture content

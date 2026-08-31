@@ -1,19 +1,16 @@
 /**
- * PLACEHOLDER WEIGHT MODEL — NOT THE REAL PROPAGATION ENGINE
- * ==========================================================
+ * A stand-in for scoring claims. This is not the real thing.
  *
- * This exists only so fixture claims have an ordering and a confidence label
- * for the experience layer to render. It is arithmetic, not research.
+ * It exists so claims have some order to display in and something to label
+ * them with. It's simple arithmetic, picked to be obviously provisional.
  *
- * Designing the real weight propagation algorithm is UofI's semester-1
- * deliverable. Do not treat anything in this file as a specification, a
- * baseline to beat, or an opinion about how confidence should work. It will be
- * deleted.
+ * Working out how confidence should actually be calculated is a whole
+ * deliverable for one of the teams. Don't treat this as a spec, a baseline to
+ * beat, or an opinion. It gets deleted.
  *
- * The one property worth preserving is that affirmations are counted by
- * distinct family line rather than by headcount, so three cousins do not
- * outweigh three unrelated households. That is a constraint on the problem,
- * not a proposed solution to it.
+ * One thing in here is worth keeping: agreement is counted by family line, not
+ * by number of people. Three cousins backing each other up is one source, not
+ * three. That's a rule about the problem, not a proposed answer to it.
  */
 
 export const WEIGHT_MODEL_VERSION = 'fixture-placeholder-v1';

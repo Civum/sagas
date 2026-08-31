@@ -1,27 +1,25 @@
 /**
- * CONFORMANCE CASES
- * =================
+ * A list of awkward situations the data can be in, and what your code has to
+ * do about each one.
  *
- * The contract is not the JSON. The contract is this list.
+ * This list matters more than the JSON files. The JSON is one example of the
+ * data. This is the set of cases your code has to survive.
  *
- * Each case names a situation the record can actually be in, points at the
- * fixture data that puts it in that situation, and states what a consumer has
- * to do about it. A renderer that satisfies all of these will not be surprised
- * by real data; one that satisfies only the happy path will be.
+ * They're awkward on purpose. If the only test data is a site that starts
+ * small and grows nicely, it's easy to build something that falls over the
+ * first time a real record is messy. Every case listed here has fixture data
+ * behind it, so you can load it and try.
  *
- * These are deliberately awkward. A fixture that is only a realistic curve —
- * sparse site grows into rich site — quietly tells both teams that the hard
- * cases don't exist. Every case with no coverage here is a design decision
- * made by omission, so when you find one we missed, that is a PR worth
- * opening.
+ * There's also a list of gaps at the bottom: situations nothing covers yet.
+ * Those are cases we haven't decided on, so if you hit one, say so.
  *
- * How to use this from your own code:
+ * Using it:
  *
  *   import { CONFORMANCE_CASES, loadState } from '@sagas/fixtures/conformance';
  *
  *   for (const c of CONFORMANCE_CASES) {
  *     const state = loadState(c.stateId);
- *     // render it, or feed it to your API, and assert c.requirement holds
+ *     // render it, or feed it to your API, and check c.requirement holds
  *   }
  */
 
@@ -147,6 +145,95 @@ export const CONFORMANCE_CASES: ConformanceCase[] = [
       'Attribution is never optional and never anonymous in this model. Any view that shows claim text must be able to reach its source. The fictional flag must survive into anything user-visible during development.',
     severity: 'must',
   },
+  {
+    id: 'one-record-many-claims',
+    stateId: 't0',
+    subject: 'rec-001',
+    situation:
+      'One written record with no files at all. Two claims were read out of it, cl-boarding and cl-fronton, and both point back at it.',
+    requirement:
+      'A reader must be able to get from either claim to the thing it was read out of, and from the record to everything read out of it. A record with no media is the most common kind of contribution and must not render as an empty attachment list.',
+    severity: 'must',
+  },
+  {
+    id: 'record-is-a-bundle-not-a-file-type',
+    stateId: 't2',
+    subject: 'rec-005',
+    situation:
+      'One record holds an audio file, a typed summary in Euskara, and a note. Later it also has a transcript.',
+    requirement:
+      'Do not label a record with a single media type. It is a bundle and it can hold audio, text, and images at once. An interface that picks one icon and calls the record an "audio record" will misdescribe this one.',
+    severity: 'must',
+  },
+  {
+    id: 'transcript-is-not-a-translation',
+    stateId: 't3',
+    subject: 'rec-005',
+    situation:
+      'The record has one Euskara transcript of its audio, written by a person who is not the contributor, and two competing English renderings of the account.',
+    requirement:
+      'These are different things and must read as different things. The transcript says what the recording says. The renderings say what it means in English. Collapsing them loses the fact that a Euskara speaker has already verified the words and the disagreement is about meaning.',
+    severity: 'must',
+  },
+  {
+    id: 'embedded-location-contradicts-the-place',
+    stateId: 't1',
+    subject: 'rec-003',
+    situation:
+      "A photo's embedded coordinates put the camera in the middle of Grove Street, 55 metres from the building, with an accuracy of 65 metres. The record is attached to the building.",
+    requirement:
+      'Do not move the pin. The record belongs to the place it was attached to, and the embedded location is evidence about where the camera was, not about what the photo shows. If both are displayed, the difference must be legible rather than looking like a bug.',
+    severity: 'must',
+  },
+  {
+    id: 'media-still-processing-is-not-a-failure',
+    stateId: 't3',
+    subject: 'rec-009',
+    situation:
+      'A 604MB audio file is still in processing when the log ends. The record is usable because its claim came from the typed text.',
+    requirement:
+      'Show that a job is still running, not that an upload broke. The record must stay readable while its media is unavailable, and the contributor must not be told to try again.',
+    severity: 'must',
+  },
+  {
+    id: 'open-flag-on-a-published-record',
+    stateId: 't3',
+    subject: 'rec-005',
+    situation:
+      'A published record with four months of transcripts, translations, and claims built on it carries an open flag saying part of it was never the contributor\'s to give.',
+    requirement:
+      'The flag is not a dispute and must not render as one. It says nothing about whether the account is accurate. Nothing in the model resolves this, so a consumer must not imply that the record has been reviewed and cleared.',
+    severity: 'must',
+  },
+  {
+    id: 'standing-is-counts-not-a-score',
+    stateId: 't3',
+    situation:
+      'Every contributor has a standing entry made only of counts: records, claims, corroborations, disputes raised, disputes that proposed an alternative, affirmations, translations, transcripts, flags.',
+    requirement:
+      'Do not add these up. There is no score in this data and putting one in an interface invents one. A person\'s account of their own family must never render with a rating beside it. Showing individual counts where they explain something is fine; combining them is a research decision that has not been made.',
+    severity: 'must',
+  },
+  {
+    id: 'contributor-who-authors-nothing',
+    stateId: 't3',
+    subject: 'c-robert',
+    situation:
+      'Robert Mendive has submitted no records and written no claims. He has raised two disputes, both proposing a specific alternative rather than only objecting, given two affirmations, and raised one flag.',
+    requirement:
+      'Any measure built on how much somebody has authored scores him zero, and he is one of the more useful people in this record. Whatever the intelligence layer builds has to survive this case, and any interface that ranks or lists contributors must not treat an empty authorship count as an empty contribution.',
+    severity: 'must',
+  },
+  {
+    id: 'a-claim-may-say-nothing-about-when',
+    stateId: 't3',
+    subject: 'cl-fronton',
+    situation:
+      'Five of the ten claims carry no era, because they make no assertion about time. cl-fronton describes how a space was used and never says when.',
+    requirement:
+      'Absent is a real answer and must not render as "unknown period" or sort to the end of a timeline as though it were undated data. A claim with no era is not missing information; it is a claim about something other than time. Any filter by period must say plainly that it is excluding these rather than silently dropping them.',
+    severity: 'must',
+  },
 ];
 
 export const MUST_CASES = CONFORMANCE_CASES.filter((c) => c.severity === 'must');
@@ -168,4 +255,11 @@ export const KNOWN_GAPS = [
   'A site with exactly one claim and no contributors beyond its author.',
   'Two sites close enough together to collide as map markers.',
   'A claim whose only affirmations come from contributors who joined the same day.',
+  'A record with two transcripts of the same audio that disagree about what was said.',
+  'The same file uploaded by two contributors, so the checksums collide and it is one source rather than two.',
+  'A record whose media processing failed outright, rather than still running.',
+  'A record nobody has read any claims out of yet.',
+  'A flag that has been upheld, and whatever is supposed to happen next.',
+  'A contributor who has been vouched for by somebody trusted and has contributed nothing. There is no vouching in the model, so this cannot be represented at all.',
+  'Two contributors whose standing counts are identical but whose contributions are obviously not equivalent.',
 ] as const;

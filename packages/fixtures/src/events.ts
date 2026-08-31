@@ -1,21 +1,24 @@
 /**
- * The append-only contribution log.
+ * The list of contributions, in the order they happened.
  *
- * This is the single authored artifact. Graph states are derived by folding
- * this log up to an instant — they are never authored directly. That is what
- * makes the version-history timeline real rather than fabricated: every state
- * transition points at the exact contributions that caused it.
+ * This is the only file anyone writes by hand. Everything else in the fixtures
+ * is calculated from it. Adding a contribution here changes every snapshot
+ * dated after it, which is the point.
  */
 
 import type {
-  ClaimElement, ContributorId, ClaimId, ElementId, Era, EventId,
-  LanguageCode, LineageId, SiteId, SourceType, TranslationId, PassoverKind,
+  CapturedLocation, ClaimElement, ContributorId, ClaimId, ElementId, Era, EventId,
+  FlagId, FlagReason, LanguageCode, LineageId, MediaDerivative, MediaId, MediaKind,
+  PassoverKind, ProcessingState, RecordId, SiteId, SourceType, SubmissionState,
+  TranscriptId, TranscriptMethod, TranslationId,
 } from '@sagas/contracts';
 
+/** Every contribution has an id, a time, and someone who made it. */
 interface BaseEvent {
   id: EventId;
   at: string;
-  actorId: ContributorId | 'system';
+  /** Who did this. The literal string 'system' for setup events with no person behind them. */
+  actorId: ContributorId;
 }
 
 export interface SiteCreated extends BaseEvent {
@@ -40,6 +43,8 @@ export interface ContributorRegistered extends BaseEvent {
 export interface AccountSubmitted extends BaseEvent {
   kind: 'account_submitted';
   claimId: ClaimId;
+  /** The record this was read out of. One record can produce several claims. */
+  recordId: RecordId;
   siteId: SiteId;
   text: string;
   sourceLanguage: LanguageCode;
@@ -47,7 +52,7 @@ export interface AccountSubmitted extends BaseEvent {
   /** True when submitted in a language other than English with no rendering yet. */
   awaitingTranslation?: boolean;
   elements: ClaimElement[];
-  era: Era;
+  era?: Era;
   topics: string[];
   sourceType: SourceType;
 }
@@ -55,13 +60,15 @@ export interface AccountSubmitted extends BaseEvent {
 export interface ClaimExtended extends BaseEvent {
   kind: 'claim_extended';
   claimId: ClaimId;
+  /** The record this was read out of. */
+  recordId: RecordId;
   parentClaimId: ClaimId;
   siteId: SiteId;
   text: string;
   sourceLanguage: LanguageCode;
   sourceLanguageText?: string;
   elements: ClaimElement[];
-  era: Era;
+  era?: Era;
   topics: string[];
   sourceType: SourceType;
 }
@@ -113,6 +120,84 @@ export interface ReferenceMarked extends BaseEvent {
   resolved: boolean;
 }
 
+/**
+ * One file arriving with a record.
+ *
+ * `storageKey` is where the bytes live in object storage. It is not a URL, and
+ * nothing should turn it into one and keep it. Read links are generated when
+ * somebody asks and they expire.
+ */
+export interface MediaDescriptor {
+  mediaId: MediaId;
+  kind: MediaKind;
+  storageKey: string;
+  contentType: string;
+  byteSize: number;
+  checksum?: string;
+  originalFilename?: string;
+  /** Defaults to 'uploaded'. Nothing has looked at the file yet. */
+  processing?: ProcessingState;
+  durationSeconds?: number;
+  width?: number;
+  height?: number;
+  capturedAt?: string;
+}
+
+/** Somebody hands something over. */
+export interface RecordSubmitted extends BaseEvent {
+  kind: 'record_submitted';
+  recordId: RecordId;
+  siteId: SiteId;
+  note?: string;
+  text?: string;
+  language?: LanguageCode;
+  capturedAt?: string;
+  capturedLocation?: CapturedLocation;
+  media?: MediaDescriptor[];
+  /** Defaults to 'submitted'. */
+  submission?: SubmissionState;
+}
+
+/**
+ * A background job finished with a file, or failed on it.
+ *
+ * This is the event that makes the difference between "your upload broke" and
+ * "we are still working on it" visible to the person who uploaded.
+ */
+export interface MediaProcessed extends BaseEvent {
+  kind: 'media_processed';
+  mediaId: MediaId;
+  recordId: RecordId;
+  processing: ProcessingState;
+  processingError?: string;
+  durationSeconds?: number;
+  width?: number;
+  height?: number;
+  derivatives?: MediaDerivative[];
+  /** Where the record goes next, if this finishing moves it along. */
+  submission?: SubmissionState;
+}
+
+/** Somebody writes down what is on a recording. */
+export interface TranscriptSubmitted extends BaseEvent {
+  kind: 'transcript_submitted';
+  transcriptId: TranscriptId;
+  recordId: RecordId;
+  language: LanguageCode;
+  text: string;
+  method: TranscriptMethod;
+  submission?: SubmissionState;
+}
+
+/** Somebody reports a record for review. Reasoning is required. */
+export interface RecordFlagged extends BaseEvent {
+  kind: 'record_flagged';
+  flagId: FlagId;
+  recordId: RecordId;
+  reason: FlagReason;
+  reasoning: string;
+}
+
 export type ContributionEvent =
   | SiteCreated
   | ContributorRegistered
@@ -123,4 +208,8 @@ export type ContributionEvent =
   | PassoverRecorded
   | TranslationSubmitted
   | TranslationDisputed
-  | ReferenceMarked;
+  | ReferenceMarked
+  | RecordSubmitted
+  | MediaProcessed
+  | TranscriptSubmitted
+  | RecordFlagged;

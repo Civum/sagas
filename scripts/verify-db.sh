@@ -18,6 +18,24 @@ if ! docker ps --format '{{.Names}}' | grep -qx "$CONTAINER"; then
   exit 1
 fi
 
+# The container can be perfectly healthy while nothing on your machine can
+# reach it, and from the app side that looks exactly like a broken database.
+# Check the published port before claiming the connection string works.
+HOST_PORT=5433
+
+if [ -z "$(docker port "$CONTAINER" 5432 2>/dev/null)" ]; then
+  echo "✗ the container is running but its port is not published to your machine."
+  echo "  Run: pnpm db:reset && pnpm db:up"
+  exit 1
+fi
+
+if ! (exec 3<>"/dev/tcp/127.0.0.1/$HOST_PORT") 2>/dev/null; then
+  echo "✗ nothing is answering on localhost:$HOST_PORT."
+  echo "  Either the database is still starting, or something else is holding"
+  echo "  that port. Check with: lsof -i :$HOST_PORT"
+  exit 1
+fi
+
 pg() { docker exec -i "$CONTAINER" psql -U sagas -d sagas -tAc "$1" 2>/dev/null; }
 
 if ! pg "select 1" >/dev/null; then

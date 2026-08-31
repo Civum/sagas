@@ -76,7 +76,11 @@ describe('conformance cases point at data that exhibits them', () => {
     const state = loadState(c.stateId);
     expect(state).toBeTruthy();
     if (c.subject) {
-      const subject = state.claims.find((cl) => cl.claim.id === c.subject);
+      // A case can be about a claim, the record it came from, or a person.
+      const subject =
+        state.claims.find((cl) => cl.claim.id === c.subject) ??
+        state.records.find((r) => r.id === c.subject) ??
+        state.contributors.find((p) => p.id === c.subject);
       expect(subject, `${c.subject} not present in ${c.stateId}`).toBeTruthy();
     }
   });
@@ -94,6 +98,58 @@ describe('conformance cases point at data that exhibits them', () => {
     const clean = boarding.elementStatuses.filter((e) => e.disputes.length === 0);
     expect(contested).toHaveLength(1);
     expect(clean.length).toBeGreaterThan(0);
+  });
+
+  it('every claim points at a record that exists in the same state', () => {
+    for (const state of states) {
+      const known = new Set(state.records.map((r) => r.id));
+      for (const c of state.claims) {
+        expect(known.has(c.claim.recordId), `${c.claim.id} -> ${c.claim.recordId}`).toBe(true);
+      }
+    }
+  });
+
+  it('a record carries media or text, never a note on its own', () => {
+    for (const state of states) {
+      for (const r of state.records) {
+        expect(r.media.length > 0 || Boolean(r.text?.trim()), `${r.id} has neither`).toBe(true);
+      }
+    }
+  });
+
+  it('standing is counts only, never a score', () => {
+    // Guards the rule rather than the numbers: if somebody adds a field to
+    // standing that is a rating rather than a tally, this fails.
+    const allowed = new Set([
+      'contributorId', 'firstContributionAt', 'lastContributionAt',
+      'recordsSubmitted', 'claimsAuthored', 'claimsCorroboratedByOtherLines',
+      'claimsDisputed', 'disputesRaised', 'disputesRaisedWithAlternative',
+      'affirmationsGiven', 'translationsContributed', 'transcriptsContributed',
+      'flagsRaised',
+    ]);
+    for (const state of states) {
+      for (const st of state.standings) {
+        for (const key of Object.keys(st)) {
+          expect(allowed.has(key), `unexpected standing field: ${key}`).toBe(true);
+        }
+      }
+    }
+  });
+
+  it('every contributor has a standing, including those who authored nothing', () => {
+    for (const state of states) {
+      expect(state.standings).toHaveLength(state.contributors.length);
+    }
+  });
+
+  it('a claim carries an era only when it says something about time', () => {
+    for (const state of states) {
+      for (const c of state.claims) {
+        if (c.claim.era) continue;
+        const hasDate = c.claim.elements.some((e) => e.kind === 'date');
+        expect(hasDate, `${c.claim.id} has a date element but no era`).toBe(false);
+      }
+    }
   });
 
   it('records its own gaps', () => {

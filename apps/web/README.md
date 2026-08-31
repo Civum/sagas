@@ -2,32 +2,127 @@
 
 This is yours. It ships close to empty on purpose.
 
-The design system, the component library, the map integration, the living
-article renderer, heritage trails, badges, and the contributor dashboard are all
-your scope. The scaffold deliberately does not include design tokens or a
-component library — handing those over would remove the most interesting work in
-the project.
+The design system, the component library, the map, the article renderer,
+heritage trails, badges, and the contributor dashboard are all your scope. There
+are no design tokens and no component library in here. Handing those over would
+take away the most interesting work in the project.
 
 What you get instead: a working Next + TypeScript + Tailwind setup, the fixture
-data, and a contract to build against.
+data, a place for every read to go through, and a list of situations your
+interface has to survive.
+
+## Run it
+
+```bash
+pnpm install
+cp .env.example .env      # add your own Mapbox token, or don't — see below
+pnpm dev:web
+```
+
+Two routes exist:
+
+- `/` — a map and one article, wired end to end and looking like nothing.
+- `/dev` — the same components rendered against all four fixture states, with
+  the conformance cases for each state listed underneath.
+
+Use `/dev` while you build. A component that looks right against `t3` and falls
+apart against `t0` is the normal failure, and `t0` is the state most real places
+sit in for a long time.
+
+**You do not need a Mapbox token to work on this.** With no token, the map area
+renders a list of the same places instead. That path is not a fallback — it is
+how the map's information reaches someone using a screen reader, so it ships
+either way and it needs to be good. See `src/features/map/MapUnavailable.tsx`.
 
 ## Where the data comes from
 
-```ts
-import { loadState, CONFORMANCE_CASES } from '@sagas/fixtures/conformance';
+Every read goes through `src/lib/queries.ts`:
 
-const state = loadState('t3'); // 't0' | 't1' | 't2' | 't3'
+```ts
+import { getSiteState, listSites } from '@/lib/queries';
+
+const state = getSiteState('t3'); // 't0' | 't1' | 't2' | 't3'
 ```
 
-There is no synthesis API this semester. `loadState` reads a derived graph state
-off disk. That is the whole data layer, and it is enough to build every view in
-your scope. If you find yourself wanting to fetch narrative state over a
-network, stop and bring it to a sync — it means the contract is missing
-something, which is useful to know.
+Today those functions read fixture JSON off disk. That is a starting point, not
+the design.
 
-## Before you consider a view done
+**Your first infrastructure job is to put a database behind them.** Run Postgres
+locally, design a schema for reading, seed the fixture states into it, and make
+`queries.ts` query it instead. That is real work and it belongs to whoever holds
+the back end and database roles: schema design, spatial indexing so "everything
+within 2km of here" is fast enough to drive a map, and working out what is held
+in memory versus fetched per request.
 
-Read `packages/fixtures/conformance/cases.ts`. Each case is a situation the
+Do it early. If the whole interface is built against a file and the database
+arrives in November, November is when you find out which components assumed data
+was free to fetch.
+
+It stays local. Nothing here talks to a server anyone else runs, and nothing
+deploys until you decide to.
+
+`src/app/api/sites/` holds HTTP routes over the same functions. That is your read
+API and it is the seam a client-side map fetches through. Server components can
+call `queries.ts` directly and mostly should.
+
+There is no synthesis API this semester. The intelligence layer builds that
+later, and a derived graph state is enough for every view in your scope. If you
+find yourself wanting to fetch narrative state from a service that does not
+exist, stop and bring it to a check-in. It means the contract is missing
+something, which is worth knowing early.
+
+## How the files are organised
+
+```
+src/app/          routes. Pages read data and hand it down.
+src/features/     components that know what Sagas is.
+src/components/ui/ generic pieces. Nothing in here knows what Sagas is.
+src/lib/          data access and helpers.
+```
+
+Two rules hold this together:
+
+**Components take props. They do not fetch.** A page or route handler calls
+`queries.ts` and passes the result down. This is what lets the same components
+render against four different states on `/dev`.
+
+**`components/ui` stays generic.** A button, a dialog, a tooltip. If a file in
+there imports from `@sagas/contracts`, it belongs in `features` instead. This is
+the shadcn convention and it is worth keeping — it's the difference between a
+component library you can reuse and one that only works on one page.
+
+## The stubs are instructions
+
+Every file under `src/features` renders one unstyled line and carries a comment
+saying what it has to become and what is easy to get wrong. Read the comment
+before you replace the component. Several of them name a conformance case; that
+case is the thing the comment is worried about.
+
+The one to read first is `ConfidenceIndicator.tsx`. An affirmation count is not
+corroboration, and the difference is the single most important idea in the data
+model.
+
+## Before you call a view done
+
+Read `packages/fixtures/README.md` for what the four graph states are and what
+each one is designed to break.
+
+Then read `packages/fixtures/conformance/cases.ts`. Each case is a situation the
 record can be in and what your interface has to do about it. They are the
-awkward ones on purpose. A view that handles t3 beautifully and falls over on
-t0 is not done.
+awkward ones on purpose.
+
+The file also lists situations no fixture covers yet. If you hit one, say so —
+adding fixture coverage for a gap is a genuinely useful pull request.
+
+## Things you might add
+
+None of these are required. All of them are yours to decide.
+
+- **Storybook.** `/dev` is a rough version of what it does. If you want the real
+  thing, add it — just keep the conformance cases visible next to the
+  components, because that pairing is the point of the page.
+- **A component testing setup.** There isn't one. Vitest is already in the repo
+  for the packages; wiring it up here with Testing Library is a reasonable first
+  week task.
+- **Real accessibility checks in CI.** The target is WCAG 2.1 AA. Nothing
+  currently enforces it.

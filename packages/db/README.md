@@ -1,12 +1,105 @@
-# packages/db — reserved
+# packages/db
 
-Intended home for the PostgreSQL + PostGIS schema and migrations.
+Home for the database schema and migrations. Nothing here yet.
 
-**Not built yet, deliberately** — same reason as `apps/api`. Designing the
-persistence model is explicitly UofI's semester-one deliverable, not something
-the scaffold should hand them pre-decided. The shapes in `@sagas/contracts` are
-the constraint; how they are stored is the research.
+## Two databases, not one
 
-If you are on the intelligence team and reading this: start here, and expect the
-types in `@sagas/contracts` to be wrong in at least one interesting way. Tell us
-which one.
+The experience layer runs its own small Postgres, seeded from the fixtures, so
+the interface is built against a database rather than a file. That one is a read
+model. It is shaped for map queries and article pages, it lives with `apps/web`,
+and it is that team's own work.
+
+This package is the other one: the authoritative store for records,
+contributions, and the graph derived from them. Designing it is the intelligence
+layer's deliverable, and the content layer's capture work lands in it.
+
+These are different problems and forcing them into one schema this semester
+would make both worse. What has to line up is the contract between them, not the
+tables.
+
+## Why it's empty
+
+Designing how this data is stored is a deliverable, not something the scaffold
+should decide for you. The types in `@sagas/contracts` describe the data. How it
+gets persisted, indexed, and queried is the work.
+
+You will also find the types in `@sagas/contracts` are wrong in at least one
+interesting way. Finding out which one is part of this too.
+
+## What goes here
+
+- A schema for places, records, contributions, and the people who made them
+- Spatial indexing, so "everything within 2km of here" is fast
+- Migrations, so the schema can change without anyone losing data
+- A seed script that loads the fixtures into a running database
+
+## What you are given to work with
+
+The derived states carry more than claims. Before you design anything, load one
+and look at what is in it, because the shape of your input decides what your
+algorithm can possibly be good at.
+
+- `claims` — each with its author, the record it was read out of, translations,
+  disputes per element, competing readings ordered by independent family line,
+  affirmations, passover signals, and a placeholder weight.
+- `records` — what people actually handed over, with media, processing state,
+  and where each one says it was made and how that location was determined.
+- `transcripts` — what somebody wrote down from a recording, attributed, with
+  more than one allowed per record.
+- `flags` — reports, with reasoning, open and resolved together.
+- `standings` — what every contributor has actually done, as counts.
+
+That last one is yours. It records behaviour and judges none of it, and turning
+it into something that means anything is the deliverable. Read the comment on
+`contributorStanding` in `packages/contracts/src/model.ts` and then the entry in
+`docs/DESIGN-QUESTIONS.md` called "How do you tell a good source from a bad
+one?" before you write a line of scoring code. The failure modes there are not
+hypothetical.
+
+If a signal you need is missing, that is a contract change rather than something
+to work around. Raise it early, because everyone else is building on the same
+shapes.
+
+## Getting a database running
+
+```bash
+pnpm db:up        # Postgres 16 with PostGIS, on port 5433
+pnpm db:verify    # confirms it works and prints your connection string
+pnpm db:psql      # a psql shell inside the container
+```
+
+`db:verify` tells you what to do if something's wrong instead of printing a
+stack trace. See [SETUP.md](../../SETUP.md).
+
+## How this package fits the repo
+
+This is a pnpm workspace managed by Turborepo. Every folder under `packages/`
+and `apps/` is its own package with its own `package.json`. They refer to each
+other by name, so once this package exists other packages can `import` from
+`@sagas/db` without any path juggling.
+
+To make it a real package rather than a folder with a readme:
+
+1. Add a `package.json` named `@sagas/db` with `"private": true`
+2. Add `"@sagas/contracts": "workspace:*"` to its dependencies
+3. Add a `tsconfig.json` extending `@sagas/tsconfig/base.json`
+4. Add `lint`, `typecheck`, and `test` scripts so CI picks them up
+5. Run `pnpm install` from the repo root
+
+Copy `packages/contracts` as a starting point. It's the smallest example.
+
+## Where to start
+
+Read these in order:
+
+1. `packages/contracts/src/model.ts` — the data, as the fixtures describe it
+2. `packages/fixtures/fixtures/anduiza/events.ts` — what real input looks like
+3. `packages/fixtures/src/reduce.ts` — how a snapshot is calculated today, in
+   memory, with no database at all
+4. `packages/fixtures/src/weight.ts` — the scoring. It is deliberately naive
+   arithmetic that exists so claims have an ordering to render. It is not a
+   baseline to beat and not a specification. You are replacing it.
+
+Then work out what that would look like with actual tables behind it. The
+in-memory version recalculates everything from scratch every time, which is fine
+for 64 contributions and useless at any real size.

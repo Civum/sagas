@@ -1,0 +1,29 @@
+import type { GraphState } from '@sagas/contracts';
+import { SiteHeader } from '../site/SiteHeader';
+import { ClaimView } from './ClaimView';
+import { VersionTimeline } from './VersionTimeline';
+
+/**
+ * The article. This is the main thing.
+ *
+ * Everything known about a place, read as prose rather than inspected as a
+ * graph. A historian should be able to read it start to finish and also see
+ * which parts are solid.
+ *
+ * Claims arrive ordered by weight, strongest first. Keep that order — it's how
+ * the strongest reading leads without anything being marked "accepted".
+ *
+ * TODO: this is a list of claims right now. It has to become something that
+ * reads. Extensions belong woven in near what they extend, not appended.
+ */
+export function ArticleView({ state }: { state: GraphState }) {
+  return (
+    <main>
+      <SiteHeader state={state} />
+      <VersionTimeline state={state} />
+      {state.claims.map((c) => (
+        <ClaimView key={c.claim.id} claim={c} />
+      ))}
+    </main>
+  );
+}

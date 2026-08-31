@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "clean": "git clean -xdf .cache .next .turbo node_modules",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint"
   },
   "dependencies": {
     "@sagas/contracts": "workspace:*",

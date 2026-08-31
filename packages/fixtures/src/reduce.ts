@@ -1,16 +1,18 @@
 /**
- * Folds the contribution log into a graph state at an instant.
+ * Builds a snapshot of the graph as it looked at a given date.
  *
- * States are never authored. This is the only way one is produced, which is
- * what makes the version-history timeline honest: every state knows exactly
- * which contributions produced it, because it was built from them.
+ * It reads the list of contributions in `fixtures/`, applies every one up to
+ * that date, and returns the result. Nobody writes a snapshot by hand, so each
+ * one can tell you exactly which contributions produced it. That's what the
+ * version history in the interface is built from.
  */
 
 import type { ContributionEvent } from './events';
 import type {
   Affirmation, Claim, ClaimState, Contributor, DisputeEdge, ElementStatus,
-  EventId, ExtensionEdge, GraphState, IntegrityScore, LineageId, Passover,
-  PassoverKind, ReferenceEdge, Site, Translation, TranslationDispute,
+  ContributorStanding, EventId, ExtensionEdge, Flag, GraphState, IntegrityScore,
+  LineageId, MediaRef, Passover, PassoverKind, ReferenceEdge, Site, SourceRecord,
+  Transcript, Translation, TranslationDispute,
 } from '@sagas/contracts';
 import { classifyConfidence, computeWeight } from './weight';
 
@@ -25,6 +27,9 @@ interface Accumulator {
   passovers: Passover[];
   translations: Translation[];
   translationDisputes: TranslationDispute[];
+  records: Map<string, SourceRecord>;
+  transcripts: Transcript[];
+  flags: Flag[];
   applied: EventId[];
 }
 
@@ -32,7 +37,8 @@ function empty(): Accumulator {
   return {
     contributors: new Map(), claims: new Map(), disputes: [], extensions: [],
     references: [], affirmations: [], passovers: [], translations: [],
-    translationDisputes: [], applied: [],
+    translationDisputes: [], records: new Map(), transcripts: [], flags: [],
+    applied: [],
   };
 }
 
@@ -58,7 +64,8 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
 
     case 'account_submitted':
       acc.claims.set(ev.claimId, {
-        id: ev.claimId, siteId: ev.siteId, contributorId: ev.actorId as string,
+        id: ev.claimId, siteId: ev.siteId, contributorId: ev.actorId,
+        recordId: ev.recordId,
         text: ev.text, sourceLanguage: ev.sourceLanguage,
         sourceLanguageText: ev.sourceLanguageText, elements: ev.elements,
         era: ev.era, topics: ev.topics, sourceType: ev.sourceType,
@@ -68,7 +75,8 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
 
     case 'claim_extended':
       acc.claims.set(ev.claimId, {
-        id: ev.claimId, siteId: ev.siteId, contributorId: ev.actorId as string,
+        id: ev.claimId, siteId: ev.siteId, contributorId: ev.actorId,
+        recordId: ev.recordId,
         text: ev.text, sourceLanguage: ev.sourceLanguage,
         sourceLanguageText: ev.sourceLanguageText, elements: ev.elements,
         era: ev.era, topics: ev.topics, sourceType: ev.sourceType,
@@ -77,7 +85,7 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
       });
       acc.extensions.push({
         id: `ext-${ev.id}`, type: 'extension', parentClaimId: ev.parentClaimId,
-        childClaimId: ev.claimId, contributorId: ev.actorId as string, createdAt: ev.at,
+        childClaimId: ev.claimId, contributorId: ev.actorId, createdAt: ev.at,
       });
       return;
 
@@ -85,7 +93,7 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
       acc.disputes.push({
         id: ev.edgeId, type: 'dispute', targetClaimId: ev.targetClaimId,
         targetElementId: ev.targetElementId, reasoning: ev.reasoning,
-        proposedValue: ev.proposedValue, contributorId: ev.actorId as string,
+        proposedValue: ev.proposedValue, contributorId: ev.actorId,
         createdAt: ev.at,
       });
       return;
@@ -93,13 +101,13 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
     case 'claim_affirmed':
       acc.affirmations.push({
         id: ev.affirmationId, claimId: ev.claimId,
-        contributorId: ev.actorId as string, createdAt: ev.at,
+        contributorId: ev.actorId, createdAt: ev.at,
       });
       return;
 
     case 'passover_recorded':
       acc.passovers.push({
-        id: ev.passoverId, claimId: ev.claimId, contributorId: ev.actorId as string,
+        id: ev.passoverId, claimId: ev.claimId, contributorId: ev.actorId,
         kind: ev.passoverKind, createdAt: ev.at,
       });
       return;
@@ -107,13 +115,13 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
     case 'translation_submitted': {
       acc.translations.push({
         id: ev.translationId, claimId: ev.claimId,
-        contributorId: ev.actorId as string, targetLanguage: ev.targetLanguage,
+        contributorId: ev.actorId, targetLanguage: ev.targetLanguage,
         text: ev.text, createdAt: ev.at,
       });
       // A rendering exists, so the account enters the claim graph. The original
       // is untouched; the first rendering supplies the reading text.
       const claim = acc.claims.get(ev.claimId);
-      if (claim && claim.awaitingTranslation) {
+      if (claim?.awaitingTranslation) {
         claim.awaitingTranslation = false;
         if (!claim.text) claim.text = ev.text;
       }
@@ -123,7 +131,59 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
     case 'translation_disputed':
       acc.translationDisputes.push({
         id: ev.disputeId, translationId: ev.translationId,
-        contributorId: ev.actorId as string, reasoning: ev.reasoning, createdAt: ev.at,
+        contributorId: ev.actorId, reasoning: ev.reasoning, createdAt: ev.at,
+      });
+      return;
+
+    case 'record_submitted': {
+      const media: MediaRef[] = (ev.media ?? []).map((m) => ({
+        id: m.mediaId, recordId: ev.recordId, kind: m.kind,
+        storageKey: m.storageKey, contentType: m.contentType,
+        byteSize: m.byteSize, checksum: m.checksum,
+        originalFilename: m.originalFilename,
+        processing: m.processing ?? 'uploaded',
+        durationSeconds: m.durationSeconds, width: m.width, height: m.height,
+        capturedAt: m.capturedAt, derivatives: [], createdAt: ev.at,
+      }));
+      acc.records.set(ev.recordId, {
+        id: ev.recordId, siteId: ev.siteId, contributorId: ev.actorId,
+        note: ev.note, text: ev.text, language: ev.language,
+        capturedAt: ev.capturedAt, capturedLocation: ev.capturedLocation,
+        submission: ev.submission ?? 'submitted', media, createdAt: ev.at,
+      });
+      return;
+    }
+
+    case 'media_processed': {
+      const rec = acc.records.get(ev.recordId);
+      if (!rec) throw new Error(`media_processed for unknown record ${ev.recordId}`);
+      const file = rec.media.find((m) => m.id === ev.mediaId);
+      if (!file) throw new Error(`media_processed for unknown file ${ev.mediaId}`);
+      file.processing = ev.processing;
+      file.processingError = ev.processingError;
+      if (ev.durationSeconds !== undefined) file.durationSeconds = ev.durationSeconds;
+      if (ev.width !== undefined) file.width = ev.width;
+      if (ev.height !== undefined) file.height = ev.height;
+      if (ev.derivatives) file.derivatives = ev.derivatives;
+      if (ev.submission) rec.submission = ev.submission;
+      return;
+    }
+
+    case 'transcript_submitted': {
+      acc.transcripts.push({
+        id: ev.transcriptId, recordId: ev.recordId, contributorId: ev.actorId,
+        language: ev.language, text: ev.text, method: ev.method, createdAt: ev.at,
+      });
+      const rec = acc.records.get(ev.recordId);
+      if (rec && ev.submission) rec.submission = ev.submission;
+      return;
+    }
+
+    case 'record_flagged':
+      acc.flags.push({
+        id: ev.flagId, recordId: ev.recordId, contributorId: ev.actorId,
+        reason: ev.reason, reasoning: ev.reasoning, status: 'open',
+        createdAt: ev.at,
       });
       return;
 
@@ -131,7 +191,7 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
       acc.references.push({
         id: ev.edgeId, type: 'reference', fromClaimId: ev.fromClaimId,
         toSiteId: ev.toSiteId, toClaimId: ev.toClaimId, excerpt: ev.excerpt,
-        resolved: ev.resolved, contributorId: ev.actorId as string, createdAt: ev.at,
+        resolved: ev.resolved, contributorId: ev.actorId, createdAt: ev.at,
       });
       return;
   }
@@ -155,7 +215,22 @@ function buildClaimState(
   claim: Claim,
   acc: Accumulator,
 ): ClaimState {
-  const contributor = acc.contributors.get(claim.contributorId)!;
+  const record = acc.records.get(claim.recordId);
+  if (!record) {
+    // Every claim is somebody's reading of something. A claim pointing at a
+    // record that does not exist is a broken fixture, not a renderable state.
+    throw new Error(
+      `Claim ${claim.id} was read out of ${claim.recordId}, which does not exist.`,
+    );
+  }
+  const contributor = acc.contributors.get(claim.contributorId);
+  if (!contributor) {
+    // Can only happen if a contribution references someone who never registered.
+    // That's a bug in the fixture data, so fail loudly rather than rendering a blank.
+    throw new Error(
+      `Claim ${claim.id} is attributed to ${claim.contributorId}, who was never registered.`,
+    );
+  }
   const affirmations = acc.affirmations.filter((a) => a.claimId === claim.id);
   const disputes = acc.disputes.filter((d) => d.targetClaimId === claim.id);
   const extensions = acc.extensions.filter((e) => e.parentClaimId === claim.id).map((e) => e.childClaimId);
@@ -203,7 +278,9 @@ function buildClaimState(
     return { element, disputes: elementDisputes, competingValues };
   });
 
-  const extensionClaims = extensions.map((id) => acc.claims.get(id)).filter(Boolean) as Claim[];
+  const extensionClaims = extensions
+    .map((id) => acc.claims.get(id))
+    .filter((c): c is Claim => c !== undefined);
   const sourceTypeDiversity = new Set([claim.sourceType, ...extensionClaims.map((c) => c.sourceType)]).size;
 
   const weight = computeWeight({
@@ -217,7 +294,7 @@ function buildClaimState(
   });
 
   return {
-    claim, contributor, translations, translationDisputes, affirmations,
+    claim, contributor, record, translations, translationDisputes, affirmations,
     independentLineageCount, extensions, references, passover, elementStatuses,
     weight,
     confidence: classifyConfidence({
@@ -228,12 +305,60 @@ function buildClaimState(
   };
 }
 
+/**
+ * What each contributor has done, counted.
+ *
+ * Counts only. Nothing here is weighted, combined, or turned into a score, and
+ * nothing in this function should ever start doing that — see the comment on
+ * `contributorStanding` in the contract for why.
+ */
+function buildStandings(claimStates: ClaimState[], acc: Accumulator): ContributorStanding[] {
+  return [...acc.contributors.values()].map((c) => {
+    const theirClaims = claimStates.filter((cs) => cs.claim.contributorId === c.id);
+    const theirDisputes = acc.disputes.filter((d) => d.contributorId === c.id);
+
+    // Every timestamped thing this person did, so tenure is measured from
+    // activity rather than from when they made an account.
+    const times = [
+      ...theirClaims.map((cs) => cs.claim.createdAt),
+      ...[...acc.records.values()].filter((r) => r.contributorId === c.id).map((r) => r.createdAt),
+      ...theirDisputes.map((d) => d.createdAt),
+      ...acc.affirmations.filter((a) => a.contributorId === c.id).map((a) => a.createdAt),
+      ...acc.translations.filter((t) => t.contributorId === c.id).map((t) => t.createdAt),
+      ...acc.transcripts.filter((t) => t.contributorId === c.id).map((t) => t.createdAt),
+      ...acc.flags.filter((f) => f.contributorId === c.id).map((f) => f.createdAt),
+    ].sort();
+
+    return {
+      contributorId: c.id,
+      firstContributionAt: times[0],
+      lastContributionAt: times[times.length - 1],
+      recordsSubmitted: [...acc.records.values()].filter((r) => r.contributorId === c.id).length,
+      claimsAuthored: theirClaims.length,
+      claimsCorroboratedByOtherLines: theirClaims.filter((cs) => cs.independentLineageCount > 0).length,
+      claimsDisputed: theirClaims.filter((cs) =>
+        acc.disputes.some((d) => d.targetClaimId === cs.claim.id),
+      ).length,
+      disputesRaised: theirDisputes.length,
+      disputesRaisedWithAlternative: theirDisputes.filter((d) => d.proposedValue).length,
+      affirmationsGiven: acc.affirmations.filter((a) => a.contributorId === c.id).length,
+      translationsContributed: acc.translations.filter((t) => t.contributorId === c.id).length,
+      transcriptsContributed: acc.transcripts.filter((t) => t.contributorId === c.id).length,
+      flagsRaised: acc.flags.filter((f) => f.contributorId === c.id).length,
+    };
+  });
+}
+
 function buildIntegrity(claimStates: ClaimState[], acc: Accumulator): IntegrityScore {
   const inGraph = claimStates.filter((c) => !c.claim.awaitingTranslation);
   const contributorIds = new Set(claimStates.map((c) => c.claim.contributorId));
   const lineageDiversity = distinctLineages([...contributorIds], acc.contributors);
   const corroborated = inGraph.filter((c) => c.independentLineageCount >= 2).length;
-  const eras = new Set(claimStates.map((c) => c.claim.era));
+  // Claims that say nothing about when are not a period of coverage. Counting
+  // `undefined` as a bucket would make an archive look broader than it is.
+  const eras = new Set(
+    claimStates.map((c) => c.claim.era).filter((e): e is NonNullable<typeof e> => e !== undefined),
+  );
 
   const score = {
     totalClaims: claimStates.length,
@@ -284,6 +409,10 @@ export function reduceToState(
     site: acc.site,
     claims: claimStates,
     contributors: [...acc.contributors.values()],
+    records: [...acc.records.values()],
+    standings: buildStandings(claimStates, acc),
+    transcripts: acc.transcripts,
+    flags: acc.flags,
     integrity: buildIntegrity(claimStates, acc),
     eventIdsApplied: acc.applied,
     eventIdsSincePrevious: acc.applied.filter((id) => !prev.has(id)),
@@ -292,7 +421,7 @@ export function reduceToState(
 
 export function reduceToStates(
   events: ContributionEvent[],
-  cuts: Array<{ stateId: string; label: string; asOf: string }>,
+  cuts: { stateId: string; label: string; asOf: string }[],
 ): GraphState[] {
   const states: GraphState[] = [];
   let previous: EventId[] = [];

@@ -1,7 +1,7 @@
 -- Runs once, the first time the volume is created.
 --
 -- Enables the spatial extensions and nothing else. No tables, no seed data.
--- The schema is the intelligence layer's deliverable.
+-- The schema is a deliverable, not a scaffold decision.
 
 CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE EXTENSION IF NOT EXISTS postgis_topology;

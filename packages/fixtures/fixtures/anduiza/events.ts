@@ -18,6 +18,11 @@
  *
  * Authored as an append-only log. States are derived, never authored. See
  * ../../src/reduce.ts.
+ *
+ * Note which claims carry an `era` and which do not. Only the ones that say
+ * something about time do. A claim about how a room was used, with no date in
+ * it, has no period on it, because putting one there would be this file
+ * inventing a fact rather than recording one.
  */
 
 import type { ContributionEvent } from '../../src/events';
@@ -51,9 +56,29 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-003', at: '2026-01-08T16:22:00Z', actorId: 'c-marisol',
+    id: 'ev-003', at: '2026-01-08T16:20:00Z', actorId: 'c-marisol',
+    kind: 'record_submitted',
+    recordId: 'rec-001',
+    siteId: SITE,
+    // A written account, typed into the submission form. No files at all, which
+    // is the most common kind of contribution and the one easiest to forget
+    // when you have been building an upload pipeline.
+    //
+    // Two claims come out of this one record. That relationship is the reason
+    // records and claims are separate things.
+    text:
+      'I want to put down what I know about the Anduiza building on Grove Street, from my ' +
+      'great-grandmother and from my mother after her. Two things really: the boarding side of it, ' +
+      'and the fronton at the back.',
+    language: 'en',
+    submission: 'published',
+  },
+
+  {
+    id: 'ev-004', at: '2026-01-08T16:22:00Z', actorId: 'c-marisol',
     kind: 'account_submitted',
     claimId: 'cl-boarding',
+    recordId: 'rec-001',
     siteId: SITE,
     sourceLanguage: 'en',
     text:
@@ -72,9 +97,10 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-004', at: '2026-01-08T16:41:00Z', actorId: 'c-marisol',
+    id: 'ev-005', at: '2026-01-08T16:41:00Z', actorId: 'c-marisol',
     kind: 'account_submitted',
     claimId: 'cl-fronton',
+    recordId: 'rec-001',
     siteId: SITE,
     sourceLanguage: 'en',
     text:
@@ -86,15 +112,26 @@ export const events: ContributionEvent[] = [
       { id: 'cl-fronton-e-use', kind: 'event', value: 'handball court / fronton', excerpt: 'a handball court' },
       { id: 'cl-fronton-e-season', kind: 'event', value: 'winter use', excerpt: 'played in the winter' },
     ],
-    era: 'early_immigration_1900_1929',
     topics: ['pilota', 'fronton', 'recreation', 'sheepherding'],
     sourceType: 'family_oral',
   },
 
   {
-    id: 'ev-005', at: '2026-01-09T02:15:00Z', actorId: 'c-marisol',
+    id: 'ev-006', at: '2026-01-09T02:10:00Z', actorId: 'c-marisol',
+    kind: 'record_submitted',
+    recordId: 'rec-002',
+    siteId: SITE,
+    text:
+      'Something else I remembered this evening, about what was on the lot before the building went up.',
+    language: 'en',
+    submission: 'published',
+  },
+
+  {
+    id: 'ev-007', at: '2026-01-09T02:15:00Z', actorId: 'c-marisol',
     kind: 'account_submitted',
     claimId: 'cl-prelot',
+    recordId: 'rec-002',
     siteId: SITE,
     sourceLanguage: 'en',
     text:
@@ -117,7 +154,7 @@ export const events: ContributionEvent[] = [
   /* ================================================================ */
 
   {
-    id: 'ev-006', at: '2026-02-14T19:30:00Z', actorId: 'system',
+    id: 'ev-008', at: '2026-02-14T19:30:00Z', actorId: 'system',
     kind: 'contributor_registered',
     contributorId: 'c-joseba',
     displayName: 'Joseba Iriondo',
@@ -125,16 +162,49 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-007', at: '2026-02-14T19:44:00Z', actorId: 'c-joseba',
+    id: 'ev-009', at: '2026-02-14T19:44:00Z', actorId: 'c-joseba',
     kind: 'claim_affirmed',
     affirmationId: 'af-001',
     claimId: 'cl-fronton',
   },
 
   {
-    id: 'ev-008', at: '2026-02-14T20:01:00Z', actorId: 'c-joseba',
+    id: 'ev-010', at: '2026-02-14T19:58:00Z', actorId: 'c-joseba',
+    kind: 'record_submitted',
+    recordId: 'rec-003',
+    siteId: SITE,
+    // A photograph with a sentence under it. The note is a caption, not an
+    // account, and it is all the text this record will ever have.
+    note: 'The court floor, near the left wall. You can see where the boards run different.',
+    language: 'en',
+    capturedAt: '2026-02-14T19:52:00Z',
+    // Read out of the photo. It is precise to about 65 metres and it puts the
+    // camera in the middle of Grove Street, because the phone was indoors with
+    // no clear sky. Precise and wrong at the same time, which is the whole
+    // argument in DESIGN-QUESTIONS about how a record gets a location.
+    capturedLocation: {
+      coordinates: [-116.20268, 43.61549],
+      method: 'embedded',
+      accuracyMetres: 65,
+    },
+    media: [
+      {
+        mediaId: 'med-003-a', kind: 'image',
+        storageKey: 'records/rec-003/med-003-a/court-floor.jpg',
+        contentType: 'image/jpeg', byteSize: 3_204_118,
+        originalFilename: 'IMG_4471.jpg',
+        processing: 'ready', width: 4032, height: 3024,
+        capturedAt: '2026-02-14T19:52:00Z',
+      },
+    ],
+    submission: 'published',
+  },
+
+  {
+    id: 'ev-011', at: '2026-02-14T20:01:00Z', actorId: 'c-joseba',
     kind: 'claim_extended',
     claimId: 'cl-fronton-floor',
+    recordId: 'rec-003',
     parentClaimId: 'cl-fronton',
     siteId: SITE,
     sourceLanguage: 'en',
@@ -154,7 +224,7 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-009', at: '2026-02-20T15:12:00Z', actorId: 'system',
+    id: 'ev-012', at: '2026-02-20T15:12:00Z', actorId: 'system',
     kind: 'contributor_registered',
     contributorId: 'c-ana',
     displayName: 'Ana Etxeberria-Woods',
@@ -162,23 +232,34 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-010', at: '2026-02-20T15:20:00Z', actorId: 'c-ana',
+    id: 'ev-013', at: '2026-02-20T15:20:00Z', actorId: 'c-ana',
     kind: 'claim_affirmed',
     affirmationId: 'af-002',
     claimId: 'cl-boarding',
   },
 
   {
-    id: 'ev-011', at: '2026-02-20T15:21:00Z', actorId: 'c-ana',
+    id: 'ev-014', at: '2026-02-20T15:21:00Z', actorId: 'c-ana',
     kind: 'claim_affirmed',
     affirmationId: 'af-003',
     claimId: 'cl-fronton',
   },
 
   {
-    id: 'ev-012', at: '2026-02-20T15:39:00Z', actorId: 'c-ana',
+    id: 'ev-015', at: '2026-02-20T15:36:00Z', actorId: 'c-ana',
+    kind: 'record_submitted',
+    recordId: 'rec-004',
+    siteId: SITE,
+    text: 'Adding to what my cousin Marisol wrote about the kitchen.',
+    language: 'en',
+    submission: 'published',
+  },
+
+  {
+    id: 'ev-016', at: '2026-02-20T15:39:00Z', actorId: 'c-ana',
     kind: 'claim_extended',
     claimId: 'cl-boarding-kitchen',
+    recordId: 'rec-004',
     parentClaimId: 'cl-boarding',
     siteId: SITE,
     sourceLanguage: 'en',
@@ -190,13 +271,12 @@ export const events: ContributionEvent[] = [
       { id: 'cl-boarding-kitchen-e-op', kind: 'event', value: 'two meal sittings', excerpt: 'the kitchen ran two sittings' },
       { id: 'cl-boarding-kitchen-e-rel', kind: 'attribution', value: 'same lineage as cl-boarding', excerpt: 'Marisol and I are cousins' },
     ],
-    era: 'early_immigration_1900_1929',
     topics: ['boarding house', 'women\'s work', 'daily life'],
     sourceType: 'family_oral',
   },
 
   {
-    id: 'ev-013', at: '2026-03-02T22:10:00Z', actorId: 'system',
+    id: 'ev-017', at: '2026-03-02T22:10:00Z', actorId: 'system',
     kind: 'contributor_registered',
     contributorId: 'c-domingo',
     displayName: 'Domingo Sagastume',
@@ -207,9 +287,39 @@ export const events: ContributionEvent[] = [
      original. It has no English rendering yet, so it sits outside the claim
      graph — visible, attributed, untouched. It is never deleted. */
   {
-    id: 'ev-014', at: '2026-03-02T22:31:00Z', actorId: 'c-domingo',
+    id: 'ev-018', at: '2026-03-02T22:25:00Z', actorId: 'c-domingo',
+    kind: 'record_submitted',
+    recordId: 'rec-005',
+    siteId: SITE,
+    // Both at once: a recording, and a short summary the contributor typed
+    // himself. A record is a bundle, not a file type.
+    //
+    // This one takes the long route. Audio arrives, a background job works out
+    // how long it is and builds something playable, somebody who speaks Euskara
+    // writes down what is on it, and somebody else renders that into English.
+    // Four people, four months, one contribution.
+    note: 'Nire aitonak kontatu zidana. Grabatu dut, hobeto ulertuko delakoan.',
+    text:
+      'Aitonak esaten zuen frontoia ez zela beti frontoia izan. Lehenago beste zerbait zen, ' +
+      'eta gerra ondoren aldatu zuten.',
+    language: 'eu',
+    media: [
+      {
+        mediaId: 'med-005-a', kind: 'audio',
+        storageKey: 'records/rec-005/med-005-a/domingo-2026-03-02.m4a',
+        contentType: 'audio/mp4', byteSize: 41_882_004,
+        originalFilename: 'recording.m4a',
+        processing: 'uploaded',
+      },
+    ],
+    submission: 'processing',
+  },
+
+  {
+    id: 'ev-019', at: '2026-03-02T22:31:00Z', actorId: 'c-domingo',
     kind: 'account_submitted',
     claimId: 'cl-domingo',
+    recordId: 'rec-005',
     siteId: SITE,
     sourceLanguage: 'eu',
     awaitingTranslation: true,
@@ -218,25 +328,48 @@ export const events: ContributionEvent[] = [
       'Guretzat gure etxea zen, ez ostatu bat.',
     text: '', // no rendering exists yet
     elements: [],
-    era: 'depression_war_1930_1945',
     topics: ['boarding house', 'pilota', 'family'],
     sourceType: 'family_oral',
   },
 
   {
-    id: 'ev-015', at: '2026-03-05T18:02:00Z', actorId: 'c-joseba',
+    id: 'ev-020', at: '2026-03-02T22:41:00Z', actorId: 'system',
+    kind: 'media_processed',
+    mediaId: 'med-005-a',
+    recordId: 'rec-005',
+    processing: 'ready',
+    durationSeconds: 247,
+    // Derivatives are disposable. Everything here can be rebuilt from the
+    // original, and nothing should point at one as though it were the source.
+    derivatives: [
+      {
+        kind: 'transcode',
+        storageKey: 'records/rec-005/med-005-a/derived/playback.opus',
+        contentType: 'audio/ogg', byteSize: 2_104_880,
+      },
+      {
+        kind: 'waveform',
+        storageKey: 'records/rec-005/med-005-a/derived/waveform.json',
+        contentType: 'application/json', byteSize: 8_442,
+      },
+    ],
+    submission: 'awaiting_transcript',
+  },
+
+  {
+    id: 'ev-021', at: '2026-03-05T18:02:00Z', actorId: 'c-joseba',
     kind: 'passover_recorded', passoverId: 'pv-001', claimId: 'cl-boarding', passoverKind: 'sounds_right',
   },
   {
-    id: 'ev-016', at: '2026-03-05T18:03:00Z', actorId: 'c-joseba',
+    id: 'ev-022', at: '2026-03-05T18:03:00Z', actorId: 'c-joseba',
     kind: 'passover_recorded', passoverId: 'pv-002', claimId: 'cl-prelot', passoverKind: 'dont_know',
   },
   {
-    id: 'ev-017', at: '2026-03-11T17:45:00Z', actorId: 'c-ana',
+    id: 'ev-023', at: '2026-03-11T17:45:00Z', actorId: 'c-ana',
     kind: 'passover_recorded', passoverId: 'pv-003', claimId: 'cl-prelot', passoverKind: 'dont_know',
   },
   {
-    id: 'ev-018', at: '2026-03-11T17:52:00Z', actorId: 'c-domingo',
+    id: 'ev-024', at: '2026-03-11T17:52:00Z', actorId: 'c-domingo',
     kind: 'passover_recorded', passoverId: 'pv-004', claimId: 'cl-fronton', passoverKind: 'sounds_right',
   },
 
@@ -247,7 +380,7 @@ export const events: ContributionEvent[] = [
   /* ================================================================ */
 
   {
-    id: 'ev-019', at: '2026-04-06T14:00:00Z', actorId: 'system',
+    id: 'ev-025', at: '2026-04-06T14:00:00Z', actorId: 'system',
     kind: 'contributor_registered',
     contributorId: 'c-maite',
     displayName: 'Maite Elorriaga',
@@ -255,9 +388,34 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-020', at: '2026-04-06T14:35:00Z', actorId: 'c-maite',
+    id: 'ev-026', at: '2026-04-06T14:30:00Z', actorId: 'c-maite',
+    kind: 'record_submitted',
+    recordId: 'rec-006',
+    siteId: SITE,
+    note: 'Page 14 of the boarding register, scanned at 600dpi. Museum holding, catalogued.',
+    language: 'en',
+    // The register itself is from 1914. That is when the thing was made, which
+    // is not when it was handed over, which is why both dates exist.
+    capturedAt: '1914-01-01T00:00:00Z',
+    // No capturedLocation. A sheet of paper does not have one, and inventing
+    // something here would be worse than leaving it out.
+    media: [
+      {
+        mediaId: 'med-006-a', kind: 'document',
+        storageKey: 'records/rec-006/med-006-a/register-p14.tif',
+        contentType: 'image/tiff', byteSize: 88_204_412,
+        originalFilename: 'BMCC_reg_014.tif',
+        processing: 'ready', width: 5100, height: 7020,
+      },
+    ],
+    submission: 'published',
+  },
+
+  {
+    id: 'ev-027', at: '2026-04-06T14:35:00Z', actorId: 'c-maite',
     kind: 'claim_extended',
     claimId: 'cl-register',
+    recordId: 'rec-006',
     parentClaimId: 'cl-boarding',
     siteId: SITE,
     sourceLanguage: 'en',
@@ -278,7 +436,7 @@ export const events: ContributionEvent[] = [
   /* The dispute targets ONLY the date element. Place, use, and person on the
      same claim remain undisputed. This is the granular-resolution case. */
   {
-    id: 'ev-021', at: '2026-04-06T14:42:00Z', actorId: 'c-maite',
+    id: 'ev-028', at: '2026-04-06T14:42:00Z', actorId: 'c-maite',
     kind: 'claim_disputed',
     edgeId: 'dis-001',
     targetClaimId: 'cl-boarding',
@@ -291,14 +449,34 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-022', at: '2026-04-11T20:18:00Z', actorId: 'system',
+    id: 'ev-029', at: '2026-04-06T15:10:00Z', actorId: 'c-maite',
+    kind: 'transcript_submitted',
+    transcriptId: 'tr-001',
+    recordId: 'rec-005',
+    language: 'eu',
+    // Written down by a person, in the language it was spoken in. This is not a
+    // translation and it is not a claim. It is what the recording says.
+    //
+    // Note who did it: not the person who recorded it. An account can outlive
+    // the moment its contributor had time to sit and type, and somebody else
+    // picking it up is a contribution with a name on it.
+    text:
+      'Aitonak esaten zuen frontoia ez zela beti frontoia izan. Lehenago beste zerbait zen han, ' +
+      'eta gerra ondoren aldatu zuten. Berak gogoratzen zuen zorua nolakoa zen lehen, eta ez zela ' +
+      'berdina gero. Baina hori entzun zuen, ez zuen ikusi.',
+    method: 'human',
+    submission: 'published',
+  },
+
+  {
+    id: 'ev-030', at: '2026-04-11T20:18:00Z', actorId: 'system',
     kind: 'contributor_registered',
     contributorId: 'c-robert',
     displayName: 'Robert Mendive',
   },
 
   {
-    id: 'ev-023', at: '2026-04-11T20:40:00Z', actorId: 'c-robert',
+    id: 'ev-031', at: '2026-04-11T20:40:00Z', actorId: 'c-robert',
     kind: 'claim_disputed',
     edgeId: 'dis-002',
     targetClaimId: 'cl-prelot',
@@ -310,14 +488,14 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-024', at: '2026-04-11T20:55:00Z', actorId: 'c-robert',
+    id: 'ev-032', at: '2026-04-11T20:55:00Z', actorId: 'c-robert',
     kind: 'claim_affirmed',
     affirmationId: 'af-004',
     claimId: 'cl-fronton',
   },
 
   {
-    id: 'ev-025', at: '2026-04-18T16:05:00Z', actorId: 'system',
+    id: 'ev-033', at: '2026-04-18T16:05:00Z', actorId: 'system',
     kind: 'contributor_registered',
     contributorId: 'c-kepa',
     displayName: 'Kepa Larrañaga',
@@ -326,7 +504,7 @@ export const events: ContributionEvent[] = [
 
   /* The rendering lands. cl-domingo now enters the claim graph. */
   {
-    id: 'ev-026', at: '2026-04-18T16:33:00Z', actorId: 'c-kepa',
+    id: 'ev-034', at: '2026-04-18T16:33:00Z', actorId: 'c-kepa',
     kind: 'translation_submitted',
     translationId: 'tr-001',
     claimId: 'cl-domingo',
@@ -337,21 +515,21 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-027', at: '2026-04-19T15:10:00Z', actorId: 'c-maite',
+    id: 'ev-035', at: '2026-04-19T15:10:00Z', actorId: 'c-maite',
     kind: 'claim_affirmed',
     affirmationId: 'af-005',
     claimId: 'cl-fronton',
   },
 
   {
-    id: 'ev-028', at: '2026-04-25T23:41:00Z', actorId: 'c-joseba',
+    id: 'ev-036', at: '2026-04-25T23:41:00Z', actorId: 'c-joseba',
     kind: 'claim_affirmed',
     affirmationId: 'af-006',
     claimId: 'cl-domingo',
   },
 
   {
-    id: 'ev-029', at: '2026-05-02T17:22:00Z', actorId: 'c-ana',
+    id: 'ev-037', at: '2026-05-02T17:22:00Z', actorId: 'c-ana',
     kind: 'claim_disputed',
     edgeId: 'dis-003',
     targetClaimId: 'cl-boarding',
@@ -364,7 +542,7 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-030', at: '2026-05-09T14:08:00Z', actorId: 'c-robert',
+    id: 'ev-038', at: '2026-05-09T14:08:00Z', actorId: 'c-robert',
     kind: 'claim_disputed',
     edgeId: 'dis-004',
     targetClaimId: 'cl-boarding',
@@ -376,15 +554,15 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-031', at: '2026-05-09T14:30:00Z', actorId: 'c-robert',
+    id: 'ev-039', at: '2026-05-09T14:30:00Z', actorId: 'c-robert',
     kind: 'passover_recorded', passoverId: 'pv-005', claimId: 'cl-fronton-floor', passoverKind: 'dont_know',
   },
   {
-    id: 'ev-032', at: '2026-05-14T19:00:00Z', actorId: 'c-kepa',
+    id: 'ev-040', at: '2026-05-14T19:00:00Z', actorId: 'c-kepa',
     kind: 'passover_recorded', passoverId: 'pv-006', claimId: 'cl-boarding', passoverKind: 'sounds_right',
   },
   {
-    id: 'ev-033', at: '2026-05-14T19:02:00Z', actorId: 'c-kepa',
+    id: 'ev-041', at: '2026-05-14T19:02:00Z', actorId: 'c-kepa',
     kind: 'passover_recorded', passoverId: 'pv-007', claimId: 'cl-prelot', passoverKind: 'dont_care',
   },
 
@@ -396,7 +574,7 @@ export const events: ContributionEvent[] = [
   /* ================================================================ */
 
   {
-    id: 'ev-034', at: '2026-06-03T21:14:00Z', actorId: 'system',
+    id: 'ev-042', at: '2026-06-03T21:14:00Z', actorId: 'system',
     kind: 'contributor_registered',
     contributorId: 'c-itxaso',
     displayName: 'Itxaso Zubieta',
@@ -406,7 +584,7 @@ export const events: ContributionEvent[] = [
   /* A second rendering. It does not replace the first. Both coexist, each
      independently attributed. */
   {
-    id: 'ev-035', at: '2026-06-03T21:48:00Z', actorId: 'c-itxaso',
+    id: 'ev-043', at: '2026-06-03T21:48:00Z', actorId: 'c-itxaso',
     kind: 'translation_submitted',
     translationId: 'tr-002',
     claimId: 'cl-domingo',
@@ -417,7 +595,7 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-036', at: '2026-06-03T21:56:00Z', actorId: 'c-itxaso',
+    id: 'ev-044', at: '2026-06-03T21:56:00Z', actorId: 'c-itxaso',
     kind: 'translation_disputed',
     disputeId: 'tdis-001',
     translationId: 'tr-001',
@@ -429,16 +607,27 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-037', at: '2026-06-08T15:30:00Z', actorId: 'c-domingo',
+    id: 'ev-045', at: '2026-06-08T15:30:00Z', actorId: 'c-domingo',
     kind: 'claim_affirmed',
     affirmationId: 'af-007',
     claimId: 'cl-fronton-floor',
   },
 
   {
-    id: 'ev-038', at: '2026-06-08T15:44:00Z', actorId: 'c-domingo',
+    id: 'ev-046', at: '2026-06-08T15:40:00Z', actorId: 'c-domingo',
+    kind: 'record_submitted',
+    recordId: 'rec-007',
+    siteId: SITE,
+    text: 'Zerbait gehiago zoruari buruz. Something more about the floor, in English below.',
+    language: 'en',
+    submission: 'published',
+  },
+
+  {
+    id: 'ev-047', at: '2026-06-08T15:44:00Z', actorId: 'c-domingo',
     kind: 'claim_extended',
     claimId: 'cl-fronton-deadspot',
+    recordId: 'rec-007',
     parentClaimId: 'cl-fronton-floor',
     siteId: SITE,
     sourceLanguage: 'en',
@@ -448,20 +637,19 @@ export const events: ContributionEvent[] = [
     elements: [
       { id: 'cl-fronton-deadspot-e-cause', kind: 'event', value: 'patched drain', excerpt: 'where a drain had been patched over' },
     ],
-    era: 'postwar_1946_1969',
     topics: ['pilota', 'fronton', 'building fabric'],
     sourceType: 'family_oral',
   },
 
   {
-    id: 'ev-039', at: '2026-06-15T18:20:00Z', actorId: 'c-itxaso',
+    id: 'ev-048', at: '2026-06-15T18:20:00Z', actorId: 'c-itxaso',
     kind: 'claim_affirmed',
     affirmationId: 'af-008',
     claimId: 'cl-fronton',
   },
 
   {
-    id: 'ev-040', at: '2026-06-15T18:31:00Z', actorId: 'c-itxaso',
+    id: 'ev-049', at: '2026-06-15T18:31:00Z', actorId: 'c-itxaso',
     kind: 'claim_affirmed',
     affirmationId: 'af-009',
     claimId: 'cl-domingo',
@@ -470,9 +658,29 @@ export const events: ContributionEvent[] = [
   /* An extension that may satisfy the disputeTargets of both branches of the
      livery/blacksmith disagreement — a reconciliation candidate. */
   {
-    id: 'ev-041', at: '2026-06-22T16:12:00Z', actorId: 'c-maite',
+    id: 'ev-050', at: '2026-06-22T16:08:00Z', actorId: 'c-maite',
+    kind: 'record_submitted',
+    recordId: 'rec-008',
+    siteId: SITE,
+    note: 'Fire insurance map excerpt, 1893 sheet, showing the block before the building.',
+    language: 'en',
+    capturedAt: '1893-01-01T00:00:00Z',
+    media: [
+      {
+        mediaId: 'med-008-a', kind: 'document',
+        storageKey: 'records/rec-008/med-008-a/fire-map-1893-sheet-12.png',
+        contentType: 'image/png', byteSize: 14_882_101,
+        processing: 'ready', width: 3600, height: 2700,
+      },
+    ],
+    submission: 'published',
+  },
+
+  {
+    id: 'ev-051', at: '2026-06-22T16:12:00Z', actorId: 'c-maite',
     kind: 'claim_extended',
     claimId: 'cl-prelot-both',
+    recordId: 'rec-008',
     parentClaimId: 'cl-prelot',
     siteId: SITE,
     sourceLanguage: 'en',
@@ -484,20 +692,19 @@ export const events: ContributionEvent[] = [
       { id: 'cl-prelot-both-e-use', kind: 'event', value: 'smithy and stabling coexisting', excerpt: 'a smithy on the corner of this lot and stabling behind it' },
       { id: 'cl-prelot-both-e-doc', kind: 'attribution', value: 'Sanborn fire insurance map', excerpt: 'A Sanborn sheet' },
     ],
-    era: 'pre_1900',
     topics: ['prior use', 'lot history', 'documentary record'],
     sourceType: 'documentary',
   },
 
   {
-    id: 'ev-042', at: '2026-06-22T16:20:00Z', actorId: 'c-robert',
+    id: 'ev-052', at: '2026-06-22T16:20:00Z', actorId: 'c-robert',
     kind: 'claim_affirmed',
     affirmationId: 'af-010',
     claimId: 'cl-prelot-both',
   },
 
   {
-    id: 'ev-043', at: '2026-06-22T16:44:00Z', actorId: 'c-marisol',
+    id: 'ev-053', at: '2026-06-22T16:44:00Z', actorId: 'c-marisol',
     kind: 'claim_affirmed',
     affirmationId: 'af-011',
     claimId: 'cl-prelot-both',
@@ -507,7 +714,25 @@ export const events: ContributionEvent[] = [
      exists in the archive yet, so the marker is left unresolved rather than
      dropped. */
   {
-    id: 'ev-044', at: '2026-07-02T19:05:00Z', actorId: 'c-kepa',
+    id: 'ev-054', at: '2026-06-26T18:12:00Z', actorId: 'c-robert',
+    kind: 'record_flagged',
+    flagId: 'fl-001',
+    recordId: 'rec-005',
+    reason: 'not_mine_to_share',
+    // The hardest kind of report, and the one the model has no answer for. The
+    // record is published, four months of other people's work sits on top of it,
+    // and somebody is saying part of it was never theirs to give.
+    //
+    // Nothing downstream knows what to do when this is upheld. That gap is
+    // written up in DESIGN-QUESTIONS under "Can someone take their record back?"
+    reasoning:
+      'There is a second voice on this recording from about 3:10 on. That is my aunt, and she did ' +
+      'not know it was being kept. I am not asking for the whole thing to go, but somebody should ' +
+      'ask her before it stays up.',
+  },
+
+  {
+    id: 'ev-055', at: '2026-07-02T19:05:00Z', actorId: 'c-kepa',
     kind: 'reference_marked',
     edgeId: 'ref-001',
     fromClaimId: 'cl-fronton-floor',
@@ -516,9 +741,37 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-045', at: '2026-07-02T19:30:00Z', actorId: 'c-kepa',
+    id: 'ev-056', at: '2026-07-02T19:26:00Z', actorId: 'c-kepa',
+    kind: 'record_submitted',
+    recordId: 'rec-009',
+    siteId: SITE,
+    // The claim below comes from the typed text. The recording is long and is
+    // still being worked on when this log ends, so the record is usable and
+    // incomplete at the same time.
+    //
+    // An interface has to show this without implying the upload failed. A file
+    // in `processing` is a job still running, not an error.
+    text:
+      'On the late nights after the dances, people stayed in the court. I have a recording of my ' +
+      'uncle talking about it but it is long, I have put it up anyway.',
+    language: 'en',
+    media: [
+      {
+        mediaId: 'med-009-a', kind: 'audio',
+        storageKey: 'records/rec-009/med-009-a/uncle-interview.wav',
+        contentType: 'audio/wav', byteSize: 604_331_820,
+        originalFilename: 'uncle interview full.wav',
+        processing: 'processing',
+      },
+    ],
+    submission: 'processing',
+  },
+
+  {
+    id: 'ev-057', at: '2026-07-02T19:30:00Z', actorId: 'c-kepa',
     kind: 'claim_extended',
     claimId: 'cl-afterhours',
+    recordId: 'rec-009',
     parentClaimId: 'cl-fronton-floor',
     siteId: SITE,
     sourceLanguage: 'en',
@@ -535,7 +788,7 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-046', at: '2026-07-02T19:33:00Z', actorId: 'c-kepa',
+    id: 'ev-058', at: '2026-07-02T19:33:00Z', actorId: 'c-kepa',
     kind: 'reference_marked',
     edgeId: 'ref-002',
     fromClaimId: 'cl-afterhours',
@@ -544,33 +797,33 @@ export const events: ContributionEvent[] = [
   },
 
   {
-    id: 'ev-047', at: '2026-07-09T14:50:00Z', actorId: 'c-maite',
+    id: 'ev-059', at: '2026-07-09T14:50:00Z', actorId: 'c-maite',
     kind: 'claim_affirmed',
     affirmationId: 'af-012',
     claimId: 'cl-afterhours',
   },
 
   {
-    id: 'ev-048', at: '2026-07-09T15:02:00Z', actorId: 'c-joseba',
+    id: 'ev-060', at: '2026-07-09T15:02:00Z', actorId: 'c-joseba',
     kind: 'claim_affirmed',
     affirmationId: 'af-013',
     claimId: 'cl-afterhours',
   },
 
   {
-    id: 'ev-049', at: '2026-07-14T20:11:00Z', actorId: 'c-itxaso',
+    id: 'ev-061', at: '2026-07-14T20:11:00Z', actorId: 'c-itxaso',
     kind: 'passover_recorded', passoverId: 'pv-008', claimId: 'cl-register', passoverKind: 'sounds_right',
   },
   {
-    id: 'ev-050', at: '2026-07-14T20:14:00Z', actorId: 'c-domingo',
+    id: 'ev-062', at: '2026-07-14T20:14:00Z', actorId: 'c-domingo',
     kind: 'passover_recorded', passoverId: 'pv-009', claimId: 'cl-prelot-both', passoverKind: 'dont_know',
   },
   {
-    id: 'ev-051', at: '2026-07-14T20:16:00Z', actorId: 'c-marisol',
+    id: 'ev-063', at: '2026-07-14T20:16:00Z', actorId: 'c-marisol',
     kind: 'passover_recorded', passoverId: 'pv-010', claimId: 'cl-fronton-deadspot', passoverKind: 'sounds_right',
   },
   {
-    id: 'ev-052', at: '2026-07-21T18:40:00Z', actorId: 'c-robert',
+    id: 'ev-064', at: '2026-07-21T18:40:00Z', actorId: 'c-robert',
     kind: 'passover_recorded', passoverId: 'pv-011', claimId: 'cl-domingo', passoverKind: 'dont_know',
   },
 ];

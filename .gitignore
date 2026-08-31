@@ -37,10 +37,11 @@ coverage
 # vercel
 .vercel
 
-# scaffold delivery artifact — safe to delete
-*.tar.gz
-
-# working notes — undistilled, not for students
+# sponsor working files. Kept in the working copy, never committed — they hold
+# meeting notes, scheduling, and half-formed decisions that aren't anyone's
+# business but ours. Anything here that students need belongs in docs/ instead.
 NOTES.md
-OPEN-QUESTIONS.md
 CALENDAR.md
+OPEN-QUESTIONS.md
+_to_delete/
+*.tgz

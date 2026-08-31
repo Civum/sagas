@@ -36,6 +36,9 @@ src/reduce.ts                ← fold(events, upTo) → GraphState
 states/anduiza.t*.json       ← generated, do not edit
 ```
 
+The log is in timestamp order and event ids are sequential, so `ev-041` really
+did happen after `ev-040`. If you add an event in the middle, renumber.
+
 This shape exists because the version-history timeline needs it. A state built
 by folding knows exactly which contributions produced it, so
 `eventIdsSincePrevious` on each state is a real answer to "what changed and
@@ -52,12 +55,15 @@ don't write a state file.
 
 ## The four states
 
-| | integrity | claims | contributors | lineages | disputes | untranslated |
+| | integrity | claims | records | contributors | disputes | untranslated |
 |---|---|---|---|---|---|---|
-| **t0** sparse, single source | 23 | 3 | 1 | 1 | 0 | 0 |
-| **t1** family corroboration arrives | 52 | 6 | 4 | 3 | 0 | 1 |
-| **t2** documentary source contests a date | 65 | 7 | 5 | 4 | 4 | 0 |
-| **t3** competing renderings, reconciliation candidate | 86 | 10 | 6 | 5 | 5 | 0 |
+| **t0** sparse, single source | 23 | 3 | 2 | 1 | 0 | 0 |
+| **t1** family corroboration arrives | 48 | 6 | 5 | 4 | 0 | 1 |
+| **t2** documentary source contests a date | 61 | 7 | 6 | 7 | 4 | 0 |
+| **t3** competing renderings, reconciliation candidate | 82 | 10 | 9 | 8 | 5 | 0 |
+
+Counts come from the generated states. If you change the log, regenerate and
+update this table, because a stale table here is worse than no table.
 
 Each state deliberately exercises something:
 
@@ -74,7 +80,16 @@ Each state deliberately exercises something:
 - **t3** — a second rendering of the same account coexists with the first, each
   attributed, with a preserved objection about what the first one loses. An
   extension satisfies both branches of an earlier disagreement (a reconciliation
-  candidate). Two unresolved cross-site reference markers.
+  candidate). Two unresolved cross-site reference markers. A 600MB recording is
+  still being processed when the log ends, and an open flag sits on a published
+  record saying part of it was never the contributor's to give.
+
+Records run underneath all of it. Nine of them, deliberately unalike: a written
+account with no files at all that produced two separate claims, a photograph
+whose embedded GPS puts the camera in the middle of the street, an audio
+recording that took four months and four people to become readable in English, a
+scanned register page, and one upload still in the queue. Every claim points at
+the record it was read out of.
 
 ## Boundaries
 
@@ -97,9 +112,11 @@ accepted" status and no endorsement threshold. Dissent is preserved, not
 adjudicated. (An earlier scope draft described an endorsement mechanism. That
 draft is stale.)
 
-**Media attachments are stubs.** The content capture layer is not scoped for
-this semester. Media fields exist in the shape the API contract describes and
-are empty.
+**There are no actual files behind the media.** The storage keys in the fixture
+point at objects that do not exist, because committing a hundred megabytes of
+invented audio to a git repository helps nobody. Everything else about a record
+is real: sizes, durations, content types, processing states, derivatives. Putting
+bytes behind those keys is content-layer work and a good early one.
 
 ## Open questions being carried, not answered
 

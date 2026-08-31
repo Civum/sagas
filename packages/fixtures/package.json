@@ -1,6 +1,8 @@
 {
   "name": "@sagas/fixtures",
-  "private": true, "version": "0.1.0", "type": "module",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
   "exports": {
     ".": "./src/index.ts",
     "./conformance": "./conformance/index.ts",
@@ -11,14 +13,22 @@
     "test": "vitest run",
     "conformance": "vitest run conformance",
     "clean": "git clean -xdf .cache .turbo node_modules",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint"
   },
-  "dependencies": { "@sagas/contracts": "workspace:*" },
+  "dependencies": {
+    "@sagas/contracts": "workspace:*"
+  },
   "devDependencies": {
     "@sagas/tsconfig": "workspace:*",
     "@sagas/prettier-config": "workspace:*",
     "@types/node": "catalog:",
-    "prettier": "catalog:", "tsx": "catalog:", "typescript": "catalog:", "vitest": "catalog:"
+    "prettier": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "@sagas/eslint-config": "workspace:*",
+    "eslint": "catalog:"
   },
   "prettier": "@sagas/prettier-config"
 }

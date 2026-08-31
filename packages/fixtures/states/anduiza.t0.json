@@ -26,6 +26,7 @@
         "id": "cl-boarding",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
+        "recordId": "rec-001",
         "text": "The Anduiza building on Grove Street took in Basque sheepherders when they came off the range. My great-grandmother cooked there. She started in 1922, a few years after she came over, and she stayed in that kitchen until the boarding side of it shut down.",
         "sourceLanguage": "en",
         "elements": [
@@ -71,6 +72,16 @@
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
         "fictional": true
+      },
+      "record": {
+        "id": "rec-001",
+        "siteId": "site-anduiza",
+        "contributorId": "c-marisol",
+        "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+        "language": "en",
+        "submission": "published",
+        "media": [],
+        "createdAt": "2026-01-08T16:20:00Z"
       },
       "translations": [],
       "translationDisputes": [],
@@ -165,6 +176,7 @@
         "id": "cl-fronton",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
+        "recordId": "rec-001",
         "text": "There was a handball court built into the back of the building, behind the sleeping rooms. The men played in the winter when there was no work on the range. My mother said you could hear it through the floor.",
         "sourceLanguage": "en",
         "elements": [
@@ -187,7 +199,6 @@
             "excerpt": "played in the winter"
           }
         ],
-        "era": "early_immigration_1900_1929",
         "topics": [
           "pilota",
           "fronton",
@@ -204,6 +215,16 @@
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
         "fictional": true
+      },
+      "record": {
+        "id": "rec-001",
+        "siteId": "site-anduiza",
+        "contributorId": "c-marisol",
+        "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+        "language": "en",
+        "submission": "published",
+        "media": [],
+        "createdAt": "2026-01-08T16:20:00Z"
       },
       "translations": [],
       "translationDisputes": [],
@@ -280,6 +301,7 @@
         "id": "cl-prelot",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
+        "recordId": "rec-002",
         "text": "Before the boarding house there was a livery stable on that lot. That is what I was told, though I do not know who ran it or when it went.",
         "sourceLanguage": "en",
         "elements": [
@@ -311,6 +333,16 @@
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
         "fictional": true
+      },
+      "record": {
+        "id": "rec-002",
+        "siteId": "site-anduiza",
+        "contributorId": "c-marisol",
+        "text": "Something else I remembered this evening, about what was on the lot before the building went up.",
+        "language": "en",
+        "submission": "published",
+        "media": [],
+        "createdAt": "2026-01-09T02:10:00Z"
       },
       "translations": [],
       "translationDisputes": [],
@@ -374,6 +406,47 @@
       "fictional": true
     }
   ],
+  "records": [
+    {
+      "id": "rec-001",
+      "siteId": "site-anduiza",
+      "contributorId": "c-marisol",
+      "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+      "language": "en",
+      "submission": "published",
+      "media": [],
+      "createdAt": "2026-01-08T16:20:00Z"
+    },
+    {
+      "id": "rec-002",
+      "siteId": "site-anduiza",
+      "contributorId": "c-marisol",
+      "text": "Something else I remembered this evening, about what was on the lot before the building went up.",
+      "language": "en",
+      "submission": "published",
+      "media": [],
+      "createdAt": "2026-01-09T02:10:00Z"
+    }
+  ],
+  "standings": [
+    {
+      "contributorId": "c-marisol",
+      "firstContributionAt": "2026-01-08T16:20:00Z",
+      "lastContributionAt": "2026-01-09T02:15:00Z",
+      "recordsSubmitted": 2,
+      "claimsAuthored": 3,
+      "claimsCorroboratedByOtherLines": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 0,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    }
+  ],
+  "transcripts": [],
+  "flags": [],
   "integrity": {
     "totalClaims": 3,
     "independentContributors": 1,
@@ -389,13 +462,17 @@
     "ev-002",
     "ev-003",
     "ev-004",
-    "ev-005"
+    "ev-005",
+    "ev-006",
+    "ev-007"
   ],
   "eventIdsSincePrevious": [
     "ev-001",
     "ev-002",
     "ev-003",
     "ev-004",
-    "ev-005"
+    "ev-005",
+    "ev-006",
+    "ev-007"
   ]
 }

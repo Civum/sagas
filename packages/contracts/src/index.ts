@@ -1,3 +1,2 @@
-export * from './types';
-export * from './schemas';
+export * from './model';
 export { CONTRACT_VERSION } from './version';

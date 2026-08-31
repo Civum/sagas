@@ -26,6 +26,7 @@
         "id": "cl-fronton",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
+        "recordId": "rec-001",
         "text": "There was a handball court built into the back of the building, behind the sleeping rooms. The men played in the winter when there was no work on the range. My mother said you could hear it through the floor.",
         "sourceLanguage": "en",
         "elements": [
@@ -48,7 +49,6 @@
             "excerpt": "played in the winter"
           }
         ],
-        "era": "early_immigration_1900_1929",
         "topics": [
           "pilota",
           "fronton",
@@ -65,6 +65,16 @@
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
         "fictional": true
+      },
+      "record": {
+        "id": "rec-001",
+        "siteId": "site-anduiza",
+        "contributorId": "c-marisol",
+        "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+        "language": "en",
+        "submission": "published",
+        "media": [],
+        "createdAt": "2026-01-08T16:20:00Z"
       },
       "translations": [],
       "translationDisputes": [],
@@ -156,6 +166,7 @@
         "id": "cl-boarding",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
+        "recordId": "rec-001",
         "text": "The Anduiza building on Grove Street took in Basque sheepherders when they came off the range. My great-grandmother cooked there. She started in 1922, a few years after she came over, and she stayed in that kitchen until the boarding side of it shut down.",
         "sourceLanguage": "en",
         "elements": [
@@ -201,6 +212,16 @@
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
         "fictional": true
+      },
+      "record": {
+        "id": "rec-001",
+        "siteId": "site-anduiza",
+        "contributorId": "c-marisol",
+        "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+        "language": "en",
+        "submission": "published",
+        "media": [],
+        "createdAt": "2026-01-08T16:20:00Z"
       },
       "translations": [],
       "translationDisputes": [],
@@ -304,6 +325,7 @@
         "id": "cl-fronton-floor",
         "siteId": "site-anduiza",
         "contributorId": "c-joseba",
+        "recordId": "rec-003",
         "text": "I played in that court myself as a teenager, so this would be 1963, 1964. By then the boarding was long over and the building was something else, but the court was still there and men still came. The floor was wood and it had a dead spot near the left wall that everybody knew about. You learned to play around it.",
         "sourceLanguage": "en",
         "elements": [
@@ -343,6 +365,41 @@
         "lineageId": "lin-iriondo",
         "joinedAt": "2026-02-14T19:30:00Z",
         "fictional": true
+      },
+      "record": {
+        "id": "rec-003",
+        "siteId": "site-anduiza",
+        "contributorId": "c-joseba",
+        "note": "The court floor, near the left wall. You can see where the boards run different.",
+        "language": "en",
+        "capturedAt": "2026-02-14T19:52:00Z",
+        "capturedLocation": {
+          "coordinates": [
+            -116.20268,
+            43.61549
+          ],
+          "method": "embedded",
+          "accuracyMetres": 65
+        },
+        "submission": "published",
+        "media": [
+          {
+            "id": "med-003-a",
+            "recordId": "rec-003",
+            "kind": "image",
+            "storageKey": "records/rec-003/med-003-a/court-floor.jpg",
+            "contentType": "image/jpeg",
+            "byteSize": 3204118,
+            "originalFilename": "IMG_4471.jpg",
+            "processing": "ready",
+            "width": 4032,
+            "height": 3024,
+            "capturedAt": "2026-02-14T19:52:00Z",
+            "derivatives": [],
+            "createdAt": "2026-02-14T19:58:00Z"
+          }
+        ],
+        "createdAt": "2026-02-14T19:58:00Z"
       },
       "translations": [],
       "translationDisputes": [],
@@ -419,6 +476,7 @@
         "id": "cl-prelot",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
+        "recordId": "rec-002",
         "text": "Before the boarding house there was a livery stable on that lot. That is what I was told, though I do not know who ran it or when it went.",
         "sourceLanguage": "en",
         "elements": [
@@ -450,6 +508,16 @@
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
         "fictional": true
+      },
+      "record": {
+        "id": "rec-002",
+        "siteId": "site-anduiza",
+        "contributorId": "c-marisol",
+        "text": "Something else I remembered this evening, about what was on the lot before the building went up.",
+        "language": "en",
+        "submission": "published",
+        "media": [],
+        "createdAt": "2026-01-09T02:10:00Z"
       },
       "translations": [],
       "translationDisputes": [],
@@ -508,6 +576,7 @@
         "id": "cl-boarding-kitchen",
         "siteId": "site-anduiza",
         "contributorId": "c-ana",
+        "recordId": "rec-004",
         "text": "Marisol and I are cousins and this is the same great-grandmother. What I have that she may not is that the kitchen ran two sittings, because the herders came in at different hours depending on whether they were going out or coming back. My grandmother described washing up twice.",
         "sourceLanguage": "en",
         "elements": [
@@ -524,7 +593,6 @@
             "excerpt": "Marisol and I are cousins"
           }
         ],
-        "era": "early_immigration_1900_1929",
         "topics": [
           "boarding house",
           "women's work",
@@ -541,6 +609,16 @@
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-02-20T15:12:00Z",
         "fictional": true
+      },
+      "record": {
+        "id": "rec-004",
+        "siteId": "site-anduiza",
+        "contributorId": "c-ana",
+        "text": "Adding to what my cousin Marisol wrote about the kitchen.",
+        "language": "en",
+        "submission": "published",
+        "media": [],
+        "createdAt": "2026-02-20T15:36:00Z"
       },
       "translations": [],
       "translationDisputes": [],
@@ -599,11 +677,11 @@
         "id": "cl-domingo",
         "siteId": "site-anduiza",
         "contributorId": "c-domingo",
+        "recordId": "rec-005",
         "text": "",
         "sourceLanguage": "eu",
         "sourceLanguageText": "Gure aitona hemen bizi izan zen. Neguan pilotan jokatzen zuten atzeko aldean. Guretzat gure etxea zen, ez ostatu bat.",
         "elements": [],
-        "era": "depression_war_1930_1945",
         "topics": [
           "boarding house",
           "pilota",
@@ -619,6 +697,44 @@
         "lineageId": "lin-sagastume",
         "joinedAt": "2026-03-02T22:10:00Z",
         "fictional": true
+      },
+      "record": {
+        "id": "rec-005",
+        "siteId": "site-anduiza",
+        "contributorId": "c-domingo",
+        "note": "Nire aitonak kontatu zidana. Grabatu dut, hobeto ulertuko delakoan.",
+        "text": "Aitonak esaten zuen frontoia ez zela beti frontoia izan. Lehenago beste zerbait zen, eta gerra ondoren aldatu zuten.",
+        "language": "eu",
+        "submission": "awaiting_transcript",
+        "media": [
+          {
+            "id": "med-005-a",
+            "recordId": "rec-005",
+            "kind": "audio",
+            "storageKey": "records/rec-005/med-005-a/domingo-2026-03-02.m4a",
+            "contentType": "audio/mp4",
+            "byteSize": 41882004,
+            "originalFilename": "recording.m4a",
+            "processing": "ready",
+            "durationSeconds": 247,
+            "derivatives": [
+              {
+                "kind": "transcode",
+                "storageKey": "records/rec-005/med-005-a/derived/playback.opus",
+                "contentType": "audio/ogg",
+                "byteSize": 2104880
+              },
+              {
+                "kind": "waveform",
+                "storageKey": "records/rec-005/med-005-a/derived/waveform.json",
+                "contentType": "application/json",
+                "byteSize": 8442
+              }
+            ],
+            "createdAt": "2026-03-02T22:25:00Z"
+          }
+        ],
+        "createdAt": "2026-03-02T22:25:00Z"
       },
       "translations": [],
       "translationDisputes": [],
@@ -666,15 +782,184 @@
       "fictional": true
     }
   ],
+  "records": [
+    {
+      "id": "rec-001",
+      "siteId": "site-anduiza",
+      "contributorId": "c-marisol",
+      "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+      "language": "en",
+      "submission": "published",
+      "media": [],
+      "createdAt": "2026-01-08T16:20:00Z"
+    },
+    {
+      "id": "rec-002",
+      "siteId": "site-anduiza",
+      "contributorId": "c-marisol",
+      "text": "Something else I remembered this evening, about what was on the lot before the building went up.",
+      "language": "en",
+      "submission": "published",
+      "media": [],
+      "createdAt": "2026-01-09T02:10:00Z"
+    },
+    {
+      "id": "rec-003",
+      "siteId": "site-anduiza",
+      "contributorId": "c-joseba",
+      "note": "The court floor, near the left wall. You can see where the boards run different.",
+      "language": "en",
+      "capturedAt": "2026-02-14T19:52:00Z",
+      "capturedLocation": {
+        "coordinates": [
+          -116.20268,
+          43.61549
+        ],
+        "method": "embedded",
+        "accuracyMetres": 65
+      },
+      "submission": "published",
+      "media": [
+        {
+          "id": "med-003-a",
+          "recordId": "rec-003",
+          "kind": "image",
+          "storageKey": "records/rec-003/med-003-a/court-floor.jpg",
+          "contentType": "image/jpeg",
+          "byteSize": 3204118,
+          "originalFilename": "IMG_4471.jpg",
+          "processing": "ready",
+          "width": 4032,
+          "height": 3024,
+          "capturedAt": "2026-02-14T19:52:00Z",
+          "derivatives": [],
+          "createdAt": "2026-02-14T19:58:00Z"
+        }
+      ],
+      "createdAt": "2026-02-14T19:58:00Z"
+    },
+    {
+      "id": "rec-004",
+      "siteId": "site-anduiza",
+      "contributorId": "c-ana",
+      "text": "Adding to what my cousin Marisol wrote about the kitchen.",
+      "language": "en",
+      "submission": "published",
+      "media": [],
+      "createdAt": "2026-02-20T15:36:00Z"
+    },
+    {
+      "id": "rec-005",
+      "siteId": "site-anduiza",
+      "contributorId": "c-domingo",
+      "note": "Nire aitonak kontatu zidana. Grabatu dut, hobeto ulertuko delakoan.",
+      "text": "Aitonak esaten zuen frontoia ez zela beti frontoia izan. Lehenago beste zerbait zen, eta gerra ondoren aldatu zuten.",
+      "language": "eu",
+      "submission": "awaiting_transcript",
+      "media": [
+        {
+          "id": "med-005-a",
+          "recordId": "rec-005",
+          "kind": "audio",
+          "storageKey": "records/rec-005/med-005-a/domingo-2026-03-02.m4a",
+          "contentType": "audio/mp4",
+          "byteSize": 41882004,
+          "originalFilename": "recording.m4a",
+          "processing": "ready",
+          "durationSeconds": 247,
+          "derivatives": [
+            {
+              "kind": "transcode",
+              "storageKey": "records/rec-005/med-005-a/derived/playback.opus",
+              "contentType": "audio/ogg",
+              "byteSize": 2104880
+            },
+            {
+              "kind": "waveform",
+              "storageKey": "records/rec-005/med-005-a/derived/waveform.json",
+              "contentType": "application/json",
+              "byteSize": 8442
+            }
+          ],
+          "createdAt": "2026-03-02T22:25:00Z"
+        }
+      ],
+      "createdAt": "2026-03-02T22:25:00Z"
+    }
+  ],
+  "standings": [
+    {
+      "contributorId": "c-marisol",
+      "firstContributionAt": "2026-01-08T16:20:00Z",
+      "lastContributionAt": "2026-01-09T02:15:00Z",
+      "recordsSubmitted": 2,
+      "claimsAuthored": 3,
+      "claimsCorroboratedByOtherLines": 1,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 0,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    },
+    {
+      "contributorId": "c-joseba",
+      "firstContributionAt": "2026-02-14T19:44:00Z",
+      "lastContributionAt": "2026-02-14T20:01:00Z",
+      "recordsSubmitted": 1,
+      "claimsAuthored": 1,
+      "claimsCorroboratedByOtherLines": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 1,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    },
+    {
+      "contributorId": "c-ana",
+      "firstContributionAt": "2026-02-20T15:20:00Z",
+      "lastContributionAt": "2026-02-20T15:39:00Z",
+      "recordsSubmitted": 1,
+      "claimsAuthored": 1,
+      "claimsCorroboratedByOtherLines": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 2,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    },
+    {
+      "contributorId": "c-domingo",
+      "firstContributionAt": "2026-03-02T22:25:00Z",
+      "lastContributionAt": "2026-03-02T22:31:00Z",
+      "recordsSubmitted": 1,
+      "claimsAuthored": 1,
+      "claimsCorroboratedByOtherLines": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 0,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    }
+  ],
+  "transcripts": [],
+  "flags": [],
   "integrity": {
     "totalClaims": 6,
     "independentContributors": 4,
     "lineageDiversity": 3,
     "corroborationDepth": 0,
     "activeDisputes": 0,
-    "temporalCoverage": 4,
+    "temporalCoverage": 3,
     "awaitingTranslation": 1,
-    "overall": 52
+    "overall": 48
   },
   "eventIdsApplied": [
     "ev-001",
@@ -694,11 +979,15 @@
     "ev-015",
     "ev-016",
     "ev-017",
-    "ev-018"
+    "ev-018",
+    "ev-019",
+    "ev-020",
+    "ev-021",
+    "ev-022",
+    "ev-023",
+    "ev-024"
   ],
   "eventIdsSincePrevious": [
-    "ev-006",
-    "ev-007",
     "ev-008",
     "ev-009",
     "ev-010",
@@ -709,6 +998,12 @@
     "ev-015",
     "ev-016",
     "ev-017",
-    "ev-018"
+    "ev-018",
+    "ev-019",
+    "ev-020",
+    "ev-021",
+    "ev-022",
+    "ev-023",
+    "ev-024"
   ]
 }
