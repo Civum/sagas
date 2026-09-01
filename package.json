@@ -29,6 +29,7 @@
     "storage:verify": "bash scripts/verify-storage.sh",
     "storage:mc": "docker compose --profile media run --rm mc",
     "inspect": "pnpm --filter @sagas/fixtures inspect",
+    "rules": "pnpm --filter @sagas/fixtures rules",
     "acceptance": "turbo run acceptance"
   },
   "devDependencies": {
