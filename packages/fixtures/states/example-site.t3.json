@@ -207,7 +207,6 @@
             "excerpt": "a dead spot near the left wall"
           }
         ],
-        "era": "postwar_1946_1969",
         "topics": [
           "pilota",
           "fronton",
@@ -618,7 +617,6 @@
             "excerpt": "The men who came in the sixties"
           }
         ],
-        "era": "postwar_1946_1969",
         "topics": [
           "pilota",
           "community",
@@ -756,7 +754,6 @@
             "excerpt": "Before the boarding house"
           }
         ],
-        "era": "pre_1900",
         "topics": [
           "prior use",
           "lot history"
@@ -882,7 +879,6 @@
             "excerpt": "The register does not name kitchen staff"
           }
         ],
-        "era": "early_immigration_1900_1929",
         "topics": [
           "boarding house",
           "documentary record"
@@ -1207,7 +1203,6 @@
             "excerpt": "My great-grandmother cooked there"
           }
         ],
-        "era": "early_immigration_1900_1929",
         "topics": [
           "boarding house",
           "sheepherding",
@@ -1770,9 +1765,9 @@
     "lineageDiversity": 5,
     "corroborationDepth": 0.4,
     "activeDisputes": 5,
-    "temporalCoverage": 3,
+    "datedClaims": 5,
     "awaitingTranslation": 0,
-    "overall": 82
+    "overall": 90
   },
   "eventIdsApplied": [
     "ev-001",

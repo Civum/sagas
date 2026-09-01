@@ -12,7 +12,6 @@
     "dev": "turbo watch dev --continue",
     "dev:web": "turbo watch dev -F @sagas/web...",
     "fixtures:build": "turbo run build:states -F @sagas/fixtures",
-    "conformance": "turbo run conformance",
     "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
     "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
     "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
@@ -27,7 +26,9 @@
     "storage:down": "docker compose --profile media stop minio",
     "storage:reset": "bash scripts/reset-volume.sh minio",
     "storage:verify": "bash scripts/verify-storage.sh",
-    "storage:mc": "docker compose --profile media run --rm mc"
+    "storage:mc": "docker compose --profile media run --rm mc",
+    "inspect": "pnpm --filter @sagas/fixtures inspect",
+    "acceptance": "turbo run acceptance"
   },
   "devDependencies": {
     "@sagas/prettier-config": "workspace:*",

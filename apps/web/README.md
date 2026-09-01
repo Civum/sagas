@@ -15,7 +15,7 @@ interface has to survive.
 
 ```bash
 pnpm install
-cp .env.example .env      # add your own Mapbox token, or don't — see below
+cp .env.example .env      # add your own Mapbox token, or don't. See below.
 pnpm dev:web
 ```
 
@@ -23,16 +23,16 @@ Two routes exist:
 
 - `/` — a map and one article, wired end to end and looking like nothing.
 - `/dev` — the same components rendered against all four fixture states, with
-  the conformance cases for each state listed underneath.
+  the acceptance criteria for each state listed underneath.
 
 Use `/dev` while you build. A component that looks right against `t3` and falls
 apart against `t0` is the normal failure, and `t0` is the state most real places
 sit in for a long time.
 
 **You do not need a Mapbox token to work on this.** With no token, the map area
-renders a list of the same places instead. That path is not a fallback — it is
-how the map's information reaches someone using a screen reader, so it ships
-either way and it needs to be good. See `src/features/map/MapUnavailable.tsx`.
+renders a list of the same places instead. That path is not a fallback. It is how
+the map's information reaches someone using a screen reader, so it ships either
+way and it needs to be good. See `src/features/map/MapUnavailable.tsx`.
 
 ## Where the data comes from
 
@@ -88,41 +88,106 @@ render against four different states on `/dev`.
 
 **`components/ui` stays generic.** A button, a dialog, a tooltip. If a file in
 there imports from `@sagas/contracts`, it belongs in `features` instead. This is
-the shadcn convention and it is worth keeping — it's the difference between a
+the shadcn convention and it is worth keeping. It is the difference between a
 component library you can reuse and one that only works on one page.
 
-## The stubs are instructions
+## Start here: one worked example, then the stubs
 
-Every file under `src/features` renders one unstyled line and carries a comment
-saying what it has to become and what is easy to get wrong. Read the comment
-before you replace the component. Several of them name a conformance case; that
-case is the thing the comment is worried about.
+**Three components are finished.** They go from data to rendered pixels, they
+are commented as examples rather than specifications, and they have tests.
 
-The one to read first is `ConfidenceIndicator.tsx`. An affirmation count is not
-corroboration, and the difference is the single most important idea in the data
-model.
+- `src/app/page.tsx` — how data gets from `@sagas/read-model` to the screen
+- `src/features/site/IntegrityBadge.tsx` — and its test
+- `src/features/article/ConfidenceIndicator.tsx` — and its test
+- `src/features/map/MapUnavailable.tsx`
+
+**Everything else under `src/features` is one line and a TODO.** Each carries a
+comment saying what it has to become and what is easy to get wrong, and several
+name the acceptance case they are worried about.
+
+Read the finished ones, then do the next five. That is a well-shaped first task
+and it is roughly how the job works.
+
+Two things to copy from the examples, and one not to.
+
+**Copy the split.** The judgment lives in a pure function, `bandFor` or
+`supportSummary`, separate from the markup, so it can be tested without
+rendering anything. A test that a div has a class fails every time somebody
+improves the design. A test that a sparse record is never described as failing
+is worth keeping.
+
+**Copy the data flow.** The page reads, components take props. That is what lets
+the same components render against four fixture states on `/dev`.
+
+**Do not copy the styling.** Grey text and system fonts are a placeholder. The
+design system is your deliverable, and nothing in there is a suggestion.
+
+The most important idea in the model is in `ConfidenceIndicator`: an affirmation
+is not corroboration. A claim can have five people agreeing and no independent
+support, because all five are from the author's family.
+
+## When something is behaving strangely
+
+[`docs/DEBUGGING.md`](../../docs/DEBUGGING.md) covers the failures that do not
+announce themselves: Turbo replaying a cached pass, an environment variable that
+needs a restart, `params` being a Promise in Next 15, and the server-versus-client
+component error that confuses everyone once.
 
 ## Before you call a view done
 
 Read `packages/fixtures/README.md` for what the four graph states are and what
 each one is designed to break.
 
-Then read `packages/fixtures/conformance/cases.ts`. Each case is a situation the
+Then read `packages/fixtures/README.md`. Each case is a situation the
 record can be in and what your interface has to do about it. They are the
 awkward ones on purpose.
 
-The file also lists situations no fixture covers yet. If you hit one, say so —
-adding fixture coverage for a gap is a genuinely useful pull request.
+The file also lists situations no fixture covers yet. If you hit one, say so.
+Adding fixture coverage for a gap is a useful pull request.
+
+## Deploying it
+
+This is yours to own, including the choice of where. We are not picking for you,
+because picking would remove the part of this that looks like a real job.
+
+What we need from it, whatever you choose:
+
+- **A URL that works**, from early on. Deploy in week two, before there is
+  anything interesting to see. A pipeline that exists before it matters is a
+  pipeline that works when it does.
+- **A preview per pull request.** This is the one that changes how review feels.
+  Reviewing your work becomes opening a link rather than pulling your branch and
+  running it, which means feedback comes back in an evening rather than a week.
+- **No sponsor credentials.** Whatever it runs on is an account your team owns.
+
+Vercel is the path of least resistance for Next and gives you both of the first
+two out of the box. Two things to know before you commit to it.
+
+Its free Hobby plan is **non-commercial personal use only**, and their
+definition is broad: any deployment "used for the purpose of financial gain of
+anyone involved in any part of the production of the project". Asking for
+donations counts. A student capstone with no payment path is fine. That is a
+reason to keep the deployment under your own account rather than a sponsor's,
+and a reason not to build anything load-bearing on Vercel-specific behaviour.
+
+The Hobby CPU allowance is also small, measured in a handful of CPU-hours a
+month. Spatial queries are the expensive part of this layer, which is one of the
+reasons `apps/ui-api` is a separate app: a server on ordinary hosting does not
+have that ceiling.
+
+Nothing about the local setup changes for any of this. `pnpm dev:web` is the
+same either way.
 
 ## Things you might add
 
 None of these are required. All of them are yours to decide.
 
 - **Storybook.** `/dev` is a rough version of what it does. If you want the real
-  thing, add it — just keep the conformance cases visible next to the
-  components, because that pairing is the point of the page.
-- **A component testing setup.** There isn't one. Vitest is already in the repo
-  for the packages; wiring it up here with Testing Library is a reasonable first
-  week task.
+  thing, add it. Keep the acceptance criteria visible next to the components,
+  because that pairing is the point of the page.
+- **Rendering tests.** Vitest is wired up and there are tests for the pure
+  functions, but nothing renders a component. Testing Library is the usual
+  choice if you want that, and it is worth having before the design starts
+  moving.
 - **Real accessibility checks in CI.** The target is WCAG 2.1 AA. Nothing
   currently enforces it.

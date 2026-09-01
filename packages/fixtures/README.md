@@ -7,7 +7,7 @@ changes here are how design pressure reaches both layers.
 Your fork is pinned to a tag. A fixture change lands in your fork when we agree
 at a sync to pull forward, never in the middle of your sprint. Every change
 carries a contract version bump and a CHANGELOG line saying what a consumer has
-to do about it. If one arrives without that, it's a mistake on our side — say so.
+to do about it. If one arrives without that, it's a mistake on our side. Say so.
 
 ## The content here is invented
 
@@ -31,9 +31,9 @@ in timestamp order. Graph states are derived by folding that log up to an
 instant. **States are never authored by hand.**
 
 ```
-fixtures/anduiza/events.ts   ← the only authored artifact
+fixtures/example-site/events.ts   ← the only authored artifact
 src/reduce.ts                ← fold(events, upTo) → GraphState
-states/anduiza.t*.json       ← generated, do not edit
+states/example-site.t*.json       ← generated, do not edit
 ```
 
 The log is in timestamp order and event ids are sequential, so `ev-041` really
@@ -50,8 +50,8 @@ pnpm build:states   # regenerate states/ and print a readable dump
 pnpm test           # invariants over the derived states
 ```
 
-If you need a graph state that doesn't exist yet, add a cut to `stateCuts` —
-don't write a state file.
+If you need a graph state that doesn't exist yet, add a cut to `stateCuts`.
+Don't write a state file by hand.
 
 ## The four states
 
@@ -59,8 +59,8 @@ don't write a state file.
 |---|---|---|---|---|---|---|
 | **t0** sparse, single source | 23 | 3 | 2 | 1 | 0 | 0 |
 | **t1** family corroboration arrives | 48 | 6 | 5 | 4 | 0 | 1 |
-| **t2** documentary source contests a date | 61 | 7 | 6 | 7 | 4 | 0 |
-| **t3** competing renderings, reconciliation candidate | 82 | 10 | 9 | 8 | 5 | 0 |
+| **t2** documentary source contests a date | 65 | 7 | 6 | 7 | 4 | 0 |
+| **t3** competing renderings, reconciliation candidate | 90 | 10 | 9 | 8 | 5 | 0 |
 
 Counts come from the generated states. If you change the log, regenerate and
 update this table, because a stale table here is worse than no table.
@@ -90,6 +90,179 @@ whose embedded GPS puts the camera in the middle of the street, an audio
 recording that took four months and four people to become readable in English, a
 scanned register page, and one upload still in the queue. Every claim points at
 the record it was read out of.
+
+## What your interface has to handle
+
+These are the situations a real archive spends its life in. They are what the
+fixture data exists to put in front of you, and they are the closest thing this
+project has to a specification.
+
+They are **direction, not a specification of your work.** They say what must not
+happen. How your interface satisfies them is your design, and most of what you
+build will be things this list says nothing about.
+
+`acceptance/cases.ts` holds a one-line version of each so the `/dev` page can
+show the relevant ones next to your components. The reasoning is here.
+
+### A thin record is not a broken one
+
+Most places, most of the time, have three accounts from one family and nothing
+corroborated. That scores about 23 out of 100 and it is a real place with a thin
+record.
+
+An interface that renders it in red, or as an empty state, or as an error, tells
+the person who just contributed that their family's account failed. It did not.
+It is early. This is the hardest judgment in the whole layer because it is the
+common case and the easy design gets it wrong.
+
+### Agreement is not corroboration
+
+Someone reading an account and agreeing carries almost no evidence. Two families
+independently holding a record about the same building is real corroboration and
+it counts for far more.
+
+The model counts by family line, not by headcount, because three cousins are one
+source. So an affirmation count on its own must never be presented as support.
+Five people agreeing, all from the author's family, is one source with five
+people in it.
+
+### Disagreement lands on a part, not the whole
+
+Somebody disputes the date. The address, the person and the event on the same
+account are untouched and still corroborated.
+
+Marking the whole account as contested throws away the thing that makes this
+useful, and it does something worse: it makes a person's account of their family
+look discredited when one detail is in question.
+
+### Nothing gets adjudicated
+
+When two readings compete, show both with their support. No winner, nothing
+hidden behind an interaction, and never as a vote tally. The count is distinct
+families, not people, and labelling it wrong turns evidence into a poll.
+
+### An account nobody has translated yet is not worth less
+
+It is pinned, readable in the original, and attributed. It carries no weight only
+because there is nothing yet to compare it against. It is never hidden and never
+sorted off the end of the page as though weight zero meant worthless.
+
+When a rendering does arrive, that is somebody's contribution and should read as
+one. Several renderings can coexist, none authoritative, and a reader who does
+not speak the original still has to be able to see that two people disagree
+about what it means.
+
+### A record is a bundle, and a transcript is not a translation
+
+What arrives is whatever the person had: a recording, a photograph with a
+sentence under it, a page they typed, or several at once. One icon and one label
+will misdescribe it.
+
+A transcript says what a recording says. A rendering says what it means in
+another language. Collapsing them loses the fact that somebody who speaks the
+language has already verified the words, and that the remaining argument is
+about meaning.
+
+### Work in progress is not failure
+
+A large upload still being processed is a job running, not a broken upload. The
+record stays readable while it finishes, and nobody is told to try again.
+
+### Reports and signals are not ratings
+
+`sounds_right`, `dont_know` and `dont_care` are routing signals. They decide what
+gets shown to whom. They are not quality scores, they must never be aggregated
+into one, and a pile of `dont_know` must never read to a contributor as their
+account being rejected.
+
+A report on a record is not a dispute and says nothing about whether the account
+is accurate. The model has no way to resolve one, so nothing may imply a record
+has been reviewed and cleared.
+
+### Contribution is not authorship
+
+Somebody with no records and no claims, who has raised two well-reasoned
+disputes and one report, is one of the more useful people in the archive. Any
+view that ranks or lists contributors has to survive that.
+
+Contributor standing is counts and only counts. Adding them up invents a score
+the model deliberately does not have, and a score gets displayed, and then
+somebody's account of their own family has a rating beside it.
+
+### Everything traces to a person
+
+Attribution is never optional and never anonymous. Any view that shows claim
+text must be able to reach its source.
+
+While the data is invented, every contributor carries a flag saying so, and that
+flag must survive into anything anyone can see. A screenshot of development data
+must not read as real testimony.
+
+## What no fixture covers yet
+
+Each of these is a real situation the record can be in. Until a fixture
+exercises one, every team is free to get it wrong until integration, so closing
+any of them is a useful pull request.
+
+- A place with only untranslated accounts, so nothing is in the graph at all
+- A claim contested by a dozen people across many families
+- A claim with no elements that is not awaiting translation
+- An account long enough to break a reading layout
+- A place with exactly one claim and no contributors beyond its author
+- Two places close enough together to collide as map markers
+- A claim whose only affirmations come from people who joined the same day
+- Two transcripts of the same recording that disagree about what was said
+- The same file uploaded by two people, so the checksums collide and it is one
+  source rather than two
+- A record whose processing failed outright rather than still running
+- A record nobody has read any claims out of yet
+- A report that has been upheld, and whatever is supposed to happen next
+- Somebody vouched for by a person everyone trusts, who has contributed nothing.
+  There is no vouching in the model, so this cannot be represented at all
+- Two contributors with identical standing counts whose contributions are
+  obviously not equivalent
+
+## Seeing what a change does
+
+Two tools, and neither needs a browser.
+
+### The diff is the visualisation
+
+The states are calculated from the log, so changing anything upstream and
+regenerating shows you the consequence in full:
+
+```bash
+pnpm fixtures:build
+git diff packages/fixtures/states/
+```
+
+Change the scoring and every claim that moved appears in that diff. Which claim
+now leads the article. How the integrity score shifted. Whether the account
+nobody has translated just got buried.
+
+That is a regression test and a picture at the same time, and it is the only way
+to reason about questions like "does this quietly discount small families". You
+cannot see that in a unit test, because the unit test only knows the number it
+was told to expect.
+
+CI checks the committed states match what the log produces, so a change you
+forgot to regenerate fails the build rather than drifting.
+
+### Asking why one claim scores what it does
+
+```bash
+pnpm inspect                          # every claim at t3, one line each
+pnpm inspect cl-boarding              # one claim, with its inputs
+pnpm inspect --state t1 cl-boarding   # the same claim earlier
+```
+
+It prints what went in next to what came out, and tells you when the recomputed
+weight disagrees with the stored one, which means the states need regenerating.
+
+The point is the inputs. A weight on its own tells you nothing about whether
+your scoring is defensible. `cl-boarding` at t3 scoring 1.50 means nothing until
+you see that it has one affirmation, zero independent family lines, and three
+disputes on its date.
 
 ## Boundaries
 
@@ -129,7 +302,7 @@ These are live. If you have an opinion, bring it to a sync.
   spans into the claim text. Typed elements were chosen because they are
   authorable by hand and give a renderer what it needs without offset math.
   Spans remain reachable.
-- Parallel language trees with cross-tree references — a future cohort's
+- Parallel language trees with cross-tree references. A future cohort's
   research question. The schema is built not to foreclose it: `language` on
   claims, `sourceLanguageText` as a first-class field, a `reference` edge type
   that can cross a language boundary. Nothing more than that.

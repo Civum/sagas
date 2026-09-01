@@ -2,7 +2,7 @@
 
 Everything you need to run this is on your own machine. **There are no sponsor
 credentials to request.** If something appears to need a key you don't have,
-that's a bug in the scaffold — tell us at the weekly sync and we'll fix it.
+that's a bug in the scaffold. Tell us at the weekly sync and we'll fix it.
 
 ---
 
@@ -10,9 +10,9 @@ that's a bug in the scaffold — tell us at the weekly sync and we'll fix it.
 
 **1. Install the toolchain**
 
-- **Node 22.10 or later.** Check with `node --version`. If you need to install
-  or switch versions, [nvm](https://github.com/nvm-sh/nvm) is the usual way —
-  this repo has a `.nvmrc`, so `nvm use` picks the right one.
+- **Node 22.10 or later.** Check with `node --version`. If you need to switch
+  versions, [nvm](https://github.com/nvm-sh/nvm) is the usual way. This repo has
+  a `.nvmrc`, so `nvm use` picks the right one.
 - **pnpm 9.** `npm install -g pnpm@9`, or `corepack enable` if you'd rather not
   install it globally.
 - **Docker Desktop.** Every team needs it. The experience and intelligence
@@ -39,7 +39,7 @@ yourself is a Mapbox token.
 
 ```bash
 pnpm fixtures:build   # regenerates the derived graph states, prints a dump
-pnpm conformance      # checks the fixtures against the contract
+pnpm acceptance      # checks the fixtures against the contract
 ```
 
 If both pass, your environment is correct. That takes about two minutes and is
@@ -52,7 +52,7 @@ worth doing before you write anything.
 You register your own. The free tier is far more than a semester of development
 uses, and having your own means nobody else's usage can exhaust your quota.
 
-1. Sign up at [account.mapbox.com](https://account.mapbox.com/) — free, no card.
+1. Sign up at [account.mapbox.com](https://account.mapbox.com/). Free, no card.
 2. Go to **Account → Tokens**. There's a **Default public token** already
    created for you, starting `pk.`.
 3. Copy it into `.env`:
@@ -62,9 +62,9 @@ uses, and having your own means nobody else's usage can exhaust your quota.
 
 Notes:
 
-- The `pk.` token is a **public** token. It's designed to be visible in
-  browser code — that is what it's for. Do not commit your `.env` anyway;
-  it's gitignored, and the habit matters more than this particular secret.
+- The `pk.` token is a **public** token. It is meant to be visible in browser
+  code. Do not commit your `.env` anyway. It's gitignored, and the habit matters
+  more than this particular token.
 - Do **not** create or use a secret token (`sk.`). Nothing here needs one.
 - If you plan to deploy anywhere public, add a URL restriction to your token in
   the Mapbox dashboard so someone else can't use your quota.
@@ -153,9 +153,23 @@ invented fixture data on your own machine is about the lowest-stakes place a
 frozen dependency can sit. If it ever gets in the way, swapping it is roughly
 fifteen lines of `docker-compose.yml`, and none of your application code moves.
 
+### One thing about bucket names, for later
+
+`sagas-media` is fine on your machine. Your MinIO is a server of its own and the
+only bucket namespace it shares is with itself.
+
+At deployment it is not fine. AWS S3 bucket names are globally unique across
+every customer, because a bucket is addressed as `bucket.s3.amazonaws.com` and
+that is public DNS. `sagas-media` is long gone. Providers differ on this, some
+scope names to your account and some do not, so check when you pick one and give
+the deployed bucket a name nobody else would take.
+
+Nothing in the local setup needs to change for this. `S3_BUCKET` is already an
+environment variable.
+
 ### Before you write any upload code
 
-Read the storage section of [`apps/api/README.md`](./apps/api/README.md) first.
+Read the storage section of [`apps/capture-api/README.md`](./apps/capture-api/README.md) first.
 It has the bucket layout and the upload flow, and it explains which of the two
 obvious designs is the one that costs you a rewrite in November.
 
@@ -212,17 +226,28 @@ implementations.
 The repo is the same for everyone. The useful starting point isn't, and the
 detail lives next to the code rather than here. This section is a signpost.
 
-| Your layer | What you need running | Read this first |
-|---|---|---|
-| **Experience** | Postgres | [`apps/web/README.md`](./apps/web/README.md) |
-| **Intelligence** | Postgres | [`packages/db/README.md`](./packages/db/README.md) |
-| **Content capture** | Postgres, object storage, ffmpeg | [`apps/api/README.md`](./apps/api/README.md) |
+| Your layer | Team | What you need running | Your code | Read this first |
+|---|---|---|---|---|
+| **Experience** | BYU-I | Postgres | `apps/web`, `apps/ui-api`, `packages/read-model` | [`apps/web/README.md`](./apps/web/README.md) |
+| **Intelligence** | University of Idaho | Postgres | `apps/graph-api`, `packages/db` | [`packages/db/README.md`](./packages/db/README.md) |
+| **Content capture** | Boise State | Postgres, object storage, ffmpeg | `apps/capture-api` | [`apps/capture-api/README.md`](./apps/capture-api/README.md) |
+
+If your school isn't listed, or your team was assigned a different layer, your
+instructor's assignment wins over this table. Tell us and we'll fix it here.
+
+Three separate API apps, one per layer. That is deliberate: no two teams edit the
+same files, and each one deploys on its own terms.
 
 Everyone, whatever layer you are on, reads
-[`packages/fixtures/conformance/cases.ts`](./packages/fixtures/conformance/cases.ts)
+[`packages/fixtures/README.md`](./packages/fixtures/README.md)
 before calling anything done. It is a list of awkward situations the record can
 be in and what your code has to do about each one, and it is the closest thing
 this project has to a specification.
+
+[`docs/GIS.md`](./docs/GIS.md) covers location data: the coordinate order that
+silently puts Boise in the Indian Ocean, why "within 2km" is not a subtraction
+problem, and the index without which every map pan reads every row. Every layer
+touches this. Read it before you write a spatial query.
 
 [`docs/GIT.md`](./docs/GIT.md) covers the parts of git that are particular to
 this project: adding the upstream remote, why your fork doesn't update itself,
@@ -238,20 +263,24 @@ sloppiness and aren't.
 
 In order of likelihood:
 
-- **`pnpm install` fails** — check `node --version` is 22.10+. This is the most
-  common one by a wide margin.
-- **A workspace import doesn't resolve** — run `pnpm install` again from the
+- **`pnpm install` fails.** Check `node --version` is 22.10 or later. This is
+  the most common one by a wide margin.
+- **A workspace import doesn't resolve.** Run `pnpm install` again from the
   repo root, not from inside a package.
-- **`db:verify` says the container isn't running** — `pnpm db:up`, wait, retry.
-- **`db:verify` or `storage:verify` says a port isn't published** — something
+- **`db:verify` says the container isn't running.** Run `pnpm db:up`, wait,
+  and try again.
+- **`db:verify` or `storage:verify` says a port isn't published.** Something
   else on your machine is already using 5433 or 9000. Find it with
   `lsof -i :5433`, stop it, and start the container again.
-- **Uploads work and then the file 404s** — you stored a presigned URL somewhere
-  instead of generating one when it was asked for. See `apps/api/README.md`.
-- **`ffprobe: command not found`** — ffmpeg isn't installed. See the object
+- **Uploads work and then the file 404s.** You stored a presigned URL somewhere
+  instead of generating one when it was asked for. See `apps/capture-api/README.md`.
+- **`ffprobe: command not found`.** ffmpeg isn't installed. See the object
   storage section above.
-- **The map renders grey** — your Mapbox token is missing or malformed. Check
-  `.env` has it and restart the dev server; Next only reads env at startup.
-- **Anything else** — open an issue on the upstream repo rather than working
-  around it silently. A setup problem you hit is one every future student hits,
+- **The map renders grey.** Your Mapbox token is missing or malformed. Check
+  `.env` has it, then restart the dev server. Next only reads env at startup.
+- **A tool says everything passed and you don't believe it.** It may be
+  replaying a cached result. [`docs/DEBUGGING.md`](./docs/DEBUGGING.md) covers
+  that and the other failures that don't announce themselves.
+- **Anything else.** Open an issue on the upstream repo instead of working
+  around it quietly. A setup problem you hit is one every future student hits,
   and the fix belongs in this file.

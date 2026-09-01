@@ -74,11 +74,47 @@ three schools on one contract is that the intelligence layer hits a problem the
 experience layer then works around, and the changelog says so. Entries name
 layers rather than universities for exactly this reason.
 
+## Two kinds of review, and they are not the same
+
+This trips people up because both involve pull requests.
+
+**Review of your work happens in your own repository.** You open a pull request
+inside your fork, teammate to teammate, and the sponsor reads and comments on it
+there. Nothing merges into `Civum/sagas`. Your CI runs on your own code, which
+is where it is useful.
+
+That is what a check-in is reviewing, and it is what you are graded on.
+
+**A contribution to the scaffold is a separate, deliberate act.** Rare, small,
+and reasoned: a contract change, a fixture gap you closed, a correction to these
+docs. Maybe a handful across a semester.
+
+If you find yourself cherry-picking commits into a pull request against upstream
+so that somebody can look at your week's work, stop. That is the first kind of
+review going through the second kind of channel, and it will give you merge
+conflicts, an upstream branch nobody wants to merge, and a review that arrives
+late.
+
+### The sponsor needs to be able to see your repository
+
+Forks of a public repository are public, so if you forked normally, reading and
+commenting works with no setup at all.
+
+If your team created a private repository instead of forking, nobody outside it
+can review anything. Add the sponsor as a collaborator in week one, before it is
+the reason a check-in is useless.
+
+Either way, add them to your organisation if you want them to see CI logs when a
+build fails, or for an approval on a pull request to count towards branch
+protection. Neither is required to read your code and leave comments; both are
+worth ten minutes.
+
 ## Who owns which files
 
 | Path | Change it in your fork? | How to change it for everyone |
 |---|---|---|
-| Your layer's app or package | Freely. It's yours. | Nothing to do. |
+| Your layer's apps and packages | Freely. They're yours. | Nothing to do. |
+| Another layer's app | **No.** You will never need to. | Raise it at a check-in. |
 | `packages/contracts` | **No.** | PR upstream, raise at a check-in first. |
 | `packages/fixtures` | **No.** | PR upstream. Closing a known gap is welcome. |
 | `docs/`, `README.md`, `SETUP.md` | Corrections, yes | PR upstream. Setup problems you hit are ones everyone hits. |
@@ -107,6 +143,11 @@ from it.
 **Turn on Actions.** GitHub disables workflows on new forks. Open the Actions tab
 in your fork and click through the confirmation. Without this, the Monday
 contract watch never runs and you will not hear when the contract moves.
+
+**Give the sponsor access.** If you forked a public repository, this is already
+done and there is nothing to do. If your team made a private repository, add
+them now. See "Two kinds of review" above for why this bites in week two rather
+than week one.
 
 **Note which version you are on.**
 

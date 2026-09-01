@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { events, stateCuts } from '../fixtures/anduiza/events';
+import { events, stateCuts } from '../fixtures/example-site/events';
 import { reduceToStates } from '../src/reduce';
 
 const states = reduceToStates(events, stateCuts);

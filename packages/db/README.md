@@ -29,7 +29,8 @@ interesting way. Finding out which one is part of this too.
 ## What goes here
 
 - A schema for places, records, contributions, and the people who made them
-- Spatial indexing, so "everything within 2km of here" is fast
+- Spatial indexing, so "everything within 2km of here" is fast. Read
+  [`docs/GIS.md`](../../docs/GIS.md) first
 - Migrations, so the schema can change without anyone losing data
 - A seed script that loads the fixtures into a running database
 
@@ -59,6 +60,40 @@ hypothetical.
 If a signal you need is missing, that is a contract change rather than something
 to work around. Raise it early, because everyone else is building on the same
 shapes.
+
+## The rules your scorer has to obey
+
+`packages/fixtures/behaviour/scoring-contract.ts` is a test suite you run
+against your own implementation. It says nothing about how to score a claim and
+everything about what a correct scorer may not do, so it still holds after
+`weight.ts` is deleted.
+
+```ts
+import { runScoringRules } from '@sagas/fixtures/behaviour';
+import { myScorer } from '../src/my-scorer';
+
+runScoringRules('my scorer', myScorer);
+```
+
+`pnpm rules` runs it. Sixteen rules, and they have teeth: a scorer that ranks by
+how many people showed up fails three of them, one that buries anything anyone
+argued with fails two, and a sign error on disputes fails two more.
+
+The rules exist because this is a system that can go quietly wrong while every
+ordinary unit test passes. A scorer that lets a large family outrank a
+better-supported account from a small one is not buggy in any way a normal test
+would catch. It just produces an archive that agrees with whoever was already
+loudest.
+
+Look at what the scorer is given, and more importantly what it is not. There is
+no author in the input: no name, no id, no standing, no join date. That absence
+is the strongest guarantee in the file and it is structural rather than tested. A
+scorer cannot weigh a claim by its author's reputation because it is never told
+who the author is.
+
+If a rule is wrong, and some of them may be, open a pull request against it with
+your reasoning rather than editing it in your fork. Every team is held to the
+same list, and a rule only some teams follow is not a rule.
 
 ## Getting a database running
 
@@ -93,7 +128,7 @@ Copy `packages/contracts` as a starting point. It's the smallest example.
 Read these in order:
 
 1. `packages/contracts/src/model.ts` — the data, as the fixtures describe it
-2. `packages/fixtures/fixtures/anduiza/events.ts` — what real input looks like
+2. `packages/fixtures/fixtures/example-site/events.ts` — what real input looks like
 3. `packages/fixtures/src/reduce.ts` — how a snapshot is calculated today, in
    memory, with no database at all
 4. `packages/fixtures/src/weight.ts` — the scoring. It is deliberately naive

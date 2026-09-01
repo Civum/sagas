@@ -1,53 +1,27 @@
-# apps/api
+# apps/capture-api — the content layer
 
-Home for the server. Nothing here yet.
+Yours. It ships empty on purpose.
 
-## What this server is for
+This is the part real people touch. Somebody records an account on a phone,
+uploads a photograph, types up a letter, adds a translation, or reports
+something that should not be public. All of it arrives here.
 
-Two different jobs end up here, and they belong to different teams.
-
-**Taking things in.** Someone records an account on their phone, uploads a
-photo, adds a translation, or flags something that looks wrong. All of that
-needs endpoints, file upload, a queue for things waiting to be processed, and
-somewhere to put media. This is the content layer's work and it is the part real
-people touch.
-
-**Working things out.** Given everything the archive holds about a place, how
-much support does each claim have, what's contested, what's missing, and what
-should the narrative look like right now. This is the intelligence layer's work.
-
-They share a server and a database. They are not the same work and shouldn't be
-scoped as if they were.
-
-## Why it's empty
-
-Same reason as `packages/db`. Designing the API is a deliverable. Handing over a
-set of endpoints would be handing over the design decisions that make it
-interesting.
+Designing this is the deliverable. Handing over a set of endpoints would hand
+over the decisions that make it interesting.
 
 ## What goes here, roughly
 
-Taking things in:
-
 - Submitting a record and attaching it to a place
-- Uploading audio, photos, and documents, including large files and flaky
+- Uploading audio, photos and documents, including large files on bad
   connections
-- Pulling metadata out of uploads — duration, format, GPS from photo EXIF
-- The queue of records waiting for someone to add context or a translation
-- Submitting translations and context, with more than one version allowed to
-  coexist
-- Flagging content, with the reasoning attached, and a queue for reviewing flags
-
-Working things out:
-
-- Reading the graph for a place
-- Scoring claims and recomputing when something changes
-- Geographic queries — what's near here, what's inside this boundary
-- Finding gaps worth filling and turning them into prompts
+- Pulling metadata out of uploads: duration, format, dimensions, GPS from photos
+- The queue of records waiting for somebody to add context or write a transcript
+- Submitting translations and transcripts, with more than one allowed to coexist
+- Reporting content, with reasoning attached, and a queue for reviewing reports
 
 ## Where to start
 
-You need Postgres, object storage, and ffmpeg. `SETUP.md` has all three, and
+You need Postgres, object storage and ffmpeg. `SETUP.md` covers all three, and
 there are fallbacks there if storage will not start.
 
 ```bash
@@ -58,22 +32,19 @@ ffprobe -version
 
 Then read, in order:
 
-1. `packages/contracts/src/model.ts`, the "Records and media" section. A record
-   is a bundle rather than a file type, and that decision shapes everything
-   here.
-2. `packages/fixtures/fixtures/anduiza/events.ts`. Nine records, and they are
-   deliberately different from each other: a written account with no files at
-   all, a photograph with a caption and GPS that lands in the middle of the
-   street, an audio recording that takes four months and four people to become
-   readable, a scanned register page, and a 600MB WAV still being processed when
-   the log ends.
-3. `packages/fixtures/conformance/cases.ts`, the record cases. That is what your
-   work has to survive.
+1. `packages/contracts/src/model.ts`, the records and media section. A record is
+   a bundle rather than a file type, and that decision shapes everything here.
+2. `packages/fixtures/fixtures/example-site/events.ts`. Nine records, deliberately
+   unalike: a written account with no files at all, a photograph whose embedded
+   GPS lands in the middle of the street, an audio recording that took four
+   months and four people to become readable, a scanned register page, and a
+   600MB upload still being processed when the log ends.
+3. The acceptance criteria for records in `packages/fixtures/acceptance/`.
 
 The fixture data has no actual files behind it. The storage keys point at
 objects that do not exist, because committing a hundred megabytes of invented
 audio to a git repository helps nobody. Putting real bytes behind those keys is
-one of the first useful things you can build.
+a good first job.
 
 ## Storage
 
@@ -146,22 +117,26 @@ The one above is jobs. The other is `submissionState`, records waiting for a
 person to add context or write a transcript, and that is a column and a query
 rather than machinery.
 
-## How this package fits the repo
+## Who owns what
 
-pnpm workspace, Turborepo. Every folder under `apps/` and `packages/` is its own
-package. To make this a real one:
+This app is yours alone. `apps/graph-api` belongs to the intelligence layer and
+`apps/ui-api` to the experience layer. They are separate apps so that no two
+teams edit the same files, and so each can be deployed on its own terms.
 
-1. `package.json` named `@sagas/api`, `"private": true`
-2. Depend on `@sagas/contracts`, and `@sagas/db` once it exists
-3. `tsconfig.json` extending `@sagas/tsconfig/base.json`
-4. `lint`, `typecheck`, and `test` scripts so CI runs them
-5. `pnpm install` from the repo root
+You share a database with the intelligence layer and a contract with everyone.
+The contract is the thing to be careful about: a change to `@sagas/contracts` or
+`@sagas/fixtures` reaches every team, so it goes through a pull request and a
+check-in rather than into your fork. See `docs/GIT.md`.
 
-`packages/contracts` is the smallest example to copy from.
+## Making it a real app
 
-## Nothing depends on this yet
+It is a package with a placeholder in `src/index.ts` and no framework, because
+picking one is your call. To turn it into a server:
 
-The experience layer runs a small local database of its own and a thin read API
-inside `apps/web`, so it never calls this server. That's deliberate. The
-interface work can't be blocked waiting for this, and this can't be blocked
-waiting for that.
+1. Add whatever you are using to `dependencies`
+2. Add a `dev` and a `start` script so `pnpm dev` picks it up
+3. Add a `test` script so CI runs it
+4. `pnpm install` from the repo root
+
+`packages/contracts` is the smallest example of a package in this repo to copy
+patterns from.

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CONFORMANCE_CASES } from '@sagas/fixtures/conformance';
+import { ACCEPTANCE_CRITERIA } from '@sagas/fixtures/acceptance';
 import type { FixtureStateId } from '@/lib/queries';
 import { FIXTURE_STATES, getSiteState, listSites } from '@/lib/queries';
 import { ArticleView } from '@/features/article/ArticleView';
@@ -9,7 +9,7 @@ import { MapView } from '@/features/map/MapView';
  * A sandbox for looking at your components against every fixture state.
  *
  * Pick a state at the top. Everything below re-renders against it. The
- * conformance cases that apply to that state are listed underneath, so you can
+ * acceptance criteria that apply to that state are listed underneath, so you can
  * read the requirement and look at the thing at the same time.
  *
  * Use it while you build. A component that looks right on t3 and falls apart on
@@ -31,7 +31,7 @@ export default async function DevPage({
 
   const state = getSiteState(stateId);
   const sites = listSites();
-  const cases = CONFORMANCE_CASES.filter((c) => c.stateId === stateId);
+  const cases = ACCEPTANCE_CRITERIA.filter((c) => c.stateId === stateId);
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 p-8 font-sans">
@@ -95,7 +95,7 @@ export default async function DevPage({
         )}
         <p className="text-sm text-neutral-600">
           The full list, including the situations no fixture covers yet, is in{' '}
-          <code>packages/fixtures/conformance/cases.ts</code>.
+          <code>packages/fixtures/README.md</code>.
         </p>
       </section>
     </div>

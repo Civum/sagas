@@ -64,6 +64,93 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
 
+  apps/capture-api:
+    dependencies:
+      '@sagas/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+    devDependencies:
+      '@sagas/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@sagas/prettier-config':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@sagas/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/typescript
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.20.1
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.5(jiti@1.21.7)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.9.6
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
+  apps/graph-api:
+    dependencies:
+      '@sagas/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+    devDependencies:
+      '@sagas/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@sagas/prettier-config':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@sagas/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/typescript
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.20.1
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.5(jiti@1.21.7)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.9.6
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
+  apps/ui-api:
+    dependencies:
+      '@sagas/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+      '@sagas/read-model':
+        specifier: workspace:*
+        version: link:../../packages/read-model
+    devDependencies:
+      '@sagas/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@sagas/prettier-config':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@sagas/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/typescript
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.20.1
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.5(jiti@1.21.7)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.9.6
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
   apps/web:
     dependencies:
       '@sagas/contracts':
@@ -72,6 +159,9 @@ importers:
       '@sagas/fixtures':
         specifier: workspace:*
         version: link:../../packages/fixtures
+      '@sagas/read-model':
+        specifier: workspace:*
+        version: link:../../packages/read-model
       mapbox-gl:
         specifier: 'catalog:'
         version: 3.28.1
@@ -118,6 +208,9 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.7(@types/node@22.20.1)(jiti@1.21.7)(tsx@4.23.12)
 
   packages/contracts:
     dependencies:
@@ -125,12 +218,18 @@ importers:
         specifier: 'catalog:'
         version: 3.25.76
     devDependencies:
+      '@sagas/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
       '@sagas/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
       '@sagas/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.5(jiti@1.21.7)
       prettier:
         specifier: 'catalog:'
         version: 3.9.6
@@ -144,6 +243,9 @@ importers:
         specifier: workspace:*
         version: link:../contracts
     devDependencies:
+      '@sagas/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
       '@sagas/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
@@ -153,6 +255,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 22.20.1
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.5(jiti@1.21.7)
       prettier:
         specifier: 'catalog:'
         version: 3.9.6
@@ -165,6 +270,37 @@ importers:
       vitest:
         specifier: 'catalog:'
         version: 3.2.7(@types/node@22.20.1)(jiti@1.21.7)(tsx@4.23.12)
+
+  packages/read-model:
+    dependencies:
+      '@sagas/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@sagas/fixtures':
+        specifier: workspace:*
+        version: link:../fixtures
+    devDependencies:
+      '@sagas/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@sagas/prettier-config':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@sagas/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/typescript
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.20.1
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.5(jiti@1.21.7)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.9.6
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
 
   tooling/eslint:
     dependencies:

@@ -10,7 +10,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 
 /** Load a derived state and validate it against the contract before returning it. */
 export function loadState(stateId: string): GraphState {
-  const raw = readFileSync(join(here, '..', 'states', `anduiza.${stateId}.json`), 'utf8');
+  const raw = readFileSync(join(here, '..', 'states', `example-site.${stateId}.json`), 'utf8');
   return graphState.parse(JSON.parse(raw));
 }
 

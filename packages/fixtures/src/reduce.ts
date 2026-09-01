@@ -68,7 +68,7 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
         recordId: ev.recordId,
         text: ev.text, sourceLanguage: ev.sourceLanguage,
         sourceLanguageText: ev.sourceLanguageText, elements: ev.elements,
-        era: ev.era, topics: ev.topics, sourceType: ev.sourceType,
+        topics: ev.topics, sourceType: ev.sourceType,
         createdAt: ev.at, awaitingTranslation: ev.awaitingTranslation ?? false,
       });
       return;
@@ -79,7 +79,7 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
         recordId: ev.recordId,
         text: ev.text, sourceLanguage: ev.sourceLanguage,
         sourceLanguageText: ev.sourceLanguageText, elements: ev.elements,
-        era: ev.era, topics: ev.topics, sourceType: ev.sourceType,
+        topics: ev.topics, sourceType: ev.sourceType,
         createdAt: ev.at, parentClaimId: ev.parentClaimId,
         awaitingTranslation: false,
       });
@@ -309,7 +309,7 @@ function buildClaimState(
  * What each contributor has done, counted.
  *
  * Counts only. Nothing here is weighted, combined, or turned into a score, and
- * nothing in this function should ever start doing that — see the comment on
+ * nothing in this function should ever start doing that. See the comment on
  * `contributorStanding` in the contract for why.
  */
 function buildStandings(claimStates: ClaimState[], acc: Accumulator): ContributorStanding[] {
@@ -354,11 +354,12 @@ function buildIntegrity(claimStates: ClaimState[], acc: Accumulator): IntegrityS
   const contributorIds = new Set(claimStates.map((c) => c.claim.contributorId));
   const lineageDiversity = distinctLineages([...contributorIds], acc.contributors);
   const corroborated = inGraph.filter((c) => c.independentLineageCount >= 2).length;
-  // Claims that say nothing about when are not a period of coverage. Counting
-  // `undefined` as a bucket would make an archive look broader than it is.
-  const eras = new Set(
-    claimStates.map((c) => c.claim.era).filter((e): e is NonNullable<typeof e> => e !== undefined),
-  );
+
+  // How much of the record is anchored in time. Counted from claims that
+  // actually name a date, not from a period somebody picked at entry time.
+  const datedClaims = claimStates.filter((c) =>
+    c.claim.elements.some((e) => e.kind === 'date'),
+  ).length;
 
   const score = {
     totalClaims: claimStates.length,
@@ -366,7 +367,7 @@ function buildIntegrity(claimStates: ClaimState[], acc: Accumulator): IntegrityS
     lineageDiversity,
     corroborationDepth: inGraph.length ? corroborated / inGraph.length : 0,
     activeDisputes: acc.disputes.length + acc.translationDisputes.length,
-    temporalCoverage: eras.size,
+    datedClaims,
     awaitingTranslation: claimStates.filter((c) => c.claim.awaitingTranslation).length,
     overall: 0,
   };
@@ -376,7 +377,7 @@ function buildIntegrity(claimStates: ClaimState[], acc: Accumulator): IntegrityS
     Math.min(score.totalClaims, 12) * 3 +
     Math.min(score.lineageDiversity, 6) * 6 +
     score.corroborationDepth * 25 +
-    Math.min(score.temporalCoverage, 6) * 4,
+    Math.min(score.datedClaims, 6) * 4,
   ));
 
   return score;

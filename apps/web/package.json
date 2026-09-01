@@ -9,7 +9,8 @@
     "start": "next start",
     "clean": "git clean -xdf .cache .next .turbo node_modules",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run"
   },
   "dependencies": {
     "@sagas/contracts": "workspace:*",
@@ -17,7 +18,8 @@
     "mapbox-gl": "catalog:",
     "next": "^15.1.6",
     "react": "catalog:react19",
-    "react-dom": "catalog:react19"
+    "react-dom": "catalog:react19",
+    "@sagas/read-model": "workspace:*"
   },
   "devDependencies": {
     "@sagas/eslint-config": "workspace:*",
@@ -30,7 +32,8 @@
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.5.1"
+    "postcss": "^8.5.1",
+    "vitest": "catalog:"
   },
   "prettier": "@sagas/prettier-config"
 }

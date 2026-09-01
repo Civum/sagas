@@ -7,7 +7,7 @@
  */
 
 import type {
-  CapturedLocation, ClaimElement, ContributorId, ClaimId, ElementId, Era, EventId,
+  CapturedLocation, ClaimElement, ContributorId, ClaimId, ElementId, EventId,
   FlagId, FlagReason, LanguageCode, LineageId, MediaDerivative, MediaId, MediaKind,
   PassoverKind, ProcessingState, RecordId, SiteId, SourceType, SubmissionState,
   TranscriptId, TranscriptMethod, TranslationId,
@@ -52,7 +52,6 @@ export interface AccountSubmitted extends BaseEvent {
   /** True when submitted in a language other than English with no rendering yet. */
   awaitingTranslation?: boolean;
   elements: ClaimElement[];
-  era?: Era;
   topics: string[];
   sourceType: SourceType;
 }
@@ -68,7 +67,6 @@ export interface ClaimExtended extends BaseEvent {
   sourceLanguage: LanguageCode;
   sourceLanguageText?: string;
   elements: ClaimElement[];
-  era?: Era;
   topics: string[];
   sourceType: SourceType;
 }

@@ -54,19 +54,20 @@ actually done, as counts and never as a score, and every claim carries the
 record it was read out of.
 
 Anduiza fixture: 64 authored contribution events, four derived states, nine
-records. Twenty conformance cases covering granular disputes, corroboration
+records. Twenty acceptance criteria covering granular disputes, corroboration
 independence, untranslated accounts, coexisting renderings, one record producing
 several claims, media still processing, an embedded location that contradicts
 the place, an open flag on a published record, and a contributor who has
 authored nothing and is one of the most useful people in the record.
 
-`era` is optional on a claim. Half the fixture claims have none, because they
-say nothing about time and putting a period on them would be the scaffold
-inventing a fact.
+No period field on a claim. What somebody said about time is kept in their
+words, on date elements, and `datedClaims` in the integrity score counts how
+much of a record is anchored in time from those rather than from a bucket
+chosen at entry.
 
 **Why:** Written by the sponsor in August 2026, before any team existed and
 before anyone from the Basque community had reviewed it. Expect it to be wrong
-in at least one interesting way — `packages/fixtures/conformance/cases.ts`
+in at least one interesting way — `packages/fixtures/README.md`
 carries a list of known gaps, and closing one is a welcome PR.
 
 **You need to:** Nothing. This is the first one.

@@ -1,5 +1,5 @@
 /**
- * The data, defined once.
+ * The data definition.
  *
  * Each thing gets a Zod schema and a TypeScript type right next to it. The
  * schema checks data at runtime, when you've read a file or received a request
@@ -13,22 +13,45 @@
  * nothing captures that. `translationDispute` and `disputeEdge` are the same
  * idea applied to different targets, and nothing captures that either.
  *
- * That is not an accident and it is not finished work. It's written out
- * longhand so you can read the whole thing without decoding an inheritance
- * chain, and so the patterns are yours to find rather than ours to impose.
- * Finding them is part of the job. A pull request that collapses three edge
- * types into one, with a reason, is exactly the kind of contribution we want.
+ * It's written out longhand so you can read the whole thing without decoding
+ * an inheritance chain, and so the patterns are yours to find rather than ours
+ * to impose. Finding them is part of the job. A pull request that collapses three
+ * edge types into one, with a reason, is exactly the kind of contribution we want.
  *
  * `docs/DESIGN-QUESTIONS.md` lists the ones we already know about, along with
  * the arguments on each side. Start there before you refactor anything, and add
  * to it when you find one we missed.
+ *
+ * ---
+ *
+ * HOW TO FIND YOUR PART
+ *
+ * Sections are banner-commented and labelled. Search for the label.
+ *
+ *   SHARED · Identifiers          ids, all of them plain strings for now
+ *   SHARED · Vocabularies         the fixed lists: languages, source types
+ *   SHARED · Places and people    sites and contributors
+ *   CONTENT LAYER · Records       what people hand over, and their files
+ *   SHARED · Claims               somebody's reading of a record
+ *   SHARED · Edges                disputes, extensions, references
+ *   SHARED · Signals              low-effort reactions
+ *   CALCULATED                    what a consumer actually receives
+ *
+ * Most of this is shared, and that is not a hedge. A claim is produced by the
+ * content layer, scored by the intelligence layer and rendered by the
+ * experience layer, so carving it up by team would be a fiction. Only the
+ * records section belongs mostly to one team.
+ *
+ * If you are on the content layer, start at CONTENT LAYER · Records.
+ * If you are on the intelligence layer, start at CALCULATED, then Claims.
+ * If you are on the experience layer, start at CALCULATED and read upward.
  */
 
 import { z } from 'zod';
 
-/* ------------------------------------------------------------------ */
-/* Identifiers                                                         */
-/* ------------------------------------------------------------------ */
+/* ================================================================== */
+/* SHARED · Identifiers                                                */
+/* ================================================================== */
 
 /**
  * These are all `string` today, which means TypeScript will happily let you
@@ -47,9 +70,12 @@ export type MediaId = string;
 export type TranscriptId = string;
 export type FlagId = string;
 
-/* ------------------------------------------------------------------ */
-/* Enumerations                                                        */
-/* ------------------------------------------------------------------ */
+/* ================================================================== */
+/* SHARED · Vocabularies                                               */
+/*                                                                     */
+/* Fixed lists every layer reads. Adding a value here is a contract     */
+/* change, because somebody's switch statement stops being exhaustive.  */
+/* ================================================================== */
 
 /**
  * Languages a record or a rendering can be in. ISO 639-1 codes.
@@ -60,7 +86,7 @@ export type FlagId = string;
  *   fr  French
  *
  * Spanish and French are both here because the Basque Country spans the border,
- * and Basque communities in Canada carry French. Expect this list to grow. A
+ * and Basque communities in Canada speak French. Expect this list to grow. A
  * record in a language not listed is a reason to add one, never a reason to
  * turn the record away.
  */
@@ -83,6 +109,7 @@ export type LanguageCode = z.infer<typeof languageCode>;
  * account from someone nobody knows can end up better supported than a
  * published paper.
  */
+
 export const sourceType = z.enum([
   'firsthand',
   'family_oral',
@@ -93,26 +120,6 @@ export const sourceType = z.enum([
 ]);
 export type SourceType = z.infer<typeof sourceType>;
 
-/**
- * Rough time period.
- *
- * Deliberately coarse. People remember "during the war" and "when I was young",
- * not dates, and asking someone to pick a year they don't know produces a wrong
- * answer rather than an honest one.
- *
- * This is a known weak point. Storing only the bucket throws away the phrase
- * the contributor actually used, and you can't get it back. See
- * DESIGN-QUESTIONS.
- */
-export const era = z.enum([
-  'pre_1900',
-  'early_immigration_1900_1929',
-  'depression_war_1930_1945',
-  'postwar_1946_1969',
-  'late_century_1970_1999',
-  'contemporary_2000_present',
-]);
-export type Era = z.infer<typeof era>;
 
 /**
  * A low-effort reaction to something a reader scrolled past.
@@ -141,9 +148,13 @@ export type Confidence = z.infer<typeof confidence>;
 export const edgeType = z.enum(['dispute', 'extension', 'reference']);
 export type EdgeType = z.infer<typeof edgeType>;
 
-/* ------------------------------------------------------------------ */
-/* Places and people                                                   */
-/* ------------------------------------------------------------------ */
+/* ================================================================== */
+/* SHARED · Places and people                                          */
+/*                                                                     */
+/* Everything hangs off these two. A site is what accounts attach to; a */
+/* contributor is who said something. `lineageId` on a contributor is   */
+/* the field doing the most work in the whole model.                    */
+/* ================================================================== */
 
 /** A physical location that accounts get attached to. */
 export const site = z.object({
@@ -193,9 +204,15 @@ export const contributor = z.object({
 });
 export type Contributor = z.infer<typeof contributor>;
 
-/* ------------------------------------------------------------------ */
-/* Records and media                                                   */
-/* ------------------------------------------------------------------ */
+/* ================================================================== */
+/* CONTENT LAYER · Records and media                                   */
+/*                                                                     */
+/* What people hand over, and the files that come with it. This is the  */
+/* content layer's section: submission, upload, transcription, reports. */
+/*                                                                     */
+/* The other layers read `sourceRecord` because every claim points at   */
+/* one, but nothing else here is theirs to produce.                     */
+/* ================================================================== */
 
 /**
  * A record is what somebody actually hands over: a recording, a photograph, a
@@ -234,8 +251,9 @@ export type ProcessingState = z.infer<typeof processingState>;
  * Where a record is in its life.
  *
  * `awaiting_context` and `awaiting_transcript` are separate queues because they
- * need different people. Anyone can add context. A transcript of Euskara audio
- * needs a Euskara speaker, and there are not many of them.
+ * need different people. Anyone can add context. A transcript needs somebody who
+ * speaks the language on the recording, and for the languages this archive
+ * cares about there are not many of them.
  *
  * Note what is missing. There is no state for a record being taken back. That is
  * not an oversight. "Nothing is deleted" and "a family can change its mind" are
@@ -464,9 +482,13 @@ export const flag = z.object({
 });
 export type Flag = z.infer<typeof flag>;
 
-/* ------------------------------------------------------------------ */
-/* Claims                                                              */
-/* ------------------------------------------------------------------ */
+/* ================================================================== */
+/* SHARED · Claims                                                     */
+/*                                                                     */
+/* A claim is somebody's reading of a record. The content layer produces */
+/* the record, the intelligence layer scores the claim, the experience   */
+/* layer renders it. All three touch this.                              */
+/* ================================================================== */
 
 /**
  * One addressable part of a claim: a date, a place, a person.
@@ -502,21 +524,6 @@ export const claim = z.object({
    */
   sourceLanguageText: z.string().optional(),
   elements: z.array(claimElement),
-  /**
-   * Roughly when, as a coarse bucket, for filtering.
-   *
-   * Optional, and absent is a real answer. Plenty of accounts say nothing about
-   * when. "The fronton was built into the back of the building" is about a place
-   * and its use, and putting a period on it would be the person who typed it in
-   * guessing.
-   *
-   * What somebody actually said about time is not stored here. It is the
-   * `excerpt` on a date element, in their words: "this would be 1963, 1964",
-   * "Before the boarding house". This field is a summary calculated off that by
-   * a human at entry time, and whether it should exist at all is in
-   * DESIGN-QUESTIONS.
-   */
-  era: era.optional(),
   topics: z.array(z.string()),
   sourceType,
   createdAt: z.string(),
@@ -574,9 +581,12 @@ export const translationDispute = z.object({
 });
 export type TranslationDispute = z.infer<typeof translationDispute>;
 
-/* ------------------------------------------------------------------ */
-/* Edges                                                               */
-/* ------------------------------------------------------------------ */
+/* ================================================================== */
+/* SHARED · Edges                                                      */
+/*                                                                     */
+/* What people do to a claim: disagree with part of it, add context, or */
+/* point at somewhere else. These are the graph.                        */
+/* ================================================================== */
 
 /** Someone disagreeing with one specific part of a claim. */
 export const disputeEdge = z.object({
@@ -632,9 +642,12 @@ export type ReferenceEdge = z.infer<typeof referenceEdge>;
 export const edge = z.discriminatedUnion('type', [disputeEdge, extensionEdge, referenceEdge]);
 export type Edge = z.infer<typeof edge>;
 
-/* ------------------------------------------------------------------ */
-/* Signals                                                             */
-/* ------------------------------------------------------------------ */
+/* ================================================================== */
+/* SHARED · Signals                                                    */
+/*                                                                     */
+/* Low-effort reactions. They tune what gets shown to whom. They are not */
+/* votes and they are not ratings.                                      */
+/* ================================================================== */
 
 /**
  * Someone agreeing with a claim. No new node, no new source.
@@ -661,9 +674,16 @@ export const passover = z.object({
 });
 export type Passover = z.infer<typeof passover>;
 
-/* ------------------------------------------------------------------ */
-/* Calculated state                                                    */
-/* ------------------------------------------------------------------ */
+/* ================================================================== */
+/* CALCULATED · what a consumer actually receives                      */
+/*                                                                     */
+/* Nothing below is authored. It is all worked out from everything      */
+/* above, and it is what the experience layer renders.                  */
+/*                                                                     */
+/* The intelligence layer owns how these numbers are produced.          */
+/* `contributorStanding` in particular is their raw material, and the   */
+/* comment on it explains why it holds counts and never a score.        */
+/* ================================================================== */
 
 /** One element of a claim, plus whatever anyone has said about it. */
 export const elementStatus = z.object({
@@ -781,8 +801,15 @@ export const integrityScore = z.object({
   /** Share of claims backed by two or more unrelated people. */
   corroborationDepth: z.number().min(0).max(1),
   activeDisputes: z.number(),
-  /** How many distinct time periods have anything said about them. */
-  temporalCoverage: z.number(),
+  /**
+   * How many claims name a date.
+   *
+   * Counted from date elements, so it reflects what people actually said rather
+   * than a period somebody chose for them at entry time. A record where nobody
+   * has pinned down when anything happened is a thinner record, and this is the
+   * part of the score that says so.
+   */
+  datedClaims: z.number(),
   awaitingTranslation: z.number(),
   /** 0-100 rollup, for marker styling. Placeholder formula. */
   overall: z.number().min(0).max(100),

@@ -41,8 +41,8 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      - name: Conformance
-        run: pnpm conformance
+      - name: Acceptance criteria
+        run: pnpm acceptance
 
       - name: Test
         run: pnpm test

@@ -1,6 +1,9 @@
 /**
- * ANDUIZA HOTEL & FRONTON — contribution event log
- * ================================================
+ * Example site — contribution event log
+ * =====================================
+ *
+ * One place, sixty-four contributions, four snapshots. This is the only
+ * hand-written file in the fixtures; everything else is calculated from it.
  *
  * THIS CONTENT IS INVENTED. The building, street address, and city are real.
  * Every contributor, family, and remembered event below is fictional and was
@@ -18,11 +21,7 @@
  *
  * Authored as an append-only log. States are derived, never authored. See
  * ../../src/reduce.ts.
- *
- * Note which claims carry an `era` and which do not. Only the ones that say
- * something about time do. A claim about how a room was used, with no date in
- * it, has no period on it, because putting one there would be this file
- * inventing a fact rather than recording one.
+
  */
 
 import type { ContributionEvent } from '../../src/events';
@@ -91,7 +90,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-boarding-e-place', kind: 'place', value: '620 W Grove St', excerpt: 'The Anduiza building on Grove Street' },
       { id: 'cl-boarding-e-person', kind: 'person', value: 'great-grandmother, cook', excerpt: 'My great-grandmother cooked there' },
     ],
-    era: 'early_immigration_1900_1929',
     topics: ['boarding house', 'sheepherding', 'women\'s work', 'immigration'],
     sourceType: 'family_oral',
   },
@@ -141,7 +139,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-prelot-e-use', kind: 'event', value: 'livery stable', excerpt: 'a livery stable on that lot' },
       { id: 'cl-prelot-e-seq', kind: 'date', value: 'before boarding house', excerpt: 'Before the boarding house' },
     ],
-    era: 'pre_1900',
     topics: ['prior use', 'lot history'],
     sourceType: 'family_oral',
   },
@@ -218,7 +215,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-fronton-floor-e-mat', kind: 'event', value: 'wood floor', excerpt: 'The floor was wood' },
       { id: 'cl-fronton-floor-e-detail', kind: 'place', value: 'dead spot near left wall', excerpt: 'a dead spot near the left wall' },
     ],
-    era: 'postwar_1946_1969',
     topics: ['pilota', 'fronton', 'recreation'],
     sourceType: 'firsthand',
   },
@@ -428,7 +424,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-register-e-doc', kind: 'attribution', value: 'boarding register, museum holding', excerpt: 'We hold a boarding register' },
       { id: 'cl-register-e-limit', kind: 'attribution', value: 'register omits staff', excerpt: 'The register does not name kitchen staff' },
     ],
-    era: 'early_immigration_1900_1929',
     topics: ['boarding house', 'documentary record'],
     sourceType: 'institutional',
   },
@@ -782,7 +777,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-afterhours-e-origin', kind: 'place', value: 'the Center', excerpt: 'walking over from the Center' },
       { id: 'cl-afterhours-e-date', kind: 'date', value: '1960s', excerpt: 'The men who came in the sixties' },
     ],
-    era: 'postwar_1946_1969',
     topics: ['pilota', 'community', 'recreation'],
     sourceType: 'community_oral',
   },

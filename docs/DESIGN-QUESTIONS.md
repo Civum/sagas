@@ -22,7 +22,9 @@ current one.
 here is worth as much as one that changes code. Possibly more, because the next
 team reads this file too.
 
-The three sections are sorted by how much conversation an answer needs.
+The first three sections are sorted by how much conversation an answer needs.
+Part 4 is different: those are not ours to answer at all, and the section says
+why.
 
 ---
 
@@ -104,43 +106,29 @@ this, so try that one first.
 These change the shape of the model, which means they affect more than one team.
 Raise them before building.
 
-## Does `era` deserve to exist?
+## What does an interface do with "sometime in the fifties, probably"?
 
-**Now:** a claim can carry an `era`, one of six coarse buckets like
-`depression_war_1930_1945`. It is optional, and about half the fixture claims
-have none.
+**Now:** what somebody said about time is kept in their words, as the `excerpt`
+on a date element. `1963-1964` sits next to "this would be 1963, 1964".
+`before boarding house` sits next to "Before the boarding house". Nothing
+normalises those into a year, and there is no period field on a claim.
 
-**Why:** oral history does not come with dates. People say "during the war" and
-"when I was young", and forcing a year produces a made-up answer instead of an
-honest one. A bucket seemed like the way to keep something filterable without
-inventing precision.
+**Why:** there used to be one. It was a bucket like `depression_war_1930_1945`,
+chosen by whoever typed the account in, and we deleted it. It was a second,
+coarser copy of information the excerpt already held, nothing read it, and half
+the values in the fixture were the scaffold guessing.
 
-**What is actually stored, which is less lossy than it looks:** what somebody
-said about time is kept verbatim, as the `excerpt` on a date element.
-`cl-fronton-floor` holds `1963-1964` alongside "this would be 1963, 1964", and
-`cl-prelot` holds `before boarding house` alongside "Before the boarding house".
-The words are not gone. An earlier version of this entry claimed they were, and
-that was wrong.
+**The problem:** you cannot sort or filter on a phrase. "During the war" and
+"1943" belong near each other on a timeline and no code can currently tell.
 
-**The problem:** `era` is a second, coarser copy of information that already
-exists in a better form, and nothing reads it. Two places in the whole codebase
-touch it: a debug print, and a count of distinct periods feeding the integrity
-score. No interface filters on it. Meanwhile it has to be chosen by whoever
-enters the account, which means it is the one field in the model that is
-routinely somebody's guess rather than somebody's testimony.
+**The tension:** normalising into a range makes filtering work and implies
+precision nobody has. Showing the raw phrase is honest and unsortable. Doing
+both is clutter, and doing neither means the archive has no way to answer "what
+do we know about the fifties".
 
-**The tension:** the obvious move is to delete it and derive a period from date
-elements when one is needed. That is cleaner and it costs something real. A
-derived period is only as good as the element extraction, "during the war" does
-not parse into a year without a human, and a filter that silently drops every
-claim whose date could not be parsed will hide exactly the vaguest and oldest
-material, which is usually the most valuable.
-
-**The harder half, which nobody has solved:** what does an interface do with
-"sometime in the fifties, probably"? Showing a range implies precision that is
-not there. Showing the raw phrase makes sorting and filtering hard. Showing
-both is clutter. This is the actual open question, and `era` is a workaround for
-it rather than an answer to it.
+Whatever you build here has to keep the words. A range calculated from a phrase
+is a reading of it, and readings in this project are attributed and contestable
+rather than silently replacing the thing they read.
 
 ## Accounts and claims are the same thing, and probably shouldn't be
 
@@ -342,8 +330,8 @@ confirm rather than asserting them.
 ## What shape is an argument?
 
 Some disagreements are productive. People bring new material, the record gets
-better. Some are two people restating themselves. Some are a group agreeing with
-each other loudly and calling it corroboration.
+better. Others are two people restating themselves at each other, or a group
+agreeing loudly and calling the noise corroboration.
 
 You can tell these apart structurally, without reading anything. Do disputes
 land on different parts of the claim or pile onto one? Does a dispute produce
@@ -378,9 +366,79 @@ text rather than by authors linking.
 
 ---
 
+---
+
+# Part 4 — Not ours to answer
+
+Everything above this line is a question an engineer can reason about. These are
+not.
+
+They are decisions about how a community wants its own record kept, and no
+amount of care in this repository substitutes for asking. We have not asked. The
+design so far was made without anybody from the community it is modelled on, and
+that is worth knowing while you read the rest of this file.
+
+**So this section is a commitment rather than a backlog.** We are not going to
+settle these by argument, and neither should you. A pull request answering one
+would be the exact presumption the section exists to name.
+
+What you can usefully do is notice when your work runs into one, and say so.
+"I built this and I think it assumes something we have not checked" is a good
+thing to bring to a check-in.
+
+## Who decides what a place is called?
+
+A site has a formal `name` and a list of `aka`. Something had to be primary and
+we made the official name primary.
+
+That is not neutral. The name on the deed and the name people use are often
+different, and which one leads is a small statement about whose record this is.
+
+## Is this built for the community, or for people outside it?
+
+Accounts render in English, with the original preserved underneath. That
+ordering assumes a reader who does not speak the original.
+
+The reverse is a coherent design and we did not consider it. Neither did we
+consider whether a community would want its record legible to outsiders at all.
+
+## Is family the right unit?
+
+Lineage independence is the load-bearing idea in this whole model. Corroboration
+counts by family line, so three cousins are one source.
+
+That assumes kinship organised into family lines, which is one model among many.
+Where the meaningful unit is a clan, a house, a congregation, a village, or
+something with no equivalent in the word "family", the arithmetic is measuring
+the wrong thing while looking like it works.
+
+## Should all of it be public?
+
+Nothing is deleted and everything is visible. That is stated as a principle
+throughout this repository, and it is a design position rather than a neutral
+default.
+
+For some communities, certain knowledge is not meant to be openly held. It may
+be restricted by role, by season, by initiation, or by kin. An archive with no
+way to express that is not neutral toward those communities. It is wrong for
+them, and confidently so.
+
+People have thought carefully about this and we have reinvented none of it. The
+CARE Principles for Indigenous Data Governance and the Local Contexts project
+are the places to start reading. If your work touches access, read them first.
+
+## What should a disagreement look like to the people in it?
+
+Preserving dissent instead of resolving it is the founding decision of this
+project. It is also the one most likely to feel different from the inside.
+
+Two families seeing their disagreement rendered permanently, publicly, with both
+names attached, is a specific experience. Nobody has asked whether it is a
+welcome one.
+
 # Adding to this file
 
-Same shape as everything above:
+Same shape as Parts 1 to 3:
 
 - **Now** — what the code does today
 - **Why** — if there was a reason, even a bad one

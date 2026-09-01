@@ -6,7 +6,7 @@ import type { GraphState } from '@sagas/contracts';
  * TODO: scrub through it. Each point links to the contributions that caused the
  * change, which is what `eventIdsSincePrevious` is for. That field is the
  * reason snapshots are calculated from a list of contributions rather than
- * written by hand — every state can say exactly what produced it.
+ * written by hand. Every state can say exactly what produced it.
  *
  * Fixtures give you four snapshots. Real data is continuous, so don't build
  * anything that assumes there are exactly four.

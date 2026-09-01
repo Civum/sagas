@@ -2,5 +2,5 @@
 export default {
   reactStrictMode: true,
   // Workspace packages ship TypeScript source, not build output.
-  transpilePackages: ['@sagas/contracts', '@sagas/fixtures'],
+  transpilePackages: ['@sagas/contracts', '@sagas/fixtures', '@sagas/read-model'],
 };

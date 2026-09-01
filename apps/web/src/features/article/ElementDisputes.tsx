@@ -4,8 +4,8 @@ import type { ClaimState } from '@sagas/contracts';
  * Where people disagree about part of a claim.
  *
  * TODO: show every reading with its support. "Two family lines say 1914, one
- * says 1922." Not a poll, not a winner. Both stay visible with the reasoning
- * attached.
+ * says 1922." Both readings stay visible with the reasoning attached, and
+ * neither is marked as the answer.
  *
  * Two things to get right:
  *
@@ -15,7 +15,7 @@ import type { ClaimState } from '@sagas/contracts';
  * - `count` is distinct family lines, not people. Label it that way or a reader
  *   will assume it's a vote tally.
  *
- * Conformance cases: one-element-disputed-others-not,
+ * Acceptance criterions: one-element-disputed-others-not,
  * competing-readings-ordered-by-independence.
  */
 export function ElementDisputes({ claim }: { claim: ClaimState }) {

@@ -5,16 +5,19 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./conformance": "./conformance/index.ts",
-    "./states/*": "./states/*"
+    "./states/*": "./states/*",
+    "./behaviour": "./behaviour/index.ts",
+    "./acceptance": "./acceptance/index.ts"
   },
   "scripts": {
     "build:states": "tsx scripts/build-states.ts",
     "test": "vitest run",
-    "conformance": "vitest run conformance",
     "clean": "git clean -xdf .cache .turbo node_modules",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint"
+    "lint": "eslint",
+    "rules": "vitest run behaviour",
+    "inspect": "tsx scripts/inspect.ts",
+    "acceptance": "vitest run acceptance"
   },
   "dependencies": {
     "@sagas/contracts": "workspace:*"

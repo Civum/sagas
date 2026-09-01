@@ -16,7 +16,7 @@ import type { ClaimState } from '@sagas/contracts';
  * A reader who speaks no Euskara should still be able to see that two people
  * disagree about what a sentence means.
  *
- * Conformance cases: account-outside-the-graph, rendering-arrives,
+ * Acceptance criterions: account-outside-the-graph, rendering-arrives,
  * coexisting-renderings.
  */
 export function TranslationPanel({ claim }: { claim: ClaimState }) {

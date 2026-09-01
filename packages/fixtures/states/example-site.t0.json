@@ -55,7 +55,6 @@
             "excerpt": "My great-grandmother cooked there"
           }
         ],
-        "era": "early_immigration_1900_1929",
         "topics": [
           "boarding house",
           "sheepherding",
@@ -318,7 +317,6 @@
             "excerpt": "Before the boarding house"
           }
         ],
-        "era": "pre_1900",
         "topics": [
           "prior use",
           "lot history"
@@ -453,7 +451,7 @@
     "lineageDiversity": 1,
     "corroborationDepth": 0,
     "activeDisputes": 0,
-    "temporalCoverage": 2,
+    "datedClaims": 2,
     "awaitingTranslation": 0,
     "overall": 23
   },

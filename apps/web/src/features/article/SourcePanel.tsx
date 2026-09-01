@@ -11,7 +11,7 @@ import type { ClaimState } from '@sagas/contracts';
  * Surface that. Nobody should be able to screenshot development data and have
  * it read as a real person's testimony.
  *
- * Conformance case: every-claim-traces-to-a-contributor.
+ * Acceptance criterion: every-claim-traces-to-a-contributor.
  */
 export function SourcePanel({ claim }: { claim: ClaimState }) {
   return (

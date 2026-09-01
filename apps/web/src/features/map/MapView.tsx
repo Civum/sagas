@@ -10,7 +10,7 @@ import { MapUnavailable } from './MapUnavailable';
  * load.
  *
  * Note what happens with no token: it renders the list instead. Keep that
- * working — see MapUnavailable for why.
+ * working. See MapUnavailable for why.
  */
 export function MapView({ sites }: { sites: Site[] }) {
   const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;

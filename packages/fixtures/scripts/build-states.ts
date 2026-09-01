@@ -1,5 +1,5 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { events, stateCuts } from '../fixtures/anduiza/events';
+import { events, stateCuts } from '../fixtures/example-site/events';
 import { reduceToStates } from '../src/reduce';
 import type { GraphState } from '@sagas/contracts';
 
@@ -7,9 +7,9 @@ const states = reduceToStates(events, stateCuts);
 
 mkdirSync('states', { recursive: true });
 for (const s of states) {
-  writeFileSync(`states/anduiza.${s.stateId}.json`, JSON.stringify(s, null, 2));
+  writeFileSync(`states/example-site.${s.stateId}.json`, JSON.stringify(s, null, 2));
 }
-writeFileSync('states/anduiza.all.json', JSON.stringify(states, null, 2));
+writeFileSync('states/example-site.all.json', JSON.stringify(states, null, 2));
 
 /* ------------------------------------------------------------------ */
 /* Readable dump, so the fixture can be judged without a renderer.      */
@@ -29,7 +29,7 @@ function dump(s: GraphState) {
     `integrity ${String(i.overall).padStart(3)}/100  ` +
     `claims ${i.totalClaims}  contributors ${i.independentContributors}  ` +
     `lineages ${i.lineageDiversity}  corroboration ${(i.corroborationDepth * 100).toFixed(0)}%  ` +
-    `disputes ${i.activeDisputes}  eras ${i.temporalCoverage}  untranslated ${i.awaitingTranslation}`,
+    `disputes ${i.activeDisputes}  dated ${i.datedClaims}  untranslated ${i.awaitingTranslation}`,
   );
 
   for (const c of s.claims) {
@@ -37,7 +37,7 @@ function dump(s: GraphState) {
     console.log(`\n  ${bar(c.weight)} ${c.weight.toFixed(2).padStart(5)}  ${label}`);
     console.log(`  ${c.claim.id}  ·  ${c.contributor.displayName}` +
       (c.contributor.institution ? ` (${c.contributor.institution})` : '') +
-      `  ·  ${c.claim.sourceType}  ·  ${c.claim.era}`);
+      `  ·  ${c.claim.sourceType}`);
 
     if (c.claim.awaitingTranslation) {
       console.log(`  [${c.claim.sourceLanguage}] ${c.claim.sourceLanguageText}`);

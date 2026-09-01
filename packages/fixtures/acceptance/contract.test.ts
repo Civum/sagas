@@ -1,12 +1,12 @@
 /**
  * Runs the fixture data against the contract.
  *
- * This is the half of conformance that can run today, before either layer
+ * This is the half of the acceptance criteria a machine can check today, before either layer
  * exists: it proves the fixtures actually satisfy the shapes in
- * @sagas/contracts, and that every conformance case points at data that really
+ * @sagas/contracts, and that every acceptance criterion points at data that really
  * exhibits the situation it claims to.
  *
- * The other half is yours. Import CONFORMANCE_CASES into your own test file,
+ * The other half is yours. Import ACCEPTANCE_CRITERIA into your own test file,
  * feed each case's state through your renderer or your API, and assert the
  * requirement holds. That is the part that catches your bugs; this part only
  * catches ours.
@@ -14,7 +14,7 @@
 
 import { describe, expect, it } from 'vitest';
 import { graphState } from '@sagas/contracts';
-import { CONFORMANCE_CASES, KNOWN_GAPS, loadAllStates, loadState } from './index';
+import { ACCEPTANCE_CRITERIA, loadAllStates, loadState } from './index';
 
 const states = loadAllStates();
 
@@ -71,8 +71,8 @@ describe('fixtures satisfy the contract', () => {
   });
 });
 
-describe('conformance cases point at data that exhibits them', () => {
-  it.each(CONFORMANCE_CASES.map((c) => [c.id, c] as const))('%s', (_id, c) => {
+describe('acceptance criteria point at data that exhibits them', () => {
+  it.each(ACCEPTANCE_CRITERIA.map((c) => [c.id, c] as const))('%s', (_id, c) => {
     const state = loadState(c.stateId);
     expect(state).toBeTruthy();
     if (c.subject) {
@@ -142,19 +142,4 @@ describe('conformance cases point at data that exhibits them', () => {
     }
   });
 
-  it('a claim carries an era only when it says something about time', () => {
-    for (const state of states) {
-      for (const c of state.claims) {
-        if (c.claim.era) continue;
-        const hasDate = c.claim.elements.some((e) => e.kind === 'date');
-        expect(hasDate, `${c.claim.id} has a date element but no era`).toBe(false);
-      }
-    }
-  });
-
-  it('records its own gaps', () => {
-    // Not an assertion about correctness — a reminder that this list is short
-    // on purpose and that anything on it is currently unspecified behaviour.
-    expect(KNOWN_GAPS.length).toBeGreaterThan(0);
-  });
 });

@@ -10,7 +10,7 @@ import { VersionTimeline } from './VersionTimeline';
  * graph. A historian should be able to read it start to finish and also see
  * which parts are solid.
  *
- * Claims arrive ordered by weight, strongest first. Keep that order — it's how
+ * Claims arrive ordered by weight, strongest first. Keep that order. It is how
  * the strongest reading leads without anything being marked "accepted".
  *
  * TODO: this is a list of claims right now. It has to become something that
