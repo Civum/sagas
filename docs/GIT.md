@@ -318,6 +318,16 @@ check-in would, and it is the habit the course is actually trying to teach you.
 
 The same rule we use applies to you: small and early beats large and finished.
 
+### The pre-commit hook
+
+There is one, in `.githooks/pre-commit`, and `pnpm install` turns it on for you.
+No husky, no dependency, and you can read it.
+
+It checks a single thing: whether you are committing a changed package.json
+without the lockfile. That combination fails CI at the install step before any
+check runs, which is a confusing way to go red. If you only renamed a script,
+`git commit --no-verify` gets past it.
+
 ### Two things not to commit
 
 **`.env`.** It's gitignored. If a token does get committed, rotate it rather than

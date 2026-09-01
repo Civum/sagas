@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+#
+# Stops the one mistake that breaks CI before a single check runs.
+#
+# CI installs with CI=true, which makes `pnpm install` behave as
+# --frozen-lockfile. If a package.json has changed and pnpm-lock.yaml has not,
+# the install fails at the setup step in about thirteen seconds and nothing
+# downstream runs. The failure says "OUTDATED_LOCKFILE" somewhere in a log
+# nobody reads, and the commit looks fine locally because your node_modules is
+# already correct.
+#
+# This has happened to us. That is why the hook exists.
+#
+# It is enabled automatically by `pnpm install`, via the `prepare` script in the
+# root package.json, which points git at this directory. No dependency, nothing
+# to remember.
+#
+# To skip it for one commit:  git commit --no-verify
+
+set -uo pipefail
+
+staged() { git diff --cached --name-only --diff-filter=ACM; }
+
+PACKAGE_JSONS=$(staged | grep -E '(^|/)package\.json$' || true)
+LOCKFILE=$(staged | grep -E '^pnpm-lock\.yaml$' || true)
+
+if [ -n "$PACKAGE_JSONS" ] && [ -z "$LOCKFILE" ]; then
+  echo "✗ A package.json changed but pnpm-lock.yaml is not staged."
+  echo
+  echo "  Changed:"
+  echo "$PACKAGE_JSONS" | sed 's/^/    /'
+  echo
+  echo "  If you added, removed, or changed a dependency, CI will fail at the"
+  echo "  install step before it runs anything. Fix it with:"
+  echo
+  echo "      pnpm install"
+  echo "      git add pnpm-lock.yaml"
+  echo
+  echo "  If you only edited a script or a description and no dependency moved,"
+  echo "  this is a false alarm:"
+  echo
+  echo "      git commit --no-verify"
+  echo
+  exit 1
+fi
+
+exit 0

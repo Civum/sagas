@@ -134,6 +134,29 @@ pnpm dev:web
 
 ## Workspace
 
+### CI failed at the install step and nothing else ran
+
+The lockfile is out of sync with a package.json.
+
+CI installs with `CI=true`, which makes `pnpm install` behave as
+`--frozen-lockfile`. If a dependency changed and `pnpm-lock.yaml` did not, the
+install fails in about thirteen seconds and every check after it is skipped. The
+job goes red without a single test having run.
+
+It looks fine locally, because your `node_modules` is already correct.
+
+```bash
+pnpm install
+git add pnpm-lock.yaml
+```
+
+There is a pre-commit hook that catches this, in `.githooks/pre-commit`. It is
+enabled automatically by `pnpm install` and it only fires when a package.json is
+staged without the lockfile. `git commit --no-verify` skips it if you only
+edited a script name.
+
+This one bit us, which is why both the hook and this entry exist.
+
 ### An import of a package in this repo will not resolve
 
 Run `pnpm install` from the repo root, not from inside a package. Workspace
