@@ -151,9 +151,10 @@ git add pnpm-lock.yaml
 ```
 
 There is a pre-commit hook that catches this, in `.githooks/pre-commit`. It is
-enabled automatically by `pnpm install` and it only fires when a package.json is
-staged without the lockfile. `git commit --no-verify` skips it if you only
-edited a script name.
+enabled automatically by `pnpm install`. It compares the dependency maps before
+and after, so renaming a script or editing a description will not stop you —
+only an actual dependency change without the lockfile. `git commit --no-verify`
+skips it either way.
 
 This one bit us, which is why both the hook and this entry exist.
 

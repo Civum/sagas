@@ -231,6 +231,23 @@ account of their own family stays theirs and stays attributed. Synthetic data
 that reads as real testimony cuts against that, so we label it at every level:
 in the data, in the schema, and here.
 
+## License and credit
+
+Apache 2.0. The full text is in [`LICENSE`](./LICENSE).
+
+Fork it and build on it. Your fork is yours, and work a student writes there
+stays theirs — nobody needs permission to put it in front of an employer.
+
+Anything merged upstream is credited by name, and the commit history stands as
+the record either way. This is a project about accounts staying attached to the
+people who gave them, and that applies to the people writing the code too.
+
+## A note on how this was built
+
+The scaffold was developed with AI assistance. Everything in it was reviewed
+before it landed, and the acceptance suite and scoring rules are here so that
+correctness is demonstrable rather than taken on trust.
+
 ---
 
 Sponsored by Civum PBC · stanton@civum.io

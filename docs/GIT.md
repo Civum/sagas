@@ -323,10 +323,13 @@ The same rule we use applies to you: small and early beats large and finished.
 There is one, in `.githooks/pre-commit`, and `pnpm install` turns it on for you.
 No husky, no dependency, and you can read it.
 
-It checks a single thing: whether you are committing a changed package.json
+It checks a single thing: whether you are committing a *dependency* change
 without the lockfile. That combination fails CI at the install step before any
-check runs, which is a confusing way to go red. If you only renamed a script,
-`git commit --no-verify` gets past it.
+check runs, which is a confusing way to go red.
+
+It compares the dependency maps rather than the whole file, so editing a script
+or a description will not trigger it. `git commit --no-verify` skips it if it
+ever gets something wrong.
 
 ### Two things not to commit
 

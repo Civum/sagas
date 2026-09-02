@@ -313,6 +313,16 @@ untouched are the ones not in English, from rural places, from small families,
 from people who aren't online. If the interface makes silence look like doubt,
 it quietly discounts exactly the material the archive exists for.
 
+One idea is to stop treating a skip as silence. If someone works through the
+claims on a site and moves past one without extending it or disputing it, ask
+which it was. Not knowing, agreeing with nothing to add, and not caring all look
+identical today and are not the same signal at all.
+
+Whether asking is honest is the open part. Someone who skipped because they were
+tired now has to pick one of your categories, and what comes back is partly an
+artifact of having asked. A manufactured signal is worse than a missing one,
+because it looks the same as a real one.
+
 ## How do claims compare across languages?
 
 An account in Euskara and an account in English can be about the same building
@@ -352,7 +362,66 @@ This community has real internal divisions, so that isn't hypothetical.
 Current thinking is that reputation should decide what a human looks at first
 and never what disappears on its own. Untested.
 
+## Can trust be inherited?
+
+A new contributor starts at zero, which is correct and also useless. Nobody
+builds standing without contributing, and not many people contribute into a
+system that treats them as nobody.
+
+One way out is vouching. An existing contributor vouches for a newcomer, who
+inherits some fraction of their standing. LinkedIn works roughly like this and
+never quantifies it. Bounded trust propagation over a social graph has a long
+literature behind it, most of it concerned with capping how much damage one bad
+actor can do.
+
+The objection is less about bots than it looks. A bounded metric handles fake
+accounts reasonably well. It does nothing about a large real family whose real
+members really do vouch for each other, which is the failure this project
+actually cares about, arriving through a different door than the one
+`independentLineageCount` is watching.
+
+Staking makes it worse before it makes it better. If vouching couples two
+people's standing, then in a community with existing divisions vouching becomes
+a political act, and people decline to vouch across a line they already don't
+cross. The trust graph reproduces the split it was meant to see past.
+
+It also collides with a decision already made. `ScoringInput` is never given the
+author. That absence is the strongest guarantee in the scoring code, and
+inherited trust cannot be used without breaking it. That may still be the right
+trade. It hasn't been argued.
+
+## How does a reference become an edge?
+
+The question below assumes a graph of accounts pointing at places. Nothing
+creates that graph.
+
+Someone writing about a boarding house mentions the Basque Museum. To a reader
+that is a reference. To the database it is four words in a text field. Nothing
+links them, and the significance question cannot be asked until something does.
+
+Doing it with a language model means guessing, and guessing wrong permanently.
+Asking authors to link as they write means most references go unlinked, because
+someone writing about their grandmother is not thinking about the graph.
+
+Another option is to let a person mark a span of text as a reference and, if the
+place isn't in the archive yet, let the mark stand unresolved. It costs the
+author one gesture and no lookup. The reference exists as data immediately and
+gets pointed at a real place later by whoever reads it next. Ambiguity becomes
+something to hand to a reader rather than something to solve.
+
+The side effect is worth more than the feature. Resolving "Angie's" to the
+Basque Museum records what the community actually calls the place. That cannot
+be derived from documents, because it was never written in one. A person
+confirming it is the only source there is.
+
+Open: whether people mark anything at all, and whether an unresolved mark is
+data or a to-do item nobody clears. Accounts written before marking existed are
+a separate problem with no obvious answer.
+
 ## What makes a place significant?
+
+Before any of this works, references have to exist as data. See the question
+above.
 
 Some places matter more than others, and the archive should be able to say so
 without anyone declaring it. One idea: a place referenced often in accounts about
@@ -363,6 +432,38 @@ That's roughly PageRank over a reference graph, which is well-trodden. What migh
 not be is what the edges mean here — typed relationships, independence measured
 by family line rather than by count, and references created by people marking
 text rather than by authors linking.
+
+## Maria the subject and Maria the account
+
+A person named in an account is the same shape as a place named in one: a span
+of text pointing at something that may not be in the archive yet. One marking
+mechanism covers both, which is one feature instead of two.
+
+A person is two entities though. Maria as the subject of a record is archival —
+she is what the account is about, and she may have died in 1961. Maria as a
+contributor is a platform actor with behaviour and standing. Libraries have kept
+these apart for a century. An authority record and a borrower card are not the
+same object.
+
+Most person references will never have an account behind them. The people an
+oral history archive talks about are mostly dead, so the subject is the normal
+case and a living claimant is the exception. Designing it the other way round,
+as accounts that can point at subjects, gets the common case backwards.
+
+Whether being the subject earns weight is the obvious question, and the answer
+is probably no. Being the person a story is about makes you one source among
+many, sometimes a badly placed one. Families are unreliable about their own.
+
+The less obvious question is the dangerous one. A living claimant usually does
+not want more weight. She wants something taken down, softened, or corrected,
+and an identity claim is how that pressure arrives. That is the same problem as
+"Can someone take their record back?", reached from another direction.
+
+Verifying an identity claim has a neat answer with a bad consequence. Neat: "I
+am Maria" is itself a claim, so it corroborates and disputes like any other and
+needs no new machinery. Bad: the people who can confirm it are her own family,
+which is one lineage. Identity is the case where the independence rule is least
+able to help and the case where being wrong costs the most.
 
 ---
 
@@ -393,6 +494,18 @@ we made the official name primary.
 
 That is not neutral. The name on the deed and the name people use are often
 different, and which one leads is a small statement about whose record this is.
+
+## Naming people who can't answer
+
+Marking a place in someone's account is low stakes. Marking a person is not.
+
+Most people named in an oral history are dead. They did not consent, cannot
+correct the record, and their descendants may not agree with each other about
+what should be said. A person reference makes all of that permanent, searchable,
+and joined across every account that mentions them.
+
+Whether the archive should do it at all is a question for the families in it,
+not for whoever is writing the schema.
 
 ## Is this built for the community, or for people outside it?
 
