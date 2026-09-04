@@ -40,9 +40,6 @@ coverage
 # sponsor working files. Kept in the working copy, never committed — they hold
 # meeting notes, scheduling, and half-formed decisions that aren't anyone's
 # business but ours. Anything here that students need belongs in docs/ instead.
-NOTES.md
-CALENDAR.md
-OPEN-QUESTIONS.md
 pitch/
+internal/
 _to_delete/
-*.tgz

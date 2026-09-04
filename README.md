@@ -87,13 +87,13 @@ correct one.
 |---|---|---|
 | **Experience** | BYU-I | Living article renderer, design system, map, heritage trails, badges, contributor dashboard |
 | **Intelligence** | UofI | Claim graph model, weight propagation, trust framework, synthesis engine, exploration |
-| **Content capture** | BSU | Media pipeline, account submission, translation workflow, moderation |
+| **Content capture** | BSU | Media pipeline, account submission, translation workflow, moderation, and the contributing interface |
 | **Contracts & fixtures** | Sponsor | `packages/contracts`, `packages/fixtures` |
 
 Each layer has its own app or apps, so no two teams edit the same files:
 `apps/web` + `apps/ui-api` + `packages/read-model` for experience,
-`apps/graph-api` + `packages/db` for intelligence, `apps/capture-api` for
-content. [`README` files in each](./SETUP.md) say what goes where.
+`apps/graph-api` + `packages/db` for intelligence, `apps/capture-api` +
+`apps/capture-web` for content. [`README` files in each](./SETUP.md) say what goes where.
 
 Each school forks this repo into its own GitHub organization. All student work
 happens in the fork, for grading. Pull requests upstream are welcome and reviewed. That is the open-source

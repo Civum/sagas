@@ -1,7 +1,7 @@
 # Design questions
 
-Things in this codebase we know are wrong, or at least unsettled, and haven't
-decided what to do about.
+Things in this codebase that are wrong, or at least unsettled, with no decision
+made about them yet.
 
 This is not a list of bugs and it isn't a backlog. Every item here is a real
 question with arguments on both sides, written down so you can see the shape of
@@ -15,23 +15,23 @@ deliberate and aren't. The difference is written down here rather than left for
 you to guess.
 
 **Disagreeing with a decision is normal and welcome.** Most of these are here
-because we couldn't work out the answer, not because we're attached to the
+because I couldn't work out the answer, not because anyone is attached to the
 current one.
 
-**If you find a question we missed, add it.** A pull request that adds an entry
+**If you find a question this file missed, add it.** A pull request that adds an entry
 here is worth as much as one that changes code. Possibly more, because the next
 team reads this file too.
 
 The first three sections are sorted by how much conversation an answer needs.
-Part 4 is different: those are not ours to answer at all, and the section says
-why.
+Part 4 is different: those are not for this project to answer at all, and the
+section says why.
 
 ---
 
 # Part 1 — Answerable with a pull request
 
 Local, contained, and you don't need permission. Open a PR with your reasoning
-and we'll talk about it at a check-in.
+and bring it to a check-in.
 
 ## The three edge types are copy-pasted
 
@@ -40,8 +40,8 @@ and we'll talk about it at a check-in.
 `contributorId`, and `createdAt`. So do `affirmation` and `passover`.
 
 **Why:** so the whole model reads top to bottom without following an
-inheritance chain. Also because we wrote down the requirements rather than
-looking for the pattern behind them.
+inheritance chain. Also because it was written to the
+requirements rather than to the pattern behind them.
 
 **The problem:** five places to change when the shared part changes, and nothing
 stops them drifting. It also hides something true, which is that every one of
@@ -65,7 +65,7 @@ worse, not at all.
 'ClaimId' }`) at the cost of needing a cast every time you construct one from a
 plain string, which is often. Zod supports `.brand()`. Whether the friction is
 worth the safety depends on how much id-juggling the code ends up doing, which
-we don't know yet.
+nobody knows yet.
 
 ## `translationDispute` and `disputeEdge` are the same idea
 
@@ -114,7 +114,7 @@ on a date element. `1963-1964` sits next to "this would be 1963, 1964".
 normalises those into a year, and there is no period field on a claim.
 
 **Why:** there used to be one. It was a bucket like `depression_war_1930_1945`,
-chosen by whoever typed the account in, and we deleted it. It was a second,
+chosen by whoever typed the account in, and it was deleted. It was a second,
 coarser copy of information the excerpt already held, nothing read it, and half
 the values in the fixture were the scaffold guessing.
 
@@ -232,11 +232,16 @@ the test data as much as in the model.
 
 ---
 
-# Part 3 — Nobody has answered these
+# Part 3 — Open by design
 
-Open problems. Not homework, and not blocking anything. Here because they're
-where the project gets interesting, and because a good answer to any of them
-would be publishable.
+Left open on purpose. Not homework and not blocking anything, but this is where
+the project gets interesting, and a good answer to any of them would be
+publishable.
+
+Two kinds are mixed together here. Some nobody has solved anywhere. Others could
+be settled in this repo and deliberately are not, because designing them is the
+deliverable rather than a distraction from it. Either way the answer is yours to
+argue for.
 
 ## How do you tell a good source from a bad one?
 
@@ -300,7 +305,7 @@ You can see the hole in the code. `submissionState` runs from `draft` to
 `flag` has a `not_mine_to_share` reason, which is somebody raising exactly this
 problem, and nothing downstream knows what to do when that flag is upheld.
 
-We don't have an answer. It's the most likely thing to matter in practice.
+I don't have an answer. It's the most likely thing to matter in practice.
 
 ## Silence is not doubt
 
@@ -469,28 +474,29 @@ able to help and the case where being wrong costs the most.
 
 ---
 
-# Part 4 — Not ours to answer
+# Part 4 — Not for this project to answer
 
 Everything above this line is a question an engineer can reason about. These are
 not.
 
 They are decisions about how a community wants its own record kept, and no
-amount of care in this repository substitutes for asking. We have not asked. The
+amount of care in this repository substitutes for asking. That hasn't happened.
+The
 design so far was made without anybody from the community it is modelled on, and
 that is worth knowing while you read the rest of this file.
 
-**So this section is a commitment rather than a backlog.** We are not going to
-settle these by argument, and neither should you. A pull request answering one
+**So this section is a commitment rather than a backlog.** These do not get
+settled by argument, here or anywhere in this repo. A pull request answering one
 would be the exact presumption the section exists to name.
 
 What you can usefully do is notice when your work runs into one, and say so.
-"I built this and I think it assumes something we have not checked" is a good
+"I built this and I think it assumes something nobody has checked" is a good
 thing to bring to a check-in.
 
 ## Who decides what a place is called?
 
 A site has a formal `name` and a list of `aka`. Something had to be primary and
-we made the official name primary.
+the official name got it.
 
 That is not neutral. The name on the deed and the name people use are often
 different, and which one leads is a small statement about whose record this is.
@@ -512,8 +518,8 @@ not for whoever is writing the schema.
 Accounts render in English, with the original preserved underneath. That
 ordering assumes a reader who does not speak the original.
 
-The reverse is a coherent design and we did not consider it. Neither did we
-consider whether a community would want its record legible to outsiders at all.
+The reverse is a coherent design and it was never considered. Neither was
+whether a community would want its record legible to outsiders at all.
 
 ## Is family the right unit?
 
@@ -536,7 +542,8 @@ be restricted by role, by season, by initiation, or by kin. An archive with no
 way to express that is not neutral toward those communities. It is wrong for
 them, and confidently so.
 
-People have thought carefully about this and we have reinvented none of it. The
+People have thought carefully about this and none of it has been reinvented
+here. The
 CARE Principles for Indigenous Data Governance and the Local Contexts project
 are the places to start reading. If your work touches access, read them first.
 

@@ -9,6 +9,47 @@ something that should not be public. All of it arrives here.
 Designing this is the deliverable. Handing over a set of endpoints would hand
 over the decisions that make it interesting.
 
+## This semester
+
+The list below is the domain. This is the order.
+
+**The first month is one thing: upload, probe, ready.** A file goes to storage,
+a worker probes it, the record says `ready`. Everything else in this document is
+downstream of that working. Do not start with the moderation queue because it is
+more interesting.
+
+**You own the content tables.** Records, media, transcripts, translations,
+flags — the migrations are yours to write. Claims, edges, and derived state
+belong to the intelligence layer. You share a database and a contract, not a
+schema file. Without this split you would be waiting on a team at another
+university, and nobody here waits on anybody.
+
+**There is no authentication and you should not build any.** A contributor is a
+guest id generated in the browser and sent with the request. No login, no email,
+no password. This is deliberate and it is written up in
+[`docs/DESIGN-QUESTIONS.md`](../../docs/DESIGN-QUESTIONS.md) rather than
+forgotten about.
+
+**There is a browser app too** — `apps/capture-web`. Same team, same semester.
+An API is not something you can put in front of a person, and being able to do
+that is why this layer is here.
+
+**Nothing is hosted.** The stack runs locally. A demo is a laptop, and a session
+with somebody in the community is a laptop with a phone on the same wifi.
+
+**Translation: the record is never blocked.** Somebody contributing in a
+language other than English finishes, submits, and their account exists —
+pinned, attributed, on the map.
+`sourceRecord` has no language requirement; only `claim` does, and claims are
+another team's problem. Machine translation proposes a draft, a person confirms
+or replaces it, and `transcriptMethod` already has `machine_corrected` for
+exactly that. Which model to use is a real decision with a licence attached:
+NLLB-200 covers the most languages and is non-commercial, so it cannot ship;
+Whisper is MIT and goes straight from speech to English; Helsinki-NLP's
+`opus-mt-*` models are small and usually permissive, though pair coverage
+varies. Which languages matter is a question for the communities using this,
+not an assumption to bake in. Checking the licence is part of the job.
+
 ## What goes here, roughly
 
 - Submitting a record and attaching it to a place
