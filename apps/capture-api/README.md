@@ -176,7 +176,7 @@ picking one is your call. To turn it into a server:
 
 1. Add whatever you are using to `dependencies`
 2. Add a `dev` and a `start` script so `pnpm dev` picks it up
-3. Add a `test` script so CI runs it
+3. Add a `test` script so the automated checks run it
 4. `pnpm install` from the repo root
 
 `packages/contracts` is the smallest example of a package in this repo to copy

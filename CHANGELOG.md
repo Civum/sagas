@@ -47,16 +47,16 @@ it. This is the most useful field in the entry.
 
 **What:**
 
-- New app, `apps/capture-web` — the contributing interface. Ships empty, with a
-  README. Framework choice is the content team's.
-- New guide, `docs/START-CONTENT-LAYER.md` — what to read, what to ignore, what
-  to install, the first task, and how the months are shaped.
+- New app, `apps/capture-web`, the contributing interface. It ships empty with a
+  README, and the framework choice belongs to the content team.
+- New guide, `docs/START-CONTENT-LAYER.md`, covering what to read, what to
+  ignore, what to install, the first task, and how the months are shaped.
 - `apps/capture-api/README.md` gains a "This semester" section: ordering, table
   ownership, no authentication, no hosting, how translation works.
 - Editor config committed. `.vscode/extensions.json` recommends the extensions
   this repo expects; `.vscode/settings.json` turns on format-on-save and points
   TypeScript at the workspace version.
-- `docs/DESIGN-QUESTIONS.md` — Part 3 is now "Open by design" and Part 4 is "Not
+- `docs/DESIGN-QUESTIONS.md`. Part 3 is now "Open by design" and Part 4 is "Not
   for this project to answer". Four new entries on inherited trust, reference
   edges, the split between a person as record subject and as platform account,
   and naming people who can't consent.
