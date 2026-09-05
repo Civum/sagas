@@ -15,6 +15,13 @@ one is not, and this file should still make sense to next year's cohort.
 Changes land on Mondays and only on Mondays — see "When the contract changes" in
 the root README. Your fork is pinned, so nothing here reaches you until you pull.
 
+**Two kinds of entry.** A contract change carries a version number. A repo change
+— a new app, a new guide, tooling — carries a date only, because it doesn't move
+the contract. Both say who they affect, and both are worth a Monday glance.
+
+**Check this file every Monday.** If the **Affects** line doesn't name your
+layer, you can stop reading and get on with your week.
+
 ## Entry format
 
 ```
@@ -31,6 +38,38 @@ it. This is the most useful field in the entry.
 - *experience layer* — nothing, or the specific migration.
 - *intelligence layer* — nothing, or the specific migration.
 ```
+
+---
+
+## 2026-09-04 — repo change, no contract movement
+
+**Affects:** content layer · everyone, lightly
+
+**What:**
+
+- New app, `apps/capture-web` — the contributing interface. Ships empty, with a
+  README. Framework choice is the content team's.
+- New guide, `docs/START-CONTENT-LAYER.md` — what to read, what to ignore, what
+  to install, the first task, and how the months are shaped.
+- `apps/capture-api/README.md` gains a "This semester" section: ordering, table
+  ownership, no authentication, no hosting, how translation works.
+- Editor config committed. `.vscode/extensions.json` recommends the extensions
+  this repo expects; `.vscode/settings.json` turns on format-on-save and points
+  TypeScript at the workspace version.
+- `docs/DESIGN-QUESTIONS.md` — Part 3 is now "Open by design" and Part 4 is "Not
+  for this project to answer". Four new entries on inherited trust, reference
+  edges, the split between a person as record subject and as platform account,
+  and naming people who can't consent.
+- Root README notes the licence and how contributions are credited.
+
+**Why:** The content team started, and the repo had a domain description without
+an ordering. Everything here is about making the first week smaller.
+
+**You need to:**
+
+- *content layer* — read `docs/START-CONTENT-LAYER.md`. It replaces guessing.
+- *intelligence layer* — nothing yet. Your equivalent guide is coming.
+- *experience layer* — nothing yet.
 
 ---
 
