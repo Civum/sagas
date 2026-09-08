@@ -114,9 +114,19 @@ Everything above installed, and Docker actually running:
 ```bash
 pnpm install
 cp .env.example .env
+
+cd apps/capture-api
 pnpm db:up && pnpm db:verify
 pnpm storage:up && pnpm storage:verify
 ```
+
+The database and object storage belong to your app, so those commands live in
+`apps/capture-api` and run from there. The other two layers have their own, on
+their own ports, and nothing you start here touches theirs.
+
+`db:verify` prints the connection string for your database, which is
+`sagas_content` on port 5433. Uncomment that line in your `.env` and leave the
+other two alone.
 
 `SETUP.md` has the detail, including what to do when object storage won't start.
 Everything runs on your own machine. No accounts to create, no keys to request,
@@ -191,6 +201,11 @@ Three pieces, one per person:
 
 When somebody can type a paragraph into a browser and see it come back out of
 the database, you've built the spine of everything else. Uploads come next.
+
+Express, a connection pool and a migration runner are already in
+`apps/capture-api`, so none of your first week goes on choosing a framework or
+wiring configuration. `src/index.ts` is a placeholder with a comment describing
+the shape. The endpoint and the migration are the parts you write.
 
 **A note on why you own both sides.** Having the interface and the API on the
 same team is deliberate. Building the form is what tells you what the endpoint

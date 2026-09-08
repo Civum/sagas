@@ -35,6 +35,32 @@
  */
 
 /* ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------ */
+/* WHAT A FAILURE MEANS                                                 */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Every rule below is prefixed, and the prefix says how much weight to give it.
+ *
+ *   required           This project will not merge a scorer that fails one of
+ *                      these. Seven of them, and most are closer to definitions
+ *                      of a working function than positions on anything: the
+ *                      same input gives the same answer, the output is a real
+ *                      number, more disagreement does not raise a score.
+ *
+ *   open to argument   Something the sponsor currently thinks, written down so
+ *                      it is checkable instead of assumed. Three of them. A
+ *                      failure might be a bug in your scorer and it might be
+ *                      you disagreeing, and disagreeing is a check-in
+ *                      conversation rather than a quiet deletion.
+ *
+ * Worth saying plainly: this suite was drafted before any of it had been tried
+ * against a real account, and nobody here has solved the problem it is
+ * circling. It is a floor the sponsor is willing to defend, not a description
+ * of how scoring ought to work. The algorithm is yours, and these rules should
+ * not be the reason you build something a particular way.
+ */
+
 /* WHAT THESE RULES DO NOT COVER                                       */
 /* ------------------------------------------------------------------ */
 
@@ -51,9 +77,9 @@
  *   Can a chain of extensions feed back on itself, so that a claim ends up
  *   corroborating itself around a cycle?
  *
- *   Two people from different families who both heard it from the same original
- *   source are not independent. That is a path in the information graph and the
- *   model cannot currently express it, let alone check it.
+ *   Whether a family is the right unit, and how a system with no accounts
+ *   would ever observe one. `lineageId` is a hand-authored string that nothing
+ *   derives. Rules that asserted on it have been removed.
  *
  *   Nothing touches the reference graph at all, which is where "what makes a
  *   place significant" lives in docs/DESIGN-QUESTIONS.md.
@@ -127,12 +153,12 @@ export function runScoringRules(name: string, scorer: Scorer): void {
     /* Sanity                                                            */
     /* ---------------------------------------------------------------- */
 
-    it('gives the same answer twice for the same input', () => {
-      const input = withInput({ independentLineageCount: 2, affirmationCount: 3 });
+    it('required · gives the same answer twice for the same input', () => {
+      const input = withInput({ affirmationCount: 3, extensionCount: 1 });
       expect(scorer.weight(input)).toBe(scorer.weight(input));
     });
 
-    it('never returns a negative weight, NaN, or Infinity', () => {
+    it('required · never returns a negative weight, NaN, or Infinity', () => {
       const inputs = [
         BASE,
         withInput({ disputeCount: 50 }),
@@ -147,50 +173,12 @@ export function runScoringRules(name: string, scorer: Scorer): void {
     });
 
     /* ---------------------------------------------------------------- */
-    /* Three cousins are one source                                      */
-    /* ---------------------------------------------------------------- */
-
-    it('counts family lines above headcount', () => {
-      // Six people from the author's own family, versus two unrelated families.
-      const crowd = scorer.weight(withInput({ affirmationCount: 6, independentLineageCount: 0 }));
-      const spread = scorer.weight(withInput({ affirmationCount: 2, independentLineageCount: 2 }));
-      expect(spread).toBeGreaterThan(crowd);
-    });
-
-    it('gains more from one more family line than from one more person', () => {
-      const start = withInput({ affirmationCount: 2, independentLineageCount: 1 });
-      const perLine =
-        scorer.weight({ ...start, independentLineageCount: 2 }) - scorer.weight(start);
-      const perPerson = scorer.weight({ ...start, affirmationCount: 3 }) - scorer.weight(start);
-      expect(perLine).toBeGreaterThan(perPerson);
-    });
-
-    it('never calls a claim well corroborated on volume alone', () => {
-      // Twenty people, all from the author's family. Still one source.
-      const c = scorer.confidence({
-        independentLineageCount: 0,
-        disputeCount: 0,
-        awaitingTranslation: false,
-      });
-      expect(c).toBe('single_source');
-    });
-
-    /* ---------------------------------------------------------------- */
     /* Support never hurts                                               */
     /* ---------------------------------------------------------------- */
 
-    it('never lowers a weight because more families backed the claim', () => {
-      let previous = -1;
-      for (let lines = 0; lines <= 5; lines++) {
-        const w = scorer.weight(withInput({ independentLineageCount: lines }));
-        expect(w, `weight fell going from ${lines - 1} lines to ${lines}`).toBeGreaterThanOrEqual(previous);
-        previous = w;
-      }
-    });
-
-    it('never lowers a weight because somebody added context', () => {
-      const bare = scorer.weight(withInput({ independentLineageCount: 1 }));
-      const extended = scorer.weight(withInput({ independentLineageCount: 1, extensionCount: 2 }));
+    it('required · never lowers a weight because somebody added context', () => {
+      const bare = scorer.weight(withInput({ affirmationCount: 1 }));
+      const extended = scorer.weight(withInput({ affirmationCount: 1, extensionCount: 2 }));
       expect(extended).toBeGreaterThanOrEqual(bare);
     });
 
@@ -198,18 +186,18 @@ export function runScoringRules(name: string, scorer: Scorer): void {
     /* Contested is not the same as wrong                                */
     /* ---------------------------------------------------------------- */
 
-    it('keeps a well-supported contested claim above an unsupported quiet one', () => {
+    it('open to argument · keeps a well-supported contested claim above an unsupported quiet one', () => {
       // Disagreement usually means a claim matters. A scorer that buries
       // anything anyone argued with will bury the most important records here.
       const contested = scorer.weight(
-        withInput({ independentLineageCount: 3, disputeCount: 2, sourceTypeDiversity: 2 }),
+        withInput({ affirmationCount: 4, extensionCount: 3, disputeCount: 2, sourceTypeDiversity: 2 }),
       );
-      const quiet = scorer.weight(withInput({ independentLineageCount: 0 }));
+      const quiet = scorer.weight(withInput({ affirmationCount: 0, extensionCount: 0 }));
       expect(contested).toBeGreaterThan(quiet);
     });
 
-    it('does not drive a corroborated claim to zero with disputes alone', () => {
-      const w = scorer.weight(withInput({ independentLineageCount: 3, disputeCount: 3 }));
+    it('open to argument · does not drive a corroborated claim to zero with disputes alone', () => {
+      const w = scorer.weight(withInput({ affirmationCount: 3, extensionCount: 2, disputeCount: 3 }));
       expect(w).toBeGreaterThan(0);
     });
 
@@ -217,21 +205,21 @@ export function runScoringRules(name: string, scorer: Scorer): void {
     /* An account nobody has rendered yet                                */
     /* ---------------------------------------------------------------- */
 
-    it('holds an unrendered account outside the ordering, not below it', () => {
+    it('required · holds an unrendered account outside the ordering, not below it', () => {
       // Weight 0 means "there is nothing yet to compare this against", not
       // "this is worthless". Interfaces are told separately never to sort it
       // off the end of the page.
       expect(scorer.weight(withInput({ awaitingTranslation: true }))).toBe(0);
     });
 
-    it('lets an account into the ordering once somebody renders it', () => {
-      const before = withInput({ awaitingTranslation: true, independentLineageCount: 1 });
+    it('open to argument · lets an account into the ordering once somebody renders it', () => {
+      const before = withInput({ awaitingTranslation: true, affirmationCount: 1 });
       const after = { ...before, awaitingTranslation: false };
       expect(scorer.weight(before)).toBe(0);
       expect(scorer.weight(after)).toBeGreaterThan(0);
     });
 
-    it('does not claim an unrendered account is well supported', () => {
+    it('required · does not claim an unrendered account is well supported', () => {
       // Nothing can corroborate an account nobody has read yet.
       const c = scorer.confidence({
         independentLineageCount: 0,
@@ -245,10 +233,10 @@ export function runScoringRules(name: string, scorer: Scorer): void {
     /* More disagreement never helps                                     */
     /* ---------------------------------------------------------------- */
 
-    it('never raises a weight because more people disputed the claim', () => {
+    it('required · never raises a weight because more people disputed the claim', () => {
       let previous = Infinity;
       for (let disputes = 0; disputes <= 5; disputes++) {
-        const w = scorer.weight(withInput({ independentLineageCount: 3, disputeCount: disputes }));
+        const w = scorer.weight(withInput({ affirmationCount: 3, disputeCount: disputes }));
         expect(w, `weight rose going from ${disputes - 1} disputes to ${disputes}`).toBeLessThanOrEqual(previous);
         previous = w;
       }
@@ -277,7 +265,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
       })),
     );
 
-    it('survives every claim shape in the fixtures', () => {
+    it('required · survives every claim shape in the fixtures', () => {
       // Empty element arrays, unrendered accounts, claims with no affirmations
       // at all. Real data has holes in it and a scorer must not throw or return
       // nonsense on any of them.
@@ -288,38 +276,5 @@ export function runScoringRules(name: string, scorer: Scorer): void {
       }
     });
 
-    it('never ranks a lone voice above a better-backed claim on real data', () => {
-      // For every pair in the fixtures where one claim is backed by strictly
-      // more families and argued with no more, the better-backed one has to
-      // score at least as high. This is the whole point of the model.
-      const scored = realClaims
-        .filter(({ input }) => !input.awaitingTranslation)
-        .map((c) => ({ ...c, weight: scorer.weight(c.input) }));
-
-      for (const a of scored) {
-        for (const b of scored) {
-          if (a.input.independentLineageCount <= b.input.independentLineageCount) continue;
-          if (a.input.disputeCount > b.input.disputeCount) continue;
-          if (a.input.sourceType !== b.input.sourceType) continue;
-          expect(
-            a.weight,
-            `${a.id} (${a.input.independentLineageCount} lines) scored below ` +
-              `${b.id} (${b.input.independentLineageCount} lines)`,
-          ).toBeGreaterThanOrEqual(b.weight);
-        }
-      }
-    });
-
-    it('never calls a real claim well corroborated when no other family backed it', () => {
-      for (const { id, input } of realClaims) {
-        if (input.independentLineageCount > 0) continue;
-        const c = scorer.confidence({
-          independentLineageCount: input.independentLineageCount,
-          disputeCount: input.disputeCount,
-          awaitingTranslation: input.awaitingTranslation,
-        });
-        expect(c, id).not.toBe('well_corroborated');
-      }
-    });
   });
 }

@@ -18,19 +18,10 @@
     "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
-    "db:up": "docker compose up -d --wait",
-    "db:down": "docker compose down",
-    "db:reset": "bash scripts/reset-volume.sh postgres",
-    "db:verify": "bash scripts/verify-db.sh",
-    "db:psql": "docker exec -it sagas-postgres psql -U sagas -d sagas",
-    "storage:up": "docker compose --profile media up -d minio",
-    "storage:down": "docker compose --profile media stop minio",
-    "storage:reset": "bash scripts/reset-volume.sh minio",
-    "storage:verify": "bash scripts/verify-storage.sh",
-    "storage:mc": "docker compose --profile media run --rm mc",
     "inspect": "pnpm --filter @sagas/fixtures inspect",
     "rules": "pnpm --filter @sagas/fixtures rules",
-    "acceptance": "turbo run acceptance"
+    "acceptance": "turbo run acceptance",
+    "db:up": "node -e \"console.error(`\\nEach layer has its own database now.\\n\\n  content       pnpm --filter @sagas/capture-api db:up\\n  intelligence  pnpm --filter @sagas/graph-api   db:up\\n  experience    pnpm --filter @sagas/ui-api      db:up\\n\\nSee the start guide for your layer.\\n`); process.exit(1)\""
   },
   "devDependencies": {
     "@sagas/prettier-config": "workspace:*",

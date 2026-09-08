@@ -18,11 +18,11 @@ a worker probes it, the record says `ready`. Everything else in this document is
 downstream of that working. Do not start with the moderation queue because it is
 more interesting.
 
-**You own the content tables.** Records, media, transcripts, translations,
-flags — the migrations are yours to write. Claims, edges, and derived state
-belong to the intelligence layer. You share a database and a contract, not a
-schema file. Without this split you would be waiting on a team at another
-university, and nobody here waits on anybody.
+**You own your database.** Records, media, transcripts, translations,
+flags. The schema and the migrations are yours, they live in this app, and no
+other team touches them. The other two layers run their own databases shaped for
+their own problems. What lines up between all three is the contract, not the
+tables, which is why nobody here waits on anybody.
 
 **There is no authentication and you should not build any.** A contributor is a
 guest id generated in the browser and sent with the request. No login, no email,
@@ -164,20 +164,74 @@ This app is yours alone. `apps/graph-api` belongs to the intelligence layer and
 `apps/ui-api` to the experience layer. They are separate apps so that no two
 teams edit the same files, and so each can be deployed on its own terms.
 
-You share a database with the intelligence layer and a contract with everyone.
-The contract is the thing to be careful about: a change to `@sagas/contracts` or
-`@sagas/fixtures` reaches every team, so it goes through a pull request and a
-check-in rather than into your fork. See `docs/GIT.md`.
+Your database is yours alone. Each layer runs its own, shaped for its own
+problem, and none of them reads another's tables. The only thing shared across
+all three is the contract, which is the thing to be careful about: a change to
+`@sagas/contracts` or `@sagas/fixtures` reaches every team, so it goes through a
+pull request and a check-in rather than into your fork. See `docs/GIT.md`.
 
-## Making it a real app
+## What is already here
 
-It is a package with a placeholder in `src/index.ts` and no framework, because
-picking one is your call. To turn it into a server:
+You do not have to choose a framework or wire up configuration. Express is
+installed, `src/db.ts` holds a shared connection pool, and `scripts/migrate.ts`
+applies numbered SQL files from `migrations/`. `src/index.ts` is a placeholder
+with a comment describing the shape of the first endpoint.
 
-1. Add whatever you are using to `dependencies`
-2. Add a `dev` and a `start` script so `pnpm dev` picks it up
-3. Add a `test` script so the automated checks run it
-4. `pnpm install` from the repo root
+```bash
+pnpm install
+cp .env.example .env      # then uncomment the sagas_content line
 
-`packages/contracts` is the smallest example of a package in this repo to copy
-patterns from.
+cd apps/capture-api
+pnpm db:up && pnpm db:verify
+```
+
+Your database is `sagas_content` on port 5433, and `db:verify` prints the
+connection string for it.
+
+Once you have written a migration and an endpoint:
+
+```bash
+pnpm migrate
+pnpm dev
+```
+
+## The decisions already made
+
+Three, so you can start building rather than evaluating. If any of them turns
+out to be wrong we change it together, at a check-in.
+
+**Express 5.** A route handler reads as an ordinary function that takes a
+request and returns a response, which is the thing worth understanding first.
+Version 5 specifically, because when an async handler throws, version 5 hands
+the error to your error middleware and version 4 silently hung the request
+forever. You will write async handlers for every database call, so this matters
+more than it sounds.
+
+Most tutorials you find will be for Express 4. Almost all of it transfers
+unchanged. The handful that will not: `app.del()` is now `app.delete()`,
+`res.sendfile()` is now `res.sendFile()`, `res.json(obj, status)` is now
+`res.status(status).json(obj)`, and `req.param(name)` is gone in favour of
+reading `req.params`, `req.body` or `req.query` directly.
+
+**`pg`, with SQL written out.** No query builder and no object relational
+mapper. SQL is the thing at least one of you already knows, and a layer on top
+of it would hide the part you are strongest at. It also means the migrations and
+the endpoints are the same subject rather than two.
+
+Two rules that come with it. Use `$1`, `$2`, `$3` placeholders and pass values
+as the second argument, never string concatenation, so nothing somebody typed is
+ever read as SQL. And use the shared `Pool` from `src/db.ts` rather than making a
+`Client`, because a single client serialises every request behind the one before
+it and you find out the first time two people submit at once.
+
+**Numbered SQL files for migrations**, applied by `scripts/migrate.ts`. There
+are tools that do this and the runner is here instead so the mechanism is
+visible. It is about forty lines, it applies each file once inside a
+transaction, and it records what it applied. Add `002_media.sql` and so on
+beside `001_records.sql`.
+
+## The schema
+
+There is none. Records, media, transcripts, translations and flags are all
+yours to design, and the columns come from `packages/contracts/src/model.ts`.
+When the contract and a table disagree, the contract is right.

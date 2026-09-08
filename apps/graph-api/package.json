@@ -9,19 +9,27 @@
   "scripts": {
     "clean": "git clean -xdf .cache .turbo node_modules",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run",
+    "db:up": "docker compose up -d --wait postgres",
+    "db:down": "docker compose stop postgres",
+    "db:verify": "bash ../../scripts/verify-db.sh sagas-intelligence-db 5434 sagas_intelligence",
+    "db:reset": "bash ../../scripts/reset-volume.sh postgres intelligence-pgdata",
+    "db:psql": "docker exec -it sagas-intelligence-db psql -U sagas -d sagas_intelligence"
   },
   "dependencies": {
-    "@sagas/contracts": "workspace:*"
+    "@sagas/contracts": "workspace:*",
+    "@sagas/fixtures": "workspace:*"
   },
   "devDependencies": {
-    "@sagas/tsconfig": "workspace:*",
-    "@sagas/prettier-config": "workspace:*",
     "@sagas/eslint-config": "workspace:*",
+    "@sagas/prettier-config": "workspace:*",
+    "@sagas/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "prettier": "@sagas/prettier-config"
 }

@@ -2,20 +2,24 @@
 
 Home for the database schema and migrations. Nothing here yet.
 
-## Two databases, not one
+## One database per layer, not one for everybody
 
-The experience layer runs its own small Postgres, seeded from the fixtures, so
-the interface is built against a database rather than a file. That one is a read
-model. It is shaped for map queries and article pages, it lives with `apps/web`,
-and it is that team's own work.
+Three databases, one per team, and none of them reads another's tables.
 
-This package is the other one: the authoritative store for records,
-contributions, and the graph derived from them. Designing it is the intelligence
-layer's deliverable, and the content layer's capture work lands in it.
+The experience layer runs a small Postgres seeded from the fixtures, so the
+interface is built against a database rather than a file. That one is a read
+model, shaped for map queries and article pages, and it lives with `apps/web`.
 
-These are different problems and forcing them into one schema this semester
-would make both worse. What has to line up is the contract between them, not the
-tables.
+The content layer runs its own, for what people hand over. Records, media,
+transcripts, translations, flags. Those tables live with `apps/capture-api`.
+
+This package is the third: the store for claims, edges, contributors and the
+graph derived from them. Designing it is the intelligence layer's deliverable.
+
+These are three different problems and forcing them into one schema this
+semester would make all three worse. It also means no team can be blocked by
+another team's migration. What has to line up is the contract between them,
+never the tables.
 
 ## Why it's empty
 
@@ -75,15 +79,22 @@ import { myScorer } from '../src/my-scorer';
 runScoringRules('my scorer', myScorer);
 ```
 
-`pnpm rules` runs it. Sixteen rules, and they have teeth: a scorer that ranks by
-how many people showed up fails three of them, one that buries anything anyone
-argued with fails two, and a sign error on disputes fails two more.
+`pnpm rules` runs it. Ten rules, and each is prefixed. Seven say `required`,
+meaning any model worth having satisfies them and a failure is a bug. Three say
+`open to argument`, meaning we picked a calibration and wrote it down so it is
+checkable rather than assumed, and a failure there might be you disagreeing with
+us. If you think one of those three is wrong, that is a check-in conversation
+and a good one.
 
 The rules exist because this is a system that can go quietly wrong while every
-ordinary unit test passes. A scorer that lets a large family outrank a
-better-supported account from a small one is not buggy in any way a normal test
-would catch. It just produces an archive that agrees with whoever was already
-loudest.
+ordinary unit test passes. A scorer that buries anything somebody argued with is
+not buggy in any way a normal test would catch. It just produces an archive
+where the uncontested version wins by default, which is the opposite of the
+point.
+
+Read the block at the top of that file about what the rules do not cover before
+you treat a green run as a sound algorithm. Every rule is a property of one
+claim's own numbers. None of them know what an edge is.
 
 Look at what the scorer is given, and more importantly what it is not. There is
 no author in the input: no name, no id, no standing, no join date. That absence
@@ -98,7 +109,9 @@ same list, and a rule only some teams follow is not a rule.
 ## Getting a database running
 
 ```bash
-pnpm db:up        # Postgres 16 with PostGIS, on port 5433
+cd apps/graph-api
+
+pnpm db:up        # Postgres 16 with PostGIS, on port 5434
 pnpm db:verify    # confirms it works and prints your connection string
 pnpm db:psql      # a psql shell inside the container
 ```

@@ -48,7 +48,7 @@ If you think a rule is wrong, and some of them may be, open a pull request
 against it with your reasoning rather than editing it in your fork. Every team
 is held to the same list, and a rule only some teams follow is not a rule.
 
-**Sixteen passing rules is not a sound algorithm.** Every one of them is a
+**Ten passing rules is not a sound algorithm.** Every one of them is a
 property of a scalar function over one claim's own inputs, and none of them know
 what an edge is. Whether support travels along extensions, whether a cycle can
 let a claim corroborate itself, whether two people who heard it from the same
@@ -105,14 +105,34 @@ This app is yours alone. `apps/capture-api` belongs to the content layer and
 `apps/ui-api` to the experience layer. They are separate apps so that no two
 teams edit the same files, and so each can be deployed on its own terms.
 
-You share a database with the content layer: they capture records, you read the
-graph built from them. `packages/db` is the authoritative store and designing it
-is your deliverable.
+Your database is yours alone, and `packages/db` is where its schema and
+migrations live. Designing it is your deliverable. The content layer runs its
+own database for what people hand over, and the experience layer runs a read
+model for rendering. None of the three reads another's tables. What lines up
+between them is the contract.
+
+## Your first week
+
+`src/scorer.test.ts` holds an empty `Scorer` whose methods throw `not
+implemented`, with the ten rules from `packages/fixtures/behaviour` running
+against it. Every rule fails until you fill it in.
+
+```bash
+pnpm --filter @sagas/graph-api test
+```
+
+Fill in `weight` and `confidence` until nothing fails. Read the rules first,
+because they are the closest thing to a specification you will get and each
+failure names what it thinks you got wrong.
+
+There is no database work in this. That is October.
 
 ## Making it a real app
 
-It is a package with a placeholder in `src/index.ts` and no framework, because
-picking one is your call. To turn it into a server:
+There is a placeholder in `src/index.ts` and no server framework, because that
+is not a September question: your first month has no HTTP in it. Decide it at a
+check-in in October. The content layer is on Express 5 and copying that is a
+perfectly reasonable answer. To turn this into a server:
 
 1. Add whatever you are using to `dependencies`
 2. Add a `dev` and a `start` script so `pnpm dev` picks it up

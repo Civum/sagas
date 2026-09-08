@@ -9,18 +9,37 @@
   "scripts": {
     "clean": "git clean -xdf .cache .turbo node_modules",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint"
+    "lint": "eslint",
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "migrate": "tsx scripts/migrate.ts",
+    "db:up": "docker compose up -d --wait postgres",
+    "db:down": "docker compose stop postgres",
+    "db:verify": "bash ../../scripts/verify-db.sh sagas-content-db 5433 sagas_content",
+    "db:reset": "bash ../../scripts/reset-volume.sh postgres content-pgdata",
+    "db:psql": "docker exec -it sagas-content-db psql -U sagas -d sagas_content",
+    "storage:up": "docker compose up -d --wait minio",
+    "storage:down": "docker compose stop minio",
+    "storage:verify": "bash ../../scripts/verify-storage.sh",
+    "storage:reset": "bash ../../scripts/reset-volume.sh minio minio-data",
+    "storage:mc": "docker compose --profile tools run --rm mc"
   },
   "dependencies": {
-    "@sagas/contracts": "workspace:*"
+    "@sagas/contracts": "workspace:*",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "pg": "^8.13.1"
   },
   "devDependencies": {
-    "@sagas/tsconfig": "workspace:*",
-    "@sagas/prettier-config": "workspace:*",
     "@sagas/eslint-config": "workspace:*",
+    "@sagas/prettier-config": "workspace:*",
+    "@sagas/tsconfig": "workspace:*",
+    "@types/express": "^5.0.0",
     "@types/node": "catalog:",
+    "@types/pg": "^8.11.10",
     "eslint": "catalog:",
     "prettier": "catalog:",
+    "tsx": "catalog:",
     "typescript": "catalog:"
   },
   "prettier": "@sagas/prettier-config"

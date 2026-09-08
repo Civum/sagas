@@ -1,0 +1,40 @@
+# The experience layer's local stack. Yours to change.
+#
+#   pnpm --filter @sagas/ui-api db:up       start it
+#   pnpm --filter @sagas/ui-api db:verify   confirm it works
+#   pnpm --filter @sagas/ui-api db:down     stop it, data survives
+#   pnpm --filter @sagas/ui-api db:reset    delete the data and start over
+#
+# This one is a read model: a database shaped for map queries and article pages
+# rather than for storing the authoritative record. The other two layers have
+# their own files on their own ports, so nothing you do here can break their
+# setup and nothing they do can break yours.
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: sagas-experience-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sagas
+      POSTGRES_PASSWORD: sagas
+      POSTGRES_DB: sagas_read
+    ports:
+      # Bound to 127.0.0.1 on purpose. Docker publishes on every interface by
+      # default, which would put a database with the password "sagas" on
+      # whatever network you are sitting on.
+      #
+      # 5435 on the host. Content uses 5433 and intelligence uses 5434, so all
+      # three can run at once without colliding.
+      - "127.0.0.1:5435:5432"
+    volumes:
+      - experience-pgdata:/var/lib/postgresql/data
+      - ./docker/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sagas -d sagas_read"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  experience-pgdata:

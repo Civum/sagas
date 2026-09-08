@@ -114,7 +114,7 @@ with its own `package.json`, and they refer to each other by name.
 | `packages/read-model` | Experience | Data access shared by the two above. Reads fixtures today, wants a database. | First infrastructure job on that layer. |
 | `apps/capture-api` | Content | Submission, uploads, transcription and moderation. Empty. | Always. This is the layer. |
 | `apps/graph-api` | Intelligence | Scoring, the graph, geographic queries. Empty. | Always. This is the layer. |
-| `packages/db` | Intelligence | The authoritative store. Schema, migrations, spatial indexes. Empty. | Before you design any tables. |
+| `packages/db` | Intelligence | Claims, edges, and the graph derived from them. Schema, migrations, spatial indexes. Empty. | Before you design any tables. |
 | `packages/contracts` | Sponsor | The shapes, defined once, with the reasoning next to each one. | Constantly. Read it before you build anything. |
 | `packages/fixtures` | Sponsor | Invented data, the states derived from it, and the rules your code has to obey. | Before you call anything done. |
 | `tooling/*` | Shared | ESLint, Prettier, Tailwind, TypeScript and CI config. | Rarely, and think before you change it. |
@@ -126,10 +126,11 @@ contributions, four snapshots calculated from it, a list of situations your
 interface has to handle, and a suite of rules any scoring implementation has to
 pass. See below.
 
-**`packages/db` and `packages/read-model` are two different databases on
-purpose.** One is the authoritative store, one is a read model shaped for map
-and article queries, and they belong to different teams.
-`packages/db/README.md` explains the split.
+**Each layer runs its own database on purpose.** The content layer stores what
+people hand over, the intelligence layer stores claims and the graph derived
+from them, and the experience layer runs a read model shaped for map and article
+queries. None of them reads another's tables, so no team can be blocked by
+another team's migration. `packages/db/README.md` explains the split.
 
 ## The fixtures are the contract
 
@@ -194,10 +195,11 @@ require a key you don't have, that's a bug in the scaffold. Tell us.
 - **A synthesis engine.** Nothing works out what a narrative should say. The
   experience layer reads derived graph states, which is enough to build every
   view in its scope, and the intelligence layer builds the real thing later.
-- **Any database schema.** Two teams design one. The experience layer needs a
-  read model shaped for map and article queries; the intelligence layer needs the
-  authoritative store. The shapes in `@sagas/contracts` are the constraint, and
-  how they get persisted is the work.
+- **Any database schema.** Each team designs their own. The experience layer
+  needs a read model shaped for map and article queries, the intelligence layer
+  needs a store for claims and the graph, and the content layer needs one for
+  what people hand over. The shapes in `@sagas/contracts` are the constraint,
+  and how they get persisted is the work.
 - **An upload pipeline.** Object storage is running and empty. Presigned
   uploads, transcoding, and metadata extraction are the content layer's build.
 - **A weight propagation algorithm.** `packages/fixtures/src/weight.ts` is

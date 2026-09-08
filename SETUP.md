@@ -73,35 +73,42 @@ Notes:
 
 ## Getting a database
 
-The experience and intelligence layers both need this. They run separate
-databases for different jobs, and `packages/db/README.md` explains which is
-which.
+Every layer needs one, and every layer has its own. Three containers on three
+ports, each defined by a `docker-compose.yml` sitting next to the app that owns
+it. They can all run at once without colliding, and nothing one team changes can
+break another team's setup.
+
+| Layer | Where it lives | Port | Database |
+|---|---|---|---|
+| Content | `apps/capture-api` | 5433 | `sagas_content` |
+| Intelligence | `apps/graph-api` | 5434 | `sagas_intelligence` |
+| Experience | `apps/ui-api` | 5435 | `sagas_read` |
+
+Change into your app's directory and the commands are the same whichever layer
+you are on:
 
 ```bash
+cd apps/capture-api   # or graph-api, or ui-api
+
 pnpm db:up        # start Postgres 16 with PostGIS
 pnpm db:verify    # confirm it's actually working
-```
-
-`db:verify` prints your Postgres and PostGIS versions and the connection string
-to paste into `.env`. If something's wrong it tells you what to do rather than
-printing a stack trace.
-
-Other commands:
-
-```bash
 pnpm db:down      # stop it, keep the data
-pnpm db:reset     # delete the database data, leaves object storage alone
+pnpm db:reset     # delete this layer's data and start over
 pnpm db:psql      # open a psql shell inside the container
 ```
 
+`db:verify` prints your Postgres and PostGIS versions and the connection string
+to paste into `.env`. If something is wrong it tells you what to do rather than
+printing a stack trace.
+
 **The database is empty on purpose.** There are no application tables. Designing
-the schema, the relations, the spatial indexes, and the migrations is a
+the schema, the relations, the spatial indexes and the migrations is a
 deliverable, and a scaffold that handed it over would be doing your work. What
 you get is Postgres with PostGIS and `pg_trgm` already enabled, so you can start
 designing instead of fighting extension installs.
 
-It runs on host port **5433**, not 5432, so it won't collide with a Postgres you
-may already have running.
+The ports start at 5433 rather than 5432 so they do not collide with a Postgres
+you may already be running.
 
 ---
 
@@ -116,23 +123,20 @@ part of it out to let somebody seek in an audio player. Media goes in object
 storage and the database keeps a key pointing at it.
 
 ```bash
+cd apps/capture-api
+
 pnpm storage:up        # start it
 pnpm storage:verify    # confirm it works, make the bucket, print your env vars
-```
-
-`storage:verify` is safe to run repeatedly. It creates the bucket if it is
-missing and prints what to paste into `.env`.
-
-Other commands:
-
-```bash
 pnpm storage:down      # stop it, keep the data
 pnpm storage:reset     # delete the storage data, leaves your database alone
 pnpm storage:mc        # list what is in the bucket
 ```
 
-It runs behind a compose profile, so `pnpm db:up` stays a single container for
-the teams who only need a database.
+`storage:verify` is safe to run repeatedly. It creates the bucket if it is
+missing and prints what to paste into `.env`.
+
+It is defined in the content layer's own compose file, so the other two layers
+never start it and never need to know it exists.
 
 ### What it is and why it doesn't matter much
 
@@ -267,11 +271,14 @@ In order of likelihood:
   the most common one by a wide margin.
 - **A workspace import doesn't resolve.** Run `pnpm install` again from the
   repo root, not from inside a package.
-- **`db:verify` says the container isn't running.** Run `pnpm db:up`, wait,
+- **`db:verify` says the container isn't running.** From your app's directory,
+  run `pnpm db:up`, wait,
   and try again.
 - **`db:verify` or `storage:verify` says a port isn't published.** Something
-  else on your machine is already using 5433 or 9000. Find it with
-  `lsof -i :5433`, stop it, and start the container again.
+  else on your machine is already using your layer's port. Find it with
+  `lsof -i :5433` for content, `:5434` for intelligence, `:5435` for
+  experience, or `:9000` for object storage. Stop it and start the container
+  again.
 - **Uploads work and then the file 404s.** You stored a presigned URL somewhere
   instead of generating one when it was asked for. See `apps/capture-api/README.md`.
 - **`ffprobe: command not found`.** ffmpeg isn't installed. See the object

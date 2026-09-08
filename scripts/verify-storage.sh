@@ -2,8 +2,8 @@
 # Confirms object storage is up, reachable from your machine, and has a bucket.
 # Makes the bucket if it is missing, so running this twice is safe.
 #
-# Only the content layer needs this. If you are not working on submission or
-# media upload, skip it.
+# Only the content layer has this. It runs from apps/capture-api, alongside
+# that layer's database, and no other layer has an object storage service.
 set -uo pipefail
 
 CONTAINER=sagas-minio
@@ -12,13 +12,13 @@ API_PORT=9000
 
 if ! command -v docker >/dev/null 2>&1; then
   echo "✗ docker is not installed or not on PATH."
-  echo "  Install Docker Desktop, then run: pnpm storage:up"
+  echo "  Install Docker Desktop, then run: pnpm --filter @sagas/capture-api storage:up"
   exit 1
 fi
 
 if ! docker ps --format '{{.Names}}' | grep -qx "$CONTAINER"; then
   echo "✗ the '$CONTAINER' container is not running."
-  echo "  Run: pnpm storage:up"
+  echo "  Run: pnpm --filter @sagas/capture-api storage:up"
   echo
   echo "  If it will not start at all, you are not stuck. See the fallbacks in"
   echo "  SETUP.md under 'When object storage will not run'."
@@ -42,13 +42,13 @@ fi
 
 # Everything below runs inside the compose network, so you do not need an S3
 # client installed on your machine.
-run_mc() { docker compose --profile media run --rm -T mc "$1" 2>&1; }
+run_mc() { docker compose --profile tools run --rm -T mc "$1" 2>&1; }
 
 # Bounded wait. An unbounded one turns "storage is broken" into "the terminal
 # hangs forever", which is a worse thing to hand somebody on their first day.
 if ! run_mc 'for i in $(seq 1 20); do mc ls local >/dev/null 2>&1 && exit 0; sleep 1; done; exit 1' >/dev/null; then
   echo "✗ storage is running but did not accept a request within 20 seconds."
-  echo "  Try: pnpm storage:reset && pnpm storage:up"
+  echo "  Try: storage:reset then storage:up for the content layer."
   exit 1
 fi
 

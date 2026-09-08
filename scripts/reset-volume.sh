@@ -1,27 +1,21 @@
 #!/usr/bin/env bash
-# Throws away one service's data without touching the other's.
+# Throws away one service's data without touching anything else.
 #
 # `docker compose down -v` deletes every volume in the project, so resetting
-# storage would take your database with it. This removes one container and one
-# volume by name.
+# object storage would take the database with it. This removes one container and
+# one volume by name.
 #
-#   bash scripts/reset-volume.sh postgres
-#   bash scripts/reset-volume.sh minio
+# Called by each layer's own db:reset script, from that layer's directory:
+#
+#   bash ../../scripts/reset-volume.sh postgres content-pgdata
 set -euo pipefail
 
-SERVICE="${1:-}"
-case "$SERVICE" in
-  postgres) VOLUME_MATCH="sagas-pgdata"; PROFILE=() ;;
-  minio)    VOLUME_MATCH="sagas-minio";  PROFILE=(--profile media) ;;
-  *)
-    echo "Usage: bash scripts/reset-volume.sh [postgres|minio]"
-    exit 1
-    ;;
-esac
+SERVICE="${1:?service name required}"
+VOLUME_MATCH="${2:?volume name required}"
 
-echo "This deletes all $SERVICE data. The other service is left alone."
+echo "This deletes all $SERVICE data for this layer. Nothing else is touched."
 
-docker compose "${PROFILE[@]}" rm -sf "$SERVICE" >/dev/null 2>&1 || true
+docker compose rm -sf "$SERVICE" >/dev/null 2>&1 || true
 
 # The volume is named <project>_<volume>, and the project name comes from the
 # directory, so match on the part we control rather than guessing the prefix.
@@ -33,4 +27,4 @@ fi
 
 echo "$VOLUMES" | xargs -r docker volume rm >/dev/null
 echo "✓ removed: $VOLUMES"
-echo "  Start it again with: pnpm $( [ "$SERVICE" = minio ] && echo storage:up || echo db:up )"
+echo "  Start it again with db:up for your layer."

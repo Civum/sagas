@@ -41,8 +41,12 @@ makes the map feel slow.
 ## Where to start
 
 ```bash
+cd apps/ui-api
 pnpm db:up && pnpm db:verify
 ```
+
+Your read model runs on port 5435 in a container defined by this app's own
+`docker-compose.yml`. The other two layers have their own on 5433 and 5434.
 
 1. `packages/read-model/src/index.ts` — the seam, and the comments on what each
    function becomes with a database behind it.
