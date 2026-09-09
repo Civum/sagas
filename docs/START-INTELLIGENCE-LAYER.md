@@ -266,9 +266,10 @@ answer if you want the path of least resistance.
 ## One thing worth saying plainly
 
 This is an open source project, which means it is never finished and you are not
-expected to finish it. The problem you have been handed is genuinely unsolved,
-which is why it is worth a year. A good answer to any question in Part 3 of
-`docs/DESIGN-QUESTIONS.md` would be publishable, and I mean that literally
-rather than as encouragement.
+expected to finish it.
+
+The questions in Part 3 of `docs/DESIGN-QUESTIONS.md` are where the work is.
+Open there means I do not have an answer. I have not looked into whether anyone
+else does, and your faculty advisor would know more about that than I do.
 
 Build a small thing that works rather than a large thing that nearly does.

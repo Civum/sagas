@@ -235,11 +235,13 @@ the test data as much as in the model.
 # Part 3 — Open by design
 
 Left open on purpose. Not homework and not blocking anything, but this is where
-the project gets interesting, and a good answer to any of them would be
-publishable.
+the project gets interesting.
 
-Two kinds are mixed together here. Some nobody has solved anywhere. Others could
-be settled in this repo and deliberately are not, because designing them is the
+Open here means I do not have an answer. I have not looked into whether anyone
+else does.
+
+Two kinds are mixed together. Some I have no answer to at all. Others could be
+settled in this repo and deliberately are not, because designing them is the
 deliverable rather than a distraction from it. Either way the answer is yours to
 argue for.
 
