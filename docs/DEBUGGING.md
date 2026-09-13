@@ -13,7 +13,7 @@ genuine error went unreported. We told the sponsor everything passed. It did
 not.
 
 Turbo caches by hashing a task's inputs. When it decides nothing relevant
-changed, it replays the previous output — including the previous *success* —
+changed, it replays the previous output, including the previous *success*,
 without running anything.
 
 **`FULL TURBO` in the output means nothing ran.** That is the moment to be
@@ -48,7 +48,7 @@ Worse than a stale pass: a task that does not exist.
 `turbo run lint` on a package with no `lint` script does nothing and exits
 zero. Turbo reports success. CI goes green. Nothing was checked.
 
-We shipped that for a while — no package had a `lint` script, so `pnpm lint`
+We shipped that for a while. No package had a `lint` script, so `pnpm lint`
 found zero tasks, exited zero, and CI displayed a passing check that verified
 nothing. When it was wired up properly it found 28 real errors.
 
@@ -86,7 +86,7 @@ A variable without that prefix is server-only and is `undefined` in the
 browser. One with it is compiled into the client bundle and is visible to
 anyone who opens devtools.
 
-That is why the Mapbox token is `NEXT_PUBLIC_MAPBOX_TOKEN` — it has to reach the
+That is why the Mapbox token is `NEXT_PUBLIC_MAPBOX_TOKEN`. It has to reach the
 browser. It is also why you must never prefix anything you would mind a stranger
 reading.
 
@@ -152,8 +152,8 @@ git add pnpm-lock.yaml
 
 There is a pre-commit hook that catches this, in `.githooks/pre-commit`. It is
 enabled automatically by `pnpm install`. It compares the dependency maps before
-and after, so renaming a script or editing a description will not stop you —
-only an actual dependency change without the lockfile. `git commit --no-verify`
+and after, so renaming a script or editing a description will not stop you. Only
+an actual dependency change without the lockfile will. `git commit --no-verify`
 skips it either way.
 
 This one bit us, which is why both the hook and this entry exist.
@@ -173,7 +173,7 @@ resolution bug.
 
 ---
 
-## The general shape of it
+## What all of these have in common
 
 All of these are one mistake: **believing a tool that was not asked to check.**
 
@@ -181,5 +181,5 @@ A cached pass, a script that does not exist, a config that excludes the file, an
 environment variable read before you set it. None of them fail loudly, because
 from the tool's point of view nothing went wrong.
 
-When a result surprises you — good or bad — force the tool to do the work again
+When a result surprises you, good or bad, force the tool to do the work again
 before you build on it.

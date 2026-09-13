@@ -1,8 +1,19 @@
 /**
- * The one rule this layer must not break.
+ * What the confidence indicator is not allowed to say.
  *
- * An affirmation is not corroboration. These tests exist so that a well-meaning
- * change to the wording cannot quietly start presenting agreement as evidence.
+ * Four properties, each one a way this component could mislead a reader
+ * without any ordinary test noticing.
+ *
+ *   1. Agreement is not corroboration. Twenty people nodding is not evidence
+ *      if none of them is an independent source.
+ *   2. Support is counted by family line, not by headcount.
+ *   3. When everyone who agreed shares a lineage, say so.
+ *   4. Silence is not doubt. A claim nobody has engaged with has not been
+ *      questioned, it has not been seen.
+ *
+ * These assert on the wording, not only on the logic behind it. That is
+ * deliberate. The phrasing is what a reader actually sees, so a copy change
+ * that breaks one of these should fail here rather than ship.
  */
 
 import { describe, it, expect } from 'vitest';
@@ -10,7 +21,8 @@ import { supportSummary } from './ConfidenceIndicator';
 
 describe('supportSummary', () => {
   it('says so when everyone who agreed is from the same family', () => {
-    // cl-boarding at t1: one affirmation, zero independent lines.
+    // Zero independent lines, one affirmation. This is the shape of a claim
+    // backed only by the contributor's own relatives.
     const summary = supportSummary(0, 1);
     expect(summary).toMatch(/same family/i);
   });

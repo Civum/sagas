@@ -1,8 +1,8 @@
 # Changelog
 
 Every change to `@sagas/contracts` or `@sagas/fixtures` gets an entry here with a
-contract version, who it affects, what a consumer has to do — and, most
-importantly, **why it changed and where it came from.**
+contract version, who it affects, what a consumer has to do, and most
+importantly **why it changed and where it came from.**
 
 **One changelog, not one per school.** A change frequently touches two layers,
 and more to the point, seeing that the intelligence team found a flaw the
@@ -12,11 +12,11 @@ the middle. Splitting this file would hide the one thing it exists to show.
 Entries name **layers**, not schools. Layers are stable; which university owns
 one is not, and this file should still make sense to next year's cohort.
 
-Changes land on Mondays and only on Mondays — see "When the contract changes" in
+Changes land on Mondays and only on Mondays. See "When the contract changes" in
 the root README. Your fork is pinned, so nothing here reaches you until you pull.
 
 **Two kinds of entry.** A contract change carries a version number. A repo change
-— a new app, a new guide, tooling — carries a date only, because it doesn't move
+(a new app, a new guide, tooling) carries a date only, because it does not move
 the contract. Both say who they affect, and both are worth a Monday glance.
 
 **Check this file every Monday.** If the **Affects** line doesn't name your
@@ -31,7 +31,7 @@ layer, you can stop reading and get on with your week.
 
 **What:** One line. The diff, in English.
 
-**Why:** Where this came from — which team hit it, or which conversation caused
+**Why:** Where this came from. Which team hit it, or which conversation caused
 it. This is the most useful field in the entry.
 
 **You need to:**
@@ -40,6 +40,115 @@ it. This is the most useful field in the entry.
 ```
 
 ---
+
+## 2026-09-14 — an image record needs a note
+
+**Affects:** content layer
+
+**What:** a second refine on `sourceRecord`. If any of a record's media is an
+image, `note` must be present and non-empty.
+
+**Why:** a recording and a video carry their own account of what they are, and a
+written record is text by definition. A photograph does not and cannot.
+Submitted with nothing attached it is an artifact rather than a contribution,
+and nobody downstream can read a claim out of it. `note` is the field for what
+somebody says about the thing they are handing over, so that is where the
+requirement lands rather than on `text`, which is the record itself when the
+record is writing.
+
+**You need to:**
+- *content layer* — the submission form must require a caption when somebody
+  attaches a photograph. It is one validation rule and it is worth showing the
+  person why rather than only refusing.
+- *intelligence layer* — nothing.
+- *experience layer* — nothing. No fixture record changed; the one image in the
+  fixture already carried a note.
+
+
+## 2026-09-14 — a profile says whether anyone can prove it is theirs
+
+**Affects:** intelligence layer · experience layer · content layer (additive)
+
+**What:**
+
+- `contributor` gains a required field, `verification`, which is `guest` or
+  `verified`. Every profile in the fixtures is `guest`, and `verified` is not
+  built this semester.
+- `ContributorRegistered` gains an optional `verification`. Omitting it means
+  `guest`, so the authored event log did not change.
+- Every derived state now carries the field on each contributor. Ninety-two
+  additions, no other value moved.
+
+**Why:** guest ids are a way in rather than an end state, and the model had no
+word for the difference. Without one, there is no way on the day verification
+arrives to say that a verified person is a particular guest, and every
+contribution made this year would be stranded. Adding the field later would mean
+deciding retrospectively what all of it counted for. Adding it now costs one
+enum.
+
+Read the comment on the field before using it. It is a distinctness check, not a
+credential. It asks whether this is one person once, which is the same question
+`independentLineageCount` asks about families. It must never come to mean that a
+verified person's claims are worth more because of who they are.
+
+**Not included, on purpose:** any way to link two profiles. Merging a guest and a
+verified profile that turn out to be the same person retroactively invalidates
+corroboration the archive has already counted. That is written up in
+`docs/DESIGN-QUESTIONS.md` under "A profile has no way to say whether anyone can
+prove it is theirs", and nobody should build linking until it has an answer.
+
+**You need to:**
+- *intelligence layer* — nothing required. The field is available if you want it
+  and it is not in `ScoringInput`. Read "Why the author is missing from
+  `ScoringInput`" in your start guide before you reach for it.
+- *experience layer* — nothing. Do not render it. A badge saying verified next
+  to somebody's account of their own family is the thing this project avoids.
+- *content layer* — nothing. Guest ids work exactly as before.
+
+
+## 2026-09-14 — one word for each thing
+
+**Affects:** experience layer · intelligence layer · content layer
+
+**What:**
+
+- "Account" is not a term in this project any more. If you find it standing for
+  either a contribution or a login, that is a leftover. A **record** is what
+  somebody hands over. A **claim** is somebody's reading of a record. A
+  **profile** is who a contributor is to the software, which this semester is a
+  guest id kept in browser storage. A definition block covering those three,
+  plus **site** and **rendering**, now opens the root README and both start
+  guides.
+- The event kind `account_submitted` is now `claim_submitted`, and the interface
+  `AccountSubmitted` is now `ClaimSubmitted`. That event carries a `claimId` and
+  the reducer writes it into `claims`, so the old name described the wrong thing
+  and did not match its siblings `claim_extended` and `claim_disputed`. No field
+  on the event changed.
+- The acceptance case `account-outside-the-graph` is now
+  `claim-outside-the-graph`.
+- Two state labels changed in `packages/fixtures/states`, because labels are
+  authored in the event log and the fold copies them through. "Single account,
+  no corroboration" is now "Single claim, no corroboration", and "Family
+  corroboration and an untranslated account" is now "Family corroboration and
+  an untranslated claim". Nothing else in any state moved. No claim, record,
+  score, edge, or weight changed.
+
+**Why:** `docs/START-CONTENT-LAYER.md` used "account" for a contribution on one
+line and for a login twenty lines later. It said "there are no user accounts and
+you should not build any" a few paragraphs before asking "what accounts are
+within two kilometres of this building". Anybody reading it carefully would come
+away with two meanings for the same word, and no way to tell which was intended.
+The word was also a leftover from an earlier framing of this project as an oral
+history archive, and it sits badly on a photograph or a deed.
+
+**You need to:**
+- *experience layer* — nothing, unless you render a state's `label`. Two of
+  them changed wording and no data moved.
+- *intelligence layer* — nothing. The scoring rules and their inputs are
+  unchanged.
+- *content layer* — nothing in code. If you have drafted stories or a plan that
+  uses the word "account", check which of those words each one meant.
+
 
 ## 2026-09-08 — scoring rules and the intelligence layer's guide
 
@@ -55,7 +164,7 @@ it. This is the most useful field in the entry.
 - The scoring rules went from sixteen to ten. Six that asserted on
   `independentLineageCount` were removed, because a family is not something this
   system can currently observe. `lineageId` is hand-authored, nothing derives it,
-  and there are no accounts to attach it to. The question moved into the "what
+  and there are no profiles to attach it to. The question moved into the "what
   these rules do not cover" block, which is where open problems belong.
 - The remaining ten are prefixed `required` or `open to argument`. Required
   means this project will not merge a scorer that fails one. Open to argument
@@ -156,7 +265,7 @@ not the interesting part. The parts that are interesting stay yours.
   TypeScript at the workspace version.
 - `docs/DESIGN-QUESTIONS.md`. Part 3 is now "Open by design" and Part 4 is "Not
   for this project to answer". Four new entries on inherited trust, reference
-  edges, the split between a person as record subject and as platform account,
+  edges, the split between a person as record subject and as platform profile,
   and naming people who can't consent.
 - Root README notes the licence and how contributions are credited.
 
@@ -173,7 +282,7 @@ an ordering. Everything here is about making the first week smaller.
 
 ## v1.0.0 — unreleased
 
-**Affects:** all layers — this is the starting point.
+**Affects:** all layers. This is the starting point.
 
 **What:** Initial contract, covering all three layers.
 
@@ -192,7 +301,7 @@ record it was read out of.
 
 Anduiza fixture: 64 authored contribution events, four derived states, nine
 records. Twenty acceptance criteria covering granular disputes, corroboration
-independence, untranslated accounts, coexisting renderings, one record producing
+independence, untranslated claims, coexisting renderings, one record producing
 several claims, media still processing, an embedded location that contradicts
 the place, an open flag on a published record, and a contributor who has
 authored nothing and is one of the most useful people in the record.
@@ -204,7 +313,7 @@ chosen at entry.
 
 **Why:** Written by the sponsor in August 2026, before any team existed and
 before anyone from the Basque community had reviewed it. Expect it to be wrong
-in at least one interesting way — `packages/fixtures/README.md`
-carries a list of known gaps, and closing one is a welcome PR.
+in at least one interesting way. `packages/fixtures/README.md` carries a list of
+known gaps, and closing one is a welcome PR.
 
 **You need to:** Nothing. This is the first one.

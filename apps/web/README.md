@@ -158,7 +158,7 @@ What we need from it, whatever you choose:
 - **A preview per pull request.** This is the one that changes how review feels.
   Reviewing your work becomes opening a link rather than pulling your branch and
   running it, which means feedback comes back in an evening rather than a week.
-- **No sponsor credentials.** Whatever it runs on is an account your team owns.
+- **No sponsor credentials.** Whatever it runs on is a hosting account your team owns.
 
 Vercel is the path of least resistance for Next and gives you both of the first
 two out of the box. Two things to know before you commit to it.
@@ -167,7 +167,7 @@ Its free Hobby plan is **non-commercial personal use only**, and their
 definition is broad: any deployment "used for the purpose of financial gain of
 anyone involved in any part of the production of the project". Asking for
 donations counts. A student capstone with no payment path is fine. That is a
-reason to keep the deployment under your own account rather than a sponsor's,
+reason to keep the deployment under your own hosting account rather than a sponsor's,
 and a reason not to build anything load-bearing on Vercel-specific behaviour.
 
 The Hobby CPU allowance is also small, measured in a handful of CPU-hours a

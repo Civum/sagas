@@ -2,7 +2,7 @@
 
 Yours. It ships empty on purpose.
 
-This is the part real people touch. Somebody records an account on a phone,
+This is the part real people touch. Somebody records something on a phone,
 uploads a photograph, types up a letter, adds a translation, or reports
 something that should not be public. All of it arrives here.
 
@@ -38,8 +38,8 @@ that is why this layer is here.
 with somebody in the community is a laptop with a phone on the same wifi.
 
 **Translation: the record is never blocked.** Somebody contributing in a
-language other than English finishes, submits, and their account exists —
-pinned, attributed, on the map.
+language other than English finishes, submits, and their record exists, pinned
+and attributed and on the map.
 `sourceRecord` has no language requirement; only `claim` does, and claims are
 another team's problem. Machine translation proposes a draft, a person confirms
 or replaces it, and `transcriptMethod` already has `machine_corrected` for
@@ -76,7 +76,7 @@ Then read, in order:
 1. `packages/contracts/src/model.ts`, the records and media section. A record is
    a bundle rather than a file type, and that decision shapes everything here.
 2. `packages/fixtures/fixtures/example-site/events.ts`. Nine records, deliberately
-   unalike: a written account with no files at all, a photograph whose embedded
+   unalike: a written record with no files at all, a photograph whose embedded
    GPS lands in the middle of the street, an audio recording that took four
    months and four people to become readable, a scanned register page, and a
    600MB upload still being processed when the log ends.
@@ -140,7 +140,7 @@ through. Build the single-shot version first, then this.
 the API write it onward. It is fewer moving parts and it is the wrong shape.
 Your server holds a request open for the length of the upload, memory goes up
 with file size, and every timeout in front of it becomes a failed contribution.
-It is not a refactor away from the right design, it is a different design.
+That is a different design, not a refactor away from the right one.
 
 ### Jobs
 

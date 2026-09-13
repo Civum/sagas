@@ -1,11 +1,11 @@
 import type { ClaimState } from '@sagas/contracts';
 
 /**
- * An account given in another language, and how it's been rendered into English.
+ * A claim given in another language, and how it's been rendered into English.
  *
  * TODO: three states to handle, and the first is the one people forget.
  *
- * - No rendering yet. The account is pinned, readable in the original, and
+ * - No rendering yet. The claim is pinned, readable in the original, and
  *   `text` is empty. Show the original. Show that a rendering is wanted. Do not
  *   hide it, do not sort it to the bottom, do not render an empty row.
  * - One rendering. Show it, credited, with the original reachable.
@@ -16,7 +16,7 @@ import type { ClaimState } from '@sagas/contracts';
  * A reader who speaks no Euskara should still be able to see that two people
  * disagree about what a sentence means.
  *
- * Acceptance criterions: account-outside-the-graph, rendering-arrives,
+ * Acceptance criterions: claim-outside-the-graph, rendering-arrives,
  * coexisting-renderings.
  */
 export function TranslationPanel({ claim }: { claim: ClaimState }) {

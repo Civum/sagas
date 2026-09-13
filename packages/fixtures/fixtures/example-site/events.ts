@@ -59,7 +59,7 @@ export const events: ContributionEvent[] = [
     kind: 'record_submitted',
     recordId: 'rec-001',
     siteId: SITE,
-    // A written account, typed into the submission form. No files at all, which
+    // A written record, typed into the submission form. No files at all, which
     // is the most common kind of contribution and the one easiest to forget
     // when you have been building an upload pipeline.
     //
@@ -75,7 +75,7 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-004', at: '2026-01-08T16:22:00Z', actorId: 'c-marisol',
-    kind: 'account_submitted',
+    kind: 'claim_submitted',
     claimId: 'cl-boarding',
     recordId: 'rec-001',
     siteId: SITE,
@@ -96,7 +96,7 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-005', at: '2026-01-08T16:41:00Z', actorId: 'c-marisol',
-    kind: 'account_submitted',
+    kind: 'claim_submitted',
     claimId: 'cl-fronton',
     recordId: 'rec-001',
     siteId: SITE,
@@ -127,7 +127,7 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-007', at: '2026-01-09T02:15:00Z', actorId: 'c-marisol',
-    kind: 'account_submitted',
+    kind: 'claim_submitted',
     claimId: 'cl-prelot',
     recordId: 'rec-002',
     siteId: SITE,
@@ -146,7 +146,7 @@ export const events: ContributionEvent[] = [
   /* ================================================================ */
   /* STATE t1 — March 2026. Corroboration arrives, but note that one   */
   /* of the two new affirmers shares a family line with the original   */
-  /* contributor. Volume rises; independence does not. An account is   */
+  /* contributor. Volume rises; independence does not. A claim is      */
   /* also submitted in Euskara and sits outside the graph.             */
   /* ================================================================ */
 
@@ -171,7 +171,7 @@ export const events: ContributionEvent[] = [
     recordId: 'rec-003',
     siteId: SITE,
     // A photograph with a sentence under it. The note is a caption, not an
-    // account, and it is all the text this record will ever have.
+    // claim, and it is all the text this record will ever have.
     note: 'The court floor, near the left wall. You can see where the boards run different.',
     language: 'en',
     capturedAt: '2026-02-14T19:52:00Z',
@@ -279,9 +279,9 @@ export const events: ContributionEvent[] = [
     lineageId: 'lin-sagastume',
   },
 
-  /* An account given in Euskara. It is pinned on the map and readable in the
+  /* A claim given in Euskara. It is kept at its site and readable in the
      original. It has no English rendering yet, so it sits outside the claim
-     graph — visible, attributed, untouched. It is never deleted. */
+     graph. It stays visible, attributed and untouched, and it is never deleted. */
   {
     id: 'ev-018', at: '2026-03-02T22:25:00Z', actorId: 'c-domingo',
     kind: 'record_submitted',
@@ -313,7 +313,7 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-019', at: '2026-03-02T22:31:00Z', actorId: 'c-domingo',
-    kind: 'account_submitted',
+    kind: 'claim_submitted',
     claimId: 'cl-domingo',
     recordId: 'rec-005',
     siteId: SITE,
@@ -372,7 +372,7 @@ export const events: ContributionEvent[] = [
   /* ================================================================ */
   /* STATE t2 — May 2026. A documentary source arrives and contests    */
   /* one element of an otherwise well-supported claim. The Euskara     */
-  /* account receives a rendering and enters the graph.                */
+  /* claim receives a rendering and enters the graph.                  */
   /* ================================================================ */
 
   {
@@ -452,7 +452,7 @@ export const events: ContributionEvent[] = [
     // Written down by a person, in the language it was spoken in. This is not a
     // translation and it is not a claim. It is what the recording says.
     //
-    // Note who did it: not the person who recorded it. An account can outlive
+    // Note who did it: not the person who recorded it. A record can outlive
     // the moment its contributor had time to sit and type, and somebody else
     // picking it up is a contribution with a name on it.
     text:
@@ -563,7 +563,7 @@ export const events: ContributionEvent[] = [
 
   /* ================================================================ */
   /* STATE t3 — July 2026. A competing rendering of the Euskara        */
-  /* account with a dispute about what it loses. A second lineage      */
+  /* claim with a dispute about what it loses. A second lineage        */
   /* corroborates the fronton. An extension that could reconcile the   */
   /* livery/blacksmith branch. An unresolved cross-site reference.     */
   /* ================================================================ */
@@ -651,7 +651,7 @@ export const events: ContributionEvent[] = [
   },
 
   /* An extension that may satisfy the disputeTargets of both branches of the
-     livery/blacksmith disagreement — a reconciliation candidate. */
+     livery/blacksmith disagreement, which makes it a reconciliation candidate. */
   {
     id: 'ev-050', at: '2026-06-22T16:08:00Z', actorId: 'c-maite',
     kind: 'record_submitted',
@@ -824,8 +824,8 @@ export const events: ContributionEvent[] = [
 
 /** The four instants states are cut at. Labels are shown in the version timeline. */
 export const stateCuts = [
-  { stateId: 't0', label: 'Single account, no corroboration', asOf: '2026-01-31T23:59:59Z' },
-  { stateId: 't1', label: 'Family corroboration and an untranslated account', asOf: '2026-03-31T23:59:59Z' },
+  { stateId: 't0', label: 'Single claim, no corroboration', asOf: '2026-01-31T23:59:59Z' },
+  { stateId: 't1', label: 'Family corroboration and an untranslated claim', asOf: '2026-03-31T23:59:59Z' },
   { stateId: 't2', label: 'Documentary source contests a date; rendering arrives', asOf: '2026-05-31T23:59:59Z' },
   { stateId: 't3', label: 'Competing renderings, reconciliation candidate, active dispute', asOf: '2026-07-31T23:59:59Z' },
 ];

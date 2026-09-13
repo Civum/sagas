@@ -8,16 +8,33 @@ back to it. You are not expected to hold it in your head.
 
 ## What you're building
 
-People contribute accounts of places. Somebody says their great-grandmother
+People contribute claims about places. Somebody says their great-grandmother
 cooked in a boarding house from 1922, somebody else says the register shows
 1914, and a third person adds that the building had a different name before the
 war. Your layer is what decides how much any of that is worth, and it has to do
 it without ever being told who is speaking.
 
-Two apps, both yours, both currently empty:
+One app, yours, currently empty:
 
-- `apps/graph-api`, the server
-- `packages/db`, the schema and migrations behind it
+- `apps/graph-api`, the server, and the schema and migrations behind it
+
+## Five words used carefully
+
+- **Site.** A place somebody has designated as meaningful. Records and claims
+  attach to a site. A site does not attach to them.
+- **Record.** What somebody hands over. A recording, a video, a photograph, a
+  scanned document, or typed text. Nothing in the graph argues with a record.
+  Disagreement lands on claims instead.
+- **Claim.** Somebody's reading of a record. This is where disagreement lands.
+  One record can produce several claims.
+- **Rendering.** A transcript or a translation. One person's version of a
+  record or a claim, attributed, with more than one allowed to exist.
+- **Profile.** Who a contributor is to the software. This semester a profile is
+  a guest id kept in browser storage, and there are no logins.
+
+"Account" is not a term in this project. It used to be, and it was doing two
+jobs at once: a contribution in some sentences and a login in others. If you
+find it still standing for either, that is a leftover and worth a pull request.
 
 ## What to ignore
 
@@ -65,7 +82,7 @@ problems that look like real bugs.
 **One fork for the whole team, not one each.**
 
 1. **Create a GitHub organisation for the team**, not a personal account. If the
-   repository lives in one person's account and that person drops the class, the
+   repository lives in one person's GitHub account and that person drops the class, the
    team loses everything, and your instructor needs access for grading.
 2. **One person forks `Civum/sagas` into it.** Once.
 3. **Everyone clones that fork**, including whoever created it.
@@ -157,7 +174,12 @@ Postgres. Spatial indexing lives here too.
 **November onward, propagation.** How weight actually moves through the graph,
 and whichever of the open questions you decide to take on.
 
-If September takes six weeks, that is fine.
+If September takes six weeks, that is fine. All of the autumn is scoring, and
+scoring is the bounded half of your layer. You will finish it. The other half is routing: working out which
+claim to put in front of which person, and why. That is spring work. It has no
+known answer, and it will need signals the contract does not record yet, such as
+what somebody tends to contribute and where they keep coming back to. Asking for
+those is expected rather than a sign something went wrong.
 
 ## Your first task
 
@@ -198,14 +220,13 @@ Then make the failures go away. The rules tell you what is wrong and
 they are specific: one of them will tell you that you are counting heads instead
 of family lines, another that you are treating disagreement as damage.
 
-Do not aim for a good scorer. Aim for one that satisfies the floor, then read
+Do not aim for a good scorer. Aim for one that satisfies the ten, then read
 your own implementation and work out why it is not good enough. That gap is the
 project.
 
-Worth being straight with you about that file. I wrote those rules before any of
-this had been tried against a real account, and I have not solved the problem
-they are circling. Treat them as a floor I am willing to defend rather than a
-description of how scoring ought to work.
+I wrote those rules before any of this had been tried against a real claim, and
+I have not solved the problem they are circling. Treat them as a starting point
+rather than a description of how scoring ought to work.
 
 **And read the "what these rules do not cover" block at the top of that file.**
 Every rule is a property of one claim's own numbers. None of them know what an
@@ -219,17 +240,46 @@ When you do build a traversal, test that it does not silently skip a path. That
 is the kind of test only you can write, because it asserts against a model that
 does not exist yet.
 
-## The one thing not to do quietly
+## Why the author is missing from `ScoringInput`
 
-`ScoringInput` is never given the author. It carries no name, no identifier, no
-standing and no institution. A scorer structurally cannot weigh a claim by who
-is speaking, because it is never told who that is.
+`ScoringInput` is never given an author. No name, no identifier, no standing, no
+institution. What it gets instead are facts derived from who contributed:
+whether three affirmations came from three independent family lines or from one
+family. So the system knows who is speaking. The scorer does not, and cannot use
+it as a credential.
 
-That is deliberate and it is the strongest guarantee in the codebase. You may
-well conclude it is wrong, and there is a real argument that contributor history
-should count for something. If you get there, it is a conversation at a
-check-in, not a widened interface in a pull request. Read "How do you tell a
-good source from a bad one?" first.
+Weight comes from what somebody has done, not from who they are. That is
+enforced by the missing field rather than by a test.
+
+An affirmation, in that sentence, is what a reader clicks to agree with a claim.
+Worth knowing before you build on it: it is currently stored as its own object,
+separate from a passover, even though a passover with the kind `sounds_right`
+means the same thing. That duplicate is going to be removed and
+`affirmationCount` will become a count of passovers. Nothing you write against
+the ten rules breaks when it does, because the number itself does not move.
+
+Two different things are going on here.
+
+**Permanent.** A claim must never be worth more because of who is taken to have
+made it. Not their name, not their reputation, not the institution they
+mention. The missing field is how this project makes that promise checkable
+instead of merely stated. Anybody can open the file and see it.
+
+**Not permanent.** Weighing what a person has actually done is a different
+thing, and that is where this is going. `contributorStanding` exists to hold
+exactly that. Records submitted, claims written, claims other people backed,
+disputes raised, how many of those proposed an alternative rather than only
+objecting. None of it reaches `ScoringInput` today, and the reason is that
+nobody has worked out how to use it without the first thing sneaking in through
+it.
+
+Working that out is the deliverable. It is not something the project has ruled
+out, and if you read the absent field as a closed door you will skip the most
+interesting problem you have been handed.
+
+When you get there, it is a conversation at a check-in rather than a widened
+interface in a pull request. Read "How do you tell a good source from a bad
+one?" first.
 
 ## Every Monday
 
@@ -241,8 +291,8 @@ never updates itself, so nothing changes underneath you.
 
 `apps/graph-api` has no server framework yet and that is not a September
 question, because your first month has no HTTP in it. Decide it at a check-in in
-October. The content layer is on Express 5 and copying that is a perfectly good
-answer if you want the path of least resistance.
+October. Express 5 is a perfectly good answer if you want the path of least
+resistance, and it is what the rest of this repository uses.
 
 ## How we work
 

@@ -41,7 +41,7 @@ function dump(s: GraphState) {
 
     if (c.claim.awaitingTranslation) {
       console.log(`  [${c.claim.sourceLanguage}] ${c.claim.sourceLanguageText}`);
-      console.log(`  → pinned and readable in the original; outside the claim graph`);
+      console.log(`  → kept and readable in the original; outside the claim graph`);
     } else {
       const text = c.claim.text.length > 150 ? c.claim.text.slice(0, 147) + '...' : c.claim.text;
       console.log(`  "${text}"`);

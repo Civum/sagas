@@ -3,7 +3,7 @@
 Yours. It ships empty on purpose, same as `apps/capture-api`.
 
 This is the screen somebody is looking at when they hand over something that
-matters to them. Recording an account, uploading a photograph, typing up what
+matters to them. Recording audio, uploading a photograph, typing up what
 their grandmother said, adding a translation to somebody else's.
 
 It is separate from `apps/web` on purpose. That app is the reading experience
@@ -13,9 +13,9 @@ teams editing the same files.
 
 ## Why this exists
 
-Because you can't put a REST API in front of a person. The reason this layer is
-at Boise State is that you can walk to the community this is being built with
-and watch somebody actually use it. You see where they hesitate, what they
+Because you can't put a REST API in front of a person. The reason this layer
+sits with a team in Boise is that you can walk to the community this is being
+built with and watch somebody actually use it. You see where they hesitate, what they
 don't understand, and what they decide not to say. None of that is visible from a test suite.
 
 ## What goes here, roughly
@@ -23,7 +23,7 @@ don't understand, and what they decide not to say. None of that is visible from 
 - Recording audio in the browser, with playback before submitting
 - Choosing photographs and documents, and uploading them
 - The submission form: what happened, where, who said so, in what language
-- Attaching an account to a place on a map
+- Attaching a record to a place on a map
 - Adding a translation or a transcript to somebody else's record
 - Reporting something, with the reason attached
 
@@ -45,9 +45,11 @@ There isn't any, and you should not build any.
 
 A contributor is a **guest id**. It is generated on first visit, kept in browser
 storage, and sent with every request. No login, no password, no email. Somebody who
-clears their browser is a new person, and that is an acceptable loss for now.
+clears their browser is a new person from then on. Their earlier contributions
+are not deleted, they stay attributed to the old id and become unreachable. That
+is an accepted cost of letting people contribute without signing up.
 
-Accounts matter eventually and they are not this semester's problem. Whether a
+Logins matter eventually and they are not this semester's problem. Whether a
 guest can later claim what they contributed, and how anybody proves who they
 are, are open questions written up in
 [`docs/DESIGN-QUESTIONS.md`](../../docs/DESIGN-QUESTIONS.md).

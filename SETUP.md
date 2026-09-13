@@ -157,7 +157,7 @@ invented fixture data on your own machine is about the lowest-stakes place a
 frozen dependency can sit. If it ever gets in the way, swapping it is roughly
 fifteen lines of `docker-compose.yml`, and none of your application code moves.
 
-### One thing about bucket names, for later
+### Bucket names are global, and you cannot change one later
 
 `sagas-media` is fine on your machine. Your MinIO is a server of its own and the
 only bucket namespace it shares is with itself.
@@ -230,14 +230,14 @@ implementations.
 The repo is the same for everyone. The useful starting point isn't, and the
 detail lives next to the code rather than here. This section is a signpost.
 
-| Your layer | Team | What you need running | Your code | Read this first |
-|---|---|---|---|---|
-| **Experience** | BYU-I | Postgres | `apps/web`, `apps/ui-api`, `packages/read-model` | [`apps/web/README.md`](./apps/web/README.md) |
-| **Intelligence** | University of Idaho | Postgres | `apps/graph-api`, `packages/db` | [`packages/db/README.md`](./packages/db/README.md) |
-| **Content capture** | Boise State | Postgres, object storage, ffmpeg | `apps/capture-api` | [`apps/capture-api/README.md`](./apps/capture-api/README.md) |
+| Your layer | What you need running | Your code | Read this first |
+|---|---|---|---|
+| **Experience** | Postgres | `apps/web`, `apps/ui-api`, `packages/read-model` | [`apps/web/README.md`](./apps/web/README.md) |
+| **Intelligence** | Postgres | `apps/graph-api` | [`apps/graph-api/README.md`](./apps/graph-api/README.md) |
+| **Content capture** | Postgres, object storage, ffmpeg | `apps/capture-api` | [`apps/capture-api/README.md`](./apps/capture-api/README.md) |
 
-If your school isn't listed, or your team was assigned a different layer, your
-instructor's assignment wins over this table. Tell us and we'll fix it here.
+If your team was assigned a different layer than the one you expected, your
+instructor's assignment wins over this table. Tell me and I will fix it here.
 
 Three separate API apps, one per layer. That is deliberate: no two teams edit the
 same files, and each one deploys on its own terms.

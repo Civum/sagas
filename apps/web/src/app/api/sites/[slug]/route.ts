@@ -9,7 +9,8 @@ import type { FixtureStateId } from '../../../../lib/queries';
  *
  * While the data is fixtures, `slug` is ignored and `state` picks a snapshot.
  * Once there's a database, `slug` selects the place and `state` becomes a
- * timestamp — "as it looked on this date" rather than "snapshot number three".
+ * timestamp, so it reads as "as it looked on this date" rather than "snapshot
+ * number three".
  */
 export async function GET(
   request: Request,

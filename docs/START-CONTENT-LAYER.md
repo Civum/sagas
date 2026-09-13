@@ -8,14 +8,33 @@ back to it. You are not expected to hold it in your head.
 
 ## What you're building
 
-People contribute accounts of places. It might be a recording, a photograph, a
-scanned document, or just typed text. Your job is the software that receives
-all of that, stores it, and makes sense of the files people upload.
+People contribute records of places. A record might be a recording, a
+photograph, a scanned document, or just typed text. Your job is the software
+that receives all of that, stores it, and makes sense of the files people
+upload.
 
 Two apps, both yours, both currently empty:
 
 - `apps/capture-api`, the server
 - `apps/capture-web`, the screen a person is actually looking at
+
+## Five words used carefully
+
+- **Site.** A place somebody has designated as meaningful. Records and claims
+  attach to a site. A site does not attach to them.
+- **Record.** What somebody hands over. A recording, a video, a photograph, a
+  scanned document, or typed text. Nothing in the graph argues with a record.
+  Disagreement lands on claims instead.
+- **Claim.** Somebody's reading of a record. This is where disagreement lands.
+  One record can produce several claims.
+- **Rendering.** A transcript or a translation. One person's version of a
+  record or a claim, attributed, with more than one allowed to exist.
+- **Profile.** Who a contributor is to the software. This semester a profile is
+  a guest id kept in browser storage, and there are no logins.
+
+"Account" is not a term in this project. It used to be, and it was doing two
+jobs at once: a contribution in some sentences and a login in others. If you
+find it still standing for either, that is a leftover and worth a pull request.
 
 ## What to ignore
 
@@ -81,7 +100,7 @@ is unclear. It is a twenty-minute setup that saves a week of confusion.
 diverging copies and no single place your work lives.
 
 1. **Create a free GitHub organisation for the team.** Not a personal account.
-   If the repo lives in one person's account and that person drops the class,
+   If the repo lives in one person's GitHub account and that person drops the class,
    the team loses everything, and your instructor needs access for grading.
 2. **One person forks `Civum/sagas` into that organisation, once.** That fork is
    now the team's repository.
@@ -129,7 +148,7 @@ their own ports, and nothing you start here touches theirs.
 other two alone.
 
 `SETUP.md` has the detail, including what to do when object storage won't start.
-Everything runs on your own machine. No accounts to create, no keys to request,
+Everything runs on your own machine. Nothing to sign up for, no keys to request,
 nothing that can generate a bill.
 
 ## Editor
@@ -168,7 +187,7 @@ running, then get a record from a browser into a database, then get files
 uploading to storage and being processed.
 
 **October, the contributing interface.** `apps/capture-web` in earnest.
-Recording audio, choosing files, the submission form, and placing an account on
+Recording audio, choosing files, the submission form, and placing a record on
 a map. The map is where you will need a free Mapbox token of your own. One each,
 registered by you, nothing shared and nothing that costs anything. `SETUP.md`
 walks through it when you get there.
@@ -184,7 +203,7 @@ half thing on time.
 
 One week. Small on purpose.
 
-**Accept a text-only account and store it.**
+**Accept a text-only record and store it.**
 
 A record does not need a file. Somebody typing what their grandmother told them
 is a complete contribution, and `sourceRecord` in the contract allows exactly
@@ -215,31 +234,34 @@ doesn't give it, that's a real finding, and it goes in the check-in note.
 
 ## About contributors
 
-There are no user accounts and you should not build any.
+There are no logins and you should not build any.
 
-A contributor is a **guest id**. It is a random string your web app generates
-the first time somebody visits, saves in browser storage, and sends along with
-every submission. That's it. No login, no password, no email address, no verification.
+A contributor's profile is a **guest id**. It is a random string your web app
+generates the first time somebody visits, saves in browser storage, and sends
+along with every submission. That is the whole of it. No login, no password, no
+email address, no verification.
 
 So the flow is: someone opens the site, a guest id is created without them
 noticing, they contribute, and the record is attributed to that id. If they come
 back on the same browser, it's the same id and their contributions are theirs.
-If they clear their browser, they're a new person. That's an acceptable loss and
-it is not a bug you need to solve.
+If they clear their browser, they are a new person from then on. Their earlier
+contributions are not deleted. Those stay in the database attributed to the old
+id, and nobody can get back to them. That is an accepted cost of letting people
+contribute without signing up, and it is not a bug you need to solve.
 
 **Testing with more than one person.** Because the guest id lives in browser
-storage, and storage is separate per browser profile, one laptop gives you
-several contributors at once. A normal window is one person, a private window is
+storage, and each browser keeps its own, one laptop gives you several
+contributors at once. A normal window is one person, a private window is
 another, and a second browser is a third. You can also open developer tools and
 set the id by hand to become any contributor in the fixture data, which is the
-fastest way to reproduce a bug somebody else hit. Real accounts would make this
+fastest way to reproduce a bug somebody else hit. Logins would make this
 harder, not easier, since you would have to register and sign in twice to do the
 same thing.
 
-This is a deliberate design decision, not a shortcut we're taking because
-accounts are hard. The project is trying to work out whether a record can be
+This is a deliberate design decision, not a shortcut taken because logins are
+hard. The project is trying to work out whether a record can be
 trusted based on what it says and how it's corroborated, rather than on who said
-it. Real accounts matter eventually. They are not this semester's problem, and
+it. Logins matter eventually. They are not this semester's problem, and
 building them would cost you six weeks you need for other things.
 
 ## Every Monday
@@ -292,7 +314,7 @@ happen.
 **Postgres** is the database. It's a much bigger tool than SQLite, and the parts
 that matter here are that it handles many writers at once, has a real type
 system, and has a geographic extension called **PostGIS** for questions like
-"what accounts are within two kilometres of this building". You'll meet PostGIS
+"what records are within two kilometres of this building". You'll meet PostGIS
 later, not in September.
 
 **MinIO** is file storage that speaks the same API as Amazon S3. Photographs and

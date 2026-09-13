@@ -29,7 +29,7 @@
  *
  * Every one of them is a way the archive could quietly go wrong while every
  * unit test still passed. A scorer that ranks by family size, or that lets a
- * long-standing contributor outrank a newcomer's better-supported account, is
+ * long-standing contributor outrank a newcomer's better-supported claim, is
  * not buggy in any way a normal test would catch. It just produces an archive
  * that agrees with whoever was already loudest.
  */
@@ -55,9 +55,9 @@
  *                      conversation rather than a quiet deletion.
  *
  * Worth saying plainly: this suite was drafted before any of it had been tried
- * against a real account, and nobody here has solved the problem it is
- * circling. It is a floor the sponsor is willing to defend, not a description
- * of how scoring ought to work. The algorithm is yours, and these rules should
+ * against a real claim, and nobody here has solved the problem it is
+ * circling. Treat it as a starting point rather than a description of how
+ * scoring ought to work. The algorithm is yours, and these rules should
  * not be the reason you build something a particular way.
  */
 
@@ -77,7 +77,7 @@
  *   Can a chain of extensions feed back on itself, so that a claim ends up
  *   corroborating itself around a cycle?
  *
- *   Whether a family is the right unit, and how a system with no accounts
+ *   Whether a family is the right unit, and how a system with no logins
  *   would ever observe one. `lineageId` is a hand-authored string that nothing
  *   derives. Rules that asserted on it have been removed.
  *
@@ -85,8 +85,8 @@
  *   place significant" lives in docs/DESIGN-QUESTIONS.md.
  *
  * This is deliberate rather than forgotten. Testing those means fixing what a
- * propagation algorithm looks like — what it takes, what it returns, whether it
- * runs to a fixed point — and that is the intelligence layer's design decision,
+ * propagation algorithm looks like: what it takes, what it returns, whether it
+ * runs to a fixed point. That is the intelligence layer's design decision,
  * not something a scaffold should make on their behalf.
  *
  * So: bring your propagation model to a check-in once you have one, and we will
@@ -122,12 +122,16 @@ export interface Scorer {
 }
 
 /**
- * Note what is NOT in `ScoringInput`: anything about who the author is.
+ * Note what is NOT in `ScoringInput`: an author.
  *
- * No name, no contributor id, no standing, no join date, no institution. That
- * absence is the strongest guarantee in this file, and it is structural rather
- * than tested. A scorer cannot weigh a claim by its author's reputation because
- * it is never told who the author is.
+ * No name, no contributor id, no standing, no join date, no institution. What
+ * it gets instead are facts derived from who contributed, such as whether three
+ * affirmations came from three independent family lines or from one family. The
+ * system knows who is speaking. The scorer does not, and cannot use it as a
+ * credential.
+ *
+ * Weight comes from what somebody has done, not from who they are. That is
+ * enforced by the missing field rather than by a test.
  *
  * If you find yourself wanting to widen this interface to include the author,
  * stop and read "How do you tell a good source from a bad one?" in
@@ -202,25 +206,25 @@ export function runScoringRules(name: string, scorer: Scorer): void {
     });
 
     /* ---------------------------------------------------------------- */
-    /* An account nobody has rendered yet                                */
+    /* A claim nobody has rendered yet                                  */
     /* ---------------------------------------------------------------- */
 
-    it('required · holds an unrendered account outside the ordering, not below it', () => {
+    it('required · holds an unrendered claim outside the ordering, not below it', () => {
       // Weight 0 means "there is nothing yet to compare this against", not
       // "this is worthless". Interfaces are told separately never to sort it
       // off the end of the page.
       expect(scorer.weight(withInput({ awaitingTranslation: true }))).toBe(0);
     });
 
-    it('open to argument · lets an account into the ordering once somebody renders it', () => {
+    it('open to argument · lets a claim into the ordering once somebody renders it', () => {
       const before = withInput({ awaitingTranslation: true, affirmationCount: 1 });
       const after = { ...before, awaitingTranslation: false };
       expect(scorer.weight(before)).toBe(0);
       expect(scorer.weight(after)).toBeGreaterThan(0);
     });
 
-    it('required · does not claim an unrendered account is well supported', () => {
-      // Nothing can corroborate an account nobody has read yet.
+    it('required · does not call an unrendered claim well supported', () => {
+      // Nothing can corroborate a claim nobody has read yet.
       const c = scorer.confidence({
         independentLineageCount: 0,
         disputeCount: 0,
@@ -266,7 +270,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
     );
 
     it('required · survives every claim shape in the fixtures', () => {
-      // Empty element arrays, unrendered accounts, claims with no affirmations
+      // Empty element arrays, unrendered claims, claims with no affirmations
       // at all. Real data has holes in it and a scorer must not throw or return
       // nonsense on any of them.
       for (const { id, input } of realClaims) {

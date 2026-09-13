@@ -1,6 +1,6 @@
 {
   "stateId": "t0",
-  "label": "Single account, no corroboration",
+  "label": "Single claim, no corroboration",
   "asOf": "2026-01-31T23:59:59Z",
   "site": {
     "id": "site-anduiza",
@@ -70,7 +70,8 @@
         "displayName": "Marisol Etxeberria",
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
-        "fictional": true
+        "fictional": true,
+        "verification": "guest"
       },
       "record": {
         "id": "rec-001",
@@ -213,7 +214,8 @@
         "displayName": "Marisol Etxeberria",
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
-        "fictional": true
+        "fictional": true,
+        "verification": "guest"
       },
       "record": {
         "id": "rec-001",
@@ -330,7 +332,8 @@
         "displayName": "Marisol Etxeberria",
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
-        "fictional": true
+        "fictional": true,
+        "verification": "guest"
       },
       "record": {
         "id": "rec-002",
@@ -401,7 +404,8 @@
       "displayName": "Marisol Etxeberria",
       "lineageId": "lin-etxeberria",
       "joinedAt": "2026-01-08T16:04:00Z",
-      "fictional": true
+      "fictional": true,
+      "verification": "guest"
     }
   ],
   "records": [

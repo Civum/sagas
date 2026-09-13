@@ -106,7 +106,7 @@ export type LanguageCode = z.infer<typeof languageCode>;
  *
  * This is never used to reject a contribution. It feeds into how much weight a
  * claim carries, and even then only as one input among several. A firsthand
- * account from someone nobody knows can end up better supported than a
+ * claim from someone nobody knows can end up better supported than a
  * published paper.
  */
 
@@ -151,12 +151,12 @@ export type EdgeType = z.infer<typeof edgeType>;
 /* ================================================================== */
 /* SHARED · Places and people                                          */
 /*                                                                     */
-/* Everything hangs off these two. A site is what accounts attach to; a */
+/* Everything hangs off these two. A site is what claims attach to; a   */
 /* contributor is who said something. `lineageId` on a contributor is   */
-/* the field doing the most work in the whole model.                    */
+/* what decides whether two people count as one source or two.          */
 /* ================================================================== */
 
-/** A physical location that accounts get attached to. */
+/** A physical location that claims get attached to. */
 export const site = z.object({
   id: z.string(),
   slug: z.string(),
@@ -183,9 +183,9 @@ export const contributor = z.object({
   /**
    * Which family they're from.
    *
-   * This is the field doing the most work in the whole model. Two people from
-   * the same family agreeing is one source, not two. Without this, a large
-   * family can make a shaky claim look well-supported just by showing up.
+   * This field decides how corroboration is counted. Two people from the same
+   * family agreeing is one source, not two. Without it, a large family can make
+   * a shaky claim look well-supported just by showing up.
    */
   lineageId: z.string().optional(),
   /** e.g. "Basque Museum & Cultural Center". A statement of affiliation, not a credential check. */
@@ -201,6 +201,22 @@ export const contributor = z.object({
    * first time someone cleaned up a lint warning.
    */
   fictional: z.boolean(),
+  /**
+   * Whether the person behind this profile can prove it is theirs.
+   *
+   * `guest` means the id lives in a browser and nothing else. `verified` is not
+   * built this semester and no fixture uses it; the field exists now because
+   * adding it later would mean deciding, retrospectively, what every
+   * contribution made before it counted for.
+   *
+   * This is a distinctness check. It asks whether this is one person once,
+   * which is the same question `independentLineageCount` asks about families.
+   * It must never come to mean that a verified person's claims are worth more
+   * because of who they are. See DESIGN-QUESTIONS, "A profile has no way to say
+   * whether anyone can prove it is theirs", for what is still unanswered,
+   * including why linking two profiles is not safe to build yet.
+   */
+  verification: z.enum(['guest', 'verified']),
 });
 export type Contributor = z.infer<typeof contributor>;
 
@@ -228,9 +244,8 @@ export type Contributor = z.infer<typeof contributor>;
  * transcriber and a translator. Somebody else does those parts later and gets
  * credited for them.
  *
- * Claims in the fixtures came before records existed and do not have one, which
- * is why `claim.recordId` is optional. Making it required is a real change and
- * it is written up in DESIGN-QUESTIONS.
+ * Every claim points at one. `claim.recordId` is required, so there is always a
+ * route from a sentence in an article back to the thing it was read out of.
  */
 
 /** What kind of thing was handed over. */
@@ -379,9 +394,9 @@ export type MediaRef = z.infer<typeof mediaRef>;
  *
  * The three shapes that turn up most:
  *
- *   Written account    `text` is set and `media` is empty.
+ *   Written record     `text` is set and `media` is empty.
  *   Photo with caption `media` holds one image, `note` says what it is.
- *   Oral account       `media` holds audio, `note` may be empty, and a
+ *   Recorded speech    `media` holds audio, `note` may be empty, and a
  *                      transcript arrives later from somebody else entirely.
  *
  * `note` and `text` are not the same field twice. A note is what somebody says
@@ -424,6 +439,15 @@ export const sourceRecord = z
   })
   .refine((r) => r.media.length > 0 || Boolean(r.text?.trim()), {
     message: 'A record needs media or text. A note on its own is a caption with nothing to caption.',
+  })
+  /**
+   * An image cannot say what it is. A recording and a video carry their own
+   * account of themselves and a written record is text by definition, but a
+   * photograph with nothing attached is an artifact rather than a contribution.
+   * Somebody has to say what it shows, and that is what `note` is for.
+   */
+  .refine((r) => !r.media.some((m) => m.kind === 'image') || Boolean(r.note?.trim()), {
+    message: 'An image record needs a note saying what it shows.',
   });
 export type SourceRecord = z.infer<typeof sourceRecord>;
 
@@ -455,7 +479,7 @@ export type Transcript = z.infer<typeof transcript>;
  * unexplained objection cannot be acted on and cannot be answered.
  *
  * Nothing here weighs a flag by who raised it. The obvious design does, and the
- * obvious design also lets an established majority bury a minority account. See
+ * obvious design also lets an established majority bury a minority claim. See
  * DESIGN-QUESTIONS.
  */
 export const flagReason = z.enum([
@@ -494,7 +518,7 @@ export type Flag = z.infer<typeof flag>;
  * One addressable part of a claim: a date, a place, a person.
  *
  * This is what lets someone disagree about the year without disagreeing about
- * the building. Without it, one objection marks a whole account as contested
+ * the building. Without it, one objection marks a whole claim as contested
  * even when most of it is fine.
  *
  * `excerpt` is the literal phrase from the claim text, so an interface can
@@ -515,11 +539,11 @@ export const claim = z.object({
   id: z.string(),
   siteId: z.string(),
   contributorId: z.string(),
-  /** The readable text. If the account was given in another language, this is the rendering. */
+  /** The readable text. If the claim was given in another language, this is the rendering. */
   text: z.string(),
   sourceLanguage: languageCode,
   /**
-   * The account as it was actually given, when that wasn't English. A real
+   * The claim as it was actually given, when that wasn't English. A real
    * field, not an attachment, so nothing is lost by rendering it.
    */
   sourceLanguageText: z.string().optional(),
@@ -543,8 +567,8 @@ export const claim = z.object({
   /** Set when this was added as context on another claim. */
   parentClaimId: z.string().optional(),
   /**
-   * True when an account is in the archive and pinned on the map, readable in
-   * its original language, but nobody has rendered it into English yet.
+   * True when a claim is in the archive and readable in its original language
+   * at the site it belongs to, but nobody has rendered it into English yet.
    *
    * It is visible and attributed. It carries no weight only because there is
    * nothing yet to compare it against. It is never deleted and never hidden.
@@ -554,9 +578,9 @@ export const claim = z.object({
 export type Claim = z.infer<typeof claim>;
 
 /**
- * Someone's rendering of an account into another language.
+ * Someone's rendering of a claim into another language.
  *
- * More than one can exist for the same account, each credited to whoever wrote
+ * More than one can exist for the same claim, each credited to whoever wrote
  * it. There is no slot for "the correct one". Translation involves judgement,
  * and hiding that behind a single authoritative version loses information.
  */
@@ -593,7 +617,7 @@ export const disputeEdge = z.object({
   id: z.string(),
   type: z.literal('dispute'),
   targetClaimId: z.string(),
-  /** Which part. Disagreement always lands on an element, never a whole account. */
+  /** Which part. Disagreement always lands on an element, never a whole claim. */
   targetElementId: z.string(),
   /**
    * Why. Required, and checked here rather than left to the interface, because
@@ -713,7 +737,7 @@ export const claimState = z.object({
    * The artifact this claim was read out of, copied in.
    *
    * It is already in `graphState.records`, so this is duplication. It is here
-   * because almost everything that shows a claim also wants to show what it
+   * because almost everything that shows a claim also has to show what it
    * came from, and making every consumer join by hand is how you end up with
    * three slightly different joins. The same reasoning put `contributor` here.
    *

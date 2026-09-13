@@ -59,10 +59,11 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
         id: ev.contributorId, displayName: ev.displayName,
         lineageId: ev.lineageId, institution: ev.institution,
         joinedAt: ev.at, fictional: true,
+        verification: ev.verification ?? 'guest',
       });
       return;
 
-    case 'account_submitted':
+    case 'claim_submitted':
       acc.claims.set(ev.claimId, {
         id: ev.claimId, siteId: ev.siteId, contributorId: ev.actorId,
         recordId: ev.recordId,
@@ -118,7 +119,7 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
         contributorId: ev.actorId, targetLanguage: ev.targetLanguage,
         text: ev.text, createdAt: ev.at,
       });
-      // A rendering exists, so the account enters the claim graph. The original
+      // A rendering exists, so the claim enters the graph. The original
       // is untouched; the first rendering supplies the reading text.
       const claim = acc.claims.get(ev.claimId);
       if (claim?.awaitingTranslation) {
@@ -240,7 +241,7 @@ function buildClaimState(
   const translationDisputes = acc.translationDisputes.filter((d) => translationIds.has(d.translationId));
 
   // Affirmer independence excludes the author AND anyone sharing the author's
-  // family line. A cousin affirming a cousin's account is the same source
+  // family line. A cousin affirming a cousin's claim is the same source
   // twice, not corroboration. Volume still rises; independence does not.
   const authorLineage = contributor.lineageId ?? `solo:${claim.contributorId}`;
   const affirmerIds = affirmations
@@ -318,7 +319,7 @@ function buildStandings(claimStates: ClaimState[], acc: Accumulator): Contributo
     const theirDisputes = acc.disputes.filter((d) => d.contributorId === c.id);
 
     // Every timestamped thing this person did, so tenure is measured from
-    // activity rather than from when they made an account.
+    // activity rather than from when their profile first appeared.
     const times = [
       ...theirClaims.map((cs) => cs.claim.createdAt),
       ...[...acc.records.values()].filter((r) => r.contributorId === c.id).map((r) => r.createdAt),
@@ -372,7 +373,7 @@ function buildIntegrity(claimStates: ClaimState[], acc: Accumulator): IntegrityS
     overall: 0,
   };
 
-  // Placeholder rollup for map marker encoding only. UofI replaces this.
+  // Placeholder rollup for map marker encoding only. The intelligence layer replaces this.
   score.overall = Math.min(100, Math.round(
     Math.min(score.totalClaims, 12) * 3 +
     Math.min(score.lineageDiversity, 6) * 6 +

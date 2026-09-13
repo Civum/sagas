@@ -71,13 +71,13 @@ Each state deliberately exercises something:
   sparse on the map, not empty.
 - **t1** — an affirmation arrives from the author's own cousin. Volume rises,
   independence does not. `cl-boarding` stays `single_source` with one
-  affirmation on it. Also: an account submitted in Euskara, pinned and readable
+  affirmation on it. Also: a claim submitted in Euskara, kept and readable
   on the map, sitting outside the claim graph with weight 0.
 - **t2** — an institutional source contests *one element* of an otherwise
   well-supported claim. The date is disputed; the location and the person are
-  not. A rendering of the Euskara account arrives and it enters the graph. The
+  not. A rendering of the Euskara claim arrives and it enters the graph. The
   original is untouched.
-- **t3** — a second rendering of the same account coexists with the first, each
+- **t3** — a second rendering of the same claim coexists with the first, each
   attributed, with a preserved objection about what the first one loses. An
   extension satisfies both branches of an earlier disagreement (a reconciliation
   candidate). Two unresolved cross-site reference markers. A 600MB recording is
@@ -85,7 +85,7 @@ Each state deliberately exercises something:
   record saying part of it was never the contributor's to give.
 
 Records run underneath all of it. Nine of them, deliberately unalike: a written
-account with no files at all that produced two separate claims, a photograph
+record with no files at all that produced two separate claims, a photograph
 whose embedded GPS puts the camera in the middle of the street, an audio
 recording that took four months and four people to become readable in English, a
 scanned register page, and one upload still in the queue. Every claim points at
@@ -106,18 +106,18 @@ show the relevant ones next to your components. The reasoning is here.
 
 ### A thin record is not a broken one
 
-Most places, most of the time, have three accounts from one family and nothing
+Most places, most of the time, have three claims from one family and nothing
 corroborated. That scores about 23 out of 100 and it is a real place with a thin
 record.
 
 An interface that renders it in red, or as an empty state, or as an error, tells
-the person who just contributed that their family's account failed. It did not.
+the person who just contributed that their family's claim failed. It did not.
 It is early. This is the hardest judgment in the whole layer because it is the
 common case and the easy design gets it wrong.
 
 ### Agreement is not corroboration
 
-Someone reading an account and agreeing carries almost no evidence. Two families
+Someone reading a claim and agreeing carries almost no evidence. Two families
 independently holding a record about the same building is real corroboration and
 it counts for far more.
 
@@ -129,9 +129,9 @@ people in it.
 ### Disagreement lands on a part, not the whole
 
 Somebody disputes the date. The address, the person and the event on the same
-account are untouched and still corroborated.
+claim are untouched and still corroborated.
 
-Marking the whole account as contested throws away the thing that makes this
+Marking the whole claim as contested throws away the thing that makes this
 useful, and it does something worse: it makes a person's account of their family
 look discredited when one detail is in question.
 
@@ -141,9 +141,9 @@ When two readings compete, show both with their support. No winner, nothing
 hidden behind an interaction, and never as a vote tally. The count is distinct
 families, not people, and labelling it wrong turns evidence into a poll.
 
-### An account nobody has translated yet is not worth less
+### A claim nobody has translated yet is not worth less
 
-It is pinned, readable in the original, and attributed. It carries no weight only
+It is kept, readable in the original, and attributed. It carries no weight only
 because there is nothing yet to compare it against. It is never hidden and never
 sorted off the end of the page as though weight zero meant worthless.
 
@@ -173,9 +173,9 @@ record stays readable while it finishes, and nobody is told to try again.
 `sounds_right`, `dont_know` and `dont_care` are routing signals. They decide what
 gets shown to whom. They are not quality scores, they must never be aggregated
 into one, and a pile of `dont_know` must never read to a contributor as their
-account being rejected.
+claim being rejected.
 
-A report on a record is not a dispute and says nothing about whether the account
+A report on a record is not a dispute and says nothing about whether the claim
 is accurate. The model has no way to resolve one, so nothing may imply a record
 has been reviewed and cleared.
 
@@ -204,10 +204,10 @@ Each of these is a real situation the record can be in. Until a fixture
 exercises one, every team is free to get it wrong until integration, so closing
 any of them is a useful pull request.
 
-- A place with only untranslated accounts, so nothing is in the graph at all
+- A place with only untranslated claims, so nothing is in the graph at all
 - A claim contested by a dozen people across many families
 - A claim with no elements that is not awaiting translation
-- An account long enough to break a reading layout
+- A claim long enough to break a reading layout
 - A place with exactly one claim and no contributors beyond its author
 - Two places close enough together to collide as map markers
 - A claim whose only affirmations come from people who joined the same day
@@ -237,7 +237,7 @@ git diff packages/fixtures/states/
 ```
 
 Change the scoring and every claim that moved appears in that diff. Which claim
-now leads the article. How the integrity score shifted. Whether the account
+now leads the article. How the integrity score shifted. Whether the claim
 nobody has translated just got buried.
 
 That is a regression test and a picture at the same time, and it is the only way
@@ -267,12 +267,12 @@ disputes on its date.
 ## Boundaries
 
 **There is no synthesis endpoint this semester.** These fixtures are what you
-build against. UofI builds the synthesis engine in the spring. If you are
+build against. The intelligence layer builds the synthesis engine in the spring. If you are
 writing code that fetches narrative state over the network, stop and ask.
 
 **`src/weight.ts` is not the weight propagation algorithm.** It is arithmetic
 that exists so claims have an ordering to render. Designing the real one is
-UofI's semester-1 deliverable. Do not treat it as a baseline, a specification,
+the intelligence layer's first-semester deliverable. Do not treat it as a baseline, a specification,
 or an opinion. It will be deleted.
 
 The one property in it worth preserving is a constraint on the problem rather

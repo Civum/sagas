@@ -7,7 +7,7 @@
  *
  * This page is the worked example: data comes from one place, gets passed down
  * as props, and the components that render it are finished rather than stubbed.
- * Three of them are done — `MapUnavailable`, `IntegrityBadge`,
+ * Three of them are done: `MapUnavailable`, `IntegrityBadge` and
  * `ConfidenceIndicator`. Everything else in `src/features` is one line and a TODO.
  *
  * Doing one of those is a well-shaped first task. Open the stub, read the
@@ -42,7 +42,7 @@ export default function Page() {
   return (
     <div className="mx-auto max-w-3xl space-y-10 px-6 py-10 font-sans text-neutral-900">
       <p className="rounded border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-900">
-        Development data. Every contributor and account below is invented. Do not
+        Development data. Every contributor and claim below is invented. Do not
         show it to anyone as though it were testimony.
       </p>
 

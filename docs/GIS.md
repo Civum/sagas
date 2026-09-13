@@ -116,7 +116,7 @@ optional accuracy in metres.
 
 Do not average them. Do not silently prefer the more precise one. A record's
 location and the place it is attached to can disagree, and that disagreement is
-information — there is an acceptance case about exactly this, where a photo's
+information. There is an acceptance case about exactly this, where a photo's
 GPS lands in the middle of the street.
 
 How location should actually be captured is an open question, not a settled

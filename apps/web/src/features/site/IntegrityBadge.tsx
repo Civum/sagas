@@ -59,7 +59,7 @@ export function bandFor(overall: number): IntegrityBand {
   if (overall < 35) {
     return {
       label: 'Thin record',
-      invitation: 'A few accounts, mostly from one family. More would help.',
+      invitation: 'A few claims, mostly from one family. More would help.',
       fill,
     };
   }
@@ -119,13 +119,13 @@ export function IntegrityBadge({ integrity }: { integrity: IntegrityScore }) {
       <p className="mt-1.5 text-xs text-neutral-600">{band.invitation}</p>
 
       {/*
-        The counts behind the score. Shown because a single number invites
-        arguments about the number, and the parts are what somebody can actually
-        do something about.
+        The counts behind the score. A single number gets argued about on its
+        own terms, and the parts are what somebody can actually do something
+        about, so both are shown.
       */}
       <dl className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-neutral-500">
         <div className="flex gap-1">
-          <dt>accounts</dt>
+          <dt>claims</dt>
           <dd className="tabular-nums text-neutral-700">{integrity.totalClaims}</dd>
         </div>
         <div className="flex gap-1">

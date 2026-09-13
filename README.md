@@ -1,6 +1,6 @@
 # Sagas
 
-A map-based archive of community accounts of places.
+A map-based archive of what people know about places.
 
 Someone contributes what they know about a place, in whatever language they'd
 tell it in. It stays attached to that place and attributed to them. Other people
@@ -53,46 +53,68 @@ who each of them is."
 
 Nobody has built this well, which is most of why it makes a decent capstone.
 
+## Five words used carefully
+
+- **Site.** A place somebody has designated as meaningful. Records and claims
+  attach to a site. A site does not attach to them.
+- **Record.** What somebody hands over. A recording, a video, a photograph, a
+  scanned document, or typed text. Nothing in the graph argues with a record.
+  Disagreement lands on claims instead.
+- **Claim.** Somebody's reading of a record. This is where disagreement lands.
+  One record can produce several claims.
+- **Rendering.** A transcript or a translation. One person's version of a
+  record or a claim, attributed, with more than one allowed to exist.
+- **Profile.** Who a contributor is to the software. This semester a profile is
+  a guest id kept in browser storage, and there are no logins.
+
+"Account" is not a term in this project. It used to be, and it was doing two
+jobs at once: a contribution in some sentences and a login in others. If you
+find it still standing for either, that is a leftover and worth a pull request.
+
 ## How the pieces fit
 
-Accounts are broken into individual **claims**: assertions that can be compared
-across sources. Claims are nodes in a directed graph. Community
-response comes in three forms:
+Records are broken into individual **claims**: assertions that can be compared
+across sources. Claims are nodes in a directed graph. Two kinds of response
+change the shape of that graph:
 
 - **Dispute.** "I disagree with this specific element, because." Disputes
   target an *element* of a claim (a date, a place, a person), not the whole
   claim, so a record can say "three disputes target the date; the location is
   undisputed." Disputes without reasoning are rejected.
-- **Extension.** "I have more context." A new account that adds to another
+- **Extension.** "I have more context." A new claim that adds to another
   without contradicting it.
-- **Affirmation.** Somebody agreeing. It adds a little weight and no new
-  account.
 
-Weight accrues from corroboration, but corroboration is counted by **independent
-family line**, not by headcount. Three cousins are one source. This distinction
-is doing more work than anything else in the model.
+A third response costs the reader nothing and creates no claim. A **passover**
+is what somebody does on the way past: it says this sounds right, or that they
+cannot judge it, or that it is not what they came for. Agreeing is one of those
+three. It adds a little weight. The other two route attention and add none of
+it, and none of the three is a vote.
+
+Weight accrues from corroboration, and corroboration is counted by **independent
+family line** rather than by headcount. Three cousins are one source. That count
+is what decides whether a claim looks well supported.
 
 There is no "community accepted" status and no endorsement threshold. The
 highest-weight claim at a node renders as the primary reading; competing claims
 stay visible inline. **Dissent is preserved, not adjudicated.**
 
-Accounts given in a language with no English rendering yet are pinned and
-readable in the original, but sit outside the claim graph until someone renders
-them. They are never deleted. Several renderings can coexist, each credited. There is no slot for the
+A claim given in a language with no English rendering yet stays in the archive,
+readable in the original at the place it belongs to, and sits outside the claim
+graph until somebody renders it. They are never deleted. Several renderings can coexist, each credited. There is no slot for the
 correct one.
 
 ## Layers, and who owns what
 
-| Layer | Owner | Scope |
-|---|---|---|
-| **Experience** | BYU-I | Living article renderer, design system, map, heritage trails, badges, contributor dashboard |
-| **Intelligence** | UofI | Claim graph model, weight propagation, trust framework, synthesis engine, exploration |
-| **Content capture** | BSU | Media pipeline, account submission, translation workflow, moderation, and the contributing interface |
-| **Contracts & fixtures** | Sponsor | `packages/contracts`, `packages/fixtures` |
+| Layer | Scope |
+|---|---|
+| **Experience** | Living article renderer, design system, map, heritage trails, badges, contributor dashboard |
+| **Intelligence** | Claim graph model, weight propagation, trust framework, synthesis engine, exploration |
+| **Content capture** | Media pipeline, record submission, translation workflow, moderation, and the contributing interface |
+| **Contracts & fixtures** | `packages/contracts`, `packages/fixtures`, maintained by the sponsor |
 
 Each layer has its own app or apps, so no two teams edit the same files:
 `apps/web` + `apps/ui-api` + `packages/read-model` for experience,
-`apps/graph-api` + `packages/db` for intelligence, `apps/capture-api` +
+`apps/graph-api` for intelligence, `apps/capture-api` +
 `apps/capture-web` for content. [`README` files in each](./SETUP.md) say what goes where.
 
 Each school forks this repo into its own GitHub organization. All student work
@@ -111,10 +133,9 @@ with its own `package.json`, and they refer to each other by name.
 |---|---|---|---|
 | `apps/web` | Experience | The site. Next, React, Tailwind. Components are stubs with instructions in them. | Always. This is the layer. |
 | `apps/ui-api` | Experience | Read API over the archive for the browser. Empty. | You are building the back end for the site. |
-| `packages/read-model` | Experience | Data access shared by the two above. Reads fixtures today, wants a database. | First infrastructure job on that layer. |
+| `packages/read-model` | Experience | Data access shared by the two above. Reads fixtures today. Putting a database behind it is your job. | First infrastructure job on that layer. |
 | `apps/capture-api` | Content | Submission, uploads, transcription and moderation. Empty. | Always. This is the layer. |
-| `apps/graph-api` | Intelligence | Scoring, the graph, geographic queries. Empty. | Always. This is the layer. |
-| `packages/db` | Intelligence | Claims, edges, and the graph derived from them. Schema, migrations, spatial indexes. Empty. | Before you design any tables. |
+| `apps/graph-api` | Intelligence | Scoring, the graph, geographic queries, and the schema behind them. Empty. | Always. This is the layer. |
 | `packages/contracts` | Sponsor | The shapes, defined once, with the reasoning next to each one. | Constantly. Read it before you build anything. |
 | `packages/fixtures` | Sponsor | Invented data, the states derived from it, and the rules your code has to obey. | Before you call anything done. |
 | `tooling/*` | Shared | ESLint, Prettier, Tailwind, TypeScript and CI config. | Rarely, and think before you change it. |
@@ -130,13 +151,21 @@ pass. See below.
 people hand over, the intelligence layer stores claims and the graph derived
 from them, and the experience layer runs a read model shaped for map and article
 queries. None of them reads another's tables, so no team can be blocked by
-another team's migration. `packages/db/README.md` explains the split.
+another team's migration. Each layer's schema and migrations live in the app
+that uses them, and that app's README explains the split.
+
+**Where a thing lives.** Centralise what is shared. Colocate what is not.
+
+`packages/contracts` and `packages/fixtures` are shared because all three layers
+build against the same shapes. `packages/read-model` is shared because both
+experience apps import it. A schema is not shared, because each layer designs
+its own and they are meant to differ, so it lives in the app that queries it.
 
 ## The fixtures are the contract
 
 This is the part worth understanding before you write code.
 
-Neither layer waits on the other. Both build against the same fixture data, and
+No layer waits on another. All three build against the same fixture data, and
 that data is maintained by the sponsor. When work on one layer reveals that the
 model is wrong, the fixture changes. The other layer sees it as a versioned
 contract change, discussed at a check-in, not as a broken build.
@@ -189,7 +218,7 @@ require a key you don't have, that's a bug in the scaffold. Tell us.
 
 ## What the scaffold deliberately does not include
 
-- **A design system or design tokens.** BYU-I owns this. You get a brand brief,
+- **A design system or design tokens.** The experience layer owns this. You get a brand brief,
   not a component library. Handing over a design system would remove the most
   interesting work in your scope.
 - **A synthesis engine.** Nothing works out what a narrative should say. The
@@ -218,7 +247,7 @@ the contract changes are in
 The two that matter most on day one: **open pull requests small and early**, and
 **your fork is pinned, so nothing changes under you mid-sprint.**
 
-## A note on the fixture content
+## The fixture data is invented
 
 Every contributor, family, and event in the fixture data is **invented**. The
 buildings, streets, and coordinates are real; nothing else is. It exists to
@@ -238,13 +267,13 @@ in the data, in the schema, and here.
 Apache 2.0. The full text is in [`LICENSE`](./LICENSE).
 
 Fork it and build on it. Your fork is yours, and work a student writes there
-stays theirs — nobody needs permission to put it in front of an employer.
+stays theirs. Nobody needs permission to put it in front of an employer.
 
 Anything merged upstream is credited by name, and the commit history stands as
 the record either way. This is a project about accounts staying attached to the
 people who gave them, and that applies to the people writing the code too.
 
-## A note on how this was built
+## How this scaffold was built
 
 The scaffold was developed with AI assistance. Everything in it was reviewed
 before it landed, and the acceptance suite and scoring rules are here so that

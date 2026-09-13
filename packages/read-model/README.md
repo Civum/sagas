@@ -16,7 +16,8 @@ design.
 
 A read model: your own schema, shaped for the two things this layer actually
 does, which are drawing a map and rendering an article. That is not the same
-shape as the authoritative store in `packages/db`, and it should not try to be.
+shape as the authoritative store the intelligence layer keeps, and it should not
+try to be.
 
 Putting Postgres behind these functions is the first infrastructure job on this
 layer. Nothing that calls them changes when you do, which is the entire reason
@@ -43,5 +44,5 @@ per claim and falls over at any real size.
 ## Who owns this
 
 The experience layer, specifically whoever holds the back end and database roles
-on that team. `packages/db` is a different database owned by the intelligence
-layer, and `packages/db/README.md` explains the split.
+on that team. The intelligence layer owns a different database, and
+`apps/graph-api/README.md` explains the split.

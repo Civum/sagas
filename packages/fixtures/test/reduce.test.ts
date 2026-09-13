@@ -26,7 +26,7 @@ test('nothing is ever removed: claim counts are monotonic', () => {
 });
 
 test('a cousin affirming a cousin is not independent corroboration', () => {
-  // Ana shares Marisol's family line and affirms Marisol's account.
+  // Ana shares Marisol's family line and affirms Marisol's claim.
   const boarding = find(t1, 'cl-boarding');
   expect2eq(boarding.affirmations.length, 1, 'the affirmation is recorded');
   expect2eq(boarding.independentLineageCount, 0, 'but it adds no independence');
@@ -37,7 +37,7 @@ test('a cousin affirming a cousin is not independent corroboration', () => {
   expect2ok(fronton.independentLineageCount >= 1);
 });
 
-test('an untranslated account is present, pinned, and outside the graph', () => {
+test('an untranslated claim is present, pinned, and outside the graph', () => {
   const d1 = find(t1, 'cl-domingo');
   expect2eq(d1.claim.awaitingTranslation, true);
   expect2eq(d1.weight, 0, 'carries no weight until rendered');

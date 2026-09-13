@@ -61,8 +61,8 @@ This app is yours alone. `apps/capture-api` belongs to the content layer and
 two teams edit the same files, and so each can be deployed on its own terms.
 
 Your database is your own: a read model shaped for map queries and article pages.
-`packages/db` is a different database, the authoritative store, and it belongs to
-the intelligence layer. See `packages/db/README.md`.
+The intelligence layer runs a different database, the authoritative store for
+claims and the graph. See `apps/graph-api/README.md`.
 
 ## Making it a real app
 

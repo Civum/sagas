@@ -47,7 +47,7 @@ requirements rather than to the pattern behind them.
 stops them drifting. It also hides something true, which is that every one of
 these is a person doing something to something at a time.
 
-**The tension:** a shared base type is obviously correct and makes the file
+**Why this is hard:** a shared base type is obviously correct and makes the file
 harder to read straight through. Zod's `.extend()` handles this cleanly, but
 inferred types get harder to follow in editor tooltips, which matters when
 you're learning the model.
@@ -61,7 +61,7 @@ you're learning the model.
 belongs. TypeScript will let it through and you'll find out at runtime, or
 worse, not at all.
 
-**The tension:** branded types fix it (`type ClaimId = string & { __brand:
+**Why this is hard:** branded types fix it (`type ClaimId = string & { __brand:
 'ClaimId' }`) at the cost of needing a cast every time you construct one from a
 plain string, which is often. Zod supports `.brand()`. Whether the friction is
 worth the safety depends on how much id-juggling the code ends up doing, which
@@ -75,10 +75,10 @@ translation. Both carry a contributor, a target, reasoning, and a timestamp.
 **The problem:** they will keep diverging. A third kind of objection is already
 foreseeable (see Part 2), and it'll be a third copy.
 
-**The tension:** merging them means a target that can point at different kinds
-of thing, which is either a discriminated union or a polymorphic reference.
-Both are more complex than what's there. The question is whether the complexity
-is worth paying now or after there are three.
+**Why this is hard:** merging them means a target that can point at different
+kinds of thing, which is either a discriminated union or a polymorphic
+reference. Both are more complex than what is there now. The question is whether
+that complexity is worth paying for today or once there are three.
 
 ## A transcript and a translation are the same kind of thing
 
@@ -93,7 +93,7 @@ one to exist, and neither has a slot for the correct one.
 same shape again, and `mediaDerivative` already has a `text_extract` kind that
 half-does it.
 
-**The tension:** merging them needs a single shape with a source, a target
+**Why this is hard:** merging them needs a single shape with a source, a target
 language, a method, and a person, which is more abstract than either of the two
 and reads worse for the common case. The transcript that starts as machine
 output and gets corrected by a person is the case that breaks most attempts at
@@ -114,14 +114,14 @@ on a date element. `1963-1964` sits next to "this would be 1963, 1964".
 normalises those into a year, and there is no period field on a claim.
 
 **Why:** there used to be one. It was a bucket like `depression_war_1930_1945`,
-chosen by whoever typed the account in, and it was deleted. It was a second,
+chosen by whoever typed the record in, and it was deleted. It was a second,
 coarser copy of information the excerpt already held, nothing read it, and half
 the values in the fixture were the scaffold guessing.
 
 **The problem:** you cannot sort or filter on a phrase. "During the war" and
 "1943" belong near each other on a timeline and no code can currently tell.
 
-**The tension:** normalising into a range makes filtering work and implies
+**Why this is hard:** normalising into a range makes filtering work and implies
 precision nobody has. Showing the raw phrase is honest and unsortable. Doing
 both is clutter, and doing neither means the archive has no way to answer "what
 do we know about the fifties".
@@ -130,7 +130,7 @@ Whatever you build here has to keep the words. A range calculated from a phrase
 is a reading of it, and readings in this project are attributed and contestable
 rather than silently replacing the thing they read.
 
-## Accounts and claims are the same thing, and probably shouldn't be
+## A claim is a telling and an assertion at once, and probably shouldn't be
 
 **Now:** a `claim` holds both a person's telling and the assertion inside it.
 `cl-boarding` in the Anduiza fixture is simultaneously Marisol's account of her
@@ -143,7 +143,8 @@ A system where the public picks it apart has the wrong feel no matter how
 carefully the interface is worded.
 
 **A shape worth considering:** separate the artifact from the assertions. A
-photograph or a recording just exists — there's nothing to disagree with. What
+photograph or a recording just exists, and there is nothing to disagree with.
+What
 people disagree about is what it *means*. So the artifact becomes uncontestable
 by construction, and disagreement lands on someone's reading of it, which is
 impersonal.
@@ -153,16 +154,16 @@ photo with one sentence, or a letter, or a recording. Someone elderly with a
 story wouldn't also have to be a transcriber and a translator. The current model
 has nowhere to put any of that.
 
-**What it costs:** a whole layer that doesn't exist, and a new question — who
+**What it costs:** a whole layer that does not exist, and a new question. Who
 writes the interpretation, and does a family accept a stranger doing it?
 
-## Claims might want to be atomic
+## Should one claim hold more than one assertion?
 
 **Now:** a claim is a paragraph with typed `elements` inside it. Disagreement
 points at an element id.
 
 **An alternative:** "my grandfather ran sheep through Bruneau Canyon in 1943"
-becomes three claims — a person, a place, a date. Each one is a single
+becomes three claims: a person, a place, a date. Each one is a single
 assertion.
 
 **What that buys:** a date claim compares directly against a date claim from
@@ -222,7 +223,7 @@ would be a shame.
 
 **Now:** `affirmation` covers both.
 
-**The problem:** these aren't the same. Someone reading an account and agreeing
+**The problem:** these aren't the same. Someone reading a claim and agreeing
 carries almost no evidence. Two families independently having a record about the
 same building is real corroboration and it should count for far more.
 
@@ -231,6 +232,143 @@ Every instance of agreement in it is a reader clicking agree. That's a gap in
 the test data as much as in the model.
 
 ---
+
+## A profile has no way to say whether anyone can prove it is theirs
+
+**Now:** `contributor` carries an id, a display name, a lineage, an institution,
+a joined date, and the invented flag. Nothing says whether the person behind it
+can get back to it. This semester every profile is a guest id kept in browser
+storage.
+
+**The problem:** a guest id is a way in, not an end state. Somebody starts
+contributing without signing up and verifies later. The model has no word for
+the difference, so nothing can treat the two differently, and nothing can
+connect them when verification arrives. On the day accounts exist, every
+contribution made this year is stranded.
+
+**The cheap part:** one field on `contributor` saying which kind it is. It is
+additive and needs no migration. It also lets a scorer treat a distinct verified
+person differently from an unrecoverable one, which is not reputation. It is the same
+kind of signal as counting corroboration by distinct family line. It asks
+whether this is one person once, not whether the person is any good.
+
+**The expensive part, and this is the open one:** linking. If guest G and
+verified V turn out to be the same person, and V once affirmed a claim by G,
+that affirmation was never independent. Linking two profiles retroactively
+invalidates corroboration the archive has already counted, and claims that were
+shown as well supported because of it. It is the three cousins problem arriving
+through identity instead of family.
+
+Do not build profile linking until there is an answer to what happens to
+everything the archive already said on the strength of the old counts.
+
+## Resolution is a missing edge
+
+**Now:** there are three edge types. Dispute, extension, reference. When a claim
+settles an earlier disagreement it is filed as an extension, and nothing records
+that it was written to settle anything. The fixture has one at t3 and the only
+place it is called a reconciliation candidate is a comment.
+
+**The problem:** the archive cannot tell somebody adding context apart from
+somebody proposing that two conflicting readings were both true. Those are
+different acts and a reader should be able to see which one happened.
+
+**The cheap version:** an optional field on `extensionEdge` listing the disputes
+it claims to resolve. Do not add a fourth edge type. Part 1 already asks whether
+the three that exist should collapse into one, and a fourth would make that
+worse.
+
+**What a system can do here is propose, not decide.** Disputes already target
+specific elements, so the set of open conflicts at a node is computable without
+reading anything. Showing somebody "these two readings disagree on the date and
+on the owner, do you want to write something that covers both" is the same
+pattern as proposing cross-language matches for a person to confirm.
+
+**Two things not to build.**
+
+Requiring the people who raised the disputes to accept a resolution hands one
+person a veto over the record. In a community that already disagrees, a single
+holdout freezes a node forever.
+
+A consensus threshold that flips a resolution into an accepted state is the
+endorsement mechanism this project removed. Passovers are not votes and the
+contract says so. A resolution is a claim. It carries weight like any other
+claim, it can be disputed like any other claim, and it locks nothing.
+
+## `affirmation` duplicates a passover tier
+
+**Decided, not built.** Ships in the same pass as "A dispute should be a claim",
+after the intelligence team has a working scorer.
+
+**Now:** `affirmation` is an id, a claim id, a contributor id and a timestamp.
+`passover` is the same, plus a `kind`, and one of the kinds is `sounds_right`.
+An affirmation is a passover with `kind: sounds_right`. There are not two
+mechanics here. There is one, stored twice.
+
+**The problem:** the same act lands in a different object depending on which
+button an interface showed. `affirmationCount` reaches the scorer and passovers
+reach nothing, so whether a reader nodding counts is decided by the interface
+rather than by what the reader did.
+
+**The fix:** `affirmation` goes away. One reaction object with a kind.
+`affirmationCount` becomes a count of passovers where kind is `sounds_right`.
+All three kinds compose into how a node is magnified. Sounds right is a positive
+additive, don't care is a neutral additive, and don't know is neutral and says
+the claim has not reached anyone able to judge it. None of them create edges.
+None of them are votes.
+
+**Careful with a fourth value.** There is no "that's wrong" and there should not
+be. A cheap negative is a downvote, and disputes carry reasoning on purpose.
+What is missing is a way to say "somebody who knows should look at this"
+carrying no weight at all, and `flag` may already be that mechanism sitting in
+the wrong place.
+
+**Why it is not a Part 1 change.** Deleting the object moves fixture counts and
+therefore the derived states, and `affirmation` appears fourteen times in
+`packages/fixtures/behaviour/scoring-contract.ts`, which is the file the
+intelligence layer's first task runs against.
+
+## A dispute should be a claim
+
+**Decided, not built.** Landing with the `affirmation` and `passover` merge,
+after the intelligence team has a working scorer.
+
+**Now:** `claim_disputed` produces an edge carrying reasoning and an optional
+proposed value. The reducer writes it into `disputes`. An extension, by
+contrast, produces a claim with a `parentClaimId`. So one of the two ways of
+responding to a claim creates a node and the other does not.
+
+**What works today:** the proposed value is already corroborated.
+`competingValues` counts distinct family lines per proposed value, so two people
+independently saying 1914 register as two lines for 1914. Disputes are not
+contentless.
+
+**What does not:** the reasoning. Somebody citing a hotel register and somebody
+citing what their aunt said both count as one line for the same value, and there
+is no way to back one and not the other. The reasoning is an assertion that
+cannot be corroborated, extended, or disputed, which is strange, because an
+independent confirmation of a dispute is exactly the kind of thing this archive
+should be able to record.
+
+**The shape:** a dispute is a claim that carries a dispute edge. Node for the
+assertion, edge for what it targets. `disputeCount` does not change in value,
+since a dispute still produces one edge against its target, so the ten scoring
+rules keep reading the same number. What becomes possible later is a dispute
+with its own weight, which is a new field in `ScoringInput` rather than a
+changed one.
+
+**A dispute-claim carries a `recordId`, like every claim.** A dispute then has
+provenance. Without it, a dispute would be the only assertion in the system with
+none, and it is the assertion type most likely to be casual or hostile. It also
+keeps `claim.recordId` non-optional, which matters more than it looks: an
+optional foreign key in the middle of the core object produces branching logic
+in every consumer for years. The cost is that disputing means typing what you
+know rather than clicking, which is consistent with disputes already requiring
+reasoning.
+
+**What is still open:** whether `translationDispute` collapses into the same
+shape at the same time. It is the same idea applied to a different target and it
+is already logged as a duplicate in Part 1.
 
 # Part 3 — Open by design
 
@@ -248,49 +386,53 @@ argue for.
 ## How do you tell a good source from a bad one?
 
 This is the biggest open question in the project and the intelligence layer's
-headline deliverable. Everything else in Part 3 is downstream of it.
+main deliverable. Everything else in Part 3 depends on it.
 
-Some accounts deserve more weight than others. A person who has contributed
-twenty things that other families independently backed is not the same as
-somebody who turned up yesterday, and pretending otherwise produces an archive
-where the loudest recent voice wins. But every mechanism for saying so has a
-failure mode that is worse than the problem.
+Some claims deserve more weight than others. Somebody who has contributed twenty
+things that other people independently backed is not in the same position as
+somebody who arrived yesterday. Saying so is reasonable. Every method of saying
+so that I have thought of has a failure mode worse than the problem it solves.
 
 **What you have to work with.** `contributorStanding` in the contract records
-what each person has actually done: records submitted, claims written, claims
-that another family line backed, claims somebody disputed, disputes they raised,
-how many of those disputes proposed an alternative rather than only objecting,
-affirmations, translations, transcripts, flags, and when they were first and
-last active. All counts. No score, deliberately.
+what each person has done. Records submitted, claims written, claims that
+somebody else backed, claims somebody disputed, disputes raised, how many of
+those disputes proposed an alternative instead of only objecting, affirmations,
+translations, transcripts, flags, and when they were first and last active.
+These are counts. There is no score, and that is deliberate.
 
-That list is the real constraint on the answer. An algorithm can only be as good
-as what the model wrote down, so if you find yourself wanting a signal that is
-not there, that is a contract change and a useful one. Ask for it early.
+That list is the constraint on your answer. An algorithm can only use what the
+model wrote down. If you want a signal that is not there, that is a contract
+change and a useful one. Ask for it early.
 
-**Why the obvious answer is dangerous.** Weight accounts by their author's
-standing and you have built a system where established families outrank new
-ones. In a community with real internal divisions, and this one has them, that
-is not a rounding error. It is the archive quietly agreeing with whoever was
-already winning.
+**The rule is this.** How somebody is regarded should not outweigh the
+record of what that person has actually contributed. Those two things come apart
+more often than you would expect, and most shortcuts in this area work by
+quietly substituting the first for the second.
 
-The same trap shows up in moderation. Prioritising flags by the reputation of
-whoever raised them is obviously correct and also lets a majority bury a
-minority account. Current thinking is that standing should decide what a human
-looks at first and never what disappears on its own, which is untested and may
-be too weak to be useful.
+**Why the obvious answer is dangerous.** If a claim's weight depends on its
+author's standing, then people who have been contributing longer carry more
+weight on every claim they make, whatever the claim says. The archive would
+start agreeing with whoever showed up first. That is a large effect, not a small
+one.
 
-**Some threads worth pulling.** Corroboration across family lines is the one
-signal that cannot be manufactured by enthusiasm, and it is already counted.
-Whether a dispute produced a new record or only more disputes is structural and
-needs no reading. Silence is not doubt, and standing built on engagement will
-systematically discount accounts nobody has seen. And there is nothing in the
-model letting one contributor stand behind another, so somebody every elder in
-the room would vouch for looks exactly like a stranger until they have posted
-enough.
+The same problem appears in moderation. Sorting reports by the reputation of
+whoever filed them is the obvious design, and it means a report from a
+well-known person is looked at first every time. My position is that standing
+can decide what a person looks at first, and should never decide what
+disappears without a person looking at it. That is untested and may be too weak
+to be useful.
 
-**The thing to avoid.** A single number. The moment standing collapses to one
-score, it will get displayed, and a person's account of their own family will
-have a rating next to it.
+**Things worth trying.** Corroboration from unrelated people is the one signal
+that cannot be produced by enthusiasm alone, and it is already counted. Whether
+a dispute produced a new record or only more disputes is structural and needs no
+reading. A claim nobody has engaged with is not a doubted claim, so standing
+built on engagement will undercount claims nobody has seen. And nothing in the
+model lets one contributor vouch for another, so somebody the whole community
+knows looks exactly like a stranger until they have posted enough.
+
+**What to avoid.** A single number. As soon as standing becomes one score it
+will be displayed, and then somebody's account of their own family has a rating
+next to it.
 
 ## Can someone take their record back?
 
@@ -298,7 +440,7 @@ The model says nothing is deleted. Disagreement is preserved rather than
 resolved away, which is most of the point.
 
 But that's a principle about *disagreement*, and it collides with a principle
-about *consent*. If a family contributes an account and decides years later they
+about *consent*. If a family contributes a record and decides years later they
 don't want it public, what happens? What happens to the interpretations and
 claims built on top of it?
 
@@ -332,7 +474,7 @@ because it looks the same as a real one.
 
 ## How do claims compare across languages?
 
-An account in Euskara and an account in English can be about the same building
+A claim in Euskara and a claim in English can be about the same building
 and the same year. Working out that they agree is easy for a person and hard for
 a machine, especially for Euskara, which has very little training data and isn't
 related to anything else in Europe.
@@ -363,11 +505,11 @@ weighs is the tempting option and probably the dangerous one.
 Flags need prioritising or the queue is useless. The obvious approach weights
 them by the reputation of whoever flagged.
 
-The obvious approach also lets an established majority bury a minority account.
+The obvious approach also lets an established majority bury a minority claim.
 This community has real internal divisions, so that isn't hypothetical.
 
-Current thinking is that reputation should decide what a human looks at first
-and never what disappears on its own. Untested.
+The idea is that reputation should decide what a human looks at first
+and never what disappears on its own. That has not been tested.
 
 ## Can trust be inherited?
 
@@ -382,7 +524,7 @@ literature behind it, most of it concerned with capping how much damage one bad
 actor can do.
 
 The objection is less about bots than it looks. A bounded metric handles fake
-accounts reasonably well. It does nothing about a large real family whose real
+profiles reasonably well. It does nothing about a large real family whose real
 members really do vouch for each other, which is the failure this project
 actually cares about, arriving through a different door than the one
 `independentLineageCount` is watching.
@@ -392,14 +534,36 @@ people's standing, then in a community with existing divisions vouching becomes
 a political act, and people decline to vouch across a line they already don't
 cross. The trust graph reproduces the split it was meant to see past.
 
-It also collides with a decision already made. `ScoringInput` is never given the
-author. That absence is the strongest guarantee in the scoring code, and
-inherited trust cannot be used without breaking it. That may still be the right
+It also collides with a decision already made. `ScoringInput` is never given an
+author, only facts derived from who contributed. Inherited trust is a property
+of a person rather than a derived fact, so it cannot be used without breaking
+that. That may still be the right
 trade. It hasn't been argued.
+
+## Can vouching carry what lineage cannot?
+
+`lineageId` is hand-authored and nothing derives it, which is why six scoring
+rules that depended on it were removed. Nothing in the model lets one
+contributor stand behind another either, so somebody the whole community knows
+looks exactly like a stranger until they have posted enough.
+
+One mechanism might cover both. If a contributor can vouch for another, and a
+vouch carries a reason, then one of those reasons is that the two are related.
+Lineage stops being a field somebody typed and becomes something a person said,
+with a name and a date on it, which can be disagreed with like anything else.
+
+What is unresolved: a vouch is as gameable as the field it replaces, and two
+profiles vouching for each other as family is self-declared lineage with extra
+steps. What it adds is attribution. A hand-authored `lineageId` has no author.
+A vouch does, and that makes it contestable.
+
+It also runs straight into the linking problem in Part 2, because a vouch
+between two profiles that turn out to be one person is worth nothing, and the
+archive will already have counted it.
 
 ## How does a reference become an edge?
 
-The question below assumes a graph of accounts pointing at places. Nothing
+The question below assumes a graph of claims pointing at places. Nothing
 creates that graph.
 
 Someone writing about a boarding house mentions the Basque Museum. To a reader
@@ -422,8 +586,66 @@ be derived from documents, because it was never written in one. A person
 confirming it is the only source there is.
 
 Open: whether people mark anything at all, and whether an unresolved mark is
-data or a to-do item nobody clears. Accounts written before marking existed are
+data or a to-do item nobody clears. Claims written before marking existed are
 a separate problem with no obvious answer.
+
+## Does a late dispute count for less?
+
+The idea is that a dispute raised long after the claim it targets carries less
+influence on its own than one raised close to it, and that corroboration can
+overcome the damping. A weak signal backed by enough independent people still
+ends up strong.
+
+A period ends when activity on a topic rises, holds, and falls away. That
+boundary comes from engagement, which is doing something different from ranking
+by popularity. Engagement says when a period closed. It does not say what is
+good inside one, and the damping would apply to everything in a period equally.
+
+Check this before anything else: the model records one date where this needs
+three. When the thing happened, when the person came to know it, and when they
+said so. `record.capturedAt` is when the artifact was made, so a recording made
+in 2026 of a story somebody was told in 1960 about 1922 carries one of the
+three. Without the other two, any damping is measuring when somebody got around
+to typing.
+
+Open:
+
+- How is distance measured? Period count and elapsed time come apart. A busy
+  site might pass through six periods in a year while a quiet one sits in one
+  for three, so damping by period penalises a dispute on the busy site six times
+  harder for the same calendar gap. That might be right, on the grounds that
+  activity means the record was being examined and somebody missed the window.
+  It might also be an artifact.
+- Does it apply to every edge or only to disputes? An extension arriving late is
+  enriching the record rather than attacking it, and damping extensions equally
+  makes the archive harder to improve as it ages.
+- How does a chain inherit it? If claims descend from a damped dispute, do they
+  weigh less or more? That is a question about what the archive is for before it
+  is a question about arithmetic.
+- Cold start. With few contributors, one person's burst of activity closes a
+  period. That is fragile exactly when the archive is thinnest.
+
+## Is the unit of work a task?
+
+Transcribing is a task. Translating is a task. Writing a claim is a task.
+Working out who to ask is a task. If task were an object, behavioural history
+would be per category by construction instead of tracked separately for each
+activity.
+
+`contributorStanding` is already the accounting half of this. Every field in it
+counts a completed act. What a task object would add is the part missing
+everywhere else: an addressable piece of open work with a state, which is what
+makes a queue a queue rather than a step inside a form. The translation queue,
+the transcript queue and the moderation queue are the same want, three times,
+under three names.
+
+There is one constraint. Some acts close and some do not. `flag` has a status.
+`referenceEdge` has a resolved boolean. `disputeEdge` has neither, on purpose. A
+dispute is a task that completes the moment it is filed and never gets resolved,
+and a task model that cannot express that will start asking interfaces to close
+disagreements.
+
+Logged as a direction, not a decision, and not this semester.
 
 ## What makes a place significant?
 
@@ -431,31 +653,31 @@ Before any of this works, references have to exist as data. See the question
 above.
 
 Some places matter more than others, and the archive should be able to say so
-without anyone declaring it. One idea: a place referenced often in accounts about
+without anyone declaring it. One idea: a place referenced often in claims about
 *other* places has earned significance from how the community talks, not from
 anyone's opinion.
 
 That's roughly PageRank over a reference graph, which is well-trodden. What might
-not be is what the edges mean here — typed relationships, independence measured
-by family line rather than by count, and references created by people marking
-text rather than by authors linking.
+not be is what the edges mean here. They are typed relationships, independence is
+measured by family line rather than by count, and references are created by
+people marking text rather than by authors linking.
 
-## Maria the subject and Maria the account
+## Maria the subject and Maria the profile
 
-A person named in an account is the same shape as a place named in one: a span
+A person named in a claim is the same shape as a place named in one: a span
 of text pointing at something that may not be in the archive yet. One marking
 mechanism covers both, which is one feature instead of two.
 
-A person is two entities though. Maria as the subject of a record is archival —
-she is what the account is about, and she may have died in 1961. Maria as a
+A person is two entities though. Maria as the subject of a record is archival.
+She is what the claim is about, and she may have died in 1961. Maria as a
 contributor is a platform actor with behaviour and standing. Libraries have kept
 these apart for a century. An authority record and a borrower card are not the
 same object.
 
-Most person references will never have an account behind them. The people an
+Most person references will never have a profile behind them. The people an
 oral history archive talks about are mostly dead, so the subject is the normal
 case and a living claimant is the exception. Designing it the other way round,
-as accounts that can point at subjects, gets the common case backwards.
+as profiles that can point at subjects, gets the common case backwards.
 
 Whether being the subject earns weight is the obvious question, and the answer
 is probably no. Being the person a story is about makes you one source among
@@ -505,19 +727,19 @@ different, and which one leads is a small statement about whose record this is.
 
 ## Naming people who can't answer
 
-Marking a place in someone's account is low stakes. Marking a person is not.
+Marking a place in someone's claim is low stakes. Marking a person is not.
 
 Most people named in an oral history are dead. They did not consent, cannot
 correct the record, and their descendants may not agree with each other about
 what should be said. A person reference makes all of that permanent, searchable,
-and joined across every account that mentions them.
+and joined across every claim that mentions them.
 
 Whether the archive should do it at all is a question for the families in it,
 not for whoever is writing the schema.
 
 ## Is this built for the community, or for people outside it?
 
-Accounts render in English, with the original preserved underneath. That
+Claims render in English, with the original preserved underneath. That
 ordering assumes a reader who does not speak the original.
 
 The reverse is a coherent design and it was never considered. Neither was
@@ -565,7 +787,7 @@ Same shape as Parts 1 to 3:
 - **Now** — what the code does today
 - **Why** — if there was a reason, even a bad one
 - **The problem** — what goes wrong
-- **The tension** — why the obvious fix isn't obviously right
+- **Why this is hard** — what stops the obvious fix from working
 
 Leave out the answer. If you know the answer it isn't a design question, it's a
 pull request.

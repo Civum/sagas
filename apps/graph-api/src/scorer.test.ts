@@ -21,7 +21,8 @@ import { runScoringRules } from '@sagas/fixtures/behaviour';
 const ours: Scorer = {
   weight: (_input) => {
     // Replace this. Nothing about the author is available to you here, on
-    // purpose. See "The one thing not to do quietly" in the start guide.
+    // purpose. See "Why the author is missing from `ScoringInput`" in the
+    // start guide.
     throw new Error('not implemented');
   },
 

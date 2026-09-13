@@ -64,7 +64,8 @@
         "displayName": "Marisol Etxeberria",
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
-        "fictional": true
+        "fictional": true,
+        "verification": "guest"
       },
       "record": {
         "id": "rec-001",
@@ -222,7 +223,8 @@
         "displayName": "Joseba Iriondo",
         "lineageId": "lin-iriondo",
         "joinedAt": "2026-02-14T19:30:00Z",
-        "fictional": true
+        "fictional": true,
+        "verification": "guest"
       },
       "record": {
         "id": "rec-003",
@@ -386,7 +388,8 @@
         "displayName": "Maite Elorriaga",
         "institution": "Basque Museum & Cultural Center",
         "joinedAt": "2026-04-06T14:00:00Z",
-        "fictional": true
+        "fictional": true,
+        "verification": "guest"
       },
       "record": {
         "id": "rec-008",
@@ -502,7 +505,8 @@
         "displayName": "Domingo Sagastume",
         "lineageId": "lin-sagastume",
         "joinedAt": "2026-03-02T22:10:00Z",
-        "fictional": true
+        "fictional": true,
+        "verification": "guest"
       },
       "record": {
         "id": "rec-005",
@@ -632,7 +636,8 @@
         "displayName": "Kepa Larrañaga",
         "lineageId": "lin-larranaga",
         "joinedAt": "2026-04-18T16:05:00Z",
-        "fictional": true
+        "fictional": true,
+        "verification": "guest"
       },
       "record": {
         "id": "rec-009",
@@ -767,7 +772,8 @@
         "displayName": "Marisol Etxeberria",
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
-        "fictional": true
+        "fictional": true,
+        "verification": "guest"
       },
       "record": {
         "id": "rec-002",
@@ -893,7 +899,8 @@
         "displayName": "Maite Elorriaga",
         "institution": "Basque Museum & Cultural Center",
         "joinedAt": "2026-04-06T14:00:00Z",
-        "fictional": true
+        "fictional": true,
+        "verification": "guest"
       },
       "record": {
         "id": "rec-006",
@@ -1028,7 +1035,8 @@
         "displayName": "Ana Etxeberria-Woods",
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-02-20T15:12:00Z",
-        "fictional": true
+        "fictional": true,
+        "verification": "guest"
       },
       "record": {
         "id": "rec-004",
@@ -1123,7 +1131,8 @@
         "displayName": "Domingo Sagastume",
         "lineageId": "lin-sagastume",
         "joinedAt": "2026-03-02T22:10:00Z",
-        "fictional": true
+        "fictional": true,
+        "verification": "guest"
       },
       "record": {
         "id": "rec-007",
@@ -1218,7 +1227,8 @@
         "displayName": "Marisol Etxeberria",
         "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
-        "fictional": true
+        "fictional": true,
+        "verification": "guest"
       },
       "record": {
         "id": "rec-001",
@@ -1375,55 +1385,63 @@
       "displayName": "Marisol Etxeberria",
       "lineageId": "lin-etxeberria",
       "joinedAt": "2026-01-08T16:04:00Z",
-      "fictional": true
+      "fictional": true,
+      "verification": "guest"
     },
     {
       "id": "c-joseba",
       "displayName": "Joseba Iriondo",
       "lineageId": "lin-iriondo",
       "joinedAt": "2026-02-14T19:30:00Z",
-      "fictional": true
+      "fictional": true,
+      "verification": "guest"
     },
     {
       "id": "c-ana",
       "displayName": "Ana Etxeberria-Woods",
       "lineageId": "lin-etxeberria",
       "joinedAt": "2026-02-20T15:12:00Z",
-      "fictional": true
+      "fictional": true,
+      "verification": "guest"
     },
     {
       "id": "c-domingo",
       "displayName": "Domingo Sagastume",
       "lineageId": "lin-sagastume",
       "joinedAt": "2026-03-02T22:10:00Z",
-      "fictional": true
+      "fictional": true,
+      "verification": "guest"
     },
     {
       "id": "c-maite",
       "displayName": "Maite Elorriaga",
       "institution": "Basque Museum & Cultural Center",
       "joinedAt": "2026-04-06T14:00:00Z",
-      "fictional": true
+      "fictional": true,
+      "verification": "guest"
     },
     {
       "id": "c-robert",
       "displayName": "Robert Mendive",
       "joinedAt": "2026-04-11T20:18:00Z",
-      "fictional": true
+      "fictional": true,
+      "verification": "guest"
     },
     {
       "id": "c-kepa",
       "displayName": "Kepa Larrañaga",
       "lineageId": "lin-larranaga",
       "joinedAt": "2026-04-18T16:05:00Z",
-      "fictional": true
+      "fictional": true,
+      "verification": "guest"
     },
     {
       "id": "c-itxaso",
       "displayName": "Itxaso Zubieta",
       "lineageId": "lin-zubieta",
       "joinedAt": "2026-06-03T21:14:00Z",
-      "fictional": true
+      "fictional": true,
+      "verification": "guest"
     }
   ],
   "records": [

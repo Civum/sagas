@@ -38,10 +38,12 @@ export interface ContributorRegistered extends BaseEvent {
   displayName: string;
   lineageId?: LineageId;
   institution?: string;
+  /** Omitted means `guest`, which is every profile this semester. */
+  verification?: 'guest' | 'verified';
 }
 
-export interface AccountSubmitted extends BaseEvent {
-  kind: 'account_submitted';
+export interface ClaimSubmitted extends BaseEvent {
+  kind: 'claim_submitted';
   claimId: ClaimId;
   /** The record this was read out of. One record can produce several claims. */
   recordId: RecordId;
@@ -199,7 +201,7 @@ export interface RecordFlagged extends BaseEvent {
 export type ContributionEvent =
   | SiteCreated
   | ContributorRegistered
-  | AccountSubmitted
+  | ClaimSubmitted
   | ClaimExtended
   | ClaimDisputed
   | ClaimAffirmed
