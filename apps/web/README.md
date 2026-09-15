@@ -3,9 +3,14 @@
 This is yours. It ships close to empty on purpose.
 
 The design system, the component library, the map, the article renderer,
-heritage trails, badges, and the contributor dashboard are all your scope. There
-are no design tokens and no component library in here. Handing those over would
-take away the most interesting work in the project.
+heritage trails, contributor milestones, and the contributor dashboard are all
+your scope. There are no design tokens and no component library in here. Handing
+those over would take away the most interesting work in the project.
+
+One word to keep straight. `IntegrityBadge` is about a *place*: how well
+documented it is. The contributor progression the scope document called badges
+is a different thing entirely and this repository calls it milestones, so that
+one word does not mean both.
 
 What you get instead: a working Next + TypeScript + Tailwind setup, the fixture
 data, a place for every read to go through, and a list of situations your

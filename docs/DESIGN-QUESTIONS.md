@@ -597,6 +597,44 @@ of a person rather than a derived fact, so it cannot be used without breaking
 that. That may still be the right
 trade. It hasn't been argued.
 
+## `independentLineageCount` defaults to the answer it exists to prevent
+
+Independence is the load-bearing idea in the whole model. It is what separates
+five cousins agreeing from two families agreeing, and it is what `ScoringInput`
+gets instead of an author. Everything rests on it.
+
+**Now:** it is counted from `lineageId`, a hand-authored optional string on a
+contributor. Six fixture contributors have one, assigned by hand so that `t1`
+can demonstrate a cousin affirming a cousin. Nothing derives the field and, with
+no logins, there is nothing to derive it from.
+
+**The part that was not written down:** `reduce.ts` falls back to
+`solo:<contributorId>` when the field is absent. So an unpopulated archive does
+not lose the count. It gets a count where every contributor is their own family
+line, which means `independentLineageCount` becomes a headcount of distinct
+affirmers.
+
+That is the failure the field exists to prevent, stated in `model.ts`: without
+it, a large family can make a shaky claim look well-supported just by showing
+up. The default resolves in the permissive direction, silently, and the
+experience layer renders the result to a person as "Backed by 3 other families".
+
+The comment above the fallback calls it "the guard against three cousins reading
+as three independent sources". It is the guard's off switch. The guard only
+operates on hand-authored data.
+
+**Why this is not simply a bug.** The fallback is right for fixtures, where the
+alternative is pretending eight invented people are one family. It is wrong for
+production, where the alternative is admitting the system does not know. The
+same line of code cannot be both, which means the real question is what a claim
+should be worth when independence is unknown rather than absent, and nothing in
+the model can currently express unknown.
+
+**Not decided.** The candidate is the next entry. Until something answers it,
+anything reading `independentLineageCount` outside the fixtures is reading a
+number with no source, and anything displaying it is making a claim about people
+that nobody made.
+
 ## Can vouching carry what lineage cannot?
 
 `lineageId` is hand-authored and nothing derives it, which is why six scoring

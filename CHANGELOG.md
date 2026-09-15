@@ -41,6 +41,34 @@ it. This is the most useful field in the entry.
 
 ---
 
+## 2026-09-15 — repo change, no contract movement
+
+**Affects:** experience layer
+
+**What:**
+
+- New guide, `docs/START-EXPERIENCE-LAYER.md`. What to read, what to ignore,
+  what to install, and the first task. It completes the set of three.
+- `SETUP.md` now points each team at its start guide rather than at an app
+  README. The app READMEs were never the right first read and the guides were
+  not linked from anywhere somebody would look.
+
+**Why:** The experience layer was the only one without a start guide, because it
+was the last team to be assigned. The scope document that went to the department
+predates several decisions and contradicts the repository in seven places,
+including a synthesis API that does not exist this semester, a trust score the
+model deliberately does not have, and two cross-team dependencies that were
+never real. A guide built from the current model is the correction.
+
+**You need to:**
+
+- *experience layer* — read `docs/START-EXPERIENCE-LAYER.md` before anything
+  else. Where it disagrees with the scope document you were given, it wins.
+- *intelligence layer* — nothing.
+- *content layer* — nothing.
+
+---
+
 ## 2026-09-14 — an image record needs a note
 
 **Affects:** content layer

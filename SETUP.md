@@ -230,11 +230,15 @@ implementations.
 The repo is the same for everyone. The useful starting point isn't, and the
 detail lives next to the code rather than here. This section is a signpost.
 
+Each layer has a start guide. It is the syllabus for that team's semester: what
+to read, what to ignore, what the first task is, and how the months are meant to
+go. Read yours before anything else in this file.
+
 | Your layer | What you need running | Your code | Read this first |
 |---|---|---|---|
-| **Experience** | Postgres | `apps/web`, `apps/ui-api`, `packages/read-model` | [`apps/web/README.md`](./apps/web/README.md) |
-| **Intelligence** | Postgres | `apps/graph-api` | [`apps/graph-api/README.md`](./apps/graph-api/README.md) |
-| **Content capture** | Postgres, object storage, ffmpeg | `apps/capture-api` | [`apps/capture-api/README.md`](./apps/capture-api/README.md) |
+| **Experience** | Postgres | `apps/web`, `apps/ui-api`, `packages/read-model` | [`docs/START-EXPERIENCE-LAYER.md`](./docs/START-EXPERIENCE-LAYER.md) |
+| **Intelligence** | Postgres | `apps/graph-api` | [`docs/START-INTELLIGENCE-LAYER.md`](./docs/START-INTELLIGENCE-LAYER.md) |
+| **Content capture** | Postgres, object storage, ffmpeg | `apps/capture-api` | [`docs/START-CONTENT-LAYER.md`](./docs/START-CONTENT-LAYER.md) |
 
 If your team was assigned a different layer than the one you expected, your
 instructor's assignment wins over this table. Tell me and I will fix it here.

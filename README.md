@@ -107,7 +107,7 @@ correct one.
 
 | Layer | Scope |
 |---|---|
-| **Experience** | Living article renderer, design system, map, heritage trails, badges, contributor dashboard |
+| **Experience** | Living article renderer, design system, map, heritage trails, contributor milestones and dashboard |
 | **Intelligence** | Claim graph model, weight propagation, trust framework, synthesis engine, exploration |
 | **Content capture** | Media pipeline, record submission, translation workflow, moderation, and the contributing interface |
 | **Contracts & fixtures** | `packages/contracts`, `packages/fixtures`, maintained by the sponsor |
