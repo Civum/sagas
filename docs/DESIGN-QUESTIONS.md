@@ -106,6 +106,10 @@ this, so try that one first.
 These change the shape of the model, which means they affect more than one team.
 Raise them before building.
 
+Two entries here are marked **decided, not built**. They are not open questions.
+They are settled shape changes waiting on a safe moment to land, and they sit
+here because that is where somebody looks for a shape change.
+
 ## What does an interface do with "sometime in the fifties, probably"?
 
 **Now:** what somebody said about time is kept in their words, as the `excerpt`
@@ -143,8 +147,7 @@ A system where the public picks it apart has the wrong feel no matter how
 carefully the interface is worded.
 
 **A shape worth considering:** separate the artifact from the assertions. A
-photograph or a recording just exists, and there is nothing to disagree with.
-What
+photograph or a recording just exists, and there is nothing to disagree with. What
 people disagree about is what it *means*. So the artifact becomes uncontestable
 by construction, and disagreement lands on someone's reading of it, which is
 impersonal.
@@ -231,8 +234,6 @@ same building is real corroboration and it should count for far more.
 Every instance of agreement in it is a reader clicking agree. That's a gap in
 the test data as much as in the model.
 
----
-
 ## A profile has no way to say whether anyone can prove it is theirs
 
 **Now:** `contributor` carries an id, a display name, a lineage, an institution,
@@ -248,8 +249,8 @@ contribution made this year is stranded.
 
 **The cheap part:** one field on `contributor` saying which kind it is. It is
 additive and needs no migration. It also lets a scorer treat a distinct verified
-person differently from an unrecoverable one, which is not reputation. It is the same
-kind of signal as counting corroboration by distinct family line. It asks
+person differently from an unrecoverable one, which is not reputation. It is the
+same kind of signal as counting corroboration by distinct family line. It asks
 whether this is one person once, not whether the person is any good.
 
 **The expensive part, and this is the open one:** linking. If guest G and
@@ -274,9 +275,24 @@ somebody proposing that two conflicting readings were both true. Those are
 different acts and a reader should be able to see which one happened.
 
 **The cheap version:** an optional field on `extensionEdge` listing the disputes
-it claims to resolve. Do not add a fourth edge type. Part 1 already asks whether
-the three that exist should collapse into one, and a fourth would make that
-worse.
+it claims to resolve. Do not add a fourth edge type. The contract has three,
+dispute and extension and reference, and Part 1 already asks whether those three
+should collapse into one. A fourth would make that worse.
+
+A resolution, on this reading, is not a new kind of thing. It is a claim
+attached by an extension edge that names what it settles, which is the same
+node-and-edge shape everything else has.
+
+**A second reading, which is not the live one.** Take `reference` out of
+`edgeType` and put `resolution` in, so resolution becomes a third type rather
+than a fourth. That was raised on 15 September and set aside, and the argument
+for it did not survive the fields: `referenceEdge` has a `fromClaimId` and an
+optional `toClaimId`, so a reference does come from a claim and can point at
+one. What is actually unlike the other two is that its target is optional and
+may resolve to nothing, and that it marks a span of text rather than asserting
+anything. Whether that is enough to move it is open, and it is a good question
+for a diagram to argue. Until somebody does, the cheap version above is the
+live proposal.
 
 **What a system can do here is propose, not decide.** Disputes already target
 specific elements, so the set of open conflicts at a node is computable without
@@ -312,10 +328,11 @@ rather than by what the reader did.
 
 **The fix:** `affirmation` goes away. One reaction object with a kind.
 `affirmationCount` becomes a count of passovers where kind is `sounds_right`.
-All three kinds compose into how a node is magnified. Sounds right is a positive
-additive, don't care is a neutral additive, and don't know is neutral and says
-the claim has not reached anyone able to judge it. None of them create edges.
-None of them are votes.
+All three kinds feed the same thing, which is how much a node is surfaced rather
+than how true it is. Sounds right adds a little. Don't care adds nothing to the
+claim and still records that somebody saw it, which is information about reach.
+Don't know also adds nothing and says the claim has not reached anybody able to
+judge it. None of them create edges. None of them are votes.
 
 **Careful with a fourth value.** There is no "that's wrong" and there should not
 be. A cheap negative is a downvote, and disputes carry reasoning on purpose.
@@ -511,6 +528,46 @@ This community has real internal divisions, so that isn't hypothetical.
 The idea is that reputation should decide what a human looks at first
 and never what disappears on its own. That has not been tested.
 
+## What groups claims together at a site?
+
+Claims attach directly to a site, so every claim at a place sits in one pool. A
+site accumulates unrelated topics: who cooked there, what the floor was made of,
+who owned it in 1912. Nothing in the model separates them, and a reader arriving
+at a busy site gets one long undifferentiated list.
+
+One option is that a record introduces a conversation and claims live inside
+conversations, which makes the grouping a stored thing with an author.
+
+Another is that grouping is computed rather than stored, so it is a clustering
+problem over claim text and elements and it changes as the archive grows.
+
+A third question sits underneath both. Whether a record carries a score of its
+own. Not the quality of the artifact, but something derived from what the
+conversations on it turned out to be worth. That may be a real quantity or a
+category error.
+
+This is the intelligence layer's first assignment and their entity relationship
+diagram is the first attempt at an answer.
+
+## Is the reason a claim scores what it does shown to the person who wrote it?
+
+A contributor can see a weight. Whether they can see why is open.
+
+Showing the reasoning is the honest option and it is what an archive built on
+attribution ought to do. Somebody whose account sits low deserves to know it is
+because no independent family line has backed it yet, rather than being left to
+guess that the system disliked them.
+
+The objection is that a visible rationale is a specification for gaming it. If
+the interface says a claim needs corroboration from another family line, that is
+also an instruction for how to manufacture one.
+
+Whether that objection survives contact with this particular archive is not
+obvious. Manufacturing a second family is harder than manufacturing a second
+account, and the lineage count is the one signal enthusiasm cannot produce on
+its own. It may be that the gaming risk is small enough here to pay for the
+honesty.
+
 ## Can trust be inherited?
 
 A new contributor starts at zero, which is correct and also useless. Nobody
@@ -563,8 +620,8 @@ archive will already have counted it.
 
 ## How does a reference become an edge?
 
-The question below assumes a graph of claims pointing at places. Nothing
-creates that graph.
+"What makes a place significant?", further down this section, assumes a graph
+of claims pointing at places. Nothing creates that graph.
 
 Someone writing about a boarding house mentions the Basque Museum. To a reader
 that is a reference. To the database it is four words in a text field. Nothing
@@ -640,8 +697,10 @@ the transcript queue and the moderation queue are the same want, three times,
 under three names.
 
 There is one constraint. Some acts close and some do not. `flag` has a status.
-`referenceEdge` has a resolved boolean. `disputeEdge` has neither, on purpose. A
-dispute is a task that completes the moment it is filed and never gets resolved,
+`referenceEdge` has a resolved boolean. `disputeEdge` has neither, on purpose,
+though the shape of a dispute is itself changing: see "A dispute should be a
+claim" in Part 2. A dispute is a task that completes the moment it is filed and
+never gets resolved,
 and a task model that cannot express that will start asking interfaces to close
 disagreements.
 
@@ -696,8 +755,6 @@ able to help and the case where being wrong costs the most.
 
 ---
 
----
-
 # Part 4 — Not for this project to answer
 
 Everything above this line is a question an engineer can reason about. These are
@@ -705,8 +762,8 @@ not.
 
 They are decisions about how a community wants its own record kept, and no
 amount of care in this repository substitutes for asking. That hasn't happened.
-The
-design so far was made without anybody from the community it is modelled on, and
+The design so far was made without anybody from the community it is modelled on,
+and
 that is worth knowing while you read the rest of this file.
 
 **So this section is a commitment rather than a backlog.** These do not get
@@ -767,8 +824,8 @@ way to express that is not neutral toward those communities. It is wrong for
 them, and confidently so.
 
 People have thought carefully about this and none of it has been reinvented
-here. The
-CARE Principles for Indigenous Data Governance and the Local Contexts project
+here. The CARE Principles for Indigenous Data Governance and the Local Contexts
+project
 are the places to start reading. If your work touches access, read them first.
 
 ## What should a disagreement look like to the people in it?

@@ -14,7 +14,7 @@ cooked in a boarding house from 1922, somebody else says the register shows
 war. Your layer is what decides how much any of that is worth, and it has to do
 it without ever being told who is speaking.
 
-One app, yours, currently empty:
+One app, yours, and empty apart from a failing scorer stub:
 
 - `apps/graph-api`, the server, and the schema and migrations behind it
 
@@ -82,8 +82,8 @@ problems that look like real bugs.
 **One fork for the whole team, not one each.**
 
 1. **Create a GitHub organisation for the team**, not a personal account. If the
-   repository lives in one person's GitHub account and that person drops the class, the
-   team loses everything, and your instructor needs access for grading.
+   repository lives in one person's GitHub account and that person drops the
+   class, the team loses everything, and your instructor needs access for grading.
 2. **One person forks `Civum/sagas` into it.** Once.
 3. **Everyone clones that fork**, including whoever created it.
 
@@ -110,9 +110,10 @@ inputs beside its outputs, so you can see what a score is actually made of.
 
 ## The database, when you need it
 
-Not in September. Your first month is the scorer, which is arithmetic over
-numbers the fixtures already hold, so there is nothing to store and nothing to
-query. The database work starts in October when you design the schema.
+Not in September. Your first month is the model and then the scorer, and the
+scorer is arithmetic over numbers the fixtures already hold, so there is nothing
+to store and nothing to query. The database work starts in October, when you
+build the schema your diagram argued for.
 
 It is ready whenever you want it:
 
@@ -150,8 +151,16 @@ TypeScript rather than the bundled one when it prompts.
 1. `packages/fixtures/behaviour/scoring-contract.ts`. Ten rules any scorer
    has to obey, written as executable tests. This is the closest thing to a
    specification you will get and it is the best hour you can spend.
-2. `packages/contracts/src/model.ts`, the claims and edges sections. Skip
-   records and media, those are another team's.
+2. `packages/contracts/src/model.ts`. Read all of it rather than only your
+   part, because your first task is a diagram of the whole thing. The media and
+   processing fields on a record belong to another team and you can skim those.
+
+   One thing to have an opinion about. `edgeType` has three values and the third
+   is `reference`. Its fields are the claim it comes from, an optional site or
+   claim it points at, the words that pointed, and a `resolved` boolean. What it
+   is for is not written down beside it, and Part 3 of `docs/DESIGN-QUESTIONS.md`
+   still asks how a reference becomes an edge at all. Whether it belongs in that
+   enum is a good thing for your diagram to argue about.
 3. `packages/fixtures/src/reduce.ts`, which calculates a snapshot in memory with
    no database at all. It recomputes everything from scratch every time, which
    is fine for 64 contributions and useless at any real size. That gap is your
@@ -162,10 +171,10 @@ TypeScript rather than the bundled one when it prompts.
 
 ## The plan, month by month
 
-
-**September, understand the data and pass the rules.** Get the stack running,
-read the ten rules, then write a scorer of your own that satisfies them. No
-database work yet.
+**September, the model and then the rules.** Get the stack running, read the
+model, and bring your own entity relationship diagram and the reasoning behind
+it to the check-in on the 22nd. The week after that, write a scorer that
+satisfies the seven required rules. No database work yet.
 
 **October, the schema.** Design the tables for claims, edges, contributors and
 lineage, write the migrations, and move the graph out of memory and into
@@ -174,18 +183,42 @@ Postgres. Spatial indexing lives here too.
 **November onward, propagation.** How weight actually moves through the graph,
 and whichever of the open questions you decide to take on.
 
-If September takes six weeks, that is fine. All of the autumn is scoring, and
-scoring is the bounded half of your layer. You will finish it. The other half is routing: working out which
-claim to put in front of which person, and why. That is spring work. It has no
-known answer, and it will need signals the contract does not record yet, such as
-what somebody tends to contribute and where they keep coming back to. Asking for
-those is expected rather than a sign something went wrong.
+Scoring is the bounded half of your layer and you will finish it. The other half
+is routing: working out which claim to put in front of which person, and why.
+That is spring work. It has no known answer, and it will need signals the
+contract does not record yet, such as what somebody tends to contribute and
+where they keep coming back to. Asking for those is expected rather than a sign
+something went wrong.
 
-## Your first task
+## Your first task, and it is not code
 
-One week. There is already a worked example in the repository.
+Come back with an entity relationship diagram of the model as you think it
+should be. Not as the repository has it. As you think it should be after reading
+it.
 
-**Write a scorer that satisfies the rules.**
+This repository is a foundation with gaps in it. Some of what is here is wrong
+and some things are missing entirely. Finding them is the assignment.
+
+Two gaps I know about.
+
+Claims attach directly to a site, so every claim at a place sits in one pool. A
+site accumulates unrelated topics though, and nothing separates them. One option
+is that a record introduces a conversation and claims live inside conversations.
+Another is that clustering is something you compute rather than something you
+store.
+
+And whether a record carries a score of its own. Not the quality of the
+artifact, but something derived from what the conversations on it turned out to
+be worth. I do not know whether that is a real thing or a category error.
+
+There are more gaps than those two. Bring the diagram and the reasoning. Where
+you diverge from what is in the repository, say why.
+
+**Due at the check-in on 22 September.**
+
+## After that, the scorer
+
+The week after the diagram, so around the 29th.
 
 `apps/graph-api/src/scorer.test.ts` is already there. It holds an empty scorer
 whose two methods throw `not implemented`, with the ten rules running against
@@ -210,7 +243,7 @@ So the week is not "make ten tests green". It is: satisfy the seven, then come
 to the check-in with which of the three you would change and why. The second
 half is the more interesting half and it is the one I actually want.
 
-If you want to see what a filled-in one looks like,
+There is a worked example in the repository.
 `packages/fixtures/behaviour/placeholder.test.ts` is nineteen lines and does the
 same thing for the throwaway arithmetic the fixtures ship with. That scorer is
 bad on purpose and it still passes, which tells you something about what the
@@ -220,7 +253,7 @@ Then make the failures go away. The rules tell you what is wrong and
 they are specific: one of them will tell you that you are counting heads instead
 of family lines, another that you are treating disagreement as damage.
 
-Do not aim for a good scorer. Aim for one that satisfies the ten, then read
+Do not aim for a good scorer. Aim for one that satisfies the seven, then read
 your own implementation and work out why it is not good enough. That gap is the
 project.
 
