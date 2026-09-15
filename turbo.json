@@ -16,5 +16,5 @@
     "typecheck": { "dependsOn": ["^topo", "^build"], "outputs": [".cache/tsbuildinfo.json"] },
     "clean": { "cache": false }
   },
-  "globalEnv": ["NODE_ENV", "DATABASE_URL", "NEXT_PUBLIC_MAPBOX_TOKEN"]
+  "globalEnv": ["NODE_ENV", "DATABASE_URL", "PORT", "NEXT_PUBLIC_MAPBOX_TOKEN"]
 }

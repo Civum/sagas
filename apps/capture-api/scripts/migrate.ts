@@ -72,8 +72,8 @@ async function main() {
 
 main()
   .then(() => pool.end())
-  .catch(async (err) => {
-    console.error(err.message);
+  .catch(async (err: unknown) => {
+    console.error(err instanceof Error ? err.message : err);
     await pool.end();
     process.exit(1);
   });
