@@ -199,7 +199,7 @@ it.
 This repository is a foundation with gaps in it. Some of what is here is wrong
 and some things are missing entirely. Finding them is the assignment.
 
-Two gaps I know about.
+Three gaps I know about.
 
 Claims attach directly to a site, so every claim at a place sits in one pool. A
 site accumulates unrelated topics though, and nothing separates them. One option
@@ -211,7 +211,38 @@ And whether a record carries a score of its own. Not the quality of the
 artifact, but something derived from what the conversations on it turned out to
 be worth. I do not know whether that is a real thing or a category error.
 
-There are more gaps than those two. Bring the diagram and the reasoning. Where
+And independence, which is the one I would most like the diagram to have an
+opinion about. `independentLineageCount` is what separates five cousins agreeing
+from two families agreeing. It is what `ScoringInput` gets instead of an author,
+and your scorer will lean on it harder than on anything else in there.
+
+It is counted from `lineageId`, a hand-authored optional string on a
+contributor. Nothing derives it and, with no logins, there is nothing to derive
+it from. You already knew that much, because `scoring-contract.ts` says so and
+six rules were removed over it. What is not written down anywhere is what
+`reduce.ts` does when the field is missing. It falls back to
+`solo:<contributorId>`, so a contributor with no lineage becomes their own
+family line. An archive where nobody has one does not lose the count. It gets a
+count in which everybody is independent of everybody, which is the exact thing
+the field exists to prevent.
+
+The model has no way to say that independence is unknown. It can say two people
+are the same line or different lines, and there is no third value. Nothing is
+broken here. Something is missing, and proposing it is the kind of thing a
+diagram can do.
+
+Here is one candidate, so you have something to argue with. Make the fallback
+explicit: a fixture contributor with no family gets `solo:` written in when the
+fixture is authored, and the reducer treats a missing lineage as unknown. The
+fixtures still demonstrate everything they demonstrate today, and production
+fails closed. That exposes the real question, which is what a claim is worth
+when independence is unknown rather than absent. That part is yours.
+
+`docs/DESIGN-QUESTIONS.md` has this as "`independentLineageCount` defaults to
+the answer it exists to prevent", with "Can vouching carry what lineage cannot?"
+directly after it.
+
+There are more gaps than those three. Bring the diagram and the reasoning. Where
 you diverge from what is in the repository, say why.
 
 **Due at the check-in on 22 September.**

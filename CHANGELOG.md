@@ -41,6 +41,49 @@ it. This is the most useful field in the entry.
 
 ---
 
+## 2026-09-15 — independence has no source outside the fixtures
+
+**Affects:** intelligence layer · experience layer
+
+**What:** No code changed. Two documents now say something that was true all
+along and was not written down.
+
+- `docs/DESIGN-QUESTIONS.md` gains "`independentLineageCount` defaults to the
+  answer it exists to prevent."
+- `docs/START-INTELLIGENCE-LAYER.md` carries it as a third gap for the entity
+  relationship diagram.
+
+**Why:** `lineageId` is hand-authored and nothing derives it, which was already
+known and is why six scoring rules were removed. What nobody had followed
+through is what `reduce.ts` does when the field is absent. It falls back to
+`solo:<contributorId>`, so a contributor with no lineage becomes their own
+family line. An archive where nobody has one does not lose the count. It gets a
+count in which everybody is independent of everybody, which is the failure
+`model.ts` says the field exists to prevent. The default resolves in the
+permissive direction, silently, and the experience layer renders the result as
+"Backed by 3 other families."
+
+This surfaced while writing the experience layer's start guide, from the
+`supportSummary` helper that renders the number to a person.
+
+**You need to:**
+
+- *intelligence layer* — read the third gap in your start guide before the
+  diagram. The model has two values where it needs three: same line, different
+  line, and no way to say unknown. That is a missing state rather than a bug and
+  it is a good thing for the diagram to propose.
+- *experience layer* — nothing to change. Build against the mechanic. Know that
+  a sentence asserting independence is currently unjustifiable about real
+  people.
+- *content layer* — nothing.
+
+**Not fixed here:** the comment above the fallback in
+`packages/fixtures/src/reduce.ts` calls it "the guard against three cousins
+reading as three independent sources." It is the guard's off switch. That
+correction lands with the next contract pass.
+
+---
+
 ## 2026-09-15 — repo change, no contract movement
 
 **Affects:** experience layer
