@@ -17,7 +17,7 @@
  * JSON inside a component, that is the mistake this package exists to prevent.
  */
 
-import { loadAllStates, loadState } from '@sagas/fixtures/acceptance';
+import { loadIndex, loadSiteState, loadWorld } from '@sagas/fixtures/acceptance';
 import type { GraphState, Site } from '@sagas/contracts';
 
 /** The fixture snapshots that exist. Real data will not be labelled like this. */
@@ -30,15 +30,27 @@ export const FIXTURE_STATES: FixtureStateId[] = ['t0', 't1', 't2', 't3'];
  *
  * With a database this becomes a query with a bounding-box filter, so the map
  * fetches what is on screen rather than the whole country to draw one
- * neighbourhood. That filter is why this eventually takes arguments.
+ * neighbourhood. The bounding box is the argument this still does not take.
  *
  * Read `docs/GIS.md` before writing that query. "Everything within 2km" is not
  * a subtraction problem.
  */
-export function listSites(): Site[] {
-  return loadAllStates()
-    .slice(-1)
-    .map((s) => s.site);
+export function listSites(stateId: FixtureStateId = 't3'): Site[] {
+  return loadWorld(stateId).map((s) => s.site);
+}
+
+/** The flagship site's slug, which is what a page falls back to with no slug. */
+export const DEFAULT_SITE = 'anduiza-hotel-fronton';
+
+/** Turn a slug into the fixture directory the states were written under. */
+function keyForSlug(slug: string): string {
+  const entry = loadIndex().sites.find((s) => s.slug === slug);
+  if (!entry) {
+    throw new Error(
+      `No site with slug '${slug}'. Known slugs: ${loadIndex().sites.map((s) => s.slug).join(', ')}`,
+    );
+  }
+  return entry.key;
 }
 
 /**
@@ -48,6 +60,6 @@ export function listSites(): Site[] {
  * contributions, then the scoring pass. Watch the query count. The obvious
  * version runs one query per claim and falls over at any real size.
  */
-export function getSiteState(stateId: FixtureStateId): GraphState {
-  return loadState(stateId);
+export function getSiteState(slug: string, stateId: FixtureStateId): GraphState {
+  return loadSiteState(keyForSlug(slug), stateId);
 }

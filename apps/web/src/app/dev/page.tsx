@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ACCEPTANCE_CRITERIA } from '@sagas/fixtures/acceptance';
 import type { FixtureStateId } from '@/lib/queries';
-import { FIXTURE_STATES, getSiteState, listSites } from '@/lib/queries';
+import { DEFAULT_SITE, FIXTURE_STATES, getSiteState, listSites } from '@/lib/queries';
 import { ArticleView } from '@/features/article/ArticleView';
 import { MapView } from '@/features/map/MapView';
 
@@ -29,8 +29,8 @@ export default async function DevPage({
     FIXTURE_STATES.includes(requested as FixtureStateId) ? requested : 't3'
   ) as FixtureStateId;
 
-  const state = getSiteState(stateId);
-  const sites = listSites();
+  const state = getSiteState(DEFAULT_SITE, stateId);
+  const sites = listSites(stateId);
   const cases = ACCEPTANCE_CRITERIA.filter((c) => c.stateId === stateId);
 
   return (

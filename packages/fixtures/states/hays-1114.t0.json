@@ -1,0 +1,185 @@
+{
+  "stateId": "t0",
+  "label": "Created, one claim",
+  "asOf": "2026-04-30T23:59:59Z",
+  "site": {
+    "id": "site-hays-1114",
+    "slug": "hays-1114",
+    "name": "1114 Hays Street",
+    "aka": [
+      "the shoe repair",
+      "Vasile's"
+    ],
+    "coordinates": [
+      -116.20644,
+      43.62211
+    ],
+    "address": "1114 Hays St",
+    "city": "Boise, Idaho",
+    "coordinatePrecision": "approximate"
+  },
+  "claims": [
+    {
+      "claim": {
+        "id": "cl-hays-shoes",
+        "siteId": "site-hays-1114",
+        "contributorId": "c-tomas",
+        "recordId": "rec-hays-shoes",
+        "text": "The shoe repair at 1114 was there from the late fifties until it shut. The family lived above the shop.",
+        "sourceLanguage": "en",
+        "elements": [
+          {
+            "id": "el-ha-trade",
+            "kind": "event",
+            "value": "shoe repair",
+            "excerpt": "The shoe repair at 1114"
+          },
+          {
+            "id": "el-ha-from",
+            "kind": "date",
+            "value": "late 1950s",
+            "excerpt": "from the late fifties"
+          }
+        ],
+        "topics": [
+          "the shop"
+        ],
+        "sourceType": "community_oral",
+        "createdAt": "2026-04-02T17:22:00Z",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-tomas",
+        "displayName": "Tomás Iriarte",
+        "lineageId": "lin-iriarte",
+        "joinedAt": "2026-04-02T17:06:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "record": {
+        "id": "rec-hays-shoes",
+        "siteId": "site-hays-1114",
+        "contributorId": "c-tomas",
+        "text": "Shoe repair on the left, run by a Romanian family. The sign said Vasile and Sons but as far as anybody could tell there was only ever the one son.",
+        "language": "en",
+        "submission": "submitted",
+        "media": [],
+        "createdAt": "2026-04-02T17:19:00Z"
+      },
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [],
+      "independentLineageCount": 0,
+      "extensions": [],
+      "references": [],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "elementStatuses": [
+        {
+          "element": {
+            "id": "el-ha-trade",
+            "kind": "event",
+            "value": "shoe repair",
+            "excerpt": "The shoe repair at 1114"
+          },
+          "disputes": [],
+          "competingValues": [
+            {
+              "value": "shoe repair",
+              "count": 1,
+              "contributorIds": [
+                "c-tomas"
+              ]
+            }
+          ]
+        },
+        {
+          "element": {
+            "id": "el-ha-from",
+            "kind": "date",
+            "value": "late 1950s",
+            "excerpt": "from the late fifties"
+          },
+          "disputes": [],
+          "competingValues": [
+            {
+              "value": "late 1950s",
+              "count": 1,
+              "contributorIds": [
+                "c-tomas"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 2,
+      "confidence": "single_source"
+    }
+  ],
+  "contributors": [
+    {
+      "id": "c-tomas",
+      "displayName": "Tomás Iriarte",
+      "lineageId": "lin-iriarte",
+      "joinedAt": "2026-04-02T17:06:00Z",
+      "fictional": true,
+      "verification": "guest"
+    }
+  ],
+  "records": [
+    {
+      "id": "rec-hays-shoes",
+      "siteId": "site-hays-1114",
+      "contributorId": "c-tomas",
+      "text": "Shoe repair on the left, run by a Romanian family. The sign said Vasile and Sons but as far as anybody could tell there was only ever the one son.",
+      "language": "en",
+      "submission": "submitted",
+      "media": [],
+      "createdAt": "2026-04-02T17:19:00Z"
+    }
+  ],
+  "standings": [
+    {
+      "contributorId": "c-tomas",
+      "firstContributionAt": "2026-04-02T17:19:00Z",
+      "lastContributionAt": "2026-04-02T17:22:00Z",
+      "recordsSubmitted": 1,
+      "claimsAuthored": 1,
+      "claimsCorroboratedByOtherLines": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 0,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    }
+  ],
+  "transcripts": [],
+  "flags": [],
+  "integrity": {
+    "totalClaims": 1,
+    "independentContributors": 1,
+    "lineageDiversity": 1,
+    "corroborationDepth": 0,
+    "activeDisputes": 0,
+    "datedClaims": 1,
+    "awaitingTranslation": 0,
+    "overall": 13
+  },
+  "eventIdsApplied": [
+    "ha-001",
+    "ha-002",
+    "ha-003",
+    "ha-004"
+  ],
+  "eventIdsSincePrevious": [
+    "ha-001",
+    "ha-002",
+    "ha-003",
+    "ha-004"
+  ]
+}

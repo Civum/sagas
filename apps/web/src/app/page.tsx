@@ -30,14 +30,14 @@
  */
 
 import Link from 'next/link';
-import { getSiteState, listSites } from '@sagas/read-model';
+import { DEFAULT_SITE, getSiteState, listSites } from '@sagas/read-model';
 import { MapView } from '@/features/map/MapView';
 import { IntegrityBadge } from '@/features/site/IntegrityBadge';
 import { ConfidenceIndicator } from '@/features/article/ConfidenceIndicator';
 
 export default function Page() {
   const sites = listSites();
-  const state = getSiteState('t3');
+  const state = getSiteState(DEFAULT_SITE, 't3');
 
   return (
     <div className="mx-auto max-w-3xl space-y-10 px-6 py-10 font-sans text-neutral-900">

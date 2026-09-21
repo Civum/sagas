@@ -7,16 +7,15 @@ import type { FixtureStateId } from '../../../../lib/queries';
  *
  * Everything known about one place.
  *
- * While the data is fixtures, `slug` is ignored and `state` picks a snapshot.
- * Once there's a database, `slug` selects the place and `state` becomes a
- * timestamp, so it reads as "as it looked on this date" rather than "snapshot
- * number three".
+ * `slug` selects the place. `state` picks a snapshot while the data is
+ * fixtures, and becomes a timestamp once there is a database, so it reads as
+ * "as it looked on this date" rather than "snapshot number three".
  */
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  await params;
+  const { slug } = await params;
   const requested = new URL(request.url).searchParams.get('state') ?? 't3';
 
   if (!FIXTURE_STATES.includes(requested as FixtureStateId)) {
@@ -26,5 +25,9 @@ export async function GET(
     );
   }
 
-  return NextResponse.json(getSiteState(requested as FixtureStateId));
+  try {
+    return NextResponse.json(getSiteState(slug, requested as FixtureStateId));
+  } catch {
+    return NextResponse.json({ error: `No site with slug '${slug}'.` }, { status: 404 });
+  }
 }

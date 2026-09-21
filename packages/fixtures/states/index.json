@@ -1,0 +1,59 @@
+{
+  "sites": [
+    {
+      "key": "example-site",
+      "slug": "anduiza-hotel-fronton",
+      "name": "Anduiza Hotel and Fronton",
+      "stateIds": [
+        "t0",
+        "t1",
+        "t2",
+        "t3"
+      ]
+    },
+    {
+      "key": "gaskells-lunch-counter",
+      "slug": "gaskells-lunch-counter",
+      "name": "Gaskell's Lunch Counter",
+      "stateIds": [
+        "t0",
+        "t1",
+        "t2",
+        "t3"
+      ]
+    },
+    {
+      "key": "hoefer-bench",
+      "slug": "hoefer-bench",
+      "name": "The Hoefer bench",
+      "stateIds": [
+        "t0",
+        "t1",
+        "t2",
+        "t3"
+      ]
+    },
+    {
+      "key": "hays-1114",
+      "slug": "hays-1114",
+      "name": "1114 Hays Street",
+      "stateIds": [
+        "t0",
+        "t1",
+        "t2",
+        "t3"
+      ]
+    },
+    {
+      "key": "hays-1116",
+      "slug": "hays-1116",
+      "name": "1116 Hays Street",
+      "stateIds": [
+        "t0",
+        "t1",
+        "t2",
+        "t3"
+      ]
+    }
+  ]
+}

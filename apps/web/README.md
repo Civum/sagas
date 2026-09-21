@@ -46,7 +46,8 @@ Every read goes through `src/lib/queries.ts`:
 ```ts
 import { getSiteState, listSites } from '@/lib/queries';
 
-const state = getSiteState('t3'); // 't0' | 't1' | 't2' | 't3'
+const sites = listSites();                        // every place, for the map
+const state = getSiteState(sites[0].slug, 't3');  // 't0' | 't1' | 't2' | 't3'
 ```
 
 Today those functions read fixture JSON off disk. That is a starting point, not

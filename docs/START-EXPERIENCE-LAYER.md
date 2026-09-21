@@ -257,7 +257,7 @@ two documents that disagree.
   number the model refuses to compute.
 
 Nothing on this list is fixed. If you get four weeks in and think the order is
-wrong, that is a check-in conversation.
+wrong, say so in a pull request or an issue.
 
 ## The plan, month by month
 
@@ -289,8 +289,7 @@ the duplication, and then pull the system out of what you wrote. The typography
 scale and the colour tokens will be better for having been earned. It is also
 the order that gets you something to look at in week three instead of week six.
 
-If you disagree, that is a check-in conversation and a good one. You are the
-people who will live with the answer.
+If you disagree, say so. You are the people who will live with the answer.
 
 ## Why there is no design system in the repository
 
@@ -324,8 +323,8 @@ single elements, renderings that coexist, and what changed between one state and
 the next.
 
 If you find yourself wanting to fetch narrative state from a service that does
-not exist, stop and bring it to a check-in. It means the contract is missing
-something, which is worth knowing early.
+not exist, say so in a pull request or an issue. It means the contract is
+missing something, which is worth knowing early.
 
 Nothing you build is blocked on either of the other two schools, in either
 direction, and that is the point of the fixture data.
@@ -362,12 +361,13 @@ corroborated. That scores about 23 out of 100. An interface that renders it in
 red, or as an empty state, or as an error, tells the person who just contributed
 that their family's claim failed. It did not. It is early.
 
-Concretely, for the first check-in:
+Concretely, for your first pull request:
 
-Read `src/app/page.tsx`, `IntegrityBadge.tsx` and `ConfidenceIndicator.tsx`,
-which are the three finished components. `IntegrityBadge` is how well documented
-a *place* is, and it is the one that solves `t0` already. It has nothing to do
-with the contributor milestones above, which is why this repository does not
+Read `src/app/page.tsx`, `src/features/site/IntegrityBadge.tsx` and
+`src/features/article/ConfidenceIndicator.tsx`, which are the three finished
+components. `IntegrityBadge` is how well documented a *place* is, and it is the
+one that solves `t0` already. It has nothing to do with the contributor
+milestones above, which is why this repository does not
 call those badges. Then take the next two stubs under `src/features/article/`
 and make them render against all four states on `/dev`.
 
@@ -443,20 +443,23 @@ never updates itself, so nothing changes underneath you.
 
 ## How we work
 
-- **Check-in, 30 minutes.** Weekly for the first month, then every other week.
-- **Office hours, 30 minutes before it.** Runs only if there is something to
-  discuss, so most weeks it will not.
-- **A short note before each check-in**, template in
-  `docs/CHECK-IN-TEMPLATE.md`. The most useful part is what you *assumed*.
-- **Small pull requests, opened as drafts early.** I would rather see the shape
-  at twenty percent and say not that direction than read eight hundred lines and
-  ask you to start over. A deployed preview link makes this much faster.
-- **Between meetings**, expect a reply within a working day rather than the same
-  evening.
+- **Small pull requests, opened as drafts early.** This is the main channel. I
+  would rather see the shape at twenty percent and say not that direction than
+  read eight hundred lines and ask you to start over. A deployed preview link
+  makes this much faster.
+- **Questions by email**, through your team's product owner. Expect a reply
+  within a working day rather than the same evening.
+- **Meetings are set by your instructor** rather than by me, so the cadence is
+  whatever the course needs. If something is blocked and you want a meeting
+  sooner, ask and we will find a time.
+- **A short note before each meeting**, template in
+  `docs/CHECK-IN-TEMPLATE.md`. The most useful part is what you *assumed*,
+  because that is how we find out a specification was unclear before you have
+  built two weeks on top of it.
 
 ## What you get from me
 
-- Pull request review, personally, every week
+- Pull request review, personally
 - Anything merged upstream is credited to you by name. Your fork is yours
   regardless, and what you write in it stays yours.
 

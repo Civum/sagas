@@ -1,15 +1,37 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { events, stateCuts } from '../fixtures/example-site/events';
+import { siteFixtures } from '../fixtures';
 import { reduceToStates } from '../src/reduce';
 import type { GraphState } from '@sagas/contracts';
 
-const states = reduceToStates(events, stateCuts);
-
 mkdirSync('states', { recursive: true });
-for (const s of states) {
-  writeFileSync(`states/example-site.${s.stateId}.json`, JSON.stringify(s, null, 2));
+
+const built: { key: string; states: GraphState[] }[] = [];
+
+for (const fixture of siteFixtures) {
+  const states = reduceToStates(fixture.events, fixture.cuts);
+  for (const s of states) {
+    writeFileSync(`states/${fixture.key}.${s.stateId}.json`, JSON.stringify(s, null, 2));
+  }
+  writeFileSync(`states/${fixture.key}.all.json`, JSON.stringify(states, null, 2));
+  built.push({ key: fixture.key, states });
 }
-writeFileSync('states/example-site.all.json', JSON.stringify(states, null, 2));
+
+/** One index so a consumer can list what exists without reading a directory. */
+writeFileSync(
+  'states/index.json',
+  JSON.stringify(
+    {
+      sites: built.map((b) => ({
+        key: b.key,
+        slug: b.states[0]!.site.slug,
+        name: b.states[0]!.site.name,
+        stateIds: b.states.map((s) => s.stateId),
+      })),
+    },
+    null,
+    2,
+  ),
+);
 
 /* ------------------------------------------------------------------ */
 /* Readable dump, so the fixture can be judged without a renderer.      */
@@ -73,5 +95,16 @@ function dump(s: GraphState) {
   }
 }
 
-states.forEach(dump);
-console.log(`\n\nWrote ${states.length} states to states/ from ${events.length} authored events.\n`);
+for (const b of built) {
+  console.log('\n\n' + '#'.repeat(78));
+  console.log(`# ${b.key}`);
+  console.log('#'.repeat(78));
+  b.states.forEach(dump);
+}
+
+const totalEvents = siteFixtures.reduce((n, f) => n + f.events.length, 0);
+const totalStates = built.reduce((n, b) => n + b.states.length, 0);
+console.log(
+  `\n\nWrote ${totalStates} states across ${built.length} sites ` +
+  `from ${totalEvents} authored events.\n`,
+);

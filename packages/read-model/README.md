@@ -33,9 +33,9 @@ was free to fetch.
 reverse of how everyone says it out loud. Getting it backwards fails silently by
 putting Boise in the Indian Ocean. See `docs/GIS.md`.
 
-**The bounding box.** `listSites()` takes no arguments today because it returns
-one place. With real data the map has to fetch what is on screen rather than the
-whole country, and that filter is why the signature changes.
+**The bounding box.** `listSites()` returns every place in the fixtures, which
+is a handful. With real data the map has to fetch what is on screen rather than
+the whole country, and that filter is the argument this still does not take.
 
 **Query count.** `getSiteState()` becomes a join across places, records, claims
 and contributions, then a scoring pass. The obvious implementation runs one query

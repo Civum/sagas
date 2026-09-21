@@ -22,6 +22,11 @@ current one.
 here is worth as much as one that changes code. Possibly more, because the next
 team reads this file too.
 
+**Decisions that came out of this file move to
+[`CLOSED-QUESTIONS.md`](./CLOSED-QUESTIONS.md).** A question can be resolved
+there and still not be built, so read it before you build against a shape that
+is going to change.
+
 The first three sections are sorted by how much conversation an answer needs.
 Part 4 is different: those are not for this project to answer at all, and the
 section says why.
@@ -30,8 +35,8 @@ section says why.
 
 # Part 1 — Answerable with a pull request
 
-Local, contained, and you don't need permission. Open a PR with your reasoning
-and bring it to a check-in.
+Local, contained, and you don't need permission. Open a pull request with your
+reasoning and bring it to a check-in.
 
 ## The three edge types are copy-pasted
 
@@ -311,81 +316,65 @@ endorsement mechanism this project removed. Passovers are not votes and the
 contract says so. A resolution is a claim. It carries weight like any other
 claim, it can be disputed like any other claim, and it locks nothing.
 
-## `affirmation` duplicates a passover tier
+## Should an extension target an element?
 
-**Decided, not built.** Ships in the same pass as "A dispute should be a claim",
-after the intelligence team has a working scorer.
+A dispute names the part of a claim it disagrees with. An extension names
+nothing.
 
-**Now:** `affirmation` is an id, a claim id, a contributor id and a timestamp.
-`passover` is the same, plus a `kind`, and one of the kinds is `sounds_right`.
-An affirmation is a passover with `kind: sounds_right`. There are not two
-mechanics here. There is one, stored twice.
+```ts
+disputeEdge:   targetClaimId, targetElementId, reasoning, proposedValue?
+extensionEdge: parentClaimId, childClaimId
+```
 
-**The problem:** the same act lands in a different object depending on which
-button an interface showed. `affirmationCount` reaches the scorer and passovers
-reach nothing, so whether a reader nodding counts is decided by the interface
-rather than by what the reader did.
+The comment on `targetElementId` in `packages/contracts/src/model.ts` says
+disagreement always lands on an element and never on a whole claim.
 
-**The fix:** `affirmation` goes away. One reaction object with a kind.
-`affirmationCount` becomes a count of passovers where kind is `sounds_right`.
-All three kinds feed the same thing, which is how much a node is surfaced rather
-than how true it is. Sounds right adds a little. Don't care adds nothing to the
-claim and still records that somebody saw it, which is information about reach.
-Don't know also adds nothing and says the claim has not reached anybody able to
-judge it. None of them create edges. None of them are votes.
+Four things argue for it.
 
-**Careful with a fourth value.** There is no "that's wrong" and there should not
-be. A cheap negative is a downvote, and disputes carry reasoning on purpose.
-What is missing is a way to say "somebody who knows should look at this"
-carrying no weight at all, and `flag` may already be that mechanism sitting in
-the wrong place.
+The two edge types become one shape, which would also reduce the duplication
+noted in Part 1 under "The three edge types are copy-pasted".
 
-**Why it is not a Part 1 change.** Deleting the object moves fixture counts and
-therefore the derived states, and `affirmation` appears fourteen times in
-`packages/fixtures/behaviour/scoring-contract.ts`, which is the file the
-intelligence layer's first task runs against.
+It would make it harder for a contribution to attach to a claim it is not
+about. Today anything can hang off anything, so a contribution about the
+shop next door attaches cleanly to a claim about this building. If an extension
+had to name the element it adds to, a contribution with no element it can name
+would be a signal that it belongs somewhere else, either as a new root claim or
+at a different site. Whether people would read that signal that way is untested.
 
-## A dispute should be a claim
+Elements would become what both support and disputes attach to. That is what
+would make it possible to count how many separate branches assert something
+about the same element.
 
-**Decided, not built.** Landing with the `affirmation` and `passover` merge,
-after the intelligence team has a working scorer.
+It may also answer most of "What groups claims together at a site?" in Part 3.
+Claims targeting the same element would group themselves, with no grouping
+stored anywhere.
 
-**Now:** `claim_disputed` produces an edge carrying reasoning and an optional
-proposed value. The reducer writes it into `disputes`. An extension, by
-contrast, produces a claim with a `parentClaimId`. So one of the two ways of
-responding to a claim creates a node and the other does not.
+Here are three things that you can argue against.
 
-**What works today:** the proposed value is already corroborated.
-`competingValues` counts distinct family lines per proposed value, so two people
-independently saying 1914 register as two lines for 1914. Disputes are not
-contentless.
+Some extensions add context to a whole claim rather than to one part of it. "My
+family ran it until the war" is about the claim. That needs either a whole-claim
+target as a fallback or a rule that picks the nearest element. Neither has been
+argued out.
 
-**What does not:** the reasoning. Somebody citing a hotel register and somebody
-citing what their aunt said both count as one line for the same value, and there
-is no way to back one and not the other. The reasoning is an assertion that
-cannot be corroborated, extended, or disputed, which is strange, because an
-independent confirmation of a dispute is exactly the kind of thing this archive
-should be able to record.
+It adds a step when somebody contributes, because they have to choose what they
+are adding to. The content layer, which builds the contributing interface, is
+already building that selection for disputes, so this may cost them little. It
+still adds a decision for the contributor.
 
-**The shape:** a dispute is a claim that carries a dispute edge. Node for the
-assertion, edge for what it targets. `disputeCount` does not change in value,
-since a dispute still produces one edge against its target, so the ten scoring
-rules keep reading the same number. What becomes possible later is a dispute
-with its own weight, which is a new field in `ScoringInput` rather than a
-changed one.
+`extensionEdge` also has no `reasoning`, which `disputeEdge` requires. That
+absence may be correct, because an extension's child claim carries the content
+while a dispute's reasoning is separate from the claim it disputes. This should
+be decided rather than inherited.
 
-**A dispute-claim carries a `recordId`, like every claim.** A dispute then has
-provenance. Without it, a dispute would be the only assertion in the system with
-none, and it is the assertion type most likely to be casual or hostile. It also
-keeps `claim.recordId` non-optional, which matters more than it looks: an
-optional foreign key in the middle of the core object produces branching logic
-in every consumer for years. The cost is that disputing means typing what you
-know rather than clicking, which is consistent with disputes already requiring
-reasoning.
+**Three unofficial questions.** Does an extension's
+own `recordId` mean it carries a source the parent claim does not? `recordId`
+holds one value, so what should happen when somebody extends using both a
+document and a memory? And should an edge that brought a record be
+distinguishable from one that brought only spoken testimony, for disputes as
+much as for extensions?
 
-**What is still open:** whether `translationDispute` collapses into the same
-shape at the same time. It is the same idea applied to a different target and it
-is already logged as a duplicate in Part 1.
+This is a contract change, and the intelligence layer is drawing its model of
+the whole system now. It belongs in that diagram rather than ahead of it.
 
 # Part 3 — Open by design
 
@@ -503,6 +492,38 @@ language model is involved.
 The rest is open. Whatever handles it should propose matches for a person to
 confirm rather than asserting them.
 
+## Disagreement about meaning has nothing to target
+
+The model assumes disagreement is about elements: a date, a name, a place. You
+dispute an element, propose a value, and support accumulates on each reading.
+That machinery works.
+
+Two people can agree on every element of a claim and still disagree, because one
+of them thinks what happened was a betrayal and the other thinks it was the only
+option anybody had. No element carries that, so there is nothing to target and
+nothing to propose instead.
+
+A mechanism for contesting meaning would be a mechanism for adjudicating
+meaning, and this project does not adjudicate.
+
+What the archive does with such a branch is open. There are three candidates and
+none of them is chosen:
+
+- Nothing. The claims sit side by side, both uncontested, and the reader works
+  it out.
+- The interface shows that two well-supported claims are about the same event,
+  without saying anything about the relationship between them.
+- The disagreement becomes its own claim, attributable like anything else, which
+  makes it visible without making it resolvable.
+
+An archive built entirely around element-level dispute may read, to somebody
+inside one of these branches, as having decided their disagreement does not
+exist.
+
+That is the engineering half. Whether an archive should represent this kind of
+disagreement at all is a question for the community whose record it is, and Part
+4 carries it under "What should a disagreement look like to the people in it?"
+
 ## What shape is an argument?
 
 Some disagreements are productive. People bring new material, the record gets
@@ -536,15 +557,30 @@ who owned it in 1912. Nothing in the model separates them, and a reader arriving
 at a busy site gets one long undifferentiated list.
 
 One option is that a record introduces a conversation and claims live inside
-conversations, which makes the grouping a stored thing with an author.
+conversations, which makes the grouping a stored thing with an author. The shape
+would go from a site holding claims directly to a site holding conversations,
+each of which holds claims. A site could then carry several unrelated
+conversations without them interfering, and a claim that wandered off topic
+would be a claim in the wrong conversation rather than noise under a site. It
+may also be the answer to how a busy site divides itself when it renders as an
+article, with the conversations becoming the sections.
 
-Another is that grouping is computed rather than stored, so it is a clustering
-problem over claim text and elements and it changes as the archive grows.
+Two things would need settling first. The first is whether a record introduces
+exactly one conversation, since a forty-minute recording covering three
+unrelated things would introduce three. The second is whether a conversation can
+exist without a record, which it cannot today, because typing what your
+grandmother told you is itself a text record. That would make every conversation
+record-rooted, and that is a constraint worth choosing on purpose.
 
-A third question sits underneath both. Whether a record carries a score of its
-own. Not the quality of the artifact, but something derived from what the
-conversations on it turned out to be worth. That may be a real quantity or a
-category error.
+Another option is that grouping is computed rather than stored, so it is a
+clustering problem over claim text and elements and it changes as the archive
+grows. Part 2 asks whether an extension should target an element. If it did,
+claims targeting the same element would already be grouped.
+
+A third question applies to both options, which is whether a record carries a
+score of its own, derived from what the conversations on it turned out to be
+worth. This would not be a measure of the artifact's quality. It may be a real
+quantity, and it may not be a coherent thing to measure at all.
 
 This is the intelligence layer's first assignment and their entity relationship
 diagram is the first attempt at an answer.
