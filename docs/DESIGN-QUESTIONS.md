@@ -1,35 +1,24 @@
 # Design questions
 
 Things in this codebase that are wrong, or at least unsettled, with no decision
-made about them yet.
+made about them yet. Every item is a real question with arguments on both sides,
+written down so you can see the shape of the problem before you run into it.
 
-This is not a list of bugs and it isn't a backlog. Every item here is a real
-question with arguments on both sides, written down so you can see the shape of
-the problem before you run into it.
+Read the section that touches what you are working on before you refactor
+anything. Some of these look like sloppiness and are not, and others look
+deliberate and are not. Most of them are here because I could not work out the
+answer, so disagreeing is the expected response rather than a problem. If you
+find a question this file missed, add it, because the next team reads this file
+too.
 
-## How to use this
-
-**Read the section that touches what you're working on before you refactor
-anything.** Some of these look like sloppiness and aren't. Others look
-deliberate and aren't. The difference is written down here rather than left for
-you to guess.
-
-**Disagreeing with a decision is normal and welcome.** Most of these are here
-because I couldn't work out the answer, not because anyone is attached to the
-current one.
-
-**If you find a question this file missed, add it.** A pull request that adds an entry
-here is worth as much as one that changes code. Possibly more, because the next
-team reads this file too.
-
-**Decisions that came out of this file move to
-[`CLOSED-QUESTIONS.md`](./CLOSED-QUESTIONS.md).** A question can be resolved
-there and still not be built, so read it before you build against a shape that
-is going to change.
+Decisions that came out of this file move to
+[`CLOSED-QUESTIONS.md`](./CLOSED-QUESTIONS.md). A question can be resolved there
+and still not be built, so read it before you build against a shape that is
+going to change.
 
 The first three sections are sorted by how much conversation an answer needs.
-Part 4 is different: those are not for this project to answer at all, and the
-section says why.
+Part 4 is different, because those are not for this project to answer at all,
+and the section says why.
 
 ---
 
@@ -111,9 +100,9 @@ this, so try that one first.
 These change the shape of the model, which means they affect more than one team.
 Raise them before building.
 
-Two entries here are marked **decided, not built**. They are not open questions.
-They are settled shape changes waiting on a safe moment to land, and they sit
-here because that is where somebody looks for a shape change.
+Two questions from this part have since been settled, and their reasoning moved
+to [`CLOSED-QUESTIONS.md`](./CLOSED-QUESTIONS.md). Neither is built yet, so read
+them before you build against `affirmation` or `disputeEdge`.
 
 ## What does an interface do with "sometime in the fifties, probably"?
 
@@ -183,8 +172,8 @@ so something has to group atomic claims back into a readable statement.
 
 ## How does a record get a location?
 
-**The requirement, which is not up for debate:** a record ends up with a
-location, and the record says how it got one. Everything below is how.
+One thing is settled: a record ends up with a location, and the record says how
+it got one. The rest of this entry is about how it gets there.
 
 **Now:** `capturedLocation` holds coordinates, a `method` of `placed`,
 `geocoded`, `embedded`, or `inherited`, and an optional `accuracyMetres`.
@@ -211,7 +200,7 @@ are separate axes and that enum has one.
   agreed to publish where they were standing.
 - *Inheriting the place's coordinates.* Always available, never adds anything.
 
-**The harder half, and this is the open part:** should precision be stored or
+**The open part:** should precision be stored or
 worked out? A stored number is somebody's guess written down once. A derived one
 could take the method, the source, and how much else agrees, and produce
 something better than any single guess.
@@ -258,7 +247,7 @@ person differently from an unrecoverable one, which is not reputation. It is the
 same kind of signal as counting corroboration by distinct family line. It asks
 whether this is one person once, not whether the person is any good.
 
-**The expensive part, and this is the open one:** linking. If guest G and
+**The expensive part:** linking. If guest G and
 verified V turn out to be the same person, and V once affirmed a claim by G,
 that affirmation was never independent. Linking two profiles retroactively
 invalidates corroboration the archive has already counted, and claims that were
@@ -378,8 +367,8 @@ the whole system now. It belongs in that diagram rather than ahead of it.
 
 # Part 3 — Open by design
 
-Left open on purpose. Not homework and not blocking anything, but this is where
-the project gets interesting.
+These are left open on purpose. They are not homework and they are not blocking
+anything, and they are where the project gets interesting.
 
 Open here means I do not have an answer. I have not looked into whether anyone
 else does.
@@ -415,7 +404,7 @@ record of what that person has actually contributed. Those two things come apart
 more often than you would expect, and most shortcuts in this area work by
 quietly substituting the first for the second.
 
-**Why the obvious answer is dangerous.** If a claim's weight depends on its
+**Why the obvious answer does not work.** If a claim's weight depends on its
 author's standing, then people who have been contributing longer carry more
 weight on every claim they make, whatever the claim says. The archive would
 start agreeing with whoever showed up first. That is a large effect, not a small
