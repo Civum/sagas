@@ -1,0 +1,33 @@
+{
+  "name": "sagas",
+  "private": true,
+  "engines": {
+    "node": ">=22.10.0",
+    "pnpm": "^9.15.4"
+  },
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "prepare": "git config core.hooksPath .githooks || true",
+    "build": "turbo run build",
+    "clean": "git clean -xdf node_modules",
+    "dev": "turbo watch dev --continue",
+    "dev:web": "turbo watch dev -F @sagas/web...",
+    "fixtures:build": "turbo run build:states -F @sagas/fixtures",
+    "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
+    "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
+    "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "inspect": "pnpm --filter @sagas/fixtures inspect",
+    "rules": "pnpm --filter @sagas/fixtures rules",
+    "acceptance": "turbo run acceptance",
+    "db:up": "node -e \"console.error(`\\nEach layer has its own database now.\\n\\n  content       pnpm --filter @sagas/capture-api db:up\\n  intelligence  pnpm --filter @sagas/graph-api   db:up\\n  experience    pnpm --filter @sagas/ui-api      db:up\\n\\nSee the start guide for your layer.\\n`); process.exit(1)\""
+  },
+  "devDependencies": {
+    "@sagas/prettier-config": "workspace:*",
+    "prettier": "catalog:",
+    "turbo": "^2.3.4",
+    "typescript": "catalog:"
+  },
+  "prettier": "@sagas/prettier-config"
+}

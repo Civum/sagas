@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ms-azuretools.vscode-docker",
+    "usernamehw.errorlens",
+    "eamodio.gitlens",
+    "vitest.explorer",
+    "bradlc.vscode-tailwindcss"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "name": "@sagas/fixtures",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./states/*": "./states/*",
+    "./behaviour": "./behaviour/index.ts",
+    "./acceptance": "./acceptance/index.ts"
+  },
+  "scripts": {
+    "build:states": "tsx scripts/build-states.ts",
+    "test": "vitest run",
+    "clean": "git clean -xdf .cache .turbo node_modules",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint",
+    "rules": "vitest run behaviour",
+    "inspect": "tsx scripts/inspect.ts",
+    "acceptance": "vitest run acceptance"
+  },
+  "dependencies": {
+    "@sagas/contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@sagas/tsconfig": "workspace:*",
+    "@sagas/prettier-config": "workspace:*",
+    "@types/node": "catalog:",
+    "prettier": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "@sagas/eslint-config": "workspace:*",
+    "eslint": "catalog:"
+  },
+  "prettier": "@sagas/prettier-config"
+}

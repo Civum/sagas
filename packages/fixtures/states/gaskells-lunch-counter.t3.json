@@ -1,0 +1,553 @@
+{
+  "stateId": "t3",
+  "label": "A city directory contests the closing year",
+  "asOf": "2026-06-30T23:59:59Z",
+  "site": {
+    "id": "site-gaskells",
+    "slug": "gaskells-lunch-counter",
+    "name": "Gaskell's Lunch Counter",
+    "aka": [
+      "Gaskell's",
+      "the lunch counter",
+      "the old diner on Ninth"
+    ],
+    "coordinates": [
+      -116.20087,
+      43.61759
+    ],
+    "address": "9th and Bannock",
+    "city": "Boise, Idaho",
+    "coordinatePrecision": "approximate"
+  },
+  "claims": [
+    {
+      "claim": {
+        "id": "cl-shift-workers",
+        "siteId": "site-gaskells",
+        "contributorId": "c-priya",
+        "recordId": "rec-menu-photo",
+        "text": "The hours on this menu are five in the morning until two in the afternoon. That is a shift pattern, not a lunch trade. Whoever ate here was going to work before dawn.",
+        "sourceLanguage": "en",
+        "elements": [
+          {
+            "id": "el-gk-hours",
+            "kind": "quantity",
+            "value": "05:00 to 14:00",
+            "excerpt": "five in the morning until two in the afternoon"
+          }
+        ],
+        "topics": [
+          "the menu",
+          "who ate there"
+        ],
+        "sourceType": "documentary",
+        "createdAt": "2026-03-18T20:47:00Z",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-priya",
+        "displayName": "Priya Raghunathan",
+        "joinedAt": "2026-03-18T20:31:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "record": {
+        "id": "rec-menu-photo",
+        "siteId": "site-gaskells",
+        "contributorId": "c-dolores",
+        "note": "A photograph of the paper menu, taken on the counter. The prices and the hours are legible. The date is not printed anywhere on it.",
+        "submission": "submitted",
+        "media": [
+          {
+            "id": "med-menu-photo",
+            "recordId": "rec-menu-photo",
+            "kind": "image",
+            "storageKey": "records/rec-menu-photo/menu.jpg",
+            "contentType": "image/jpeg",
+            "byteSize": 2180400,
+            "originalFilename": "menu.jpg",
+            "processing": "ready",
+            "width": 3024,
+            "height": 4032,
+            "derivatives": [],
+            "createdAt": "2026-02-03T18:41:00Z"
+          }
+        ],
+        "createdAt": "2026-02-03T18:41:00Z"
+      },
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [],
+      "independentLineageCount": 0,
+      "extensions": [
+        "cl-mother-worked"
+      ],
+      "references": [],
+      "passover": {
+        "sounds_right": 1,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "elementStatuses": [
+        {
+          "element": {
+            "id": "el-gk-hours",
+            "kind": "quantity",
+            "value": "05:00 to 14:00",
+            "excerpt": "five in the morning until two in the afternoon"
+          },
+          "disputes": [],
+          "competingValues": [
+            {
+              "value": "05:00 to 14:00",
+              "count": 1,
+              "contributorIds": [
+                "c-priya"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 5.25,
+      "confidence": "single_source"
+    },
+    {
+      "claim": {
+        "id": "cl-closed-1979",
+        "siteId": "site-gaskells",
+        "contributorId": "c-dolores",
+        "recordId": "rec-menu-photo",
+        "text": "Gaskell's was on the corner of 9th and Bannock and it closed in 1979. My mother took this photograph of the menu on one of the last days it was open. She kept it in the kitchen drawer for the rest of her life.",
+        "sourceLanguage": "en",
+        "elements": [
+          {
+            "id": "el-gk-year",
+            "kind": "date",
+            "value": "1979",
+            "excerpt": "it closed in 1979"
+          },
+          {
+            "id": "el-gk-place",
+            "kind": "place",
+            "value": "9th and Bannock",
+            "excerpt": "on the corner of 9th and Bannock"
+          }
+        ],
+        "topics": [
+          "closing",
+          "the menu"
+        ],
+        "sourceType": "family_oral",
+        "createdAt": "2026-02-03T18:44:00Z",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-dolores",
+        "displayName": "Dolores Whitcomb",
+        "lineageId": "lin-whitcomb",
+        "joinedAt": "2026-02-03T18:22:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "record": {
+        "id": "rec-menu-photo",
+        "siteId": "site-gaskells",
+        "contributorId": "c-dolores",
+        "note": "A photograph of the paper menu, taken on the counter. The prices and the hours are legible. The date is not printed anywhere on it.",
+        "submission": "submitted",
+        "media": [
+          {
+            "id": "med-menu-photo",
+            "recordId": "rec-menu-photo",
+            "kind": "image",
+            "storageKey": "records/rec-menu-photo/menu.jpg",
+            "contentType": "image/jpeg",
+            "byteSize": 2180400,
+            "originalFilename": "menu.jpg",
+            "processing": "ready",
+            "width": 3024,
+            "height": 4032,
+            "derivatives": [],
+            "createdAt": "2026-02-03T18:41:00Z"
+          }
+        ],
+        "createdAt": "2026-02-03T18:41:00Z"
+      },
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [
+        {
+          "id": "aff-gk-ray",
+          "claimId": "cl-closed-1979",
+          "contributorId": "c-raymond",
+          "createdAt": "2026-03-11T14:09:00Z"
+        },
+        {
+          "id": "aff-gk-priya",
+          "claimId": "cl-closed-1979",
+          "contributorId": "c-priya",
+          "createdAt": "2026-04-14T16:52:00Z"
+        }
+      ],
+      "independentLineageCount": 1,
+      "extensions": [],
+      "references": [],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 1,
+        "dont_care": 0
+      },
+      "elementStatuses": [
+        {
+          "element": {
+            "id": "el-gk-year",
+            "kind": "date",
+            "value": "1979",
+            "excerpt": "it closed in 1979"
+          },
+          "disputes": [
+            {
+              "id": "de-gk-year",
+              "type": "dispute",
+              "targetClaimId": "cl-closed-1979",
+              "targetElementId": "el-gk-year",
+              "reasoning": "The 1981 city directory still lists the business at this address. A directory is compiled the year before it is printed, so the business was trading in 1980 at the latest. It did not close in 1979.",
+              "proposedValue": "1981",
+              "contributorId": "c-arlen",
+              "createdAt": "2026-06-02T13:51:00Z"
+            }
+          ],
+          "competingValues": [
+            {
+              "value": "1979",
+              "count": 1,
+              "contributorIds": [
+                "c-dolores"
+              ]
+            },
+            {
+              "value": "1981",
+              "count": 1,
+              "contributorIds": [
+                "c-arlen"
+              ]
+            }
+          ]
+        },
+        {
+          "element": {
+            "id": "el-gk-place",
+            "kind": "place",
+            "value": "9th and Bannock",
+            "excerpt": "on the corner of 9th and Bannock"
+          },
+          "disputes": [],
+          "competingValues": [
+            {
+              "value": "9th and Bannock",
+              "count": 1,
+              "contributorIds": [
+                "c-dolores"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 3.25,
+      "confidence": "contested"
+    },
+    {
+      "claim": {
+        "id": "cl-mother-worked",
+        "siteId": "site-gaskells",
+        "contributorId": "c-dolores",
+        "recordId": "rec-menu-photo",
+        "text": "That is right, and my mother was one of them. She was on the early shift at the laundry two streets over and she ate here before work most days.",
+        "sourceLanguage": "en",
+        "elements": [
+          {
+            "id": "el-gk-person",
+            "kind": "person",
+            "value": "Dolores Whitcomb's mother",
+            "excerpt": "my mother was one of them"
+          }
+        ],
+        "topics": [
+          "who ate there"
+        ],
+        "sourceType": "family_oral",
+        "createdAt": "2026-03-22T11:15:00Z",
+        "parentClaimId": "cl-shift-workers",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-dolores",
+        "displayName": "Dolores Whitcomb",
+        "lineageId": "lin-whitcomb",
+        "joinedAt": "2026-02-03T18:22:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "record": {
+        "id": "rec-menu-photo",
+        "siteId": "site-gaskells",
+        "contributorId": "c-dolores",
+        "note": "A photograph of the paper menu, taken on the counter. The prices and the hours are legible. The date is not printed anywhere on it.",
+        "submission": "submitted",
+        "media": [
+          {
+            "id": "med-menu-photo",
+            "recordId": "rec-menu-photo",
+            "kind": "image",
+            "storageKey": "records/rec-menu-photo/menu.jpg",
+            "contentType": "image/jpeg",
+            "byteSize": 2180400,
+            "originalFilename": "menu.jpg",
+            "processing": "ready",
+            "width": 3024,
+            "height": 4032,
+            "derivatives": [],
+            "createdAt": "2026-02-03T18:41:00Z"
+          }
+        ],
+        "createdAt": "2026-02-03T18:41:00Z"
+      },
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [],
+      "independentLineageCount": 0,
+      "extensions": [],
+      "references": [],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "elementStatuses": [
+        {
+          "element": {
+            "id": "el-gk-person",
+            "kind": "person",
+            "value": "Dolores Whitcomb's mother",
+            "excerpt": "my mother was one of them"
+          },
+          "disputes": [],
+          "competingValues": [
+            {
+              "value": "Dolores Whitcomb's mother",
+              "count": 1,
+              "contributorIds": [
+                "c-dolores"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 2,
+      "confidence": "single_source"
+    }
+  ],
+  "contributors": [
+    {
+      "id": "c-dolores",
+      "displayName": "Dolores Whitcomb",
+      "lineageId": "lin-whitcomb",
+      "joinedAt": "2026-02-03T18:22:00Z",
+      "fictional": true,
+      "verification": "guest"
+    },
+    {
+      "id": "c-raymond",
+      "displayName": "Raymond Whitcomb",
+      "lineageId": "lin-whitcomb",
+      "joinedAt": "2026-03-11T14:02:00Z",
+      "fictional": true,
+      "verification": "guest"
+    },
+    {
+      "id": "c-priya",
+      "displayName": "Priya Raghunathan",
+      "joinedAt": "2026-03-18T20:31:00Z",
+      "fictional": true,
+      "verification": "guest"
+    },
+    {
+      "id": "c-arlen",
+      "displayName": "Arlen Mbeki",
+      "institution": "Boise City Directory project",
+      "joinedAt": "2026-06-02T13:20:00Z",
+      "fictional": true,
+      "verification": "guest"
+    }
+  ],
+  "records": [
+    {
+      "id": "rec-menu-photo",
+      "siteId": "site-gaskells",
+      "contributorId": "c-dolores",
+      "note": "A photograph of the paper menu, taken on the counter. The prices and the hours are legible. The date is not printed anywhere on it.",
+      "submission": "submitted",
+      "media": [
+        {
+          "id": "med-menu-photo",
+          "recordId": "rec-menu-photo",
+          "kind": "image",
+          "storageKey": "records/rec-menu-photo/menu.jpg",
+          "contentType": "image/jpeg",
+          "byteSize": 2180400,
+          "originalFilename": "menu.jpg",
+          "processing": "ready",
+          "width": 3024,
+          "height": 4032,
+          "derivatives": [],
+          "createdAt": "2026-02-03T18:41:00Z"
+        }
+      ],
+      "createdAt": "2026-02-03T18:41:00Z"
+    },
+    {
+      "id": "rec-boarded-front",
+      "siteId": "site-gaskells",
+      "contributorId": "c-priya",
+      "note": "The same corner with the windows boarded. My uncle took it from across the street, he could not say exactly when.",
+      "submission": "submitted",
+      "media": [
+        {
+          "id": "med-boarded-front",
+          "recordId": "rec-boarded-front",
+          "kind": "image",
+          "storageKey": "records/rec-boarded-front/front.jpg",
+          "contentType": "image/jpeg",
+          "byteSize": 1640220,
+          "originalFilename": "front.jpg",
+          "processing": "ready",
+          "width": 2048,
+          "height": 1536,
+          "derivatives": [],
+          "createdAt": "2026-04-14T16:40:00Z"
+        }
+      ],
+      "createdAt": "2026-04-14T16:40:00Z"
+    },
+    {
+      "id": "rec-directory-1981",
+      "siteId": "site-gaskells",
+      "contributorId": "c-arlen",
+      "note": "Scan of the 1981 city directory page. The listing for 9th and Bannock still carries the business name.",
+      "submission": "submitted",
+      "media": [
+        {
+          "id": "med-directory-1981",
+          "recordId": "rec-directory-1981",
+          "kind": "document",
+          "storageKey": "records/rec-directory-1981/page-204.pdf",
+          "contentType": "application/pdf",
+          "byteSize": 4902118,
+          "originalFilename": "directory-1981-p204.pdf",
+          "processing": "ready",
+          "derivatives": [],
+          "createdAt": "2026-06-02T13:44:00Z"
+        }
+      ],
+      "createdAt": "2026-06-02T13:44:00Z"
+    }
+  ],
+  "standings": [
+    {
+      "contributorId": "c-dolores",
+      "firstContributionAt": "2026-02-03T18:41:00Z",
+      "lastContributionAt": "2026-03-22T11:15:00Z",
+      "recordsSubmitted": 1,
+      "claimsAuthored": 2,
+      "claimsCorroboratedByOtherLines": 1,
+      "claimsDisputed": 1,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 0,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    },
+    {
+      "contributorId": "c-raymond",
+      "firstContributionAt": "2026-03-11T14:09:00Z",
+      "lastContributionAt": "2026-03-11T14:09:00Z",
+      "recordsSubmitted": 0,
+      "claimsAuthored": 0,
+      "claimsCorroboratedByOtherLines": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 1,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    },
+    {
+      "contributorId": "c-priya",
+      "firstContributionAt": "2026-03-18T20:47:00Z",
+      "lastContributionAt": "2026-04-14T16:52:00Z",
+      "recordsSubmitted": 1,
+      "claimsAuthored": 1,
+      "claimsCorroboratedByOtherLines": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 1,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    },
+    {
+      "contributorId": "c-arlen",
+      "firstContributionAt": "2026-06-02T13:44:00Z",
+      "lastContributionAt": "2026-06-02T13:51:00Z",
+      "recordsSubmitted": 1,
+      "claimsAuthored": 0,
+      "claimsCorroboratedByOtherLines": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 1,
+      "disputesRaisedWithAlternative": 1,
+      "affirmationsGiven": 0,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    }
+  ],
+  "transcripts": [],
+  "flags": [],
+  "integrity": {
+    "totalClaims": 3,
+    "independentContributors": 2,
+    "lineageDiversity": 2,
+    "corroborationDepth": 0,
+    "activeDisputes": 1,
+    "datedClaims": 1,
+    "awaitingTranslation": 0,
+    "overall": 25
+  },
+  "eventIdsApplied": [
+    "gk-001",
+    "gk-002",
+    "gk-003",
+    "gk-004",
+    "gk-005",
+    "gk-006",
+    "gk-007",
+    "gk-008",
+    "gk-009",
+    "gk-010",
+    "gk-011",
+    "gk-012",
+    "gk-013",
+    "gk-014",
+    "gk-015",
+    "gk-016"
+  ],
+  "eventIdsSincePrevious": [
+    "gk-013",
+    "gk-014",
+    "gk-015",
+    "gk-016"
+  ]
+}

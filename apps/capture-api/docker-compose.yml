@@ -1,0 +1,80 @@
+# The content layer's local stack. Yours to change.
+#
+#   pnpm --filter @sagas/capture-api db:up       start it
+#   pnpm --filter @sagas/capture-api db:verify   confirm it works
+#   pnpm --filter @sagas/capture-api db:down     stop it, data survives
+#   pnpm --filter @sagas/capture-api db:reset    delete the data and start over
+#
+# Nothing here talks to a cloud service and there are no credentials to request.
+# The other two layers have their own files like this one, on their own ports,
+# so nothing you do here can break their setup and nothing they do can break
+# yours. If you need another service, add it here.
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: sagas-content-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sagas
+      POSTGRES_PASSWORD: sagas
+      POSTGRES_DB: sagas_content
+    ports:
+      # Bound to 127.0.0.1 on purpose. Docker publishes on every interface by
+      # default, which would put a database with the password "sagas" on
+      # whatever network you are sitting on. Nothing here needs to be reachable
+      # from another machine.
+      #
+      # 5433 on the host. The other layers use 5434 and 5435, so all three can
+      # run at once without colliding.
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - content-pgdata:/var/lib/postgresql/data
+      - ./docker/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sagas -d sagas_content"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Speaks the S3 API, which is the entire point. Everything written against
+  # this works unchanged against S3, R2 or B2 later, because the code only ever
+  # sees an S3 client pointed at a different endpoint.
+  #
+  # Files do not go in Postgres. A 600MB WAV in a database column makes every
+  # backup and every query on that table slow, and you cannot stream a range out
+  # of it to seek in an audio player.
+  minio:
+    image: minio/minio:latest
+    container_name: sagas-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: sagas
+      MINIO_ROOT_PASSWORD: sagas-dev-secret
+    ports:
+      # 9000 is the S3 API and the one your code talks to. 9001 is a file
+      # browser, useful for eyeballing what you uploaded. Both bound to
+      # localhost for the same reason as the database above.
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001"
+    volumes:
+      - minio-data:/data
+
+  # The MinIO command line, for making buckets and looking around. Not a server.
+  # It runs, does one thing and exits, which is why nothing starts it for you.
+  #
+  #   docker compose run --rm mc 'mc ls local'
+  mc:
+    image: minio/mc:latest
+    profiles: ["tools"]
+    depends_on:
+      - minio
+    environment:
+      MC_HOST_local: http://sagas:sagas-dev-secret@minio:9000
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["mc ls local"]
+
+volumes:
+  content-pgdata:
+  minio-data:

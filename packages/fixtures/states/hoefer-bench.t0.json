@@ -1,0 +1,213 @@
+{
+  "stateId": "t0",
+  "label": "One claim, one contributor, nothing else",
+  "asOf": "2026-05-31T23:59:59Z",
+  "site": {
+    "id": "site-hoefer-bench",
+    "slug": "hoefer-bench",
+    "name": "The Hoefer bench",
+    "aka": [
+      "the bench by the cottonwoods",
+      "the green bench"
+    ],
+    "coordinates": [
+      -116.21402,
+      43.60338
+    ],
+    "address": "Greenbelt path, near the Americana bridge",
+    "city": "Boise, Idaho",
+    "coordinatePrecision": "approximate"
+  },
+  "claims": [
+    {
+      "claim": {
+        "id": "cl-bench-grandmother",
+        "siteId": "site-hoefer-bench",
+        "contributorId": "c-nadia",
+        "recordId": "rec-plaque",
+        "text": "My grandmother walked this stretch every morning for about thirty years. After she died the family put the bench here because it is the spot where she used to stop and look at the water. The plaque was my aunt's idea.",
+        "sourceLanguage": "en",
+        "elements": [
+          {
+            "id": "el-hb-person",
+            "kind": "person",
+            "value": "Margarethe Hoefer",
+            "excerpt": "My grandmother"
+          },
+          {
+            "id": "el-hb-place",
+            "kind": "place",
+            "value": "Greenbelt near the Americana bridge",
+            "excerpt": "this stretch"
+          }
+        ],
+        "topics": [
+          "the bench"
+        ],
+        "sourceType": "family_oral",
+        "createdAt": "2026-05-19T15:34:00Z",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-nadia",
+        "displayName": "Nadia Hoefer",
+        "lineageId": "lin-hoefer",
+        "joinedAt": "2026-05-19T15:12:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "record": {
+        "id": "rec-plaque",
+        "siteId": "site-hoefer-bench",
+        "contributorId": "c-nadia",
+        "note": "The plaque on the back rail. It has her name and two dates and nothing else.",
+        "submission": "submitted",
+        "media": [
+          {
+            "id": "med-plaque",
+            "recordId": "rec-plaque",
+            "kind": "image",
+            "storageKey": "records/rec-plaque/plaque.jpg",
+            "contentType": "image/jpeg",
+            "byteSize": 1204880,
+            "originalFilename": "plaque.jpg",
+            "processing": "ready",
+            "width": 2016,
+            "height": 1512,
+            "derivatives": [],
+            "createdAt": "2026-05-19T15:28:00Z"
+          }
+        ],
+        "createdAt": "2026-05-19T15:28:00Z"
+      },
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [],
+      "independentLineageCount": 0,
+      "extensions": [],
+      "references": [],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "elementStatuses": [
+        {
+          "element": {
+            "id": "el-hb-person",
+            "kind": "person",
+            "value": "Margarethe Hoefer",
+            "excerpt": "My grandmother"
+          },
+          "disputes": [],
+          "competingValues": [
+            {
+              "value": "Margarethe Hoefer",
+              "count": 1,
+              "contributorIds": [
+                "c-nadia"
+              ]
+            }
+          ]
+        },
+        {
+          "element": {
+            "id": "el-hb-place",
+            "kind": "place",
+            "value": "Greenbelt near the Americana bridge",
+            "excerpt": "this stretch"
+          },
+          "disputes": [],
+          "competingValues": [
+            {
+              "value": "Greenbelt near the Americana bridge",
+              "count": 1,
+              "contributorIds": [
+                "c-nadia"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 2,
+      "confidence": "single_source"
+    }
+  ],
+  "contributors": [
+    {
+      "id": "c-nadia",
+      "displayName": "Nadia Hoefer",
+      "lineageId": "lin-hoefer",
+      "joinedAt": "2026-05-19T15:12:00Z",
+      "fictional": true,
+      "verification": "guest"
+    }
+  ],
+  "records": [
+    {
+      "id": "rec-plaque",
+      "siteId": "site-hoefer-bench",
+      "contributorId": "c-nadia",
+      "note": "The plaque on the back rail. It has her name and two dates and nothing else.",
+      "submission": "submitted",
+      "media": [
+        {
+          "id": "med-plaque",
+          "recordId": "rec-plaque",
+          "kind": "image",
+          "storageKey": "records/rec-plaque/plaque.jpg",
+          "contentType": "image/jpeg",
+          "byteSize": 1204880,
+          "originalFilename": "plaque.jpg",
+          "processing": "ready",
+          "width": 2016,
+          "height": 1512,
+          "derivatives": [],
+          "createdAt": "2026-05-19T15:28:00Z"
+        }
+      ],
+      "createdAt": "2026-05-19T15:28:00Z"
+    }
+  ],
+  "standings": [
+    {
+      "contributorId": "c-nadia",
+      "firstContributionAt": "2026-05-19T15:28:00Z",
+      "lastContributionAt": "2026-05-19T15:34:00Z",
+      "recordsSubmitted": 1,
+      "claimsAuthored": 1,
+      "claimsCorroboratedByOtherLines": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 0,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    }
+  ],
+  "transcripts": [],
+  "flags": [],
+  "integrity": {
+    "totalClaims": 1,
+    "independentContributors": 1,
+    "lineageDiversity": 1,
+    "corroborationDepth": 0,
+    "activeDisputes": 0,
+    "datedClaims": 0,
+    "awaitingTranslation": 0,
+    "overall": 9
+  },
+  "eventIdsApplied": [
+    "hb-001",
+    "hb-002",
+    "hb-003",
+    "hb-004"
+  ],
+  "eventIdsSincePrevious": [
+    "hb-001",
+    "hb-002",
+    "hb-003",
+    "hb-004"
+  ]
+}

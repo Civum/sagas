@@ -1,0 +1,215 @@
+{
+  "stateId": "t0",
+  "label": "One photograph, one reading of it",
+  "asOf": "2026-02-28T23:59:59Z",
+  "site": {
+    "id": "site-gaskells",
+    "slug": "gaskells-lunch-counter",
+    "name": "Gaskell's Lunch Counter",
+    "aka": [
+      "Gaskell's",
+      "the lunch counter",
+      "the old diner on Ninth"
+    ],
+    "coordinates": [
+      -116.20087,
+      43.61759
+    ],
+    "address": "9th and Bannock",
+    "city": "Boise, Idaho",
+    "coordinatePrecision": "approximate"
+  },
+  "claims": [
+    {
+      "claim": {
+        "id": "cl-closed-1979",
+        "siteId": "site-gaskells",
+        "contributorId": "c-dolores",
+        "recordId": "rec-menu-photo",
+        "text": "Gaskell's was on the corner of 9th and Bannock and it closed in 1979. My mother took this photograph of the menu on one of the last days it was open. She kept it in the kitchen drawer for the rest of her life.",
+        "sourceLanguage": "en",
+        "elements": [
+          {
+            "id": "el-gk-year",
+            "kind": "date",
+            "value": "1979",
+            "excerpt": "it closed in 1979"
+          },
+          {
+            "id": "el-gk-place",
+            "kind": "place",
+            "value": "9th and Bannock",
+            "excerpt": "on the corner of 9th and Bannock"
+          }
+        ],
+        "topics": [
+          "closing",
+          "the menu"
+        ],
+        "sourceType": "family_oral",
+        "createdAt": "2026-02-03T18:44:00Z",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-dolores",
+        "displayName": "Dolores Whitcomb",
+        "lineageId": "lin-whitcomb",
+        "joinedAt": "2026-02-03T18:22:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "record": {
+        "id": "rec-menu-photo",
+        "siteId": "site-gaskells",
+        "contributorId": "c-dolores",
+        "note": "A photograph of the paper menu, taken on the counter. The prices and the hours are legible. The date is not printed anywhere on it.",
+        "submission": "submitted",
+        "media": [
+          {
+            "id": "med-menu-photo",
+            "recordId": "rec-menu-photo",
+            "kind": "image",
+            "storageKey": "records/rec-menu-photo/menu.jpg",
+            "contentType": "image/jpeg",
+            "byteSize": 2180400,
+            "originalFilename": "menu.jpg",
+            "processing": "ready",
+            "width": 3024,
+            "height": 4032,
+            "derivatives": [],
+            "createdAt": "2026-02-03T18:41:00Z"
+          }
+        ],
+        "createdAt": "2026-02-03T18:41:00Z"
+      },
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [],
+      "independentLineageCount": 0,
+      "extensions": [],
+      "references": [],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "elementStatuses": [
+        {
+          "element": {
+            "id": "el-gk-year",
+            "kind": "date",
+            "value": "1979",
+            "excerpt": "it closed in 1979"
+          },
+          "disputes": [],
+          "competingValues": [
+            {
+              "value": "1979",
+              "count": 1,
+              "contributorIds": [
+                "c-dolores"
+              ]
+            }
+          ]
+        },
+        {
+          "element": {
+            "id": "el-gk-place",
+            "kind": "place",
+            "value": "9th and Bannock",
+            "excerpt": "on the corner of 9th and Bannock"
+          },
+          "disputes": [],
+          "competingValues": [
+            {
+              "value": "9th and Bannock",
+              "count": 1,
+              "contributorIds": [
+                "c-dolores"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 2,
+      "confidence": "single_source"
+    }
+  ],
+  "contributors": [
+    {
+      "id": "c-dolores",
+      "displayName": "Dolores Whitcomb",
+      "lineageId": "lin-whitcomb",
+      "joinedAt": "2026-02-03T18:22:00Z",
+      "fictional": true,
+      "verification": "guest"
+    }
+  ],
+  "records": [
+    {
+      "id": "rec-menu-photo",
+      "siteId": "site-gaskells",
+      "contributorId": "c-dolores",
+      "note": "A photograph of the paper menu, taken on the counter. The prices and the hours are legible. The date is not printed anywhere on it.",
+      "submission": "submitted",
+      "media": [
+        {
+          "id": "med-menu-photo",
+          "recordId": "rec-menu-photo",
+          "kind": "image",
+          "storageKey": "records/rec-menu-photo/menu.jpg",
+          "contentType": "image/jpeg",
+          "byteSize": 2180400,
+          "originalFilename": "menu.jpg",
+          "processing": "ready",
+          "width": 3024,
+          "height": 4032,
+          "derivatives": [],
+          "createdAt": "2026-02-03T18:41:00Z"
+        }
+      ],
+      "createdAt": "2026-02-03T18:41:00Z"
+    }
+  ],
+  "standings": [
+    {
+      "contributorId": "c-dolores",
+      "firstContributionAt": "2026-02-03T18:41:00Z",
+      "lastContributionAt": "2026-02-03T18:44:00Z",
+      "recordsSubmitted": 1,
+      "claimsAuthored": 1,
+      "claimsCorroboratedByOtherLines": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 0,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    }
+  ],
+  "transcripts": [],
+  "flags": [],
+  "integrity": {
+    "totalClaims": 1,
+    "independentContributors": 1,
+    "lineageDiversity": 1,
+    "corroborationDepth": 0,
+    "activeDisputes": 0,
+    "datedClaims": 1,
+    "awaitingTranslation": 0,
+    "overall": 13
+  },
+  "eventIdsApplied": [
+    "gk-001",
+    "gk-002",
+    "gk-003",
+    "gk-004"
+  ],
+  "eventIdsSincePrevious": [
+    "gk-001",
+    "gk-002",
+    "gk-003",
+    "gk-004"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@sagas/ui-api",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo node_modules",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint",
+    "db:up": "docker compose up -d --wait postgres",
+    "db:down": "docker compose stop postgres",
+    "db:verify": "bash ../../scripts/verify-db.sh sagas-experience-db 5435 sagas_read",
+    "db:reset": "bash ../../scripts/reset-volume.sh postgres experience-pgdata",
+    "db:psql": "docker exec -it sagas-experience-db psql -U sagas -d sagas_read"
+  },
+  "dependencies": {
+    "@sagas/contracts": "workspace:*",
+    "@sagas/read-model": "workspace:*"
+  },
+  "devDependencies": {
+    "@sagas/tsconfig": "workspace:*",
+    "@sagas/prettier-config": "workspace:*",
+    "@sagas/eslint-config": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
+  },
+  "prettier": "@sagas/prettier-config"
+}
