@@ -1,0 +1,51 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+# build output
+dist/
+build/
+.next/
+**/.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.cache
+.turbo
+
+# generated fixture states are committed on purpose — see packages/fixtures/README.md
+
+# testing
+coverage
+**/test-results/
+
+# env
+.env
+.env*.local
+**/.env
+**/.env*.local
+
+# credentials — nothing in this repo should ever need these, but belt and braces
+**/service-account*.json
+*.pem
+
+# editors / os
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# vercel
+.vercel
+
+# sponsor working files. Kept in the working copy, never committed — they hold
+# meeting notes, scheduling, and half-formed decisions that aren't anyone's
+# business but ours. Anything here that students need belongs in docs/ instead.
+pitch/
+internal/
+_to_delete/
+
+#For BSU
+
+README.md
