@@ -4,18 +4,18 @@ Every layer touches this. The experience layer draws a map and asks what is
 near here. The content layer reads coordinates out of photographs. The
 intelligence layer asks whether two places are close enough to be related.
 
-None of it is hard. Most of it is unfamiliar, and two of the mistakes below are
-silent, which is worse than hard.
+Most of it is unfamiliar, and two of the mistakes below fail silently: swapping
+the coordinate order, and measuring distance in degrees.
 
 ---
 
-## The one that will get you
+## Coordinates are longitude first
 
 Coordinates in this project are `[longitude, latitude]`.
 
 That is the reverse of how everyone says it out loud. "Forty-three point six
-north, one hundred sixteen point two west" is latitude first, and every GPS app
-you have used shows it that way.
+north, one hundred sixteen point two west" is latitude first, and most GPS apps
+show it that way.
 
 GeoJSON, PostGIS, and Mapbox all want longitude first. So does the contract:
 
@@ -24,13 +24,12 @@ coordinates: [-116.20331, 43.61533]   // Boise
 coordinates: [43.61533, -116.20331]   // swapped: -116 is not a real latitude
 ```
 
-The swapped pair is not a real place. Mapbox rejects it with an error about an
-invalid latitude when it reaches the map, but the database may store it without
-complaint, so the error shows up far from where the mistake was made. Near the
-equator a swap can even produce a valid point somewhere else entirely.
+The Boise pair swapped is not a real place, because -116 is outside the range a
+latitude can take. Something will reject it, possibly far from where the mistake
+was made. A pair whose longitude is between -90 and 90 is worse: swapped, it is a
+valid point somewhere else entirely, and nothing complains.
 
-If a marker is missing, check the order first. It is the answer more often than
-anything else.
+If a marker is missing, check the order first.
 
 ---
 
@@ -38,23 +37,23 @@ anything else.
 
 PostGIS gives you `geometry` and `geography` and they are not the same thing.
 
-**`geometry`** treats coordinates as points on a flat plane. Fast, and fine for
-a small area. Distances come out in degrees, which are not a unit of length:
-one degree of longitude is about 111km at the equator and about 79km in Boise,
+**`geometry`** treats coordinates as points on a flat plane. It is fast and fine
+for a small area. Distances come out in degrees, which are not a unit of length:
+one degree of longitude is about 111km at the equator and about 80km in Boise,
 so "within 0.02 degrees" means something different depending on where you are.
 
-**`geography`** treats them as points on a sphere. Slower, and distances come
-out in metres everywhere.
+**`geography`** treats them as points on the globe. It is slower, and distances
+come out in metres everywhere.
 
-For this project use `geography` with SRID 4326. The archive spans a whole
-region, the queries are about real distance, and being able to say "2000" and
-mean two kilometres is worth the cost.
+This project expects `geography` with SRID 4326, so that "2000" in a query means
+two kilometres. An SRID is the number that tells PostGIS which coordinate system
+a value is in.
 
 ```sql
 location geography(Point, 4326)
 ```
 
-SRID 4326 is plain latitude and longitude, the thing GPS produces. You will see
+4326 is plain latitude and longitude, the system GPS uses. You will see
 3857 elsewhere; that is the projection web maps use for drawing tiles, not for
 storing points.
 
@@ -73,9 +72,9 @@ WHERE abs(lng - $1) < 0.02 AND abs(lat - $2) < 0.02
 WHERE ST_DWithin(location, ST_MakePoint($1, $2)::geography, 2000)
 ```
 
-`ST_DWithin` is the one to reach for. Not `ST_Distance(...) < 2000`, which
-computes an exact distance for every row in the table before comparing, and
-cannot use an index to skip anything.
+Use `ST_DWithin`. Avoid `ST_Distance(...) < 2000`, which computes an exact
+distance for every row in the table before comparing and cannot use an index to
+skip anything.
 
 For the map itself you usually want a bounding box instead, because what you
 need is "what is on screen" rather than "what is near a point":
@@ -95,21 +94,20 @@ CREATE INDEX sites_location_idx ON sites USING GIST (location);
 ```
 
 Without this, every map movement reads every row. With a hundred sites you will
-not notice. The point of building it properly is that you do not have to
-remember to fix it later.
+not notice, so add the index when you create the table rather than waiting for
+it to be slow.
 
 Check your work with `EXPLAIN ANALYZE`. If you see `Seq Scan` on a spatial
-query, the index is not being used, and the usual reason is a type mismatch
+query, the index is not being used, and one common reason is a type mismatch
 between the column and what you passed in.
 
 ---
 
 ## Precision and accuracy are different things
 
-A photograph's embedded GPS is precise to a few metres and frequently wrong,
-because the phone was indoors or across the street. A pin dropped by the
-granddaughter of the woman who worked in the building is imprecise and
-authoritative.
+A photograph's embedded GPS is precise to a few metres and can still be wrong,
+because the phone was indoors or across the street. A pin somebody drops by hand
+is imprecise and can still be right.
 
 The contract keeps both the coordinates and how they were arrived at, in
 `capturedLocation`: `placed`, `geocoded`, `embedded`, or `inherited`, plus an
@@ -120,8 +118,8 @@ location and the place it is attached to can disagree, and that disagreement is
 information. There is an acceptance case about exactly this, where a photo's
 GPS lands in the middle of the street.
 
-How location should actually be captured is an open question, not a settled
-one. See `docs/DESIGN-QUESTIONS.md`.
+How location should be captured is open. See "How does a record get a
+location?" in `docs/DESIGN-QUESTIONS.md`.
 
 ---
 

@@ -6,8 +6,6 @@
  * what a correct scorer may not do, so it still holds when the arithmetic in
  * there is replaced by something real.
  *
- * These are not suggestions in a document. They are tests that fail.
- *
  * HOW TO USE IT
  *
  * Write your scorer so it matches the `Scorer` interface below, then point this
@@ -28,13 +26,12 @@
  * WHY THESE RULES AND NOT OTHERS
  *
  * Every one of them is a way the archive could quietly go wrong while every
- * unit test still passed. A scorer that ranks by family size, or that lets a
+ * unit test still passed. A scorer that ranks by headcount, or that lets a
  * long-standing contributor outrank a newcomer's better-supported claim, is
  * not buggy in any way a normal test would catch. It just produces an archive
  * that agrees with whoever was already loudest.
  */
 
-/* ------------------------------------------------------------------ */
 /* ------------------------------------------------------------------ */
 /* WHAT A FAILURE MEANS                                                 */
 /* ------------------------------------------------------------------ */
@@ -43,24 +40,25 @@
  * Every rule below is prefixed, and the prefix says how much weight to give it.
  *
  *   required           This project will not merge a scorer that fails one of
- *                      these. Seven of them, and most are closer to definitions
+ *                      these. There are seven, and most are closer to definitions
  *                      of a working function than positions on anything: the
  *                      same input gives the same answer, the output is a real
  *                      number, more disagreement does not raise a score.
  *
  *   open to argument   Something the sponsor currently thinks, written down so
- *                      it is checkable instead of assumed. Three of them. A
+ *                      it is checkable instead of assumed. There are three. A
  *                      failure might be a bug in your scorer and it might be
  *                      you disagreeing, and disagreeing is a check-in
  *                      conversation rather than a quiet deletion.
  *
- * Worth saying plainly: this suite was drafted before any of it had been tried
- * against a real claim, and nobody here has solved the problem it is
- * circling. Treat it as a starting point rather than a description of how
+ * This suite was drafted before any of it had been tried against a real
+ * claim, and nobody here has solved the scoring problem. Treat it as a
+ * starting point rather than a description of how
  * scoring ought to work. The algorithm is yours, and these rules should
  * not be the reason you build something a particular way.
  */
 
+/* ------------------------------------------------------------------ */
 /* WHAT THESE RULES DO NOT COVER                                       */
 /* ------------------------------------------------------------------ */
 
@@ -123,8 +121,8 @@ export interface Scorer {
  *
  * No name, no contributor id, no standing, no join date, no institution. What
  * it gets instead are facts about what was contributed, such as how many
- * independent records back a claim. The system knows who is speaking. The scorer does not, and cannot use it as a
- * credential.
+ * independent records back a claim. The system knows who is speaking. The
+ * scorer does not, and cannot use it as a credential.
  *
  * Weight comes from what somebody has done, not from who they are. That is
  * enforced by the missing field rather than by a test.
@@ -187,8 +185,8 @@ export function runScoringRules(name: string, scorer: Scorer): void {
     /* ---------------------------------------------------------------- */
 
     it('open to argument · keeps a well-supported contested claim above an unsupported quiet one', () => {
-      // Disagreement usually means a claim matters. A scorer that buries
-      // anything anyone argued with will bury the most important records here.
+      // This project's reasoning: disagreement often means a claim matters, so a
+      // scorer that buries anything anyone argued with may bury the ones that count.
       const contested = scorer.weight(
         withInput({ affirmationCount: 4, extensionCount: 3, disputeCount: 2, sourceTypeDiversity: 2 }),
       );
@@ -266,8 +264,8 @@ export function runScoringRules(name: string, scorer: Scorer): void {
     );
 
     it('required · survives every claim shape in the fixtures', () => {
-      // Empty detail arrays, unrendered claims, claims with no affirmations
-      // at all. Real data has holes in it and a scorer must not throw or return
+      // The fixtures include claims with empty detail arrays, unrendered claims
+      // and claims with no affirmations. A scorer must not throw or return
       // nonsense on any of them.
       for (const { id, input } of realClaims) {
         const w = scorer.weight(input);

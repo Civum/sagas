@@ -9,14 +9,14 @@ import type { ClaimState } from '@sagas/contracts';
  *   `text` is empty. Show the original. Show that a rendering is wanted. Do not
  *   hide it, do not sort it to the bottom, do not render an empty row.
  * - One rendering. Show it, credited, with the original reachable.
- * - Several renderings. They coexist. None is the correct one. If someone has
+ * - Several renderings. They coexist, and none is the correct one. If someone has
  *   objected that a rendering loses something, that objection stays attached to
  *   both versions.
  *
  * A reader who speaks no Euskara should still be able to see that two people
  * disagree about what a sentence means.
  *
- * Acceptance criterions: claim-outside-the-graph, rendering-arrives,
+ * Acceptance criteria: claim-outside-the-graph, rendering-arrives,
  * coexisting-renderings.
  */
 export function TranslationPanel({ claim }: { claim: ClaimState }) {

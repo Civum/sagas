@@ -4,20 +4,19 @@
  * It exists so claims have some order to display in and something to label
  * them with. It's simple arithmetic, picked to be obviously provisional.
  *
- * Working out how confidence should actually be calculated is a whole
- * deliverable for one of the teams. Don't treat this as a spec, a baseline to
- * beat, or an opinion. It gets deleted.
+ * Working out how weight and confidence should really be calculated is the
+ * intelligence layer's deliverable. Don't build on this. It gets deleted.
  *
  * Two things in here are worth keeping, because they are rules about the
  * problem rather than proposed answers to it:
  *
  *   Edges are the strong signals. An extension pushes a claim up, a dispute
  *   pushes it down, and a resolution (not in the contract yet) would push both
- *   branches it reconciles up. So a claim's standing moves in both directions
+ *   branches it reconciles up. So a claim's weight moves in both directions
  *   over time rather than only accumulating.
  *
- *   Passovers are the soft signals. Affirmation (`sounds_right`), `dont_know`
- *   and `dont_care` matter most for what gets suggested to whom. Here an
+ *   Affirmations and passovers (`sounds_right`, `dont_know`, `dont_care`) are
+ *   the soft signals and matter most for what gets suggested to whom. Here an
  *   affirmation adds only a small, capped nudge, and it never counts as
  *   independent support.
  */

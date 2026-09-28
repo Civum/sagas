@@ -13,32 +13,33 @@ photograph, a scanned document, or just typed text. Your job is the software
 that receives all of that, stores it, and makes sense of the files people
 upload.
 
-Two apps, both yours, both currently empty:
+You own two apps. `apps/capture-api` has a starting skeleton and `apps/capture-web` is empty:
 
 - `apps/capture-api`, the server
 - `apps/capture-web`, the screen a person is actually looking at
 
-## Five words used carefully
+## What the five core terms mean
 
 - **Site.** A place somebody has designated as meaningful. Records and claims
   attach to a site. A site does not attach to them.
 - **Record.** What somebody hands over. A recording, a video, a photograph, a
   scanned document, or typed text. Nothing in the graph argues with a record.
   Disagreement lands on claims instead.
-- **Claim.** Somebody's reading of a record. This is where disagreement lands.
-  One record can produce several claims.
+- **Claim.** Somebody's reading of a record. The record the conversation started
+  from is the claim's source record, and a claim can also carry other records as
+  evidence. This is where disagreement lands. One record can produce several claims.
 - **Rendering.** A transcript or a translation. One person's version of a
   record or a claim, attributed, with more than one allowed to exist.
 - **Profile.** Who a contributor is to the software. This semester a profile is
   a guest id kept in browser storage, and there are no logins.
 
-"Account" is not a term in this project. It used to be, and it was doing two
-jobs at once: a contribution in some sentences and a login in others. If you
-find it still standing for either, that is a leftover and worth a pull request.
+"Account" is not a term in this project, because it meant a contribution in some
+places and a login in others. If you find it in the repository, that is a
+leftover and worth a pull request.
 
 ## What to ignore
 
-Genuinely ignore. It belongs to other teams and nothing you build depends on it.
+These belong to other teams and nothing you build depends on them.
 
 - `apps/web`, `apps/ui-api`, `packages/read-model`, the reading experience
 - `apps/graph-api`, the scoring and claim-graph work
@@ -48,14 +49,15 @@ Genuinely ignore. It belongs to other teams and nothing you build depends on it.
 If a document starts talking about claim graphs, you're in the wrong section.
 
 Records and media are yours, and so is claim intake: the screens and endpoints
-where somebody writes a claim, a dispute or an extension about a record. What
+where somebody writes a claim about a record, or disputes or extends part of
+somebody else's claim. What
 happens to a claim after that is shared. The intelligence layer models and
 scores claims, and the experience layer renders them and composes them into a
 page.
 
 ## What to install first
 
-Do this before you clone anything. Six things, and two of them catch people out.
+Do this before you clone anything. There are six things to install, and two of them catch people out.
 
 | What | Version | Where |
 |---|---|---|
@@ -66,10 +68,8 @@ Do this before you clone anything. Six things, and two of them catch people out.
 | **Git** | current | Usually installed. Windows: [git-scm.com](https://git-scm.com) |
 | **VS Code** | current | [code.visualstudio.com](https://code.visualstudio.com) |
 
-**Not yet: Mapbox.** You'll need a free token when you build the map picker, and
-that's October. `SETUP.md` covers registering for one. Don't do it today. It is the
-only thing here that involves signing up for anything, and it can wait until
-there is a map to put on a screen.
+**Not yet: Mapbox.** You'll need a free token when you build the map picker in
+October, and `SETUP.md` covers registering for one then.
 
 Check each one before moving on:
 
@@ -83,28 +83,28 @@ git --version
 
 **Two things that will cost you an hour if you skip them:**
 
-**Node version.** Not "Node is installed", but Node 22.10 or later. An older
+**Node version.** Node has to be 22.10 or later. An older
 Node fails in ways that never mention Node. If `node -v` prints 18 or 20, fix that
 first. The repo has a `.nvmrc`, so `nvm use` picks the right one for you.
 
 **Docker has to be running, not just installed.** Open the Docker Desktop app
 and wait for the whale icon in your menu bar or system tray to stop animating.
 `docker ps` printing a table is the test. If it says it can't connect to the
-daemon, Docker is not running. That is the whole problem, every time.
+daemon, Docker is not running.
 
 **On Windows**, do all of this inside WSL2 rather than PowerShell. Docker
 Desktop has a WSL2 setting to enable, Node and pnpm get installed inside the
 Linux side, and the repo lives in the Linux filesystem rather than under
 `C:\Users`. Working across the Windows/Linux boundary is slow and produces
 line-ending problems that look like real bugs. Ask at a check-in if any of that
-is unclear. It is a twenty-minute setup that saves a week of confusion.
+is unclear.
 
 ## Getting the code, before anyone clicks Fork
 
 **One fork for the whole team, not one each.** Three personal forks means three
 diverging copies and no single place your work lives.
 
-1. **Create a free GitHub organisation for the team.** Not a personal account.
+1. **Create a free GitHub organisation for the team, rather than using a personal account.**
    If the repo lives in one person's GitHub account and that person drops the class,
    the team loses everything, and your instructor needs access for grading.
 2. **One person forks `Civum/sagas` into that organisation, once.** That fork is
@@ -137,13 +137,15 @@ When the shared design changes, a workflow in your fork opens an issue saying
 so, with the changelog in it. Nothing in your fork changes by itself. You decide
 whether to pull the change, at a check-in.
 
-It does not run until you switch it on, in two steps, once:
+It does not run until you switch it on, in three steps, once:
 
 1. **Enable Actions on the fork.** GitHub turns them off on a new fork. Open the
    **Actions** tab and confirm you want workflows to run.
 2. **Enable the scheduled workflow.** GitHub's documentation says scheduled
    workflows on a fork are disabled by default. In the Actions tab, pick
    **Upstream contract watch** in the left sidebar and click **Enable workflow**.
+3. **Turn on Issues.** The watch reports by opening an issue, so Issues have to
+   be on for the fork (the fork's **Settings**, under **Features**).
 
 After that it runs every Monday morning. You can also run it by hand with the
 **Run workflow** button. The details are in `docs/GIT.md`, under "Finding out
@@ -164,7 +166,7 @@ When your own design moves, that stays with you.
 
 ## Get it running
 
-Everything above installed, and Docker actually running:
+With everything above installed and Docker running, run these:
 
 ```bash
 pnpm install
@@ -184,39 +186,37 @@ their own ports, and nothing you start here touches theirs.
 other two alone.
 
 `SETUP.md` has the detail, including what to do when object storage won't start.
-Everything runs on your own machine. Nothing to sign up for, no keys to request,
-nothing that can generate a bill.
+Everything runs on your own machine, so there is nothing to sign up for and nothing that can cost money.
 
-## Editor
+## Setting up VS Code
 
-VS Code, and the repo is set up for it. Open the folder and it will offer to
+The repo is set up for VS Code. Open the folder and it will offer to
 install the recommended extensions, and you should say yes. That gets you ESLint and Prettier
 wired to the repo's own config, Docker container management from the sidebar,
 inline error messages, and the test runner.
 
 Formatting and lint-fixing on save are already configured, so nobody's editor
-reformats a file somebody else wrote. That one setting prevents most of the
-pointless merge conflicts a three-person team hits in the first month.
+reformats a file somebody else wrote.
 
 Use the repo's TypeScript rather than the one bundled with VS Code. It will
-prompt you, and you should say yes. Otherwise you get errors that don't exist and miss ones
-that do.
+prompt you, and you should say yes. Otherwise the editor checks your code with a
+different TypeScript from the one the build uses.
 
 ## Read these four, in this order
 
 1. `apps/capture-api/README.md`. Start with "This semester", which has the scope.
 2. `apps/capture-web/README.md`, shorter, covering the browser side.
 3. `packages/contracts/src/model.ts`. Read the **records and media** section
-   only. Skip the rest for now.
+   first. The **claims** and **edges** sections matter once you build claim
+   intake, and you can skip the rest.
 4. `packages/fixtures/fixtures/example-site/events.ts`, nine example records.
-   These are the spec. If your code handles all nine, it handles the real thing.
+   This project treats them as the spec: code that handles all nine handles every case the fixtures know about.
 
 That's about an hour of reading. Everything else can wait until you need it.
 
 ## The plan, month by month
 
-Roughly. Sprints are monthly rather than weekly because the useful unit here is
-"a thing that works", and those take more than a week.
+The dates are rough.
 
 **September, setup and the back end for contributions.** Get the stack
 running, then get a record from a browser into a database, then get files
@@ -224,20 +224,20 @@ uploading to storage and being processed.
 
 **October, the contributing interface.** `apps/capture-web` in earnest.
 Recording audio, choosing files, the submission form, and placing a record on
-a map. The map is where you will need a free Mapbox token of your own. One each,
-registered by you, nothing shared and nothing that costs anything. `SETUP.md`
+a map. The map is where you will need a free Mapbox token of your own. Each of
+you registers your own, and it costs nothing. `SETUP.md`
 walks through it when you get there.
 
 **November onward, everything else.** Translation, reporting content, and
 whatever the first two months turn out to have missed. We'll scope it when we
 get there, with what you've learned by then.
 
-If September takes six weeks, that's fine. Better a working thing late than a
-half thing on time.
+If September takes six weeks, that's fine. This project would rather have a
+working thing late than half a thing on time.
 
 ## Your first task
 
-One week. Small on purpose.
+This should take about a week, and it is small on purpose.
 
 **Accept a text-only record and store it.**
 
@@ -248,25 +248,24 @@ uploads at all.
 
 Three pieces, one per person:
 
-- **Database.** Get Postgres running and write the migration for a `records`
-  table. Shape it from `sourceRecord` in the contract.
+- **Database.** Get Postgres running and apply the migration for the `records`
+  table, which already ships in `apps/capture-api/migrations/001_records.sql`.
+  Check its columns against `sourceRecord` in the contract.
 - **API.** One endpoint that accepts a record, validates it against the
   contract's schema, and stores it.
 - **Web.** One form that submits to that endpoint. Ugly is fine.
 
 When somebody can type a paragraph into a browser and see it come back out of
-the database, you've built the spine of everything else. Uploads come next.
+the database, the rest of the layer builds on that. Uploads come next.
 
 Express, a connection pool and a migration runner are already in
 `apps/capture-api`, so none of your first week goes on choosing a framework or
 wiring configuration. `src/index.ts` is a placeholder with a comment describing
-the shape. The endpoint and the migration are the parts you write.
+the shape. The endpoint is the part you write.
 
-**A note on why you own both sides.** Having the interface and the API on the
-same team is deliberate. Building the form is what tells you what the endpoint
-actually needs. You find out you are missing a field by trying to fill one in,
-not by reading a schema. Use that. When the web side wants something the API
-doesn't give it, that's a real finding, and it goes in the check-in note.
+**When the form needs something the endpoint does not give it,** put that in the
+check-in note. You own both sides, so building the form is how you find out
+what the endpoint is missing.
 
 ## About contributors
 
@@ -274,8 +273,8 @@ There are no logins and you should not build any.
 
 A contributor's profile is a **guest id**. It is a random string your web app
 generates the first time somebody visits, saves in browser storage, and sends
-along with every submission. That is the whole of it. No login, no password, no
-email address, no verification.
+along with every submission. That is the whole of it, with no password, email
+address or verification.
 
 So the flow is: someone opens the site, a guest id is created without them
 noticing, they contribute, and the record is attributed to that id. If they come
@@ -294,20 +293,16 @@ fastest way to reproduce a bug somebody else hit. Logins would make this
 harder, not easier, since you would have to register and sign in twice to do the
 same thing.
 
-This is a deliberate design decision, not a shortcut taken because logins are
-hard. The project is trying to work out whether a record can be
-trusted based on what it says and how it's corroborated, rather than on who said
-it. Logins matter eventually. They are not this semester's problem, and
-building them would cost you six weeks you need for other things.
+The project is trying to work out whether a record can be trusted from what it
+says and how it's corroborated, rather than from who said it, so logins are not
+this semester's problem.
 
-## Every Monday
+## What to check every Monday
 
 Check `CHANGELOG.md`. If something moved, it's listed there with an **Affects**
 line. If that line doesn't name the content layer, you can ignore it entirely.
 
-Your fork never updates itself, so nothing changes under you. There's a GitHub
-Action that opens an issue on your fork when upstream has moved, but you decide
-when to pull it in. If you're unsure whether a change matters, bring it to the
+If you're unsure whether a change matters, bring it to the
 check-in rather than merging it and finding out.
 
 ## How we work
@@ -316,8 +311,8 @@ check-in rather than merging it and finding out.
 - **Office hours, 30 minutes before it.** Runs only if there's something to
   discuss, so most weeks it won't.
 - **A short note before each check-in.** Template is in
-  `docs/CHECK-IN-TEMPLATE.md`. The most useful part is what you *assumed*.
-  that's how we find out a spec was unclear before you've built two weeks on it.
+  `docs/CHECK-IN-TEMPLATE.md`. The most useful part is what you *assumed*,
+  because that's how we find out a spec was unclear before you've built two weeks on it.
 - **Small pull requests, opened as drafts early.** I would rather see the shape
   at 20% and say "not that direction" than read 800 lines and ask you to start
   over.
@@ -328,12 +323,12 @@ check-in rather than merging it and finding out.
 
 ## What you get from me
 
-- Sample audio, photo and document files behind the fixture data, this weekend
+- Sample audio, photo and document files behind the fixture data
 - Pull request review, personally, every week
 - Anything merged upstream is credited to you by name. Your fork is yours
   regardless, and what you write in it stays yours.
 
-## What all this stuff actually is
+## What each tool is for
 
 Reference. Skim it now, come back when a name shows up and you're not sure why
 it's there. Each of these has proper documentation online; this is just enough
@@ -367,7 +362,7 @@ format it really is, what its bitrate is. `ffmpeg` converts things. You'll use
 WAV despite being named `.mp3`, and `ffmpeg` to make a small playable version of
 a file too big to stream.
 
-**pnpm** installs packages, like npm but faster and stricter about what a
+**pnpm** installs packages, like npm but stricter about what a
 package is allowed to import. This repo is a **workspace**, which means several
 packages live in one repository and can depend on each other directly.
 
@@ -400,13 +395,11 @@ are disposable by definition: if you lose one you regenerate it from the
 original.
 
 **Waveform.** The jagged line you see in any audio player, showing where a
-recording is loud and quiet. It's computed by sampling the audio, and it's what
-lets somebody scrub to the part they want instead of listening from the start.
-For an oral history that's the difference between a recording being usable and
-being a wall.
+recording is loud and quiet. It's computed by sampling the audio, and it lets
+somebody drag to the part they want instead of listening from the start.
 
-**EXIF.** Metadata cameras and phones bury inside photo files. Date taken,
-camera model, and often GPS coordinates. It's how a photograph can disagree with
+**EXIF.** Metadata that cameras and phones store inside photo files, such as the
+date taken, the camera model and often GPS coordinates. It's how a photograph can disagree with
 where somebody said it was taken, which is one of the nine fixture records.
 
 **Migration.** A file describing a change to the database structure, kept in
@@ -418,9 +411,8 @@ the one on somebody else's stay the same shape.
 immediately and the probing happens afterwards. That's why records have a
 `processingState`.
 
-## One thing worth saying plainly
+## You are not expected to finish it
 
-This is an open-source project, which means it's never finished, and you are not
-expected to finish it. Whatever you complete is a contribution, and it stays in
+This is an open-source project, and you are not expected to finish it. Whatever you complete is a contribution, and it stays in
 the record with your name on it. Build a small thing that works rather than a
 large thing that nearly does.

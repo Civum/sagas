@@ -4,8 +4,8 @@ import type { ClaimState } from '@sagas/contracts';
  * Where people disagree about part of a claim.
  *
  * TODO: show every reading with its support. "Two people say 1914, one says
- * 1922, each with their reasoning." Both readings stay visible with the reasoning attached, and
- * neither is marked as the answer.
+ * 1922, each with their reasoning." Both readings stay visible with their
+ * reasoning attached, and neither is marked as the answer.
  *
  * Two things to get right:
  *
@@ -16,7 +16,7 @@ import type { ClaimState } from '@sagas/contracts';
  *   with the reasoning, and if the number shows at all, it must not read as a
  *   tally.
  *
- * Acceptance criterions: one-detail-disputed-others-not,
+ * Acceptance criteria: one-detail-disputed-others-not,
  * competing-readings-shown-together.
  */
 export function DetailDisputes({ claim }: { claim: ClaimState }) {

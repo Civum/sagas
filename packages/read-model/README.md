@@ -9,8 +9,7 @@ and no chance of the page and the API disagreeing about what a site is.
 
 ## What it is today
 
-Three functions that read fixture JSON off disk. That is a starting point, not a
-design.
+Two functions, `listSites` and `getSiteState`, read fixture JSON off disk.
 
 ## What it becomes
 

@@ -3,13 +3,13 @@
  *
  * ---
  *
- * WORKED EXAMPLE. Built rather than stubbed, and not as a consolation prize.
+ * WORKED EXAMPLE. It is finished rather than stubbed because it ships either way.
  *
  * Two reasons this ships whether or not there is a map:
  *
  * 1. A map alone is unusable with a screen reader. This list is how the same
- *    information reaches somebody who cannot see it, so it is part of the
- *    WCAG 2.1 AA requirement rather than a fallback for a missing token.
+ *    information reaches somebody who cannot see it, so this project treats it
+ *    as part of meeting WCAG 2.1 AA rather than a fallback for a missing token.
  * 2. Anybody can work on the whole application without registering for
  *    anything. Nobody is blocked waiting on a Mapbox account.
  *

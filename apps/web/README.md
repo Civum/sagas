@@ -5,13 +5,13 @@ This is yours. It ships close to empty on purpose.
 The component library, the map, the narrative page, the suggestion interface
 and references are your scope, in the order `apps/web/BACKLOG.md` sets.
 Heritage trails come later. Contributor milestones and any dashboard built on a
-score are cut this semester. There are no design tokens and no component library in here. Handing
-those over would take away the most interesting work in the project.
+score are cut this semester. There are no design tokens and no component
+library in here, because building them is the work.
 
-One word to keep straight. `IntegrityBadge` is about a *place*: how well
-documented it is. The contributor progression the scope document called badges
-is a different thing entirely and this repository calls it milestones, so that
-one word does not mean both.
+Worth knowing: `IntegrityBadge` is about a *place*, and how well documented it
+is. Contributor progression, which an earlier scope document called "badges",
+is a different thing, and this repository calls it "milestones" so that one
+word does not mean both.
 
 What you get instead: a working Next + TypeScript + Tailwind setup, the fixture
 data, a place for every read to go through, and a list of situations your
@@ -36,13 +36,13 @@ apart against `t0` is the normal failure, and `t0` is the state most real places
 sit in for a long time.
 
 **You do not need a Mapbox token to work on this.** With no token, the map area
-renders a list of the same places instead. That path is not a fallback. It is how
-the map's information reaches someone using a screen reader, so it ships either
-way and it needs to be good. See `src/features/map/MapUnavailable.tsx`.
+renders a list of the same places instead. That list is also how the map's
+information reaches someone using a screen reader, so it ships either way and
+it needs to be good. See `src/features/map/MapUnavailable.tsx`.
 
 ## Where the data comes from
 
-Every read goes through `src/lib/queries.ts`:
+Every read goes through `@sagas/read-model` (`packages/read-model`). `src/lib/queries.ts` re-exports it so older imports keep working:
 
 ```ts
 import { getSiteState, listSites } from '@/lib/queries';
@@ -51,19 +51,16 @@ const sites = listSites();                        // every place, for the map
 const state = getSiteState(sites[0].slug, 't3');  // 't0' | 't1' | 't2' | 't3'
 ```
 
-Today those functions read fixture JSON off disk. That is a starting point, not
-the design.
+Today those functions read fixture JSON off disk.
 
 **Your first infrastructure job is to put a database behind them.** Run Postgres
 locally, design a schema for reading, seed the fixture states into it, and make
-`queries.ts` query it instead. That is real work and it belongs to whoever holds
+`packages/read-model` query it instead. That is real work and it belongs to whoever holds
 the back end and database roles: schema design, spatial indexing so "everything
 within 2km of here" is fast enough to drive a map, and working out what is held
 in memory versus fetched per request.
 
-Do it early. If the whole interface is built against a file and the database
-arrives in November, November is when you find out which components assumed data
-was free to fetch.
+Do it early. `packages/read-model/README.md` says why.
 
 It stays local. Nothing here talks to a server anyone else runs, and nothing
 deploys until you decide to.
@@ -95,13 +92,14 @@ render against four different states on `/dev`.
 
 **`components/ui` stays generic.** A button, a dialog, a tooltip. If a file in
 there imports from `@sagas/contracts`, it belongs in `features` instead. This is
-the shadcn convention and it is worth keeping. It is the difference between a
-component library you can reuse and one that only works on one page.
+the shadcn convention, and this project expects you to keep it, because it is
+what keeps the component library reusable beyond one page.
 
 ## Start here: one worked example, then the stubs
 
-**Three components are finished.** They go from data to rendered pixels, they
-are commented as examples rather than specifications, and they have tests.
+**Three components and one page are finished.** They go from data to rendered
+pixels and are commented as examples rather than specifications.
+`IntegrityBadge` and `ConfidenceIndicator` have tests.
 
 - `src/app/page.tsx` — how data gets from `@sagas/read-model` to the screen
 - `src/features/site/IntegrityBadge.tsx` — and its test
@@ -110,10 +108,9 @@ are commented as examples rather than specifications, and they have tests.
 
 **Everything else under `src/features` is one line and a TODO.** Each carries a
 comment saying what it has to become and what is easy to get wrong, and several
-name the acceptance case they are worried about.
+name the acceptance criterion they are worried about.
 
-Read the finished ones, then do the next five. That is a well-shaped first task
-and it is roughly how the job works.
+Read the finished ones. `apps/web/BACKLOG.md` has the work that comes next.
 
 Two things to copy from the examples, and one not to.
 
@@ -129,9 +126,9 @@ the same components render against four fixture states on `/dev`.
 **Do not copy the styling.** Grey text and system fonts are a placeholder. The
 design system is your deliverable, and nothing in there is a suggestion.
 
-The most important idea in the model is in `ConfidenceIndicator`: an affirmation
-is not corroboration. A claim can have five people agreeing and no independent
-support, because all five are from the author's family.
+The idea this project cares most about is in `ConfidenceIndicator`: an
+affirmation is not corroboration. A claim can have five people agreeing and no
+independent support, because agreeing does not bring a record.
 
 ## When something is behaving strangely
 
@@ -145,8 +142,8 @@ component error that confuses everyone once.
 Read `packages/fixtures/README.md` for what the four graph states are and what
 each one is designed to break.
 
-Then read `packages/fixtures/README.md`. Each case is a situation the
-record can be in and what your interface has to do about it. They are the
+Then read its section "What your interface has to handle". Each case is a
+situation the record can be in and what your interface has to do about it. They are the
 awkward ones on purpose.
 
 The file also lists situations no fixture covers yet. If you hit one, say so.
@@ -160,41 +157,36 @@ because picking would remove the part of this that looks like a real job.
 What we need from it, whatever you choose:
 
 - **A URL that works**, from early on. Deploy in week two, before there is
-  anything interesting to see. A pipeline that exists before it matters is a
-  pipeline that works when it does.
-- **A preview per pull request.** This is the one that changes how review feels.
-  Reviewing your work becomes opening a link rather than pulling your branch and
-  running it, which means feedback comes back in an evening rather than a week.
+  anything interesting to see, so the deployment already works by the time it
+  matters.
+- **A preview per pull request.** Reviewing your work then means opening a link
+  rather than pulling your branch and running it, so feedback can come back much
+  faster.
 - **No sponsor credentials.** Whatever it runs on is a hosting account your team owns.
 
-Vercel is the path of least resistance for Next and gives you both of the first
-two out of the box. Two things to know before you commit to it.
+Vercel is the easiest option for Next and gives you both of the first two
+without extra setup. Read the terms for its free Hobby plan before you commit to
+it, in particular what counts as commercial use and how much server time it
+allows, because they can change.
 
-Its free Hobby plan is **non-commercial personal use only**, and their
-definition is broad: any deployment "used for the purpose of financial gain of
-anyone involved in any part of the production of the project". Asking for
-donations counts. A student capstone with no payment path is fine. That is a
-reason to keep the deployment under your own hosting account rather than a sponsor's,
-and a reason not to build anything load-bearing on Vercel-specific behaviour.
-
-The Hobby CPU allowance is also small, measured in a handful of CPU-hours a
-month. Spatial queries are the expensive part of this layer, which is one of the
-reasons `apps/ui-api` is a separate app: a server on ordinary hosting does not
-have that ceiling.
+This project keeps the deployment under your own hosting account rather than a
+sponsor's, and asks you not to build anything load-bearing on Vercel-specific
+behaviour. Spatial queries are the expensive part of this layer, which is one of
+the reasons `apps/ui-api` is a separate app.
 
 Nothing about the local setup changes for any of this. `pnpm dev:web` is the
 same either way.
 
 ## Things you might add
 
-None of these are required. All of them are yours to decide.
+None of these are required, and whether to add them is your call.
 
 - **Storybook.** `/dev` is a rough version of what it does. If you want the real
   thing, add it. Keep the acceptance criteria visible next to the components,
   because that pairing is the point of the page.
 - **Rendering tests.** Vitest is wired up and there are tests for the pure
-  functions, but nothing renders a component. Testing Library is the usual
-  choice if you want that, and it is worth having before the design starts
+  functions, but nothing renders a component. Testing Library is one option
+  if you want that, and it is worth having before the design starts
   moving.
-- **Real accessibility checks in CI.** The target is WCAG 2.1 AA. Nothing
+- **Automated accessibility checks.** The target is WCAG 2.1 AA. Nothing
   currently enforces it.

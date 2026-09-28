@@ -196,8 +196,8 @@ function buildClaimState(
 ): ClaimState {
   const sourceRecord = acc.records.get(claim.sourceRecordId);
   if (!sourceRecord) {
-    // Every claim is somebody's reading of something. A claim pointing at a
-    // record that does not exist is a broken fixture, not a renderable state.
+    // Every claim belongs to a conversation that started from a record, so a
+    // missing source record is a broken fixture, not a renderable state.
     throw new Error(
       `Claim ${claim.id} has source record ${claim.sourceRecordId}, which does not exist.`,
     );

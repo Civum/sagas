@@ -4,10 +4,8 @@ import { ClaimView } from './ClaimView';
 import { VersionTimeline } from './VersionTimeline';
 
 /**
- * The article. This is the main thing.
- *
- * Everything known about a place, read as prose rather than inspected as a
- * graph. A historian should be able to read it start to finish and also see
+ * The article, which is the main view: everything known about a place, read
+ * as prose rather than inspected as a graph. A historian should be able to read it start to finish and also see
  * which parts are solid.
  *
  * Claims arrive ordered by weight, strongest first. Keep that order. It is how

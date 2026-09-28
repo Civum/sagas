@@ -2,7 +2,7 @@
 
 Everything you need to run this is on your own machine. **There are no sponsor
 credentials to request.** If something appears to need a key you don't have,
-that's a bug in the scaffold. Tell us at the weekly sync and we'll fix it.
+that's a bug in the scaffold. Tell us at the next check-in and we'll fix it.
 
 ---
 
@@ -11,7 +11,7 @@ that's a bug in the scaffold. Tell us at the weekly sync and we'll fix it.
 **1. Install the toolchain**
 
 - **Node 22.10 or later.** Check with `node --version`. If you need to switch
-  versions, [nvm](https://github.com/nvm-sh/nvm) is the usual way. This repo has
+  versions, you can use [nvm](https://github.com/nvm-sh/nvm). This repo has
   a `.nvmrc`, so `nvm use` picks the right one.
 - **pnpm 9.** `npm install -g pnpm@9`, or `corepack enable` if you'd rather not
   install it globally.
@@ -49,10 +49,9 @@ worth doing before you write anything.
 
 ## Getting a Mapbox token
 
-You register your own. The free tier is far more than a semester of development
-uses, and having your own means nobody else's usage can exhaust your quota.
+You register your own. This project expects the free tier to cover a semester of development, and having your own means nobody else's usage can use up your quota.
 
-1. Sign up at [account.mapbox.com](https://account.mapbox.com/). Free, no card.
+1. Sign up at [account.mapbox.com](https://account.mapbox.com/). When this was written, the free tier did not ask for a card.
 2. Go to **Account → Tokens**. There's a **Default public token** already
    created for you, starting `pk.`.
 3. Copy it into `.env`:
@@ -73,8 +72,7 @@ Notes:
 
 ## Getting a database
 
-Every layer needs one, and every layer has its own. Three containers on three
-ports, each defined by a `docker-compose.yml` sitting next to the app that owns
+Every layer needs one, and every layer has its own. There are three containers on three ports, each defined by a `docker-compose.yml` sitting next to the app that owns
 it. They can all run at once without colliding, and nothing one team changes can
 break another team's setup.
 
@@ -117,9 +115,7 @@ you may already be running.
 **Content layer only.** If you are not working on submission or media upload,
 skip this.
 
-Files do not go in Postgres. A 600MB recording in a database column makes every
-backup, every restore, and every query on that table slow, and you cannot stream
-part of it out to let somebody seek in an audio player. Media goes in object
+This project keeps files out of Postgres. A 600MB recording in a database column makes backups, restores and queries on that table slow, and it is awkward to stream part of it to somebody skipping ahead in an audio player. Media goes in object
 storage and the database keeps a key pointing at it.
 
 ```bash
@@ -138,24 +134,16 @@ missing and prints what to paste into `.env`.
 It is defined in the content layer's own compose file, so the other two layers
 never start it and never need to know it exists.
 
-### What it is and why it doesn't matter much
+### What MinIO is
 
-It's MinIO, which speaks the S3 API. That API is the point. Everything you write
-against this works unchanged against S3, Cloudflare R2, or Backblaze B2 later,
-because your code only ever sees an S3 client pointed at a different endpoint
+The local object storage is MinIO, which speaks the S3 API. Code you write against it should work against S3, or another provider that speaks the same API, because your code only ever sees an S3 client pointed at a different endpoint
 with different credentials.
 
 One line in `.env` is the exception. `S3_FORCE_PATH_STYLE="true"` is there
 because MinIO addresses buckets by path and real S3 addresses them by subdomain.
 That flag is the whole difference.
 
-**One thing to know about MinIO.** Its community edition was archived in
-February 2026, so it gets no further updates. It still works and the S3 API it
-implements has not changed. We are using it because it is the best documented
-thing in this category by a wide margin, and because a local container holding
-invented fixture data on your own machine is about the lowest-stakes place a
-frozen dependency can sit. If it ever gets in the way, swapping it is roughly
-fifteen lines of `docker-compose.yml`, and none of your application code moves.
+Worth knowing: the MinIO community edition was archived in February 2026 and gets no further updates. It still works, and this project keeps it because it only runs on your own machine with invented data. If it ever gets in the way, it can be replaced in `docker-compose.yml` without changing your application code.
 
 ### Bucket names are global, and you cannot change one later
 
@@ -164,8 +152,7 @@ only bucket namespace it shares is with itself.
 
 At deployment it is not fine. AWS S3 bucket names are globally unique across
 every customer, because a bucket is addressed as `bucket.s3.amazonaws.com` and
-that is public DNS. `sagas-media` is long gone. Providers differ on this, some
-scope names to your account and some do not, so check when you pick one and give
+that is public DNS, so `sagas-media` is almost certainly taken. Providers differ on this. Some scope names to your account and some do not, so check when you pick one and give
 the deployed bucket a name nobody else would take.
 
 Nothing in the local setup needs to change for this. `S3_BUCKET` is already an
@@ -174,8 +161,7 @@ environment variable.
 ### Before you write any upload code
 
 Read the storage section of [`apps/capture-api/README.md`](./apps/capture-api/README.md) first.
-It has the bucket layout and the upload flow, and it explains which of the two
-obvious designs is the one that costs you a rewrite in November.
+It has the bucket layout and the upload flow, and it explains why this project uses presigned uploads from the start.
 
 ### You also need ffmpeg
 
@@ -198,8 +184,7 @@ Check it with `ffprobe -version`. If that prints something, you are done.
 
 ### When object storage will not run
 
-It happens. A locked-down laptop, Docker refusing to start, a port already
-taken. You are not blocked, and you should not spend a day on it.
+This happens on a locked-down laptop, when Docker fails to start, or when a port is already taken. You are not blocked, and you should not spend a day on it.
 
 **First, run MinIO without Docker.** It is a single binary and it does not need
 a container:
@@ -209,8 +194,7 @@ mkdir -p .minio-data
 minio server .minio-data --console-address ":9001"
 ```
 
-Same ports, same credentials once you set `MINIO_ROOT_USER` and
-`MINIO_ROOT_PASSWORD`, same everything from your code's point of view.
+Once you set `MINIO_ROOT_USER` and `MINIO_ROOT_PASSWORD`, it uses the same ports and credentials as the container, and your code cannot tell the difference.
 
 **Second, tell us.** If neither route works, say so at the check-in rather than
 losing a week to it. We can arrange access to a real bucket through Civum. That
@@ -218,33 +202,24 @@ is a slower path because it involves a person, so try the two above first, but i
 exists and it is not a favour.
 
 **What not to do:** do not write files to a local folder behind your own
-interface and plan to swap it later. It looks like the pragmatic choice and it
-is the one that costs you the rewrite, because presigned uploads and
-POST-through-the-API are different architectures rather than different
-implementations.
+interface and plan to swap it later. This project expects presigned uploads from the start, because a browser uploading straight to storage and a browser sending the file through your API are built differently, and switching later means a rewrite.
 
 ---
 
 ## Where to start, by team
 
-The repo is the same for everyone. The useful starting point isn't, and the
-detail lives next to the code rather than here. This section is a signpost.
-
-Each layer has a start guide. It is the syllabus for that team's semester: what
-to read, what to ignore, what the first task is, and how the months are meant to
-go. Read yours before anything else in this file.
+Each layer has a start guide. It says what to read, what to skip, and what to work on first. Read yours next.
 
 | Your layer | What you need running | Your code | Read this first |
 |---|---|---|---|
 | **Experience** | Postgres | `apps/web`, `apps/ui-api`, `packages/read-model` | [`docs/START-EXPERIENCE-LAYER.md`](./docs/START-EXPERIENCE-LAYER.md) |
 | **Intelligence** | Postgres | `apps/graph-api` | [`docs/START-INTELLIGENCE-LAYER.md`](./docs/START-INTELLIGENCE-LAYER.md) |
-| **Content capture** | Postgres, object storage, ffmpeg | `apps/capture-api` | [`docs/START-CONTENT-LAYER.md`](./docs/START-CONTENT-LAYER.md) |
+| **Content** | Postgres, object storage, ffmpeg | `apps/capture-api`, `apps/capture-web` | [`docs/START-CONTENT-LAYER.md`](./docs/START-CONTENT-LAYER.md) |
 
 If your team was assigned a different layer than the one you expected, your
 instructor's assignment wins over this table. Tell me and I will fix it here.
 
-Three separate API apps, one per layer. That is deliberate: no two teams edit the
-same files, and each one deploys on its own terms.
+There is one API app per layer, so no two teams edit the same files and each can deploy on its own.
 
 Everyone, whatever layer you are on, reads
 [`packages/fixtures/README.md`](./packages/fixtures/README.md)
@@ -269,10 +244,9 @@ sloppiness and aren't.
 
 ## When something doesn't work
 
-In order of likelihood:
+Check these first:
 
-- **`pnpm install` fails.** Check `node --version` is 22.10 or later. This is
-  the most common one by a wide margin.
+- **`pnpm install` fails.** Check that `node --version` is 22.10 or later.
 - **A workspace import doesn't resolve.** Run `pnpm install` again from the
   repo root, not from inside a package.
 - **`db:verify` says the container isn't running.** From your app's directory,
@@ -288,7 +262,7 @@ In order of likelihood:
 - **`ffprobe: command not found`.** ffmpeg isn't installed. See the object
   storage section above.
 - **The map renders grey.** Your Mapbox token is missing or malformed. Check
-  `.env` has it, then restart the dev server. Next only reads env at startup.
+  `.env` has it, then restart the dev server. Next.js only reads `.env` at startup.
 - **A tool says everything passed and you don't believe it.** It may be
   replaying a cached result. [`docs/DEBUGGING.md`](./docs/DEBUGGING.md) covers
   that and the other failures that don't announce themselves.

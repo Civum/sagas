@@ -1,6 +1,6 @@
 # Migrations
 
-Numbered SQL files, applied in filename order by `scripts/migrate.ts`.
+This folder holds numbered SQL files, applied in filename order by `scripts/migrate.ts`.
 
 There are none yet. The first table is yours to design, and the columns come
 from `sourceRecord` in `packages/contracts/src/model.ts`.

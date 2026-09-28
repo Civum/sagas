@@ -1,7 +1,6 @@
 # Git, for this repo specifically
 
-This is not a git tutorial. There are thousands of those and they are better
-than anything we would write. This covers the parts a tutorial cannot tell you,
+This is not a git tutorial. It covers the parts a tutorial cannot tell you,
 because they are about this project's shape: three universities, three forks,
 one shared contract, and no shared branch between any of them.
 
@@ -11,7 +10,7 @@ through upstream.
 
 ---
 
-## The shape of it
+## How upstream and your fork relate
 
 There is one upstream repository, `Civum/sagas`. Each team forks it into its own
 GitHub organisation. All of your work happens in your fork, and your fork is
@@ -23,11 +22,8 @@ Civum/sagas                     upstream, sponsor-owned
           └── your laptop       your clone
 ```
 
-Two consequences worth understanding before week three.
-
 **Your fork does not update itself.** Upstream can change and nothing happens to
-you until you decide it should. That is deliberate. Nothing shifts under you
-mid-sprint.
+your fork until you decide it should, so nothing shifts under you mid-sprint.
 
 **Upstream changes are available, never imposed.** The contract moves on Mondays
 and only Mondays, it is announced at a check-in before it lands, and pulling it
@@ -47,19 +43,17 @@ YourOrg/sagas  ──PR──▶  Civum/sagas  ──Monday──▶  TheirOrg/s
                                                   (when they choose to pull)
 ```
 
-Four things follow from that, and they are the whole reason this project is
-organised the way it is.
+Four things follow from that.
 
 **A change another layer needs is a pull request, not a message.** If the
 content layer works out that dialect has to be captured at contribution time,
 telling the experience team at a check-in does not change their code. The
-contract change does. Conversation decides it; the pull request delivers it.
+contract change does.
 
-**It takes weeks, not days.** Open a PR, we review it, it lands on a Monday, and
-the other teams pull it when they decide to at a check-in. Two to three weeks
-from idea to it being in somebody else's build is normal and it is not
-bureaucracy, it is the cost of nobody's work moving under them mid-sprint. Plan
-around it. If you know in week four that you will need something in week nine,
+**It takes weeks, not days.** Open a pull request, we review it, it lands on a
+Monday, and the other teams pull it when they decide to at a check-in. Two to
+three weeks from idea to it being in somebody else's build is normal, and it is
+the cost of nobody's work moving under them mid-sprint. If you know in week four that you will need something in week nine,
 raise it in week four.
 
 **Nobody is ever blocked waiting for it.** That is what the fixtures are for.
@@ -69,25 +63,23 @@ the content layer can build submission for a graph nobody is scoring yet. If you
 find yourself waiting on another school, something has gone wrong with the
 design and we want to hear about it.
 
-**You will disagree with another team's model and that is useful.** The point of
-three schools on one contract is that the intelligence layer hits a problem the
-experience layer then works around, and the changelog says so. Entries name
-layers rather than universities for exactly this reason.
+**Disagreeing with another layer's model is expected.** Bring it to a check-in,
+and if it changes the contract, the changelog records why.
 
-## Two kinds of review, and they are not the same
+## Reviewing your work versus contributing upstream
 
 This trips people up because both involve pull requests.
 
 **Review of your work happens in your own repository.** You open a pull request
 inside your fork, teammate to teammate, and the sponsor reads and comments on it
-there. Nothing merges into `Civum/sagas`. Your CI runs on your own code, which
-is where it is useful.
+there. Nothing merges into `Civum/sagas`, and the automated checks run on your
+own code.
 
 That is what a check-in is reviewing, and it is what you are graded on.
 
-**A contribution to the scaffold is a separate, deliberate act.** Rare, small,
-and reasoned: a contract change, a fixture gap you closed, a correction to these
-docs. Maybe a handful across a semester.
+**A contribution upstream is separate and rare.** It is something small with a
+reason behind it, such as a contract change, a fixture gap you closed, or a
+correction to these docs. Expect a handful across a semester.
 
 If you find yourself cherry-picking commits into a pull request against upstream
 so that somebody can look at your week's work, stop. That is the first kind of
@@ -104,7 +96,7 @@ If your team created a private repository instead of forking, nobody outside it
 can review anything. Add the sponsor as a collaborator in week one, before it is
 the reason a check-in is useless.
 
-Either way, add them to your organisation if you want them to see CI logs when a
+Either way, add them to your organisation if you want them to see the automated check logs when a
 build fails, or for an approval on a pull request to count towards branch
 protection. Neither is required to read your code and leave comments; both are
 worth ten minutes.
@@ -115,15 +107,15 @@ worth ten minutes.
 |---|---|---|
 | Your layer's apps and packages | Freely. They're yours. | Nothing to do. |
 | Another layer's app | **No.** You will never need to. | Raise it at a check-in. |
-| `packages/contracts` | **No.** | PR upstream, raise at a check-in first. |
-| `packages/fixtures` | **No.** | PR upstream. Closing a known gap is welcome. |
-| `docs/`, `README.md`, `SETUP.md` | Corrections, yes | PR upstream. Setup problems you hit are ones everyone hits. |
-| `tooling/`, root `package.json`, `docker-compose.yml` | Yes, but it costs you | PR upstream, or carry the conflict on every pull. |
+| `packages/contracts` | **No.** | Pull request upstream, raised at a check-in first. |
+| `packages/fixtures` | **No.** | Pull request upstream. Closing a known gap is welcome. |
+| `docs/`, `README.md`, `SETUP.md` | Corrections, yes | Pull request upstream. A setup problem you hit is likely to hit everyone. |
+| `tooling/`, root `package.json`, `docker-compose.yml` | Yes, but it costs you | Pull request upstream, or carry the conflict on every pull. |
 
 That last row is the one to think about. Nothing stops you changing shared
-tooling in your fork, and nothing will break immediately. What happens is that
-every future upstream pull conflicts on the same file, forever, and by week ten
-somebody is resolving the same conflict for the fifth time. If a change to
+tooling in your fork, and nothing will break immediately. But every upstream
+pull that changes the same file will conflict with yours, and you resolve it
+again each time. If a change to
 shared tooling is worth making, it is worth sending upstream so it stops being
 your problem.
 
@@ -150,8 +142,7 @@ contract watch never runs and you will not hear when the contract moves.
 
 **Give the sponsor access.** If you forked a public repository, this is already
 done and there is nothing to do. If your team made a private repository, add
-them now. See "Two kinds of review" above for why this bites in week two rather
-than week one.
+them now, or they cannot review anything.
 
 **Note which version you are on.**
 
@@ -183,8 +174,7 @@ git log --oneline HEAD..upstream/main    # what we have that you don't
 ## Pulling upstream forward
 
 **Do this deliberately, at a check-in, not on a Monday morning reflex.** Pulling
-every week puts you back on a moving target, which is the thing being pinned was
-supposed to prevent. Skipping a version is often the right call.
+every week undoes the point of being pinned, and skipping a version is fine.
 
 When you have decided to:
 
@@ -208,13 +198,14 @@ pnpm lint && pnpm typecheck && pnpm test
 
 If `fixtures:build` produces a diff in `packages/fixtures/states/`, that is
 expected after a contract change and the regenerated files should be committed.
-CI checks that the committed states match what the log produces, so a stale
-state file fails the build.
+The automated checks compare the committed states against what the event log
+produces, so a stale state file fails the build.
 
 ### If the merge conflicts
 
 Conflicts in `packages/contracts` or `packages/fixtures` mean somebody on your
-team edited sponsor-owned files. Take ours:
+team edited sponsor-owned files. Take upstream's version. During a merge, git
+calls the branch you are merging in "theirs", so the flag is `--theirs`:
 
 ```bash
 git checkout --theirs packages/contracts packages/fixtures
@@ -231,7 +222,7 @@ Conflicts anywhere else are ordinary conflicts in your own work.
 
 Contributions upstream are welcome and reviewed. A pull request that fixes a
 design question, closes a fixture gap, or corrects something we got wrong is
-part of the point of the project, not an imposition.
+part of the point of the project.
 
 ```bash
 git checkout -b fix/whatever-it-is     # branch in YOUR fork
@@ -256,17 +247,15 @@ something the diff never will.
 
 ## Working inside your own team
 
-How you run branches is your team's call and part of what you are graded on. We
-are not going to prescribe a workflow. What follows is the set of things that
-actually go wrong when five to seven people share one repository for a semester,
-which is a different problem from anything you have hit on a solo project.
+How you run branches is your team's call and part of what you are graded on.
+What follows are the things that tend to go wrong when several people share one
+repository for a semester.
 
-### The one that costs the most: long-lived branches
+### Merge main into your branch often
 
-A branch that lives for three weeks is the single biggest source of pain in a
-team project. The longer it lives, the further it drifts, and the conflict when
-it lands is not one conflict but every conflict at once, in code you wrote a
-fortnight ago and no longer remember.
+The longer a branch lives, the further it drifts from main, and when it lands
+you meet every conflict at once, in code you wrote a fortnight ago and no longer
+remember.
 
 ```bash
 git checkout main && git pull
@@ -280,14 +269,13 @@ less.
 
 ### Feature folders exist so you stop colliding
 
-`src/features/<feature>/` is not an aesthetic choice. With five to seven people
-each owning a few features, a directory per feature means two people editing
-different things are editing different files, and git never has to guess.
+Each feature gets its own directory under `src/features/<feature>/`, so two
+people editing different features are editing different files and git never has
+to guess.
 
-Where collisions still happen is the shared edges: `src/components/ui/`,
-`src/lib/`, route files that compose several features. Those are worth a word in
-your team channel before you start, not because it is a rule but because it is
-cheaper than the merge.
+Collisions still happen at the shared edges: `src/components/ui/`, `src/lib/`,
+and route files that compose several features. Mention it in your team channel
+before you change one of those.
 
 ### Three files never to hand-merge
 
@@ -308,28 +296,27 @@ pnpm fixtures:build
 git add packages/fixtures/states
 ```
 
-CI checks that these match what the event log produces, so a hand-edited state
-file fails the build even if the conflict markers are gone.
+The automated checks compare these against what the event log produces, so a
+hand-edited state file fails the build even if the conflict markers are gone.
 
 **`.env`.** It should never be in a conflict because it should never be
 committed. If it is, that is the thing to fix.
 
 ### Review each other before you send anything to us
 
-Open pull requests inside your own fork, team member to team member. A capstone
-team that reviews its own work catches most problems days before a sponsor
-check-in would, and it is the habit the course is actually trying to teach you.
+Open pull requests inside your own fork, team member to team member, so problems
+get caught before a sponsor check-in.
 
 The same rule we use applies to you: small and early beats large and finished.
 
 ### The pre-commit hook
 
 There is one, in `.githooks/pre-commit`, and `pnpm install` turns it on for you.
-No husky, no dependency, and you can read it.
+It has no dependencies, and you can read it.
 
 It checks a single thing: whether you are committing a *dependency* change
-without the lockfile. That combination fails CI at the install step before any
-check runs, which is a confusing way to go red.
+without the lockfile. That combination fails the automated checks at the install
+step before any check runs, which is a confusing way for a build to fail.
 
 It compares the dependency maps rather than the whole file, so editing a script
 or a description will not trigger it. `git commit --no-verify` skips it if it
@@ -362,7 +349,7 @@ git checkout my-work
 git merge --abort
 ```
 
-**"I pulled upstream and now nothing builds."** Usually dependencies.
+**"I pulled upstream and now nothing builds."** The cause is usually dependencies.
 
 ```bash
 pnpm install

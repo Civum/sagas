@@ -3,18 +3,16 @@
 How the semester runs: when we meet, how pull requests get reviewed, and what
 happens when the contract changes.
 
-Read it once at the start. After that it is something to check rather than
-something to remember.
+Read it once at the start.
 
-### The rhythm
+### When we meet
 
 **Check-in, 30 minutes.** Weekly for the first month while scope is still being
 worked out, then every other week once you know what you're building. Your
 programme's exact day is set with your team.
 
 **Office hours, 30 minutes, every week, right before the check-in.**
-Less a meeting than a door left open. It runs if there's an agenda and is
-cancelled if there isn't, so most weeks it won't happen. That's fine. It exists so
+It runs if there's an agenda and is cancelled if there isn't. It exists so
 that "we're stuck" has somewhere to go that isn't an email at eleven at night.
 
 **A short note before each check-in.** There is a template in
@@ -25,37 +23,26 @@ It covers what you built, what you're unsure about, and what you assumed. It als
 doubles as the office-hours agenda: if the note has open questions in it we use
 the slot, and if it doesn't we skip it.
 
-**The assumptions are the most valuable part of that note.** They regularly
-become contract changes. Writing down "we assumed X" is a normal engineering
-artefact, not an admission, and it's how we find out a spec was unclear before
-you've built two weeks on top of it.
+**We care most about the assumptions in that note.** Writing down "we assumed X" is normal, and it's how we find out a document was unclear before you've built two weeks on top of it. An assumption you write down can turn into a contract change.
 
-**One in-person session** where geography allows, deliberately timed for around
-week three or four, while design is still being locked and being in a room
-together still changes the outcome.
+**Where distance allows, we meet in person once**, around week three or four, while your team's design is still being settled and a conversation in a room can still change it.
 
 ### Pull requests
 
-**PRs open by the stated cutoff get reviewed before that check-in.** Later ones
+**Pull requests opened by the stated cutoff get reviewed before that check-in.** Later ones
 roll to the next cycle. That's not a penalty. It's so you can predict when feedback arrives instead of
 pushing something rushed at 5:55pm.
 
-**One PR per feature. Open it as a draft early.** We would rather see the shape at 20% and say
-"not that direction" than read 800 lines and ask you to start again. If a PR takes more than about fifteen minutes to read, it is probably
-two PRs.
+**Open one pull request per feature, and open it early as a draft.** We would rather see it at 20% and say "not that direction" than read 800 lines and ask you to start again. If a pull request takes more than about fifteen minutes to read, it is probably two.
 
-This is the single biggest factor in how useful review is to you. Small, early,
-frequent beats large, late, and finished.
 
 ### When the contract changes
 
 `@sagas/contracts` and `@sagas/fixtures` are sponsor-owned, and they *will*
-change during the semester. That is the point. A change here is how a discovery on one team, or a
-conversation with someone in the community, reaches everyone else. Four rules make that safe:
+change during the semester. A change here is how something one team finds, or something learned from somebody in the community, reaches everyone else. Four rules make that safe:
 
 1. **Changes land on Mondays and only on Mondays.** The contract cannot move
-   mid-week. This is a constraint on us, not a release schedule. Expect three to
-   five changes across a semester, not one a week.
+   mid-week. It limits when we can publish a change. It does not mean a change comes every Monday, and we expect three to five across a semester.
 2. **Nothing lands cold.** A significant change is raised at a check-in *before*
    it is built, then published the following Monday. You will hear "we might
    change X" before you see X change.
@@ -63,38 +50,27 @@ conversation with someone in the community, reaches everyone else. Four rules ma
    imposed. Pulling forward is a decision made together at a check-in, not
    something that happens to you mid-sprint.
 
-   **Awareness is weekly. Adoption is deliberate.** Don't pull every Monday. That
-   puts you back on a moving target. Instead, `.github/workflows/upstream-contract-watch.yml`
+   **You hear about changes every week and adopt them when you choose.** Don't pull every Monday, because that puts you back on a moving target. Instead, `.github/workflows/upstream-contract-watch.yml`
    runs each Monday morning, compares your pinned contract version against
    upstream, and opens an issue with the changelog if they differ. Nothing in
    your fork changes; you just find out. **Enable Actions on your fork once
    after forking.** GitHub disables them by default, so open the Actions tab and
    click through the confirmation.
 4. **Every change carries a version bump, a CHANGELOG entry, and its reason.**
-   The reason matters more than the diff. "A translator pointed out that dialect
-   can't be recovered from text after the fact, so it has to be captured at
-   contribution time" tells you something the diff never will.
+   The reason matters more than the diff. For example, "dialect can't be recovered from text after the fact, so it has to be captured at contribution time" tells you something the diff never will.
 
-   There is **one** changelog, not one per school, and entries name *layers*
-   rather than universities. Seeing that the intelligence team hit a problem the
-   experience team is now working around is the entire reason the contract sits
-   in the middle of three teams.
+   There is **one** changelog for all three layers, and entries name layers rather than universities, so a change that starts on one layer is visible to the other two.
 
 **Freeze windows.** The contract does not move after your team's design lock
-(around week three) except to fix something genuinely broken, and it does not
+(around week three, when your team settles what it is building) except to fix something genuinely broken, and it does not
 move at all in the last three weeks of a semester. Anything learned during a
 freeze goes into the notes and lands the following term. If a change arrives
 outside these rules, that is a mistake on our side. Say so.
 
-### Two standing expectations
+### What to do when you are blocked or disagree
 
-**If you're blocked, route around it and flag it. Don't wait.** The scope is
-parallelizable by design, and a week spent waiting is a week nobody gets back.
-[`docs/GIT.md`](./GIT.md) explains how work actually moves between the three
-forks, and why nothing you need from another team should ever stop you.
+**If you're blocked, work around it and tell us. Don't wait.** The layers are set up so that no team has to wait on another. [`docs/GIT.md`](./GIT.md) explains how work moves between the three forks and how to keep going when you need something from another team.
 
 **Disagree with the design.** These scopes describe where the work looked like it
-should go from where we were standing in August. The interesting problems here
-are genuinely open, and students routinely see things sponsors don't. The goal is
-good engineering, not obedience to an initial guess.
+should go from where we were standing in August. Many of the problems here are open, and you may see something we have not. If a scope looks wrong, say so.
 

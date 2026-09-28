@@ -1,11 +1,11 @@
 # @sagas/fixtures
 
-Development fixture data for the Sagas claim graph. Sponsor-owned and
-**versioned**, not frozen: this data will change during the semester, because
-changes here are how design pressure reaches both layers.
+Development fixture data for the Sagas claim graph. The sponsor owns it, and it
+is **versioned** rather than frozen: it will change during the semester, because
+changes here are how design pressure reaches every layer.
 
 Your fork is pinned to a tag. A fixture change lands in your fork when we agree
-at a sync to pull forward, never in the middle of your sprint. Every change
+at a check-in to pull forward, never in the middle of your sprint. Every change
 carries a contract version bump and a CHANGELOG line saying what a consumer has
 to do about it. If one arrives without that, it's a mistake on our side. Say so.
 
@@ -31,9 +31,9 @@ in timestamp order. Graph states are derived by folding that log up to an
 instant. **States are never authored by hand.**
 
 ```
-fixtures/example-site/events.ts   ← the only authored artifact
+fixtures/<site>/events.ts    ← the only authored file for each site
 src/reduce.ts                ← fold(events, upTo) → GraphState
-states/example-site.t*.json       ← generated, do not edit
+states/<site>.t*.json        ← generated, do not edit
 ```
 
 The log is in timestamp order and event ids are sequential, so `ev-041` really
@@ -53,7 +53,12 @@ pnpm test           # invariants over the derived states
 If you need a graph state that doesn't exist yet, add a cut to `stateCuts`.
 Don't write a state file by hand.
 
-## The four states
+## The four states of `example-site`
+
+Every site has states t0 to t3. The table and notes below are for
+`example-site`, the longest log. `corner-shop` is the flagship and the one to
+read first: it is the worked example in `docs/HOW-THE-LAYERS-FIT.md`, and
+`fixtures/corner-shop/events.ts` says at the top what each of its states shows.
 
 | | integrity | claims | records | contributors | disputes | untranslated |
 |---|---|---|---|---|---|---|
@@ -72,8 +77,10 @@ Each state deliberately exercises something:
 - **t1** — the author's cousin affirms `cl-boarding` and then extends it with a
   record of her own. The affirmation adds no source. The record does, so the
   claim reads `corroborated`, even though the two cousins may have heard one
-  telling: the stand-in cannot see that, and it is the open "cousin case". Also: a claim submitted in Euskara, kept and readable
-  on the map, sitting outside the claim graph with weight 0.
+  telling. The stand-in cannot see that, and working out independence is the
+  intelligence layer's open design work. A claim submitted in Euskara also
+  arrives, kept and readable on the map, sitting outside the claim graph with
+  weight 0.
 - **t2** — an institutional source contests *one detail* of an otherwise
   well-supported claim. The date is disputed; the location and the person are
   not. A rendering of the Euskara claim arrives and it enters the graph. The
@@ -81,7 +88,7 @@ Each state deliberately exercises something:
 - **t3** — a second rendering of the same claim coexists with the first, each
   attributed, with a preserved objection about what the first one loses. An
   extension satisfies both branches of an earlier disagreement (a reconciliation
-  candidate). Two unresolved cross-site reference markers. A 600MB recording is
+  candidate). A 600MB recording is
   still being processed when the log ends, and an open flag sits on a published
   record saying part of it was never the contributor's to give.
 
@@ -90,13 +97,12 @@ record with no files at all that produced two separate claims, a photograph
 whose embedded GPS puts the camera in the middle of the street, an audio
 recording that took four months and four people to become readable in English, a
 scanned register page, and one upload still in the queue. Every claim points at
-the record it was read out of.
+its source record, the record its conversation started from, and some claims
+also carry evidence records.
 
 ## What your interface has to handle
 
-These are the situations a real archive spends its life in. They are what the
-fixture data exists to put in front of you, and they are the closest thing this
-project has to a specification.
+The fixture data exists to put these situations in front of you.
 
 They are **direction, not a specification of your work.** They say what must not
 happen. How your interface satisfies them is your design, and most of what you
@@ -107,14 +113,14 @@ show the relevant ones next to your components. The reasoning is here.
 
 ### A thin record is not a broken one
 
-Most places, most of the time, have three claims from one family and nothing
-corroborated. That scores about 23 out of 100 and it is a real place with a thin
+This project expects most places, most of the time, to have three claims from
+one person and nothing corroborated. That scores about 23 out of 100 and it is a real place with a thin
 record.
 
 An interface that renders it in red, or as an empty state, or as an error, tells
 the person who just contributed that their family's claim failed. It did not.
-It is early. This is the hardest judgment in the whole layer because it is the
-common case and the easy design gets it wrong.
+It is early. This project treats this as the hardest judgment in the layer,
+because it is the common case and the easy design gets it wrong.
 
 ### Agreement is not corroboration
 
@@ -137,8 +143,9 @@ look discredited when one detail is in question.
 
 ### Nothing gets adjudicated
 
-When two readings compete, show both with their support. No winner, nothing
-hidden behind an interaction, and never as a vote tally. Lead with each
+When two readings compete, show both with their support. Neither is marked the
+winner, neither is hidden behind an interaction, and they are never shown as a
+vote tally. Lead with each
 reading's reasoning, not with how many people gave it, or evidence turns into a
 poll.
 
@@ -225,9 +232,9 @@ any of them is a useful pull request.
 
 ## Seeing what a change does
 
-Two tools, and neither needs a browser.
+There are two tools for this, and neither needs a browser.
 
-### The diff is the visualisation
+### Seeing every changed claim with git diff
 
 The states are calculated from the log, so changing anything upstream and
 regenerating shows you the consequence in full:
@@ -237,31 +244,32 @@ pnpm fixtures:build
 git diff packages/fixtures/states/
 ```
 
-Change the scoring and every claim that moved appears in that diff. Which claim
-now leads the article. How the integrity score shifted. Whether the claim
-nobody has translated just got buried.
+Change the scoring and every claim that moved appears in that diff, so you can
+see which claim now leads the article, how the integrity score shifted, and
+whether the claim nobody has translated just got buried.
 
-That is a regression test and a picture at the same time, and it is the only way
-to reason about questions like "does this quietly discount small communities". You
-cannot see that in a unit test, because the unit test only knows the number it
-was told to expect.
+That works as a regression test and a picture at the same time. This project
+relies on it for questions like "does this quietly discount small communities",
+which a unit test cannot show because it only knows the number it was told to
+expect.
 
-The automated checks confirm the committed states match what the log produces, so a change you
-forgot to regenerate fails the build rather than drifting.
+The automated checks confirm the committed states match what the log produces,
+so a change you forgot to regenerate fails the build rather than drifting.
 
 ### Asking why one claim scores what it does
 
 ```bash
-pnpm inspect                          # every claim at t3, one line each
-pnpm inspect cl-boarding              # one claim, with its inputs
-pnpm inspect --state t1 cl-boarding   # the same claim earlier
+pnpm inspect                                     # every claim at t3, one line each
+pnpm inspect cl-cs-shop                          # one claim on the flagship, with its inputs
+pnpm inspect --state t1 cl-cs-shop               # the same claim earlier
+pnpm inspect --site example-site cl-boarding     # a claim on another site
 ```
 
 It prints what went in next to what came out, and tells you when the recomputed
 weight disagrees with the stored one, which means the states need regenerating.
 
 The point is the inputs. A weight on its own tells you nothing about whether
-your scoring is defensible. `cl-boarding` at t3 scoring 1.50 means nothing until
+your scoring is defensible. `cl-boarding` at t3 scoring 5.50 means nothing until
 you see what went into it: its affirmations, its independent records, and three
 disputes on its date.
 
@@ -273,8 +281,8 @@ writing code that fetches narrative state over the network, stop and ask.
 
 **`src/weight.ts` is not the weight propagation algorithm.** It is arithmetic
 that exists so claims have an ordering to render. Designing the real one is
-the intelligence layer's first-semester deliverable. Do not treat it as a baseline, a specification,
-or an opinion. It will be deleted.
+the intelligence layer's first-semester deliverable, and this one will be
+deleted.
 
 The properties in it worth preserving are constraints on the problem rather
 than solutions to it. Edges are the strong signals: an extension pushes a claim
@@ -285,8 +293,7 @@ independent record.
 **Emphasis is by weight ordering.** The highest-weight claim at a node is the
 primary reading; competing claims stay visible inline. There is no "community
 accepted" status and no endorsement threshold. Dissent is preserved, not
-adjudicated. (An earlier scope draft described an endorsement mechanism. That
-draft is stale.)
+adjudicated.
 
 **There are no actual files behind the media.** The storage keys in the fixture
 point at objects that do not exist, because committing a hundred megabytes of
@@ -294,18 +301,19 @@ invented audio to a git repository helps nobody. Everything else about a record
 is real: sizes, durations, content types, processing states, derivatives. Putting
 bytes behind those keys is content-layer work and a good early one.
 
-## Open questions being carried, not answered
+## Open questions about the fixtures
 
-These are live. If you have an opinion, bring it to a sync.
+If you have an opinion on any of these, bring it to a check-in.
 
 - Whether coexisting attributed renderings is the right model for translation
   at all, or whether it encodes an engineer's assumption about how translation
-  works. There is a question out to a translation scholar.
-- Whether `disputeTarget` should stay as typed details or become character
-  spans into the claim text. Typed details were chosen because they are
+  works.
+- Whether a dispute should keep targeting a typed detail (`targetDetailId`) or
+  a character span of the claim text. Typed details were chosen because they are
   authorable by hand and give a renderer what it needs without offset math.
   Spans remain reachable.
-- Parallel language trees with cross-tree references. A future cohort's
-  research question. The schema is built not to foreclose it: `language` on
+- Parallel language trees with links across them, which this project leaves as
+  a research question for a future cohort. The schema is built not to
+  foreclose it: `language` on
   claims and `sourceLanguageText` as a first-class field. How a claim in one
   language tree would point at one in another is open.

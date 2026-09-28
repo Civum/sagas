@@ -8,14 +8,14 @@
  *
  * ---
  *
- * These shapes are deliberately flat and repetitive. Look at the three edge
- * types below: every one starts with an id, a contributor, and a timestamp, and
+ * These shapes are deliberately flat and repetitive. Look at the two edge
+ * types below: each starts with an id, a contributor, and a timestamp, and
  * nothing captures that. `translationDispute` and `disputeEdge` are the same
  * idea applied to different targets, and nothing captures that either.
  *
  * It's written out longhand so you can read the whole thing without decoding
  * an inheritance chain, and so the patterns are yours to find rather than ours
- * to impose. Finding them is part of the job. A pull request that collapses three
+ * to impose. Finding them is part of the job. A pull request that collapses the
  * edge types into one, with a reason, is exactly the kind of contribution we want.
  *
  * `docs/DESIGN-QUESTIONS.md` lists the ones we already know about, along with
@@ -37,10 +37,10 @@
  *   SHARED · Signals              low-effort reactions
  *   CALCULATED                    what a consumer actually receives
  *
- * Most of this is shared, and that is not a hedge. A claim is produced by the
- * content layer, scored by the intelligence layer and rendered by the
- * experience layer, so carving it up by team would be a fiction. Only the
- * records section belongs mostly to one team.
+ * Most of this is shared on purpose. Claims belong to all three layers: the
+ * content layer takes them in, the intelligence layer models and scores them,
+ * and the experience layer renders them and composes them into a page.
+ * Only the records section belongs mostly to one team.
  *
  * If you are on the content layer, start at CONTENT LAYER · Records.
  * If you are on the intelligence layer, start at CALCULATED, then Claims.
@@ -84,8 +84,8 @@ export type FlagId = string;
  *   es  Spanish
  *   fr  French
  *
- * Spanish and French are both here because the Basque Country spans the border,
- * and Basque communities in Canada speak French. Expect this list to grow. A
+ * Spanish and French are both here because the Basque Country spans the border
+ * between Spain and France. Expect this list to grow. A
  * record in a language not listed is a reason to add one, never a reason to
  * turn the record away.
  */
@@ -227,18 +227,13 @@ export type Contributor = z.infer<typeof contributor>;
  * lands on a claim instead, where it is about a reading rather than about the
  * person who brought the photograph in.
  *
- * The split is also what lets a contribution be small. Someone with a shoebox of
- * photos and one sentence about each can contribute without also being a
- * transcriber and a translator. Somebody else does those parts later and gets
- * credited for them.
- *
  * A record plays one of two parts. As a **source record** it is where a
  * conversation starts, and every claim in that conversation has it as
  * `claim.sourceRecordId`, which is required. As an **evidence record** it is
  * attached to a claim as support, through `claim.evidenceRecordIds`, which is
  * optional. It is the same record either way, and one record can do both in
- * different conversations. The schema below is still called `sourceRecord` for
- * historical reasons and describes every record.
+ * different conversations. The schema is called `sourceRecord` (the comment on
+ * it says why) and describes every record.
  */
 
 /** What kind of thing was handed over. */
@@ -263,8 +258,8 @@ export type ProcessingState = z.infer<typeof processingState>;
  * speaks the language on the recording, and for the languages this archive
  * cares about there are not many of them.
  *
- * Note what is missing. There is no state for a record being taken back. That is
- * not an oversight. "Nothing is deleted" and "a family can change its mind" are
+ * There is no state for a record being taken back, and that is on purpose.
+ * "Nothing is deleted" and "a family can change its mind" are
  * both things this project believes and they contradict each other. Until
  * somebody answers that, the state machine has no exit. See DESIGN-QUESTIONS.
  */
@@ -502,9 +497,9 @@ export type Flag = z.infer<typeof flag>;
 /* ================================================================== */
 /* SHARED · Claims                                                     */
 /*                                                                     */
-/* A claim is somebody's reading of a record. The content layer produces */
-/* the record, the intelligence layer scores the claim, the experience   */
-/* layer renders it. All three touch this.                              */
+/* A claim is somebody's reading of a record. The content layer takes   */
+/* claims in, the intelligence layer models them, and the experience    */
+/* layer renders and composes them. All three own this section.         */
 /* ================================================================== */
 
 /**
@@ -655,9 +650,9 @@ export type Edge = z.infer<typeof edge>;
 /* ================================================================== */
 
 /**
- * Someone agreeing with a claim. No new node, no new source.
+ * Someone agreeing with a claim. It adds no new node and no new source.
  *
- * Worth less than it looks. Agreement is not evidence, so an affirmation never
+ * Agreement is not evidence, so an affirmation never
  * counts as independent support. It is a soft signal: it matters most for what
  * gets suggested to whom, and only a little for a claim's weight.
  */
@@ -767,9 +762,9 @@ export type ClaimState = z.infer<typeof claimState>;
  * of it should touch a claim's weight at all, is the intelligence layer's
  * deliverable and the hardest open question in the project.
  *
- * What this is, is the toolbox. An algorithm can only be as good as what the
- * model bothered to write down, so the job here is to record behaviour
- * faithfully and judge none of it.
+ * This shape is the raw material. An algorithm can only use what the model
+ * writes down, so the job here is to record behaviour faithfully and judge
+ * none of it.
  *
  * Two of these are worth more than their names suggest:
  *

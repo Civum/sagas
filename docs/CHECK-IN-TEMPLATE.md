@@ -3,12 +3,9 @@
 Copy this into a new file for each check-in. Your team fills the top before the
 meeting. We fill the bottom after it.
 
-Keep it short. A note that takes forty minutes to write stops getting written
-around week five, and then nobody has a record of anything. Ten minutes is the
-target.
+Keep it short. Aim for ten minutes, because a note that takes forty tends to stop getting written.
 
-The assumptions section is the most valuable part. It is regularly where
-contract changes come from.
+We care most about the assumptions section, because an assumption can turn into a contract change.
 
 ---
 
@@ -72,7 +69,7 @@ anything we say in the room.
 ```
 
 That third one is the one we care about most. It tells us where the
-documentation failed, from people reading it cold, which is a test we cannot run
+documentation failed, from people reading it for the first time, which is a test we cannot run
 ourselves.
 
 ## Where to keep these

@@ -1,31 +1,25 @@
-# When the tooling lies to you
+# Debugging failures that do not report themselves
 
-Most bugs tell you about themselves. These do not. Every one below has cost
-somebody on this project real time, including us.
+Most bugs report themselves. The ones below do not.
 
 ---
 
-## Turbo told us everything passed. It had not.
+## Turbo reports passes it did not run
 
-Real example from building this repo. `pnpm lint` reported three green tasks.
-One of them was a cached result from before the change that broke it, and a
-genuine error went unreported. We told the sponsor everything passed. It did
-not.
+This happened while building this repository. `pnpm lint` reported three passing tasks, but one of them was a cached result from before the change that broke it, so a real error went unreported.
 
 Turbo caches by hashing a task's inputs. When it decides nothing relevant
 changed, it replays the previous output, including the previous *success*,
 without running anything.
 
-**`FULL TURBO` in the output means nothing ran.** That is the moment to be
-suspicious, not reassured.
+**`FULL TURBO` in the output means nothing ran.** Treat it as a reason to check again.
 
 ```bash
 pnpm lint                    # may be replaying old results
 pnpm lint -- --force         # actually run it
 ```
 
-When a result surprises you, force it before believing it. Especially before
-telling somebody else that it passed.
+When a result surprises you, force a fresh run before you believe it, and especially before you tell somebody else it passed.
 
 ### ESLint has its own cache underneath
 
@@ -43,20 +37,15 @@ This is exactly the bug in the story above.
 
 ### A green check that verifies nothing
 
-Worse than a stale pass: a task that does not exist.
+A task that does not exist is worse than a stale pass. `turbo run lint` on a package with no `lint` script does nothing and exits zero, so Turbo reports success and the automated checks pass without checking anything.
 
-`turbo run lint` on a package with no `lint` script does nothing and exits
-zero. Turbo reports success. CI goes green. Nothing was checked.
-
-We shipped that for a while. No package had a `lint` script, so `pnpm lint`
-found zero tasks, exited zero, and CI displayed a passing check that verified
-nothing. When it was wired up properly it found 28 real errors.
+This repository had that problem for a while. No package had a `lint` script, so `pnpm lint` found zero tasks, exited zero, and the automated checks showed a pass that verified nothing. When it was wired up properly it found 28 real errors.
 
 **If you add a folder of tests or a new package, add the script and add it to
 the config.** A test file nobody runs is worse than no test file, because it
 looks like coverage.
 
-The same trap caught us with Vitest: `vitest.config.ts` has an `include` list,
+The same thing happened with Vitest: `vitest.config.ts` has an `include` list,
 and a new `behaviour/` folder full of tests silently never ran until it was
 added there.
 
@@ -71,16 +60,16 @@ code is fine.
 
 ---
 
-## Next
+## Next.js
 
 ### Your new environment variable does nothing
 
 Next reads `.env` at startup. Adding a value while the dev server is running
 does nothing at all, and the symptom is a feature that is silently switched off.
 
-Restart the dev server. Every time you touch `.env`.
+Restart the dev server every time you change `.env`.
 
-### `NEXT_PUBLIC_` is not a naming convention
+### What the `NEXT_PUBLIC_` prefix does
 
 A variable without that prefix is server-only and is `undefined` in the
 browser. One with it is compiled into the client bundle and is visible to
@@ -134,12 +123,11 @@ pnpm dev:web
 
 ## Workspace
 
-### CI failed at the install step and nothing else ran
+### The automated checks failed at the install step and nothing else ran
 
 The lockfile is out of sync with a package.json.
 
-CI installs with `CI=true`, which makes `pnpm install` behave as
-`--frozen-lockfile`. If a dependency changed and `pnpm-lock.yaml` did not, the
+The automated checks run `pnpm install` with the environment variable `CI=true` set, which makes it behave as `--frozen-lockfile` (it refuses to change the lockfile). If a dependency changed and `pnpm-lock.yaml` did not, the
 install fails in about thirteen seconds and every check after it is skipped. The
 job goes red without a single test having run.
 
@@ -156,7 +144,6 @@ and after, so renaming a script or editing a description will not stop you. Only
 an actual dependency change without the lockfile will. `git commit --no-verify`
 skips it either way.
 
-This one bit us, which is why both the hook and this entry exist.
 
 ### An import of a package in this repo will not resolve
 
@@ -175,11 +162,7 @@ resolution bug.
 
 ## What all of these have in common
 
-All of these are one mistake: **believing a tool that was not asked to check.**
-
-A cached pass, a script that does not exist, a config that excludes the file, an
-environment variable read before you set it. None of them fail loudly, because
-from the tool's point of view nothing went wrong.
+Each of these is a tool reporting on something it was not asked to check: a cached pass, a script that does not exist, a config that excludes the file, or an environment variable read before you set it. None of them fail loudly, because from the tool's point of view nothing went wrong.
 
 When a result surprises you, good or bad, force the tool to do the work again
 before you build on it.
