@@ -2,9 +2,10 @@
 
 This is yours. It ships close to empty on purpose.
 
-The design system, the component library, the map, the article renderer,
-heritage trails, contributor milestones, and the contributor dashboard are all
-your scope. There are no design tokens and no component library in here. Handing
+The component library, the map, the narrative page, the suggestion interface
+and references are your scope, in the order `apps/web/BACKLOG.md` sets.
+Heritage trails come later. Contributor milestones and any dashboard built on a
+score are cut this semester. There are no design tokens and no component library in here. Handing
 those over would take away the most interesting work in the project.
 
 One word to keep straight. `IntegrityBadge` is about a *place*: how well

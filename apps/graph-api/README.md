@@ -40,8 +40,8 @@ quietly wrong while ordinary unit tests stayed green.
 
 Look at what the scorer is given and, more importantly, what it is not. There is
 no author in the input: no name, no id, no standing, no join date. What it gets
-instead are facts derived from who contributed, such as whether three
-affirmations came from three independent family lines or from one. The system
+instead are facts about what was contributed, such as how many independent
+records back a claim. The system
 knows who is speaking. The scorer does not, and cannot use it as a credential.
 Weight comes from what somebody has done, not from who they are. That is
 enforced by the missing field rather than by a test.
@@ -69,7 +69,7 @@ and look at what is in it, because the shape of your input decides what your
 algorithm can possibly be good at.
 
 - `claims` — each with its author, the record it was read out of, translations,
-  disputes per element, competing readings ordered by independent family line,
+  disputes per detail, competing readings kept side by side,
   affirmations, passover signals, and a placeholder weight.
 - `records` — what people actually handed over, with media, processing state,
   and where each one says it was made and how that location was determined.
@@ -114,7 +114,7 @@ only untranslated claim just got buried.
 
 That is a regression test and a visualisation at once, and it is the only way to
 reason about the source-quality question. You cannot see "this quietly discounts
-small families" in a unit test.
+small communities" in a unit test.
 
 To ask why one claim scores what it does:
 
@@ -123,8 +123,8 @@ pnpm inspect cl-boarding
 ```
 
 That prints the inputs next to the outputs. A weight on its own is not evidence
-of anything; a weight next to "zero independent family lines and three disputes
-on the date" is.
+of anything; a weight next to "zero independent records and three disputes on
+the date" is.
 
 ## The database
 

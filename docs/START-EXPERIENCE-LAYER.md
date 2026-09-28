@@ -1,54 +1,106 @@
 # Start here — experience layer
 
-This repository is bigger than your part of it. Most of what is here is not
-yours and you can ignore it. This page is the short version.
+This repository is bigger than your part of it. Most of what is here belongs to
+the other two layers and you can ignore it. This page is the short version, and
+it is the one to come back to.
 
-**Treat this as the syllabus for the semester.** Read it through once, then come
-back to it. You are not expected to hold it in your head.
+## If you read an earlier version of this page
+
+The design has moved since the first version. The biggest change is that the
+first version counted support by "family line", which the system has no way to
+know, because it records what people do rather than who they are. Here is
+everything that changed:
+
+- **Your first task is different.** The old page said to make `t0` look right,
+  finish two stubs under `src/features/article/`, and bring one screen. That is
+  replaced by the five stories in epic A of `apps/web/BACKLOG.md`. If you
+  started on the old task, bring what you have. It is not wasted, and the
+  stories in epic C pick up the same components.
+- **You now start with shared parts.** The old page said to build views first
+  and pull a design system out of them later. This project now starts with a
+  component library and a test setup, plus a short look at whether Storybook is
+  worth adopting, because five people building in parallel need the same parts
+  from the first week.
+- **The month-by-month plan is gone.** The backlog replaces it. The map is not
+  an October job any more: it is story B1, and you can register a Mapbox token
+  as soon as you start it.
+- **The "family lines" idea is gone.** The old page taught `lineageId` and
+  `independentLineageCount`. Both have been removed. Support is now counted as
+  independent records that other people bring, and agreement never counts.
+- **"Element" is now "detail"**, and a claim's `recordId` is now a source record
+  plus optional evidence records. Both are explained under "Terms" below.
+- **Meetings.** The old page said your instructor sets meetings. Your
+  instructor has since set up a specification meeting every two weeks between
+  your product owner and the sponsor, described under "How we work".
+- **You no longer check the changelog every Monday.** A workflow in your fork
+  does it and opens an issue. See "Turn on the upstream watch".
+- **Badges are out for this semester.** The old page left contributor
+  milestones open as a late option. They are cut, along with any dashboard
+  built on a score.
+
+If something you built or planned depended on the old version, bring it to the
+next meeting. That was a reasonable thing to have done, and sorting it out is
+our job, not yours.
 
 ## What you're building
 
 Somebody drags a map around and finds a place. They open it and read what people
-know about that place: who was there, what happened, which parts two families
-remember differently. Your layer is everything that person sees, and the hard
-part is not the map. It is rendering a record that is thin, contested, half
-translated and still arriving, without any of that reading as failure.
+know about that place: who was there, what happened, which parts two people
+remember differently. Your layer is everything that person sees.
 
-Three things, all yours:
+The hardest part is showing a record that is thin, contested, half translated
+and still arriving, without any of that reading as failure.
+
+Three things are yours:
 
 - `apps/web`, the interface
-- `apps/ui-api`, the read API the browser talks to
-- `packages/read-model`, where every read goes through
+- `apps/ui-api`, where your read API for the browser will live. It is empty
+  today. The routes that exist so far are in `apps/web/src/app/api/sites/`
+- `packages/read-model`, which every read goes through
 
-## Five words used carefully
+## Terms: site, record, claim, detail, rendering, profile
 
 - **Site.** A place somebody has designated as meaningful. Records and claims
   attach to a site. A site does not attach to them.
 - **Record.** What somebody hands over. A recording, a video, a photograph, a
   scanned document, or typed text. Nothing in the graph argues with a record.
-  Disagreement lands on claims instead.
 - **Claim.** Somebody's reading of a record. This is where disagreement lands.
   One record can produce several claims.
-- **Rendering.** A transcript or a translation. One person's version of a
-  record or a claim, attributed, with more than one allowed to exist.
+- **Detail.** One piece of what a claim asserts, such as a year, a name or a
+  street. A dispute points at a detail, not at a whole claim. An extension is
+  meant to point at a detail too, or at the whole claim when it is about all of
+  it. That is decided and not yet in the contract.
+- **Rendering.** A transcript or a translation. One person's version of a record
+  or a claim, credited to them, with more than one allowed to exist.
 - **Profile.** Who a contributor is to the software. This semester a profile is
   a guest id kept in browser storage, and there are no logins.
 
-"Account" is not a term in this project. It used to be, and it was doing two
-jobs at once: a contribution in some sentences and a login in others. If you
-find it still standing for either, that is a leftover and worth a pull request.
+A record plays one of two parts, depending on where it is used:
+
+- **Source record.** The record a conversation starts from. Think of it like the
+  opening post of a thread. Every claim belongs to a conversation, so every
+  claim has one.
+- **Evidence record.** A record attached to a claim to back it up. Optional.
+
+It is the same kind of record either way. A photograph can start one
+conversation and be evidence in another.
+
+"Account" is not a term in this project. It used to mean a contribution in some
+sentences and a login in others. If you find it standing for either, that is a
+leftover and worth a pull request.
+
+If your fork still shows `claimElement`, or a `recordId` on a claim, it is on
+contract version 1.0.0. Pull upstream to get 2.0.0 (see `docs/GIT.md`).
 
 ## What to ignore
 
-Genuinely ignore. It belongs to other teams and nothing you build depends on it.
+Everything in this list belongs to the other layers, and nothing you build
+depends on it.
 
-- `apps/capture-api`, `apps/capture-web`, how contributions arrive
-- `apps/graph-api`, the scoring and claim-graph work
-- `packages/fixtures/behaviour/`, scoring rules for a different team
+- `apps/capture-api`, `apps/capture-web`, which is how contributions arrive
+- `apps/graph-api`, the scoring and claim graph work
+- `packages/fixtures/behaviour/`, scoring rules for a different layer
 - The object storage and ffmpeg sections of `SETUP.md`
-
-You do not need MinIO or ffmpeg. Those are other people's problems and the setup
-instructions mention them because one document covers three teams.
 
 ## What to install first
 
@@ -68,28 +120,27 @@ pnpm -v        # must start with 9
 docker ps      # must print a table, not an error
 ```
 
-**Two things that cost an hour if you skip them.** Node has to actually be 22.10
-or later, and an older one fails in ways that never mention Node. And Docker has
-to be running, not just installed. `docker ps` printing a table is the test.
+Node has to actually be 22.10 or later, and an older one fails with errors that
+never mention Node. Docker has to be running, not just installed. `docker ps`
+printing a table is the test.
 
 **On Windows**, work inside WSL2 rather than PowerShell, with the repository in
-the Linux filesystem. Crossing the boundary is slow and causes line ending
+the Linux filesystem. Crossing between the two is slow and causes line ending
 problems that look like real bugs.
 
-**Not yet: Mapbox.** You need a free token when you build the real map, and that
-is October. `SETUP.md` covers registering. Do not do it today. Without a token
-the map area renders a list of the same places, and that path is not a fallback:
-it is how the map's information reaches somebody using a screen reader, so it
-ships either way and it has to be good.
+**Mapbox** needs a free token once you start on the map (story B1). `SETUP.md`
+covers registering. Each person uses their own token and nobody commits one.
+Without a token the map area shows a list of the same places instead. That list
+is also how the map reaches somebody using a screen reader, so a list view ships
+alongside the map either way (story B3).
 
-## Getting the code, before anyone clicks Fork
+## Getting the code
 
 **One fork for the whole team, not one each.**
 
 1. **Create a GitHub organisation for the team**, not a personal account. If the
    repository lives in one person's GitHub account and that person drops the
-   class, the team loses everything, and your instructor needs access for
-   grading.
+   class, the team loses it, and your instructor needs access for grading.
 2. **One person forks `Civum/sagas` into it.** Once.
 3. **Everyone clones that fork**, including whoever created it.
 
@@ -99,8 +150,41 @@ cd sagas
 git remote add upstream https://github.com/Civum/sagas.git
 ```
 
-Work on branches, open pull requests into your fork's main, review each other.
-`docs/GIT.md` has the rest.
+Work on branches, open pull requests into your fork's `main`, and review each
+other's. `docs/GIT.md` has the rest.
+
+## Turn on the upstream watch
+
+When the shared design changes, a workflow in your fork opens an issue saying
+so, with the changelog in it. Nothing in your fork changes by itself. You decide
+whether to pull the change, usually at the next specification meeting.
+
+It does not run until you switch it on, in two steps, once:
+
+1. **Enable Actions on the fork.** GitHub turns them off on a new fork. Open the
+   **Actions** tab and confirm you want workflows to run.
+2. **Enable the scheduled workflow.** GitHub's documentation says scheduled
+   workflows on a fork are disabled by default. In the Actions tab, pick
+   **Upstream contract watch** in the left sidebar and click **Enable workflow**.
+
+The workflow reports by opening an issue, so Issues also have to be turned on
+for the fork (in the fork's **Settings**, under **Features**).
+
+After that it runs every Monday morning. You can also run it by hand with the
+**Run workflow** button. The details are in `docs/GIT.md`, under "Finding out
+that upstream moved".
+
+## Where a change goes: your fork or upstream
+
+This is a monorepo, meaning several apps and packages in one repository. Some of
+what is in it is only yours, and some is shared by all three layers: the
+contract that says what a claim or a record looks like (`packages/contracts`)
+and the fixture data everyone builds against (`packages/fixtures`).
+
+So there are two kinds of change. A change to your app goes into your fork. A
+change to the shared contract or fixtures goes upstream as a pull request, and
+gets talked about first. When the shared part changes upstream, every team is
+told through the watch above, and each decides when to pull it.
 
 ## Get it running
 
@@ -115,20 +199,152 @@ Two routes exist:
 - `/dev` — the same components rendered against all four fixture states, with
   the acceptance criteria for each state listed underneath.
 
-`/dev` is where you will spend the semester. A component that looks right
-against `t3` and falls apart against `t0` is the normal failure, and `t0` is the
-state most real places sit in for a long time.
+A component that looks right against `t3` and falls apart against `t0` is the
+normal failure, and `t0` is the state most real places stay in for a long time.
 
-## The database, and it is not a later problem
+## Read these, in this order
 
-Every read goes through `packages/read-model`. Today those three functions read
-fixture JSON off disk. That is a starting point, not a design.
+1. **`docs/HOW-THE-LAYERS-FIT.md`.** One photograph followed through all three
+   layers. Ten minutes, and it makes the rest make sense.
+2. **`packages/fixtures/README.md`, the section "What your interface has to
+   handle".** Situations a real archive spends its life in, and what your
+   interface must not do about each. This is the closest thing to a
+   specification you will get.
+3. **`apps/web/BACKLOG.md`**, then **`apps/web/DIRECTION.md`.** The work, and
+   where it is heading.
+4. **`packages/contracts/src/model.ts`.** The shapes you render. The media and
+   processing fields on a record belong to another layer and you can skim them.
+5. **`docs/DESIGN-QUESTIONS.md`.** What is unsettled. Four questions matter to
+   this layer before you design anything: "What does an interface do with
+   'sometime in the fifties, probably'?", "Silence is not doubt", "What should a
+   disagreement look like to the people in it?", and "Maria the subject and
+   Maria the profile."
 
-**Putting Postgres behind them is the first infrastructure job on this layer**,
-and it belongs to whoever holds the back end and data roles on your team. Your
-own schema, shaped for the two things this layer does, which are drawing a map
-and rendering an article. That is not the same shape as the authoritative store
-the intelligence layer keeps and it should not try to be.
+## How we work
+
+**Every two weeks, a specification meeting.** Your instructor has set up
+contact between your product owner and the sponsor every two weeks, and this is
+what that meeting is for. Your product owner is the team member who speaks for
+the team and decides the order of work. Anyone
+else on the team is welcome. We go through what got done, describe the next
+work, and load the backlog for the next two weeks. The product owner speaks for
+the team's capacity: what fits, what does not, and what order it goes in. Your
+instructor sets any other meetings the course requires. This layer's schedule
+is different from the one in `docs/WORKING-TOGETHER.md`, which describes the
+other two layers.
+
+The two weeks between specification meetings are a **sprint**.
+
+**The backlog lives in `apps/web/BACKLOG.md`.** Work is grouped into epics.
+Each epic starts with a few stories, and more get added at each specification
+meeting as the earlier ones land. You will not see the whole semester's work
+written out on day one, and that is on purpose. Whether you copy the stories
+into GitHub issues in your fork is your team's call. Each story is written so it
+pastes straight into one.
+
+**Progress comes in batches.** Between meetings, the sponsor is not watching
+your fork. Before each specification meeting, send a short note using
+`docs/CHECK-IN-TEMPLATE.md`. The most useful part is what you assumed, because
+that is how we find out a specification was unclear before two weeks were built
+on top of it.
+
+**Small pull requests, opened early as drafts.** A deployed preview link makes
+review much faster.
+
+**Questions by email**, through your product owner. Expect a reply within a
+working day.
+
+## Your first sprint
+
+Five pieces of work that can run in parallel, one per person. Each one is
+written out in `apps/web/BACKLOG.md` under epic A, with what "done" means.
+
+- **A1. A component library for the renderer.** The shared pieces every view is
+  built from.
+- **A2. A front-end test setup** that extends the Vitest one already here, so
+  components can be rendered in a test.
+- **A3. A Storybook investigation.** Find out what it needs in this repository,
+  including whether the map can render in it, then decide with the sponsor
+  whether to adopt it.
+- **A4. Mockups for the first tasks**: the map with search, a site page, and one
+  conversation.
+- **A5. An entity relationship model from the reading side**: what a page needs
+  to draw, and how that becomes your schema.
+
+## What is in this layer, in priority order
+
+**First. This is what the semester is about.**
+
+- **The narrative page.** What people have said about a place, readable as
+  something a person can actually read, with the disagreements left in.
+- **Confidence shown inline.** How well supported something is, without turning
+  the page into a dashboard. Somebody glancing at a paragraph should be able to
+  tell which parts have independent support and which rest on one person.
+- **The map, and the list that stands in for it.** Finding a place at all.
+- **The read model and the schema under it.** This is the job that gets
+  forgotten, so somebody on the team should own it from the start.
+
+**Next.**
+
+- **Disputes shown on the page.** Two readings, both visible, with their
+  support, and never shown as a vote tally.
+- **Source and evidence attribution.** Every claim reaches the person it came
+  from and the records it rests on. Attribution is never optional.
+- **Version history.** What changed between two states and which contributions
+  caused it. Every state carries `eventIdsSincePrevious`, so this is a real
+  answer rather than one you reconstruct.
+
+**Later, once the above work.**
+
+- **Passover.** `sounds_right`, `dont_know` and `dont_care` on a claim, light
+  enough that people actually use it. None of them is a vote, and a pile of
+  `dont_know` must never read as a claim being rejected.
+- **Heritage trails.** A sequence of sites telling one story. This is a concept,
+  not a task yet. It becomes work once it is defined, and it will be defined
+  with you.
+- **Citation and export.** Stable links to one claim, and formatted citations.
+
+**Not this semester.** Badges, and any dashboard built on a score. There is no
+score to build one on, and the section after next says why.
+
+## The design problems that run through the semester
+
+The priority list above is the order of work. Separately, three design problems
+cut across it, and none of them is fully designed yet. `apps/web/DIRECTION.md`
+says what is decided about each, what the first steps are, and what is open:
+
+- **The narrative page.** How the claims at a site become a page a person can
+  read.
+- **The suggestion interface.** How a reader is pointed at what to read next and
+  what they could add. Passover feeds this.
+- **References.** How the page shows what each claim rests on (its source and
+  evidence records and its renderings), and how somebody links to one claim.
+  This is about display. It is not an edge type in the graph.
+
+## There is no score to show
+
+Scoring belongs to the intelligence layer. It will decide what gets surfaced,
+how the page is ordered, and what somebody is suggested to look at. It is never
+a number shown to a person.
+
+`contributorStanding` holds counts: records submitted, claims written, disputes
+raised, translations and transcripts contributed. A view of somebody's own
+contributions built on those counts is fine. Ranking people by them, sorting
+them into tiers, or putting one number beside what somebody said about their own
+family is not.
+
+The most important idea in the finished `ConfidenceIndicator` is that an
+affirmation is not corroboration. Five people saying "sounds right" is not five
+independent records. This project treats presenting an affirmation count as
+support as wrong, and it is an easy mistake to make by accident.
+
+## The database
+
+Every read goes through `packages/read-model`. Today it reads fixture JSON off
+disk. Putting Postgres behind it is real work for whoever on the team takes the
+back end: the schema, the queries, and the spatial index. Story A5 is where it
+starts. Your schema is shaped for drawing a map and a page, and it is not meant
+to match the other layers' schemas.
 
 ```bash
 cp .env.example .env      # then uncomment the sagas_read line
@@ -137,340 +353,41 @@ cd apps/ui-api
 pnpm db:up && pnpm db:verify
 ```
 
-That starts your layer's Postgres with PostGIS enabled, on port 5435, in a
-container defined by that app's own `docker-compose.yml`. The other two layers
-have their own on 5433 and 5434 and nothing you start here touches theirs.
+That starts your layer's Postgres with PostGIS enabled, on port 5435. The other
+two layers use 5433 and 5434, and nothing you start touches theirs.
 
-Do it early. If the whole interface is built against a file and the database
-arrives in November, November is when you find out which components assumed data
-was free to fetch.
-
-Three things that will bite, all in `packages/read-model/README.md`: coordinate
-order is `[longitude, latitude]` and getting it backwards silently puts Boise in
-the Indian Ocean, `listSites()` has to start taking a bounding box once the map
-has more than one place on it, and the obvious `getSiteState()` runs one query
-per claim. Read `docs/GIS.md` before you write the map query.
-
-## Editor
-
-Open the folder in VS Code and say yes when it offers the recommended
-extensions. Formatting and lint fixing on save are configured already, so
-nobody's editor reformats a file somebody else wrote. Use the repository's
-TypeScript rather than the bundled one when it prompts.
-
-## Read these four, in this order
-
-1. **`packages/fixtures/README.md`, the section called "What your interface has
-   to handle."** Ten situations a real archive spends its life in and what your
-   interface must not do about each. This is the closest thing to a
-   specification you will get and it is the best hour you can spend. They say
-   what must not happen. How you satisfy them is your design, and most of what
-   you build is things that list says nothing about. The nineteen one-line
-   versions in `acceptance/cases.ts` are what `/dev` shows beside your
-   components. The reasoning is in the README.
-2. **`apps/web/README.md`.** Your app: how it is organised, which three
-   components are finished, and which are one line and a TODO.
-3. **`packages/contracts/src/model.ts`.** The shapes you render. The media and
-   processing fields on a record belong to another team and you can skim those.
-4. **`docs/DESIGN-QUESTIONS.md`.** Things we know are wrong or unsettled. Four
-   of them are yours before you design anything: "What does an interface do with
-   'sometime in the fifties, probably'?", "Silence is not doubt", "What should a
-   disagreement look like to the people in it?", and "Maria the subject and
-   Maria the profile."
-
-## What is in this layer
-
-The scope document your department has lists more than this, and some of it is
-cut. Here is the current list with the reasoning, so you are not working from
-two documents that disagree.
-
-**The core. This is what the semester is about.**
-
-- **The living article renderer.** What people have said about a place, read as
-  something a person can actually read, with the disagreements intact. This is
-  the flagship and the hardest part.
-- **Inline confidence indicators.** How well supported a thing is, shown without
-  turning the page into a dashboard. Somebody should be able to glance at a
-  paragraph and know which parts are corroborated and which are single source.
-- **The map, and the list that stands in for it.** Finding a place at all.
-- **The read model and the schema under it.** Covered above, and it is the job
-  that gets forgotten.
-
-**Next, and all three are real work.**
-
-- **Dispute visualization.** Two readings, both shown, with their support. No
-  winner, nothing hidden behind an interaction, and never a vote tally. The
-  count is distinct families rather than people, and labelling it wrong turns
-  evidence into a poll.
-- **Source attribution.** Every claim reaches the person it came from and the
-  record it was read out of. Attribution is never optional and never anonymous.
-- **Version history.** What changed between two states and which contributions
-  caused it. The fixture log is append-only and every state carries
-  `eventIdsSincePrevious`, so this is a real answer rather than one you
-  reconstruct.
-
-**If you get to these, good. I would be pleased rather than surprised.**
-
-- **The passover UI.** `sounds_right`, `dont_know` and `dont_care` on a claim,
-  rendered so somebody reading casually can leave a signal without breaking
-  their reading. This is one of the more interesting design problems in the
-  layer, because the interaction has to be light enough that people actually
-  use it and honest enough that it does not become a rating.
-
-  What the three of them do is worth being exact about, because the easy
-  mistake is to render them as inert and they are not. All three compose into
-  how much a claim gets surfaced. `sounds_right` adds a little. `dont_care`
-  adds nothing to the claim and still records that somebody saw it, which is
-  information about reach. `dont_know` adds nothing and says the claim has not
-  reached anybody able to judge it. None of them create edges and none of them
-  are votes. What they add up to is how far a claim travels, not how true it
-  is, and that number is not a quality score and is never shown as one. A pile
-  of `dont_know` must never read to a contributor as their claim being
-  rejected.
-- **Heritage trails.** Ordered sequences of sites that tell one story, with the
-  narrative between stops written by somebody and attributed like anything else.
-  The trail builder, where somebody composes one, is a further step again.
-- **Exploration prompts.** "This place has twelve accounts about the boarding
-  house era and one about before 1940." Whether the unit of work is a task at
-  all is an open design question rather than something I can hand you. See
-  `docs/DESIGN-QUESTIONS.md`, "Is the unit of work a task?"
-- **Citation and export.** Formatted citations, and stable permalinks so
-  somebody can cite one claim rather than a page.
-
-**Last, and not in the shape the scope document gave them.**
-
-- **Contributor milestones**, which the scope document called badges.
-  Buildable, and not the work. `contributorStanding` already holds the countable
-  ones: first contribution, first translation, first transcript, the first
-  dispute that proposed an alternative rather than only objecting. None of that
-  needs a score and none of it needs a login, because a guest profile
-  accumulates history server-side against its id. So the reason these are last
-  is priority, not impossibility. The hard problem in this layer is rendering a
-  contested record, and a small team will not get past it. If you finish the
-  renderer, disputes, version history and source attribution, come and talk to
-  me about milestones. What you must not build is one tied to a score, because
-  the score does not exist and is not going to.
-- **The contributor dashboard.** Most of what the scope document put in it was
-  a trust score with a category breakdown, plus notifications and task routing
-  from services that do not exist. A view of your own contributions is a
-  reasonable thing to want and you can build one. Do not build it around a
-  number the model refuses to compute.
-
-Nothing on this list is fixed. If you get four weeks in and think the order is
-wrong, say so in a pull request or an issue.
-
-## The plan, month by month
-
-**September, the four states.** Get it running, read the acceptance list, and
-work through the stub components on `/dev` until all four states render. No
-design system yet, and the next section says why.
-
-**October, the database and the map.** Postgres behind `read-model`, a real
-schema, spatial indexing so "everything within 2km of here" is fast enough to
-drive a map, and Mapbox on the front of it.
-
-**November onward, the rest of the interface.** Dispute visualization, source
-attribution and version history first, then as far down the list above as you
-get, plus whichever of the open questions you decide to take on.
-
-## Why the design system is not sprint one
-
-The scope document I sent your department put the design system in the first
-three sprints. Having built the worked examples I think that is the wrong order,
-and here is the reasoning rather than just the instruction.
-
-A design system built before you have rendered anything is a set of guesses
-about what you will need. A design system extracted from five working views is a
-record of what you actually needed. The second one is smaller, and every token
-in it has a reason you can point at.
-
-So: build three or four views against all four fixture states first, tolerate
-the duplication, and then pull the system out of what you wrote. The typography
-scale and the colour tokens will be better for having been earned. It is also
-the order that gets you something to look at in week three instead of week six.
-
-If you disagree, say so. You are the people who will live with the answer.
-
-## Why there is no design system in the repository
-
-There are no design tokens, no component library, and no brand guidelines in
-here, and that is deliberate rather than an omission. Handing those over would
-take away the most interesting work in your scope. The grey text and system
-fonts in the finished components are a placeholder. Do not copy the styling.
-
-Two things in those examples are worth copying.
-
-**The split.** The judgment lives in a pure function, `bandFor` or
-`supportSummary`, separate from the markup, so it can be tested without
-rendering anything. A test that a div has a class fails every time somebody
-improves the design. A test that a sparse record is never described as failing
-is worth keeping.
-
-**The data flow.** Pages read, components take props, nothing fetches. That is
-what lets the same components render against four states on `/dev`.
-
-## Where the renderer's data comes from
-
-The living article renderer is yours and it is the centre of this layer. That
-has not changed. What changed is where it reads from.
-
-The scope document describes a narrative state endpoint from the intelligence
-layer that the renderer consumes. There is no such endpoint this semester and
-you should not build against one. What you render from instead is the four
-derived graph states, reached through `packages/read-model`. They carry
-everything the renderer needs: claims with their support, disputes landing on
-single elements, renderings that coexist, and what changed between one state and
-the next.
-
-If you find yourself wanting to fetch narrative state from a service that does
-not exist, say so in a pull request or an issue. It means the contract is
-missing something, which is worth knowing early.
-
-Nothing you build is blocked on either of the other two schools, in either
-direction, and that is the point of the fixture data.
-
-## There is no trust score
-
-`contributorStanding` holds counts. Records submitted, claims written, claims
-other people backed, disputes raised, translations and transcripts contributed.
-It has no score in it and it is not going to get one.
-
-The reason is in the acceptance list and it is worth reading in full, but the
-short version is that a score gets displayed, and then somebody's account of
-their own family has a rating beside it. Adding the counts up invents a number
-the model deliberately does not have.
-
-The counts themselves are yours to use, and a view built on them is fine. What
-you cannot do is rank contributors by them, sort them into tiers, or put one
-number in front of a person. The scope document referred to a trust framework
-specification in the scaffold that defines weighting and badge criteria. There
-is no such specification, and the reason there isn't is this one.
-
-Two more things the scope document named that do not exist: there is no
-WebSocket notification service, and there is no media layer you fetch
-attachments from. Both of those were cross-team dependencies I should not have
-written down.
-
-## Your first task
-
-Make `t0` look like a real place with a thin record.
-
-That is the hardest judgment in your layer and it is also the common case. Most
-places, most of the time, have three claims from one family and nothing
-corroborated. That scores about 23 out of 100. An interface that renders it in
-red, or as an empty state, or as an error, tells the person who just contributed
-that their family's claim failed. It did not. It is early.
-
-Concretely, for your first pull request:
-
-Read `src/app/page.tsx`, `src/features/site/IntegrityBadge.tsx` and
-`src/features/article/ConfidenceIndicator.tsx`, which are the three finished
-components. `IntegrityBadge` is how well documented a *place* is, and it is the
-one that solves `t0` already. It has nothing to do with the contributor
-milestones above, which is why this repository does not
-call those badges. Then take the next two stubs under `src/features/article/`
-and make them render against all four states on `/dev`.
-
-Then bring one screen, sketched or built, and tell me what a person sees when
-they are the only contributor at a place. Not the design system. One screen and
-the reasoning.
-
-The most important idea in the model is already in `ConfidenceIndicator`: an
-affirmation is not corroboration. A claim can have five people agreeing and no
-independent support, because all five are from the author's family. The model
-counts family lines, not heads. If your interface ever presents an affirmation
-count as support, it is lying, and it is the easiest lie in this project to tell
-by accident.
-
-One thing to know before you render that number, because it is not written down
-anywhere else yet. Independence is counted from `lineageId` on a contributor,
-which is a hand-authored string. Nothing derives it, and with no logins there is
-nothing to derive it from. In the fixtures it is filled in by hand, which is how
-`t1` demonstrates a cousin affirming a cousin. Outside the fixtures it is empty,
-and `reduce.ts` falls back to treating every contributor as their own family
-line, so `independentLineageCount` quietly becomes a count of distinct
-affirmers. That is the exact thing the field exists to prevent.
-
-So the mechanic is right and its input has no source yet. Build against the
-mechanic, because the mechanic is what the archive actually needs. Just know
-that "Backed by 3 other families" is a sentence this system cannot currently
-justify about real people, and that closing that gap is one of the open problems
-rather than a detail. `docs/DESIGN-QUESTIONS.md` has "Can vouching carry what
-lineage cannot?" and it is worth reading even though it is not your layer's
-problem to solve.
-
-## Roles, and the one the scope document left out
-
-Three named roles were in it: design system, living article, trails and
-progression. There is a fourth and it is not optional.
-
-Somebody owns the data. `packages/read-model` and `apps/ui-api` are both yours,
-the schema does not exist yet, and the spatial query is the part that decides
-whether the map feels fast or slow. `apps/ui-api` is a separate app precisely so
-that the people who own the back end own a thing, rather than owning some files
-inside somebody else's app.
-
-How you split four jobs across your team is yours to decide, and with a small
-team one person may hold two. Just decide it out loud rather than discovering in
-October that nobody owns the database.
+`packages/read-model/README.md` lists three things that will bite. Coordinate
+order is `[longitude, latitude]`, and getting it backwards produces an error at
+the map, far from where the pair was swapped. `listSites()` has to take a bounding box once the
+map has many places. And the obvious `getSiteState()` runs one query per claim.
+Read `docs/GIS.md` before writing the map query.
 
 ## One thing not to do
 
-Do not make `apps/web` fetch from `apps/ui-api` in server components.
-
-A server making an HTTP request to its own API to render a page adds a network
-hop, a new failure mode, and latency, and buys nothing. Server components import
-`@sagas/read-model` directly. The API exists for the browser, and for whatever
-else consumes the archive later.
+Do not make `apps/web` fetch from `apps/ui-api` in server components. That adds
+a network hop and a new way to fail and gains nothing. Server components import
+`@sagas/read-model` directly. The API is for the browser.
 
 ## Deploying it
 
-Yours to own, including the choice of where. We are not picking for you, because
-picking would remove the part of this that looks like a real job. Whatever you
-choose needs three things: a URL that works from early on, a preview per pull
-request, and no sponsor credentials. Deploy in week two, before there is
-anything interesting to see. A pipeline that exists before it matters is a
-pipeline that works when it does.
+Yours to own, including where. Whatever you choose needs a URL that works from
+early on, a preview for each pull request, and no sponsor credentials. Deploy in
+week two, before there is anything interesting to see. `apps/web/README.md` has
+more.
 
-`apps/web/README.md` has the detail, including two things worth knowing about
-Vercel's free plan before you commit to it.
+## Editor
 
-## Every Monday
+Open the folder in VS Code and accept the recommended extensions. Formatting and
+lint fixing on save are already configured. Use the repository's TypeScript
+rather than the bundled one when it asks.
 
-Check `CHANGELOG.md`. Anything that changed is listed there with a line saying
-which team it affects. If it does not say experience layer, skip it. Your fork
-never updates itself, so nothing changes underneath you.
+## What you get from the sponsor
 
-## How we work
+- A specification meeting every two weeks, and a reply to email within a
+  working day.
+- Pull request review, done personally.
+- Credit by name for anything merged upstream. Your fork is yours regardless.
 
-- **Small pull requests, opened as drafts early.** This is the main channel. I
-  would rather see the shape at twenty percent and say not that direction than
-  read eight hundred lines and ask you to start over. A deployed preview link
-  makes this much faster.
-- **Questions by email**, through your team's product owner. Expect a reply
-  within a working day rather than the same evening.
-- **Meetings are set by your instructor** rather than by me, so the cadence is
-  whatever the course needs. If something is blocked and you want a meeting
-  sooner, ask and we will find a time.
-- **A short note before each meeting**, template in
-  `docs/CHECK-IN-TEMPLATE.md`. The most useful part is what you *assumed*,
-  because that is how we find out a specification was unclear before you have
-  built two weeks on top of it.
-
-## What you get from me
-
-- Pull request review, personally
-- Anything merged upstream is credited to you by name. Your fork is yours
-  regardless, and what you write in it stays yours.
-
-## One thing worth saying plainly
-
-This is an open source project, which means it is never finished and you are not
-expected to finish it.
-
-Your layer has the most visible work in the project and the least settled. The
-patterns for rendering a contested, multi-source, still-arriving record do not
-really exist anywhere, which is the good news and also why several of the design
-questions have no answer in them. Open there means I do not have one.
-
-Build a small thing that works rather than a large thing that nearly does.
+This is an open source project, so it is never finished and you are not expected
+to finish it. Build a small thing that works rather than a large thing that
+nearly does.

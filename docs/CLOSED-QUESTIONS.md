@@ -60,7 +60,7 @@ a claim with a `parentClaimId`. So one of them creates a node and the other does
 not.
 
 Part of a dispute already works. The proposed value is corroborated, because
-`competingValues` counts distinct family lines per proposed value, so two people
+`competingValues` counts distinct contributors per proposed value, so two people
 independently saying 1914 register as two lines for 1914. Disputes carry
 content.
 
@@ -78,15 +78,62 @@ so the ten scoring rules keep reading the same number. What it makes possible
 later is a dispute with its own weight, which would be a new field in
 `ScoringInput` rather than a changed one.
 
-A dispute-claim carries a `recordId` like every other claim, so a dispute has
-provenance. Without it a dispute would be the only assertion in the system with
-none, and it is the assertion type most likely to be casual or hostile. It also
-keeps `claim.recordId` non-optional, which matters because an optional foreign
-key in the middle of the core object means every consumer branches on whether it
-is there, for as long as the field exists. The cost is that disputing means
+A dispute-claim has a source record like every other claim (the record its
+conversation started from, `claim.sourceRecordId`), and it can carry evidence
+records. So a dispute has provenance. Without it a dispute would be the only
+assertion in the system with none, and it is the assertion type most likely to
+be casual or hostile. The cost is that disputing means
 typing what you know rather than clicking, which fits with disputes already
 requiring reasoning.
 
 One thing is still open, which is whether `translationDispute` collapses into
 the same shape at the same time. It is the same idea applied to a different
 target, and it is already logged as a duplicate in Part 1.
+
+---
+
+## Extensions target a detail
+
+Decided on 27 September, not built. An extension points at a detail of the claim
+it adds to, the same way a dispute does, with a fallback to the whole claim for
+an extension that is about all of it ("my family ran it until the war"). The new
+information an extension brings lives in its own record, which is attached as
+evidence.
+
+Still open: whether an extension needs reasoning the way a dispute does, and
+exactly how the whole-claim fallback is expressed in the contract.
+
+## `reference` is not an edge type
+
+Decided and done on 27 September, in contract 2.0.0. `edgeType` is dispute and
+extension. The forms a claim takes are extension, dispute and resolution, and
+`reference` was never one of them. `referenceEdge`, the `reference_marked`
+event, and the fixture references are gone.
+
+What a reference was trying to do, letting a claim point at another place, is
+still a real need. How that works is open, under "What makes a place
+significant?" in `DESIGN-QUESTIONS.md`.
+
+## Lineage is dropped
+
+Decided and done on 27 September, in contract 2.0.0. `lineageId`,
+`independentLineageCount`, `lineageDiversity` and `claimsCorroboratedByOtherLines`
+are gone.
+
+The rule stays: corroboration counts independent records, not people. What went
+is the idea that a family is the unit of independence. The system records
+behaviour, not identity, so it has no way to know who anybody's family is.
+Nothing could ever fill the field outside the fixture data, so the fallback was
+the only value it ever took. And family is the wrong proxy anyway. Two cousins
+who heard one telling are one source, and two siblings who both saw the fire are
+two.
+
+In its place, the stand-in counts records: `independentRecordCount` is the number
+of distinct records other contributors have brought to back a claim. Agreement
+never counts. How independence should really be worked out from the graph (the
+same record cited twice, the same branch, descent from the same root claim) is
+the intelligence layer's design work.
+
+This also closes "Can vouching carry what lineage cannot?" and "Is family the
+right unit?". Whether vouching says anything about independence is still open.
+

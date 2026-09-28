@@ -27,9 +27,9 @@ and the section says why.
 Local, contained, and you don't need permission. Open a pull request with your
 reasoning and bring it to a check-in.
 
-## The three edge types are copy-pasted
+## The edge types are copy-pasted
 
-**Now:** `disputeEdge`, `extensionEdge`, and `referenceEdge` in
+**Now:** `disputeEdge` and `extensionEdge` in
 `packages/contracts/src/model.ts` each declare their own `id`,
 `contributorId`, and `createdAt`. So do `affirmation` and `passover`.
 
@@ -37,7 +37,7 @@ reasoning and bring it to a check-in.
 inheritance chain. Also because it was written to the
 requirements rather than to the pattern behind them.
 
-**The problem:** five places to change when the shared part changes, and nothing
+**The problem:** four places to change when the shared part changes, and nothing
 stops them drifting. It also hides something true, which is that every one of
 these is a person doing something to something at a time.
 
@@ -107,7 +107,7 @@ them before you build against `affirmation` or `disputeEdge`.
 ## What does an interface do with "sometime in the fifties, probably"?
 
 **Now:** what somebody said about time is kept in their words, as the `excerpt`
-on a date element. `1963-1964` sits next to "this would be 1963, 1964".
+on a date detail. `1963-1964` sits next to "this would be 1963, 1964".
 `before boarding house` sits next to "Before the boarding house". Nothing
 normalises those into a year, and there is no period field on a claim.
 
@@ -156,8 +156,8 @@ writes the interpretation, and does a family accept a stranger doing it?
 
 ## Should one claim hold more than one assertion?
 
-**Now:** a claim is a paragraph with typed `elements` inside it. Disagreement
-points at an element id.
+**Now:** a claim is a paragraph with typed `details` inside it. Disagreement
+points at a detail id.
 
 **An alternative:** "my grandfather ran sheep through Bruneau Canyon in 1943"
 becomes three claims: a person, a place, a date. Each one is a single
@@ -165,7 +165,7 @@ assertion.
 
 **What that buys:** a date claim compares directly against a date claim from
 another source, with no digging into a paragraph. Disputes point at a claim and
-the element-id indirection disappears. The three edge types become one shape.
+the detail-id indirection disappears. The three edge types become one shape.
 
 **What it costs:** more work at entry time. And `1943` on its own means nothing,
 so something has to group atomic claims back into a readable statement.
@@ -221,7 +221,7 @@ would be a shame.
 **Now:** `affirmation` covers both.
 
 **The problem:** these aren't the same. Someone reading a claim and agreeing
-carries almost no evidence. Two families independently having a record about the
+carries almost no evidence. Two people independently bringing a record about the
 same building is real corroboration and it should count for far more.
 
 **Worth knowing:** the fixture data currently has no example of the second kind.
@@ -230,7 +230,7 @@ the test data as much as in the model.
 
 ## A profile has no way to say whether anyone can prove it is theirs
 
-**Now:** `contributor` carries an id, a display name, a lineage, an institution,
+**Now:** `contributor` carries an id, a display name, an institution,
 a joined date, and the invented flag. Nothing says whether the person behind it
 can get back to it. This semester every profile is a guest id kept in browser
 storage.
@@ -244,7 +244,7 @@ contribution made this year is stranded.
 **The cheap part:** one field on `contributor` saying which kind it is. It is
 additive and needs no migration. It also lets a scorer treat a distinct verified
 person differently from an unrecoverable one, which is not reputation. It is the
-same kind of signal as counting corroboration by distinct family line. It asks
+same kind of signal as counting corroboration by independent record. It asks
 whether this is one person once, not whether the person is any good.
 
 **The expensive part:** linking. If guest G and
@@ -259,7 +259,7 @@ everything the archive already said on the strength of the old counts.
 
 ## Resolution is a missing edge
 
-**Now:** there are three edge types. Dispute, extension, reference. When a claim
+**Now:** there are two edge types, dispute and extension. When a claim
 settles an earlier disagreement it is filed as an extension, and nothing records
 that it was written to settle anything. The fixture has one at t3 and the only
 place it is called a reconciliation candidate is a comment.
@@ -269,27 +269,16 @@ somebody proposing that two conflicting readings were both true. Those are
 different acts and a reader should be able to see which one happened.
 
 **The cheap version:** an optional field on `extensionEdge` listing the disputes
-it claims to resolve. Do not add a fourth edge type. The contract has three,
-dispute and extension and reference, and Part 1 already asks whether those three
-should collapse into one. A fourth would make that worse.
+it claims to resolve. The contract has two edge types, and Part 1
+already asks whether they should collapse into one. Whether resolution becomes a
+third type or a field on an extension is open.
 
 A resolution, on this reading, is not a new kind of thing. It is a claim
 attached by an extension edge that names what it settles, which is the same
 node-and-edge shape everything else has.
 
-**A second reading, which is not the live one.** Take `reference` out of
-`edgeType` and put `resolution` in, so resolution becomes a third type rather
-than a fourth. That was raised on 15 September and set aside, and the argument
-for it did not survive the fields: `referenceEdge` has a `fromClaimId` and an
-optional `toClaimId`, so a reference does come from a claim and can point at
-one. What is actually unlike the other two is that its target is optional and
-may resolve to nothing, and that it marks a span of text rather than asserting
-anything. Whether that is enough to move it is open, and it is a good question
-for a diagram to argue. Until somebody does, the cheap version above is the
-live proposal.
-
 **What a system can do here is propose, not decide.** Disputes already target
-specific elements, so the set of open conflicts at a node is computable without
+specific details, so the set of open conflicts at a node is computable without
 reading anything. Showing somebody "these two readings disagree on the date and
 on the owner, do you want to write something that covers both" is the same
 pattern as proposing cross-language matches for a person to confirm.
@@ -304,66 +293,6 @@ A consensus threshold that flips a resolution into an accepted state is the
 endorsement mechanism this project removed. Passovers are not votes and the
 contract says so. A resolution is a claim. It carries weight like any other
 claim, it can be disputed like any other claim, and it locks nothing.
-
-## Should an extension target an element?
-
-A dispute names the part of a claim it disagrees with. An extension names
-nothing.
-
-```ts
-disputeEdge:   targetClaimId, targetElementId, reasoning, proposedValue?
-extensionEdge: parentClaimId, childClaimId
-```
-
-The comment on `targetElementId` in `packages/contracts/src/model.ts` says
-disagreement always lands on an element and never on a whole claim.
-
-Four things argue for it.
-
-The two edge types become one shape, which would also reduce the duplication
-noted in Part 1 under "The three edge types are copy-pasted".
-
-It would make it harder for a contribution to attach to a claim it is not
-about. Today anything can hang off anything, so a contribution about the
-shop next door attaches cleanly to a claim about this building. If an extension
-had to name the element it adds to, a contribution with no element it can name
-would be a signal that it belongs somewhere else, either as a new root claim or
-at a different site. Whether people would read that signal that way is untested.
-
-Elements would become what both support and disputes attach to. That is what
-would make it possible to count how many separate branches assert something
-about the same element.
-
-It may also answer most of "What groups claims together at a site?" in Part 3.
-Claims targeting the same element would group themselves, with no grouping
-stored anywhere.
-
-Here are three things that you can argue against.
-
-Some extensions add context to a whole claim rather than to one part of it. "My
-family ran it until the war" is about the claim. That needs either a whole-claim
-target as a fallback or a rule that picks the nearest element. Neither has been
-argued out.
-
-It adds a step when somebody contributes, because they have to choose what they
-are adding to. The content layer, which builds the contributing interface, is
-already building that selection for disputes, so this may cost them little. It
-still adds a decision for the contributor.
-
-`extensionEdge` also has no `reasoning`, which `disputeEdge` requires. That
-absence may be correct, because an extension's child claim carries the content
-while a dispute's reasoning is separate from the claim it disputes. This should
-be decided rather than inherited.
-
-**Three unofficial questions.** Does an extension's
-own `recordId` mean it carries a source the parent claim does not? `recordId`
-holds one value, so what should happen when somebody extends using both a
-document and a memory? And should an edge that brought a record be
-distinguishable from one that brought only spoken testimony, for disputes as
-much as for extensions?
-
-This is a contract change, and the intelligence layer is drawing its model of
-the whole system now. It belongs in that diagram rather than ahead of it.
 
 # Part 3 — Open by design
 
@@ -453,7 +382,7 @@ the current model distinguishes "this is doubtful" from "nobody who could speak
 to this has seen it".
 
 This matters more here than in most systems. The records most likely to sit
-untouched are the ones not in English, from rural places, from small families,
+untouched are the ones not in English, from rural places, from small communities,
 from people who aren't online. If the interface makes silence look like doubt,
 it quietly discounts exactly the material the archive exists for.
 
@@ -483,13 +412,13 @@ confirm rather than asserting them.
 
 ## Disagreement about meaning has nothing to target
 
-The model assumes disagreement is about elements: a date, a name, a place. You
-dispute an element, propose a value, and support accumulates on each reading.
+The model assumes disagreement is about details: a date, a name, a place. You
+dispute a detail, propose a value, and support accumulates on each reading.
 That machinery works.
 
-Two people can agree on every element of a claim and still disagree, because one
+Two people can agree on every detail of a claim and still disagree, because one
 of them thinks what happened was a betrayal and the other thinks it was the only
-option anybody had. No element carries that, so there is nothing to target and
+option anybody had. No detail carries that, so there is nothing to target and
 nothing to propose instead.
 
 A mechanism for contesting meaning would be a mechanism for adjudicating
@@ -505,7 +434,7 @@ none of them is chosen:
 - The disagreement becomes its own claim, attributable like anything else, which
   makes it visible without making it resolvable.
 
-An archive built entirely around element-level dispute may read, to somebody
+An archive built entirely around detail-level dispute may read, to somebody
 inside one of these branches, as having decided their disagreement does not
 exist.
 
@@ -521,7 +450,7 @@ agreeing loudly and calling the noise corroboration.
 
 You can tell these apart structurally, without reading anything. Do disputes
 land on different parts of the claim or pile onto one? Does a dispute produce
-new records, or only more disputes? How many distinct families are involved?
+new records, or only more disputes? How many distinct contributors are involved?
 Does anyone reply?
 
 What you'd *do* with that is the open part. Letting it change how much a claim
@@ -562,35 +491,33 @@ grandmother told you is itself a text record. That would make every conversation
 record-rooted, and that is a constraint worth choosing on purpose.
 
 Another option is that grouping is computed rather than stored, so it is a
-clustering problem over claim text and elements and it changes as the archive
-grows. Part 2 asks whether an extension should target an element. If it did,
-claims targeting the same element would already be grouped.
+clustering problem over claim text and details and it changes as the archive
+grows. Extensions now target a detail (see `docs/CLOSED-QUESTIONS.md`), so
+claims targeting the same detail can already be grouped.
 
-A third question applies to both options, which is whether a record carries a
-score of its own, derived from what the conversations on it turned out to be
-worth. This would not be a measure of the artifact's quality. It may be a real
-quantity, and it may not be a coherent thing to measure at all.
+Whether a record carries a score of its own is decided: its score is a citation
+count, how many claims rely on it, and it never feeds back into claim weight.
 
-This is the intelligence layer's first assignment and their entity relationship
-diagram is the first attempt at an answer.
+Working out which claims belong together is a graph question and belongs to the
+intelligence layer. How a grouping is laid out on a page belongs to the
+experience layer.
 
 ## Is the reason a claim scores what it does shown to the person who wrote it?
 
 A contributor can see a weight. Whether they can see why is open.
 
 Showing the reasoning is the honest option and it is what an archive built on
-attribution ought to do. Somebody whose account sits low deserves to know it is
-because no independent family line has backed it yet, rather than being left to
+attribution ought to do. Somebody whose claim sits low deserves to know it is
+because nobody has brought an independent record for it yet, rather than being left to
 guess that the system disliked them.
 
 The objection is that a visible rationale is a specification for gaming it. If
-the interface says a claim needs corroboration from another family line, that is
+the interface says a claim needs an independent record, that is
 also an instruction for how to manufacture one.
 
 Whether that objection survives contact with this particular archive is not
-obvious. Manufacturing a second family is harder than manufacturing a second
-account, and the lineage count is the one signal enthusiasm cannot produce on
-its own. It may be that the gaming risk is small enough here to pay for the
+obvious. Bringing a second real record is harder than creating a second
+profile. It may be that the gaming risk is small enough here to pay for the
 honesty.
 
 ## Can trust be inherited?
@@ -600,16 +527,12 @@ builds standing without contributing, and not many people contribute into a
 system that treats them as nobody.
 
 One way out is vouching. An existing contributor vouches for a newcomer, who
-inherits some fraction of their standing. LinkedIn works roughly like this and
-never quantifies it. Bounded trust propagation over a social graph has a long
-literature behind it, most of it concerned with capping how much damage one bad
-actor can do.
+inherits some fraction of their standing.
 
 The objection is less about bots than it looks. A bounded metric handles fake
 profiles reasonably well. It does nothing about a large real family whose real
 members really do vouch for each other, which is the failure this project
-actually cares about, arriving through a different door than the one
-`independentLineageCount` is watching.
+actually cares about.
 
 Staking makes it worse before it makes it better. If vouching couples two
 people's standing, then in a community with existing divisions vouching becomes
@@ -621,101 +544,6 @@ author, only facts derived from who contributed. Inherited trust is a property
 of a person rather than a derived fact, so it cannot be used without breaking
 that. That may still be the right
 trade. It hasn't been argued.
-
-## `independentLineageCount` defaults to the answer it exists to prevent
-
-Independence is the load-bearing idea in the whole model. It is what separates
-five cousins agreeing from two families agreeing, and it is what `ScoringInput`
-gets instead of an author. Everything rests on it.
-
-**Now:** it is counted from `lineageId`, a hand-authored optional string on a
-contributor. Six fixture contributors have one, assigned by hand so that `t1`
-can demonstrate a cousin affirming a cousin. Nothing derives the field and, with
-no logins, there is nothing to derive it from.
-
-**What happens when the field is absent.** `reduce.ts` falls back to
-`solo:<contributorId>` when the field is absent. So an unpopulated archive does
-not lose the count. It gets a count where every contributor is their own family
-line, which means `independentLineageCount` becomes a headcount of distinct
-affirmers.
-
-That is the failure the field exists to prevent, stated in `model.ts`: without
-it, a large family can make a shaky claim look well-supported just by showing
-up. The default resolves in the permissive direction, silently, and the
-experience layer renders the result to a person as "Backed by 3 other families".
-
-The comment above the fallback calls it "the guard against three cousins reading
-as three independent sources". It is the guard's off switch. The guard only
-operates on hand-authored data.
-
-**Why fixtures and production need different answers.** The fallback is right
-for fixtures, where the alternative is pretending eight invented people are one
-family. It is wrong for production, where the alternative is admitting the
-system does not know. One line of code is doing both jobs, which is why it gets
-one of them wrong.
-
-**Candidate: write `solo:` when the fixture is authored.** Make the fallback
-explicit. A fixture contributor with no family gets `solo:` written in by hand,
-and the reducer treats a missing lineage as unknown. The fixtures still
-demonstrate everything they demonstrate today, and production fails closed. That
-exposes the question underneath, which is what a claim is worth when
-independence is unknown rather than absent. There is no value for "unknown" to
-say it with.
-
-**Not decided.** Vouching, in the next entry, is the other candidate. It is the
-only one that could give the field a source instead of an honest default. Until
-something answers this, anything reading `independentLineageCount` outside the
-fixtures is reading a number with no source, and anything displaying it is
-making a claim about people that nobody made.
-
-## Can vouching carry what lineage cannot?
-
-`lineageId` is hand-authored and nothing derives it, which is why six scoring
-rules that depended on it were removed. Nothing in the model lets one
-contributor stand behind another either, so somebody the whole community knows
-looks exactly like a stranger until they have posted enough.
-
-One mechanism might cover both. If a contributor can vouch for another, and a
-vouch carries a reason, then one of those reasons is that the two are related.
-Lineage stops being a field somebody typed and becomes something a person said,
-with a name and a date on it, which can be disagreed with like anything else.
-
-What is unresolved: a vouch is as gameable as the field it replaces, and two
-profiles vouching for each other as family is self-declared lineage with extra
-steps. What it adds is attribution. A hand-authored `lineageId` has no author.
-A vouch does, and that makes it contestable.
-
-It also runs straight into the linking problem in Part 2, because a vouch
-between two profiles that turn out to be one person is worth nothing, and the
-archive will already have counted it.
-
-## How does a reference become an edge?
-
-"What makes a place significant?", further down this section, assumes a graph
-of claims pointing at places. Nothing creates that graph.
-
-Someone writing about a boarding house mentions the Basque Museum. To a reader
-that is a reference. To the database it is four words in a text field. Nothing
-links them, and the significance question cannot be asked until something does.
-
-Doing it with a language model means guessing, and guessing wrong permanently.
-Asking authors to link as they write means most references go unlinked, because
-someone writing about their grandmother is not thinking about the graph.
-
-Another option is to let a person mark a span of text as a reference and, if the
-place isn't in the archive yet, let the mark stand unresolved. It costs the
-author one gesture and no lookup. The reference exists as data immediately and
-gets pointed at a real place later by whoever reads it next. Ambiguity becomes
-something to hand to a reader rather than something to solve.
-
-The side effect is worth more than the feature. Resolving "Angie's" to the
-Basque Museum records what the community actually calls the place. That cannot
-be derived from documents, because it was never written in one. A person
-confirming it is the only source there is.
-
-Open: whether people mark anything at all, and whether an unresolved mark is
-data or a to-do item nobody clears. Claims written before marking existed are
-a separate problem with no obvious answer.
 
 ## Does a late dispute count for less?
 
@@ -768,7 +596,7 @@ the transcript queue and the moderation queue are the same want, three times,
 under three names.
 
 There is one constraint. Some acts close and some do not. `flag` has a status.
-`referenceEdge` has a resolved boolean. `disputeEdge` has neither, on purpose,
+`disputeEdge` has none, on purpose,
 though the shape of a dispute is itself changing: see "A dispute should be a
 claim" in Part 2. A dispute is a task that completes the moment it is filed and
 never gets resolved,
@@ -787,10 +615,10 @@ without anyone declaring it. One idea: a place referenced often in claims about
 *other* places has earned significance from how the community talks, not from
 anyone's opinion.
 
-That's roughly PageRank over a reference graph, which is well-trodden. What might
-not be is what the edges mean here. They are typed relationships, independence is
-measured by family line rather than by count, and references are created by
-people marking text rather than by authors linking.
+What the edges mean here is specific to this project. They are typed
+relationships, and independence is counted by source rather than by headcount.
+How a claim points at a different place at all is open: the `reference` edge
+that used to do it was removed (see `docs/CLOSED-QUESTIONS.md`).
 
 ## Maria the subject and Maria the profile
 
@@ -821,7 +649,7 @@ and an identity claim is how that pressure arrives. That is the same problem as
 Verifying an identity claim has a neat answer with a bad consequence. Neat: "I
 am Maria" is itself a claim, so it corroborates and disputes like any other and
 needs no new machinery. Bad: the people who can confirm it are her own family,
-which is one lineage. Identity is the case where the independence rule is least
+who may all be repeating one telling. Identity is the case where the independence rule is least
 able to help and the case where being wrong costs the most.
 
 ---
@@ -872,16 +700,6 @@ ordering assumes a reader who does not speak the original.
 
 The reverse is a coherent design and it was never considered. Neither was
 whether a community would want its record legible to outsiders at all.
-
-## Is family the right unit?
-
-Lineage independence is the load-bearing idea in this whole model. Corroboration
-counts by family line, so three cousins are one source.
-
-That assumes kinship organised into family lines, which is one model among many.
-Where the meaningful unit is a clan, a house, a congregation, a village, or
-something with no equivalent in the word "family", the arithmetic is measuring
-the wrong thing while looking like it works.
 
 ## Should all of it be public?
 

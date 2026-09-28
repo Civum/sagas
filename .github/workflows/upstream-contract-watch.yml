@@ -14,7 +14,10 @@
 # ENABLING IT (one time, after you fork)
 #
 # GitHub disables Actions on new forks. Go to the Actions tab, click
-# "I understand my workflows, go ahead and enable them". That's it.
+# "I understand my workflows, go ahead and enable them". Scheduled workflows
+# on a fork also start disabled, so then pick "Upstream contract watch" in the
+# left sidebar and click "Enable workflow". This opens issues, so Issues must be
+# turned on for the fork as well (Settings, Features).
 #
 # If your team would rather run it by hand, use the "Run workflow" button — the
 # workflow_dispatch trigger below allows that.

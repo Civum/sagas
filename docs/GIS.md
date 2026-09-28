@@ -21,12 +21,13 @@ GeoJSON, PostGIS, and Mapbox all want longitude first. So does the contract:
 
 ```ts
 coordinates: [-116.20331, 43.61533]   // Boise
-coordinates: [43.61533, -116.20331]   // the Indian Ocean, off Somalia
+coordinates: [43.61533, -116.20331]   // swapped: -116 is not a real latitude
 ```
 
-Both of those are valid. Neither throws. The second one puts your site in the
-sea and the only symptom is a map that looks empty, which reads as a broken
-query rather than a swapped pair.
+The swapped pair is not a real place. Mapbox rejects it with an error about an
+invalid latitude when it reaches the map, but the database may store it without
+complaint, so the error shows up far from where the mistake was made. Near the
+equator a swap can even produce a valid point somewhere else entirely.
 
 If a marker is missing, check the order first. It is the answer more often than
 anything else.

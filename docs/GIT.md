@@ -140,8 +140,12 @@ git remote -v          # origin = your fork, upstream = ours
 `origin` is yours and you push to it. `upstream` is ours and you only ever fetch
 from it.
 
-**Turn on Actions.** GitHub disables workflows on new forks. Open the Actions tab
-in your fork and click through the confirmation. Without this, the Monday
+**Turn on Actions, then the watch.** GitHub disables workflows on new forks.
+Open the Actions tab in your fork and click through the confirmation. Then, since
+GitHub's documentation says scheduled workflows on a fork are disabled by
+default, pick **Upstream contract watch** in the left sidebar and click **Enable
+workflow**. The watch reports by opening an issue, so Issues have to be on for
+the fork too (**Settings**, under **Features**). Without all three, the Monday
 contract watch never runs and you will not hear when the contract moves.
 
 **Give the sponsor access.** If you forked a public repository, this is already

@@ -61,8 +61,8 @@ and submit. Their record exists the moment they hand it over, pinned to the plac
 attributed to them, and visible on the map, with no English anywhere.
 
 This is worth being precise about, because it is easy to build the version that
-blocks. A record has no language requirement. A *claim* does, and claims are
-another team's concern. So the interface never tells somebody their contribution
+blocks. A record has no language requirement. A *claim* does, and that never
+holds up the record. So the interface never tells somebody their contribution
 is incomplete because it is not in English. It is complete. Something further
 downstream is waiting, and that is not their problem to solve.
 

@@ -40,8 +40,8 @@ with somebody in the community is a laptop with a phone on the same wifi.
 **Translation: the record is never blocked.** Somebody contributing in a
 language other than English finishes, submits, and their record exists, pinned
 and attributed and on the map.
-`sourceRecord` has no language requirement; only `claim` does, and claims are
-another team's problem. Machine translation proposes a draft, a person confirms
+`sourceRecord` has no language requirement; only `claim` does, and that
+requirement never blocks the record. Machine translation proposes a draft, a person confirms
 or replaces it, and `transcriptMethod` already has `machine_corrected` for
 exactly that. Which model to use is a real decision with a licence attached:
 NLLB-200 covers the most languages and is non-commercial, so it cannot ship;

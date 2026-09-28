@@ -43,10 +43,15 @@ Genuinely ignore. It belongs to other teams and nothing you build depends on it.
 - `apps/web`, `apps/ui-api`, `packages/read-model`, the reading experience
 - `apps/graph-api`, the scoring and claim-graph work
 - `packages/fixtures/behaviour/`, scoring rules for a different team
-- Anything about claims, disputes, corroboration, weights, or trust scores
+- Anything about corroboration, weights, or trust scores
 
 If a document starts talking about claim graphs, you're in the wrong section.
-Records and media are yours. Claims are not.
+
+Records and media are yours, and so is claim intake: the screens and endpoints
+where somebody writes a claim, a dispute or an extension about a record. What
+happens to a claim after that is shared. The intelligence layer models and
+scores claims, and the experience layer renders them and composes them into a
+page.
 
 ## What to install first
 
@@ -125,6 +130,37 @@ Civum/sagas              ours
 Work on branches, open pull requests into your fork's main, review each other.
 Pull requests to upstream are for contributing something back, not for daily
 work. `docs/GIT.md` has the rest, including what to do when a merge goes wrong.
+
+## Turn on the upstream watch
+
+When the shared design changes, a workflow in your fork opens an issue saying
+so, with the changelog in it. Nothing in your fork changes by itself. You decide
+whether to pull the change, at a check-in.
+
+It does not run until you switch it on, in two steps, once:
+
+1. **Enable Actions on the fork.** GitHub turns them off on a new fork. Open the
+   **Actions** tab and confirm you want workflows to run.
+2. **Enable the scheduled workflow.** GitHub's documentation says scheduled
+   workflows on a fork are disabled by default. In the Actions tab, pick
+   **Upstream contract watch** in the left sidebar and click **Enable workflow**.
+
+After that it runs every Monday morning. You can also run it by hand with the
+**Run workflow** button. The details are in `docs/GIT.md`, under "Finding out
+that upstream moved".
+
+## Why one repository holds three teams
+
+This is a monorepo: several apps and packages in one repository.
+
+Some of what you build is specific to your layer and stays in your fork. Some of
+it is shared with the other two layers: the contract that says what a claim or a
+record looks like (`packages/contracts`), and the fixture data everyone builds
+against (`packages/fixtures`). Keeping both in one place means that when the
+shared design moves, every team gets the same update through the watch above.
+When your own design moves, that stays with you.
+
+`docs/HOW-THE-LAYERS-FIT.md` follows one photograph through all three layers.
 
 ## Get it running
 

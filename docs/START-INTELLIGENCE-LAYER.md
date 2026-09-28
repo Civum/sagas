@@ -96,6 +96,37 @@ git remote add upstream https://github.com/Civum/sagas.git
 Work on branches, open pull requests into your fork's main, review each other.
 `docs/GIT.md` has the rest.
 
+## Turn on the upstream watch
+
+When the shared design changes, a workflow in your fork opens an issue saying
+so, with the changelog in it. Nothing in your fork changes by itself. You decide
+whether to pull the change, at a check-in.
+
+It does not run until you switch it on, in two steps, once:
+
+1. **Enable Actions on the fork.** GitHub turns them off on a new fork. Open the
+   **Actions** tab and confirm you want workflows to run.
+2. **Enable the scheduled workflow.** GitHub's documentation says scheduled
+   workflows on a fork are disabled by default. In the Actions tab, pick
+   **Upstream contract watch** in the left sidebar and click **Enable workflow**.
+
+After that it runs every Monday morning. You can also run it by hand with the
+**Run workflow** button. The details are in `docs/GIT.md`, under "Finding out
+that upstream moved".
+
+## Why one repository holds three teams
+
+This is a monorepo: several apps and packages in one repository.
+
+Some of what you build is specific to your layer and stays in your fork. Some of
+it is shared with the other two layers: the contract that says what a claim or a
+record looks like (`packages/contracts`), and the fixture data everyone builds
+against (`packages/fixtures`). Keeping both in one place means that when the
+shared design moves, every team gets the same update through the watch above.
+When your own design moves, that stays with you.
+
+`docs/HOW-THE-LAYERS-FIT.md` follows one photograph through all three layers.
+
 ## Get it running
 
 ```bash
@@ -155,12 +186,8 @@ TypeScript rather than the bundled one when it prompts.
    part, because your first task is a diagram of the whole thing. The media and
    processing fields on a record belong to another team and you can skim those.
 
-   One thing to have an opinion about. `edgeType` has three values and the third
-   is `reference`. Its fields are the claim it comes from, an optional site or
-   claim it points at, the words that pointed, and a `resolved` boolean. What it
-   is for is not written down beside it, and Part 3 of `docs/DESIGN-QUESTIONS.md`
-   still asks how a reference becomes an edge at all. Whether it belongs in that
-   enum is a good thing for your diagram to argue about.
+   `edgeType` has two values, dispute and extension. A third, `reference`, was
+   removed in contract 2.0.0. `docs/CLOSED-QUESTIONS.md` says why.
 3. `packages/fixtures/src/reduce.ts`, which calculates a snapshot in memory with
    no database at all. It recomputes everything from scratch every time, which
    is fine for 64 contributions and useless at any real size. That gap is your
@@ -176,8 +203,8 @@ model, and bring your own entity relationship diagram and the reasoning behind
 it to the check-in on the 22nd. The week after that, write a scorer that
 satisfies the seven required rules. No database work yet.
 
-**October, the schema.** Design the tables for claims, edges, contributors and
-lineage, write the migrations, and move the graph out of memory and into
+**October, the schema.** Design the tables for claims, details, edges and
+contributors, write the migrations, and move the graph out of memory and into
 Postgres. Spatial indexing lives here too.
 
 **November onward, propagation.** How weight actually moves through the graph,
@@ -199,53 +226,44 @@ it.
 This repository is a foundation with gaps in it. Some of what is here is wrong
 and some things are missing entirely. Finding them is the assignment.
 
-Three gaps I know about.
+Three gaps I know about. Some of them have moved since this guide was first
+written, and where something has been decided it says so.
 
-Claims attach directly to a site, so every claim at a place sits in one pool. A
-site accumulates unrelated topics though, and nothing separates them. One option
-is that a record introduces a conversation and claims live inside conversations.
-Another is that clustering is something you compute rather than something you
-store.
+**Records and claims.** Your layer reads claims, not records. A record plays one
+of two parts. As a *source record* it is where a conversation starts, and every
+claim in that conversation has it as `claim.sourceRecordId`. As an *evidence
+record* it is attached to a claim to back it up, through
+`claim.evidenceRecordIds`, which is optional. The same record can do both in
+different conversations. Whether "conversation" becomes a named object in the
+contract is open, and your diagram is a good place to propose one.
 
-And whether a record carries a score of its own. Not the quality of the
-artifact, but something derived from what the conversations on it turned out to
-be worth. I do not know whether that is a real thing or a category error.
+**Whether a record carries a score.** Decided: a record's score is a citation
+count, how many claims lean on it. It is kept separate from claim weight, because
+if a record's score fed back into the claims that cite it, the loop would reward
+itself. You do not rank records beyond that.
 
-And independence, which is the one I would most like the diagram to have an
-opinion about. `independentLineageCount` is what separates five cousins agreeing
-from two families agreeing. It is what `ScoringInput` gets instead of an author,
-and your scorer will lean on it harder than on anything else in there.
+**Independence**, which is the one I would most like the diagram to have an
+opinion about. Corroboration counts independent records, not people. The model
+used to count "family lines" from a hand-typed `lineageId`, and that is gone
+(`docs/CLOSED-QUESTIONS.md`, "Lineage is dropped"). In its place is a stand-in,
+`independentRecordCount`: the number of distinct records other contributors have
+brought to back a claim. Agreement never counts.
 
-It is counted from `lineageId`, a hand-authored optional string on a
-contributor. Nothing derives it and, with no logins, there is nothing to derive
-it from. You already knew that much, because `scoring-contract.ts` says so and
-six rules were removed over it. What is not written down anywhere is what
-`reduce.ts` does when the field is missing. It falls back to
-`solo:<contributorId>`, so a contributor with no lineage becomes their own
-family line. An archive where nobody has one does not lose the count. It gets a
-count in which everybody is independent of everybody, which is the exact thing
-the field exists to prevent.
+The stand-in cannot tell when two records share a source. Two cousins who heard
+one telling and each wrote it down look like two sources. Working out
+independence from the graph (the same record cited twice, the same branch,
+descent from the same root claim) is yours.
 
-The model has no way to say that independence is unknown. It can say two people
-are the same line or different lines, and there is no third value. Nothing is
-broken here. Something is missing, and proposing it is the kind of thing a
-diagram can do.
-
-Here is one candidate, so you have something to argue with. Make the fallback
-explicit: a fixture contributor with no family gets `solo:` written in when the
-fixture is authored, and the reducer treats a missing lineage as unknown. The
-fixtures still demonstrate everything they demonstrate today, and production
-fails closed. That exposes the real question, which is what a claim is worth
-when independence is unknown rather than absent. That part is yours.
-
-`docs/DESIGN-QUESTIONS.md` has this as "`independentLineageCount` defaults to
-the answer it exists to prevent", with "Can vouching carry what lineage cannot?"
-directly after it.
+The edges are the strong signals. An extension pushes a claim up, a dispute
+pushes it down, and a resolution would lift both branches it reconciles, so a
+claim's weight moves in both directions over time. Passovers (`sounds_right`,
+`dont_know`, `dont_care`) are soft signals, and they matter most for routing:
+what gets suggested to whom.
 
 There are more gaps than those three. Bring the diagram and the reasoning. Where
 you diverge from what is in the repository, say why.
 
-**Due at the check-in on 22 September.**
+**Bring the revised diagram to your next check-in.**
 
 ## After that, the scorer
 
@@ -281,8 +299,8 @@ bad on purpose and it still passes, which tells you something about what the
 rules do and do not pin down.
 
 Then make the failures go away. The rules tell you what is wrong and
-they are specific: one of them will tell you that you are counting heads instead
-of family lines, another that you are treating disagreement as damage.
+they are specific: one of them will tell you that you are treating disagreement
+as damage, another that you are burying a claim nobody has translated yet.
 
 Do not aim for a good scorer. Aim for one that satisfies the seven, then read
 your own implementation and work out why it is not good enough. That gap is the
@@ -307,9 +325,8 @@ does not exist yet.
 ## Why the author is missing from `ScoringInput`
 
 `ScoringInput` is never given an author. No name, no identifier, no standing, no
-institution. What it gets instead are facts derived from who contributed:
-whether three affirmations came from three independent family lines or from one
-family. So the system knows who is speaking. The scorer does not, and cannot use
+institution. What it gets instead are facts about what was contributed, such as
+how many independent records back a claim. So the system knows who is speaking. The scorer does not, and cannot use
 it as a credential.
 
 Weight comes from what somebody has done, not from who they are. That is

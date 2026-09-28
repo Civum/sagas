@@ -48,8 +48,8 @@ disagreement and still produces something readable?**
 
 A wiki answers that with a talk page, which is where the argument goes to be
 ignored. What we want is prose that carries the disagreement in the body of the
-text: "three independent family lines say 1914 and one says 1922, and here is
-who each of them is."
+text: "three people with independent records say 1914 and one says 1922, and
+here is who each of them is."
 
 Nobody has built this well, which is most of why it makes a decent capstone.
 
@@ -77,8 +77,8 @@ Records are broken into individual **claims**: assertions that can be compared
 across sources. Claims are nodes in a directed graph. Two kinds of response
 change the shape of that graph:
 
-- **Dispute.** "I disagree with this specific element, because." Disputes
-  target an *element* of a claim (a date, a place, a person), not the whole
+- **Dispute.** "I disagree with this specific detail, because." Disputes
+  target a *detail* of a claim (a date, a place, a person), not the whole
   claim, so a record can say "three disputes target the date; the location is
   undisputed." Disputes without reasoning are rejected.
 - **Extension.** "I have more context." A new claim that adds to another
@@ -90,9 +90,11 @@ cannot judge it, or that it is not what they came for. Agreeing is one of those
 three. It adds a little weight. The other two route attention and add none of
 it, and none of the three is a vote.
 
-Weight accrues from corroboration, and corroboration is counted by **independent
-family line** rather than by headcount. Three cousins are one source. That count
-is what decides whether a claim looks well supported.
+Weight moves with the edges. An extension pushes a claim up, a dispute pushes it
+down, and a resolution would lift both branches it reconciles, so a claim's
+standing moves in both directions over time. Corroboration is counted by
+**independent record**, never by headcount: agreeing is not bringing a source.
+Passovers are soft signals that mostly decide what gets suggested to whom.
 
 There is no "community accepted" status and no endorsement threshold. The
 highest-weight claim at a node renders as the primary reading; competing claims
@@ -107,9 +109,9 @@ correct one.
 
 | Layer | Scope |
 |---|---|
-| **Experience** | Living article renderer, design system, map, heritage trails, contributor milestones and dashboard |
-| **Intelligence** | Claim graph model, weight propagation, trust framework, synthesis engine, exploration |
-| **Content capture** | Media pipeline, record submission, translation workflow, moderation, and the contributing interface |
+| **Experience** | Claim rendering and composition: narrative page, component library, map, suggestion interface, references. Heritage trails later. Milestones and score dashboards are cut this semester |
+| **Intelligence** | Claim graph model and intelligence on claims: weight propagation, trust framework, synthesis engine, exploration |
+| **Content capture** | Media pipeline, record submission, claim intake, translation workflow, moderation, and the contributing interface |
 | **Contracts & fixtures** | `packages/contracts`, `packages/fixtures`, maintained by the sponsor |
 
 Each layer has its own app or apps, so no two teams edit the same files:
