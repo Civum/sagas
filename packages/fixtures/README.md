@@ -58,9 +58,9 @@ Don't write a state file by hand.
 | | integrity | claims | records | contributors | disputes | untranslated |
 |---|---|---|---|---|---|---|
 | **t0** sparse, single source | 23 | 3 | 2 | 1 | 0 | 0 |
-| **t1** family corroboration arrives | 48 | 6 | 5 | 4 | 0 | 1 |
-| **t2** documentary source contests a date | 65 | 7 | 6 | 7 | 4 | 0 |
-| **t3** competing renderings, reconciliation candidate | 90 | 10 | 9 | 8 | 5 | 0 |
+| **t1** agreement, then a second source | 64 | 6 | 5 | 4 | 0 | 1 |
+| **t2** documentary source contests a date | 74 | 7 | 6 | 7 | 4 | 0 |
+| **t3** competing renderings, reconciliation candidate | 96 | 10 | 9 | 8 | 5 | 0 |
 
 Counts come from the generated states. If you change the log, regenerate and
 update this table, because a stale table here is worse than no table.
@@ -69,11 +69,12 @@ Each state deliberately exercises something:
 
 - **t0** — everything single-source and low weight. A sparse site must look
   sparse on the map, not empty.
-- **t1** — an affirmation arrives from the author's own cousin. Volume rises,
-  independence does not. `cl-boarding` stays `single_source` with one
-  affirmation on it. Also: a claim submitted in Euskara, kept and readable
+- **t1** — the author's cousin affirms `cl-boarding` and then extends it with a
+  record of her own. The affirmation adds no source. The record does, so the
+  claim reads `corroborated`, even though the two cousins may have heard one
+  telling: the stand-in cannot see that, and it is the open "cousin case". Also: a claim submitted in Euskara, kept and readable
   on the map, sitting outside the claim graph with weight 0.
-- **t2** — an institutional source contests *one element* of an otherwise
+- **t2** — an institutional source contests *one detail* of an otherwise
   well-supported claim. The date is disputed; the location and the person are
   not. A rendering of the Euskara claim arrives and it enters the graph. The
   original is untouched.
@@ -117,14 +118,13 @@ common case and the easy design gets it wrong.
 
 ### Agreement is not corroboration
 
-Someone reading a claim and agreeing carries almost no evidence. Two families
-independently holding a record about the same building is real corroboration and
-it counts for far more.
+Someone reading a claim and agreeing carries almost no evidence. Two people
+independently bringing a record about the same building is real corroboration
+and it counts for far more.
 
-The model counts by family line, not by headcount, because three cousins are one
-source. So an affirmation count on its own must never be presented as support.
-Five people agreeing, all from the author's family, is one source with five
-people in it.
+The model counts independent records, not heads. Agreeing is not bringing a
+source, so an affirmation count on its own must never be presented as support.
+Five people saying "sounds right" is one source with five reactions to it.
 
 ### Disagreement lands on a part, not the whole
 
@@ -138,8 +138,9 @@ look discredited when one detail is in question.
 ### Nothing gets adjudicated
 
 When two readings compete, show both with their support. No winner, nothing
-hidden behind an interaction, and never as a vote tally. The count is distinct
-families, not people, and labelling it wrong turns evidence into a poll.
+hidden behind an interaction, and never as a vote tally. Lead with each
+reading's reasoning, not with how many people gave it, or evidence turns into a
+poll.
 
 ### A claim nobody has translated yet is not worth less
 
@@ -205,8 +206,8 @@ exercises one, every team is free to get it wrong until integration, so closing
 any of them is a useful pull request.
 
 - A place with only untranslated claims, so nothing is in the graph at all
-- A claim contested by a dozen people across many families
-- A claim with no elements that is not awaiting translation
+- A claim contested by a dozen people
+- A claim with no details that is not awaiting translation
 - A claim long enough to break a reading layout
 - A place with exactly one claim and no contributors beyond its author
 - Two places close enough together to collide as map markers
@@ -241,11 +242,11 @@ now leads the article. How the integrity score shifted. Whether the claim
 nobody has translated just got buried.
 
 That is a regression test and a picture at the same time, and it is the only way
-to reason about questions like "does this quietly discount small families". You
+to reason about questions like "does this quietly discount small communities". You
 cannot see that in a unit test, because the unit test only knows the number it
 was told to expect.
 
-CI checks the committed states match what the log produces, so a change you
+The automated checks confirm the committed states match what the log produces, so a change you
 forgot to regenerate fails the build rather than drifting.
 
 ### Asking why one claim scores what it does
@@ -261,7 +262,7 @@ weight disagrees with the stored one, which means the states need regenerating.
 
 The point is the inputs. A weight on its own tells you nothing about whether
 your scoring is defensible. `cl-boarding` at t3 scoring 1.50 means nothing until
-you see that it has one affirmation, zero independent family lines, and three
+you see what went into it: its affirmations, its independent records, and three
 disputes on its date.
 
 ## Boundaries
@@ -275,9 +276,11 @@ that exists so claims have an ordering to render. Designing the real one is
 the intelligence layer's first-semester deliverable. Do not treat it as a baseline, a specification,
 or an opinion. It will be deleted.
 
-The one property in it worth preserving is a constraint on the problem rather
-than a solution to it: affirmations count by distinct family line, not by
-headcount. Three cousins do not outweigh three unrelated households.
+The properties in it worth preserving are constraints on the problem rather
+than solutions to it. Edges are the strong signals: an extension pushes a claim
+up and a dispute pushes it down. Passovers, agreement included, are soft signals
+that matter most for what gets suggested. And agreement never counts as an
+independent record.
 
 **Emphasis is by weight ordering.** The highest-weight claim at a node is the
 primary reading; competing claims stay visible inline. There is no "community
@@ -298,11 +301,11 @@ These are live. If you have an opinion, bring it to a sync.
 - Whether coexisting attributed renderings is the right model for translation
   at all, or whether it encodes an engineer's assumption about how translation
   works. There is a question out to a translation scholar.
-- Whether `disputeTarget` should stay as typed elements or become character
-  spans into the claim text. Typed elements were chosen because they are
+- Whether `disputeTarget` should stay as typed details or become character
+  spans into the claim text. Typed details were chosen because they are
   authorable by hand and give a renderer what it needs without offset math.
   Spans remain reachable.
 - Parallel language trees with cross-tree references. A future cohort's
   research question. The schema is built not to foreclose it: `language` on
-  claims, `sourceLanguageText` as a first-class field, a `reference` edge type
-  that can cross a language boundary. Nothing more than that.
+  claims and `sourceLanguageText` as a first-class field. How a claim in one
+  language tree would point at one in another is open.

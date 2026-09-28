@@ -77,12 +77,9 @@
  *   Can a chain of extensions feed back on itself, so that a claim ends up
  *   corroborating itself around a cycle?
  *
- *   Whether a family is the right unit, and how a system with no logins
- *   would ever observe one. `lineageId` is a hand-authored string that nothing
- *   derives. Rules that asserted on it have been removed.
- *
- *   Nothing touches the reference graph at all, which is where "what makes a
- *   place significant" lives in docs/DESIGN-QUESTIONS.md.
+ *   How independence is worked out from the graph. `independentRecordCount`
+ *   is a stand-in that counts records other contributors brought. Whether two
+ *   records share a source (the same telling, heard twice) is not visible to it.
  *
  * This is deliberate rather than forgotten. Testing those means fixing what a
  * propagation algorithm looks like: what it takes, what it returns, whether it
@@ -102,9 +99,9 @@ import { loadAllStates } from '../acceptance';
 /** What a scorer is allowed to look at. */
 export interface ScoringInput {
   sourceType: SourceType;
-  /** Distinct family lines backing this, excluding the author's own. */
-  independentLineageCount: number;
-  /** How many people affirmed. Deliberately separate from the line count above. */
+  /** Distinct records other contributors brought to back this. A stand-in. */
+  independentRecordCount: number;
+  /** How many people affirmed. Agreement, not evidence, so kept separate from the count above. */
   affirmationCount: number;
   extensionCount: number;
   disputeCount: number;
@@ -115,7 +112,7 @@ export interface ScoringInput {
 export interface Scorer {
   weight(input: ScoringInput): number;
   confidence(input: {
-    independentLineageCount: number;
+    independentRecordCount: number;
     disputeCount: number;
     awaitingTranslation: boolean;
   }): Confidence;
@@ -125,9 +122,8 @@ export interface Scorer {
  * Note what is NOT in `ScoringInput`: an author.
  *
  * No name, no contributor id, no standing, no join date, no institution. What
- * it gets instead are facts derived from who contributed, such as whether three
- * affirmations came from three independent family lines or from one family. The
- * system knows who is speaking. The scorer does not, and cannot use it as a
+ * it gets instead are facts about what was contributed, such as how many
+ * independent records back a claim. The system knows who is speaking. The scorer does not, and cannot use it as a
  * credential.
  *
  * Weight comes from what somebody has done, not from who they are. That is
@@ -141,7 +137,7 @@ export interface Scorer {
 
 const BASE: ScoringInput = {
   sourceType: 'family_oral',
-  independentLineageCount: 0,
+  independentRecordCount: 0,
   affirmationCount: 0,
   extensionCount: 0,
   disputeCount: 0,
@@ -166,7 +162,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
       const inputs = [
         BASE,
         withInput({ disputeCount: 50 }),
-        withInput({ independentLineageCount: 100, affirmationCount: 100 }),
+        withInput({ independentRecordCount: 100, affirmationCount: 100 }),
         withInput({ awaitingTranslation: true }),
       ];
       for (const input of inputs) {
@@ -226,7 +222,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
     it('required · does not call an unrendered claim well supported', () => {
       // Nothing can corroborate a claim nobody has read yet.
       const c = scorer.confidence({
-        independentLineageCount: 0,
+        independentRecordCount: 0,
         disputeCount: 0,
         awaitingTranslation: true,
       });
@@ -259,10 +255,10 @@ export function runScoringRules(name: string, scorer: Scorer): void {
         id: `${state.stateId}/${c.claim.id}`,
         input: {
           sourceType: c.claim.sourceType,
-          independentLineageCount: c.independentLineageCount,
+          independentRecordCount: c.independentRecordCount,
           affirmationCount: c.affirmations.length,
           extensionCount: c.extensions.length,
-          disputeCount: c.elementStatuses.reduce((n, e) => n + e.disputes.length, 0),
+          disputeCount: c.detailStatuses.reduce((n, e) => n + e.disputes.length, 0),
           sourceTypeDiversity: 1,
           awaitingTranslation: c.claim.awaitingTranslation,
         } satisfies ScoringInput,
@@ -270,7 +266,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
     );
 
     it('required · survives every claim shape in the fixtures', () => {
-      // Empty element arrays, unrendered claims, claims with no affirmations
+      // Empty detail arrays, unrendered claims, claims with no affirmations
       // at all. Real data has holes in it and a scorer must not throw or return
       // nonsense on any of them.
       for (const { id, input } of realClaims) {

@@ -9,9 +9,9 @@
 
 import type { ContributionEvent } from './events';
 import type {
-  Affirmation, Claim, ClaimState, Contributor, DisputeEdge, ElementStatus,
+  Affirmation, Claim, ClaimState, Contributor, DisputeEdge, DetailStatus,
   ContributorStanding, EventId, ExtensionEdge, Flag, GraphState, IntegrityScore,
-  LineageId, MediaRef, Passover, PassoverKind, ReferenceEdge, Site, SourceRecord,
+  MediaRef, Passover, PassoverKind, Site, SourceRecord,
   Transcript, Translation, TranslationDispute,
 } from '@sagas/contracts';
 import { classifyConfidence, computeWeight } from './weight';
@@ -22,7 +22,6 @@ interface Accumulator {
   claims: Map<string, Claim>;
   disputes: DisputeEdge[];
   extensions: ExtensionEdge[];
-  references: ReferenceEdge[];
   affirmations: Affirmation[];
   passovers: Passover[];
   translations: Translation[];
@@ -36,7 +35,7 @@ interface Accumulator {
 function empty(): Accumulator {
   return {
     contributors: new Map(), claims: new Map(), disputes: [], extensions: [],
-    references: [], affirmations: [], passovers: [], translations: [],
+    affirmations: [], passovers: [], translations: [],
     translationDisputes: [], records: new Map(), transcripts: [], flags: [],
     applied: [],
   };
@@ -57,7 +56,7 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
     case 'contributor_registered':
       acc.contributors.set(ev.contributorId, {
         id: ev.contributorId, displayName: ev.displayName,
-        lineageId: ev.lineageId, institution: ev.institution,
+        institution: ev.institution,
         joinedAt: ev.at, fictional: true,
         verification: ev.verification ?? 'guest',
       });
@@ -66,9 +65,9 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
     case 'claim_submitted':
       acc.claims.set(ev.claimId, {
         id: ev.claimId, siteId: ev.siteId, contributorId: ev.actorId,
-        recordId: ev.recordId,
+        sourceRecordId: ev.sourceRecordId, evidenceRecordIds: ev.evidenceRecordIds ?? [],
         text: ev.text, sourceLanguage: ev.sourceLanguage,
-        sourceLanguageText: ev.sourceLanguageText, elements: ev.elements,
+        sourceLanguageText: ev.sourceLanguageText, details: ev.details,
         topics: ev.topics, sourceType: ev.sourceType,
         createdAt: ev.at, awaitingTranslation: ev.awaitingTranslation ?? false,
       });
@@ -77,9 +76,9 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
     case 'claim_extended':
       acc.claims.set(ev.claimId, {
         id: ev.claimId, siteId: ev.siteId, contributorId: ev.actorId,
-        recordId: ev.recordId,
+        sourceRecordId: ev.sourceRecordId, evidenceRecordIds: ev.evidenceRecordIds ?? [],
         text: ev.text, sourceLanguage: ev.sourceLanguage,
-        sourceLanguageText: ev.sourceLanguageText, elements: ev.elements,
+        sourceLanguageText: ev.sourceLanguageText, details: ev.details,
         topics: ev.topics, sourceType: ev.sourceType,
         createdAt: ev.at, parentClaimId: ev.parentClaimId,
         awaitingTranslation: false,
@@ -93,7 +92,7 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
     case 'claim_disputed':
       acc.disputes.push({
         id: ev.edgeId, type: 'dispute', targetClaimId: ev.targetClaimId,
-        targetElementId: ev.targetElementId, reasoning: ev.reasoning,
+        targetDetailId: ev.targetDetailId, reasoning: ev.reasoning,
         proposedValue: ev.proposedValue, contributorId: ev.actorId,
         createdAt: ev.at,
       });
@@ -188,42 +187,26 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
       });
       return;
 
-    case 'reference_marked':
-      acc.references.push({
-        id: ev.edgeId, type: 'reference', fromClaimId: ev.fromClaimId,
-        toSiteId: ev.toSiteId, toClaimId: ev.toClaimId, excerpt: ev.excerpt,
-        resolved: ev.resolved, contributorId: ev.actorId, createdAt: ev.at,
-      });
-      return;
   }
-}
-
-/**
- * Distinct family lines among a set of contributors. A contributor with no
- * recorded lineage counts as their own line. This is the guard against three
- * cousins reading as three independent sources.
- */
-function distinctLineages(ids: string[], contributors: Map<string, Contributor>): number {
-  const lines = new Set<LineageId>();
-  for (const id of ids) {
-    const c = contributors.get(id);
-    lines.add(c?.lineageId ?? `solo:${id}`);
-  }
-  return lines.size;
 }
 
 function buildClaimState(
   claim: Claim,
   acc: Accumulator,
 ): ClaimState {
-  const record = acc.records.get(claim.recordId);
-  if (!record) {
+  const sourceRecord = acc.records.get(claim.sourceRecordId);
+  if (!sourceRecord) {
     // Every claim is somebody's reading of something. A claim pointing at a
     // record that does not exist is a broken fixture, not a renderable state.
     throw new Error(
-      `Claim ${claim.id} was read out of ${claim.recordId}, which does not exist.`,
+      `Claim ${claim.id} has source record ${claim.sourceRecordId}, which does not exist.`,
     );
   }
+  const evidenceRecords = claim.evidenceRecordIds.map((id) => {
+    const r = acc.records.get(id);
+    if (!r) throw new Error(`Claim ${claim.id} cites evidence ${id}, which does not exist.`);
+    return r;
+  });
   const contributor = acc.contributors.get(claim.contributorId);
   if (!contributor) {
     // Can only happen if a contribution references someone who never registered.
@@ -235,33 +218,32 @@ function buildClaimState(
   const affirmations = acc.affirmations.filter((a) => a.claimId === claim.id);
   const disputes = acc.disputes.filter((d) => d.targetClaimId === claim.id);
   const extensions = acc.extensions.filter((e) => e.parentClaimId === claim.id).map((e) => e.childClaimId);
-  const references = acc.references.filter((r) => r.fromClaimId === claim.id);
   const translations = acc.translations.filter((t) => t.claimId === claim.id);
   const translationIds = new Set(translations.map((t) => t.id));
   const translationDisputes = acc.translationDisputes.filter((d) => translationIds.has(d.translationId));
 
-  // Affirmer independence excludes the author AND anyone sharing the author's
-  // family line. A cousin affirming a cousin's claim is the same source
-  // twice, not corroboration. Volume still rises; independence does not.
-  const authorLineage = contributor.lineageId ?? `solo:${claim.contributorId}`;
-  const affirmerIds = affirmations
-    .map((a) => a.contributorId)
-    .filter((id) => id !== claim.contributorId)
-    .filter((id) => {
-      const a = acc.contributors.get(id);
-      return (a?.lineageId ?? `solo:${id}`) !== authorLineage;
-    });
-  const independentLineageCount = distinctLineages(affirmerIds, acc.contributors);
+  // Stand-in for independence. A claim is corroborated by records that other
+  // contributors bring to it, never by agreement. Today that means the evidence
+  // on extensions of this claim by somebody other than its author. A record
+  // this claim already rests on does not count twice.
+  const ownRecords = new Set([claim.sourceRecordId, ...claim.evidenceRecordIds]);
+  const independentRecords = new Set<string>();
+  for (const id of extensions) {
+    const ext = acc.claims.get(id);
+    if (!ext || ext.contributorId === claim.contributorId) continue;
+    for (const r of ext.evidenceRecordIds) if (!ownRecords.has(r)) independentRecords.add(r);
+  }
+  const independentRecordCount = independentRecords.size;
 
   const passover: Record<PassoverKind, number> = { sounds_right: 0, dont_know: 0, dont_care: 0 };
   for (const p of acc.passovers) if (p.claimId === claim.id) passover[p.kind]++;
 
-  const elementStatuses: ElementStatus[] = claim.elements.map((element) => {
-    const elementDisputes = disputes.filter((d) => d.targetElementId === element.id);
+  const detailStatuses: DetailStatus[] = claim.details.map((detail) => {
+    const detailDisputes = disputes.filter((d) => d.targetDetailId === detail.id);
     const byValue = new Map<string, string[]>();
     // The claim's own asserted value is one of the competing readings.
-    byValue.set(element.value, [claim.contributorId]);
-    for (const d of elementDisputes) {
+    byValue.set(detail.value, [claim.contributorId]);
+    for (const d of detailDisputes) {
       if (!d.proposedValue) continue;
       const list = byValue.get(d.proposedValue) ?? [];
       list.push(d.contributorId);
@@ -270,13 +252,15 @@ function buildClaimState(
     const competingValues = [...byValue.entries()]
       .map(([value, contributorIds]) => ({
         value,
-        count: distinctLineages(contributorIds, acc.contributors),
+        count: new Set(contributorIds).size,
         contributorIds,
       }))
-      // Emphasis by weight ordering: strongest reading first, competitors
-      // preserved inline. Nothing is marked accepted and nothing is hidden.
-      .sort((a, b) => b.count - a.count);
-    return { element, disputes: elementDisputes, competingValues };
+      // Order of arrival, the claim's own reading first. Ordering readings by
+      // strength needs independence, which the stand-in cannot see for a
+      // dispute, and ordering by headcount would turn readings into a vote.
+      // Nothing is marked accepted and nothing is hidden.
+      ;
+    return { detail, disputes: detailDisputes, competingValues };
   });
 
   const extensionClaims = extensions
@@ -286,7 +270,7 @@ function buildClaimState(
 
   const weight = computeWeight({
     sourceType: claim.sourceType,
-    independentLineageCount,
+    independentRecordCount,
     affirmationCount: affirmations.length,
     extensionCount: extensions.length,
     disputeCount: disputes.length,
@@ -295,11 +279,11 @@ function buildClaimState(
   });
 
   return {
-    claim, contributor, record, translations, translationDisputes, affirmations,
-    independentLineageCount, extensions, references, passover, elementStatuses,
+    claim, contributor, sourceRecord, evidenceRecords, translations, translationDisputes, affirmations,
+    independentRecordCount, extensions, passover, detailStatuses,
     weight,
     confidence: classifyConfidence({
-      independentLineageCount,
+      independentRecordCount,
       disputeCount: disputes.length,
       awaitingTranslation: claim.awaitingTranslation,
     }),
@@ -336,7 +320,7 @@ function buildStandings(claimStates: ClaimState[], acc: Accumulator): Contributo
       lastContributionAt: times[times.length - 1],
       recordsSubmitted: [...acc.records.values()].filter((r) => r.contributorId === c.id).length,
       claimsAuthored: theirClaims.length,
-      claimsCorroboratedByOtherLines: theirClaims.filter((cs) => cs.independentLineageCount > 0).length,
+      claimsCorroborated: theirClaims.filter((cs) => cs.independentRecordCount > 0).length,
       claimsDisputed: theirClaims.filter((cs) =>
         acc.disputes.some((d) => d.targetClaimId === cs.claim.id),
       ).length,
@@ -353,19 +337,17 @@ function buildStandings(claimStates: ClaimState[], acc: Accumulator): Contributo
 function buildIntegrity(claimStates: ClaimState[], acc: Accumulator): IntegrityScore {
   const inGraph = claimStates.filter((c) => !c.claim.awaitingTranslation);
   const contributorIds = new Set(claimStates.map((c) => c.claim.contributorId));
-  const lineageDiversity = distinctLineages([...contributorIds], acc.contributors);
-  const corroborated = inGraph.filter((c) => c.independentLineageCount >= 2).length;
+  const corroborated = inGraph.filter((c) => c.independentRecordCount >= 1).length;
 
   // How much of the record is anchored in time. Counted from claims that
   // actually name a date, not from a period somebody picked at entry time.
   const datedClaims = claimStates.filter((c) =>
-    c.claim.elements.some((e) => e.kind === 'date'),
+    c.claim.details.some((e) => e.kind === 'date'),
   ).length;
 
   const score = {
     totalClaims: claimStates.length,
     independentContributors: contributorIds.size,
-    lineageDiversity,
     corroborationDepth: inGraph.length ? corroborated / inGraph.length : 0,
     activeDisputes: acc.disputes.length + acc.translationDisputes.length,
     datedClaims,
@@ -376,7 +358,7 @@ function buildIntegrity(claimStates: ClaimState[], acc: Accumulator): IntegrityS
   // Placeholder rollup for map marker encoding only. The intelligence layer replaces this.
   score.overall = Math.min(100, Math.round(
     Math.min(score.totalClaims, 12) * 3 +
-    Math.min(score.lineageDiversity, 6) * 6 +
+    Math.min(score.independentContributors, 6) * 6 +
     score.corroborationDepth * 25 +
     Math.min(score.datedClaims, 6) * 4,
   ));

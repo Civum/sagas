@@ -59,21 +59,21 @@ export function bandFor(overall: number): IntegrityBand {
   if (overall < 35) {
     return {
       label: 'Thin record',
-      invitation: 'A few claims, mostly from one family. More would help.',
+      invitation: 'A few claims, mostly from one person. More would help.',
       fill,
     };
   }
   if (overall < 65) {
     return {
       label: 'Growing record',
-      invitation: 'Several families have contributed. Gaps remain.',
+      invitation: 'Several people have contributed. Gaps remain.',
       fill,
     };
   }
   if (overall < 85) {
     return {
       label: 'Well documented',
-      invitation: 'Corroborated across families and source types.',
+      invitation: 'Corroborated across contributors and source types.',
       fill,
     };
   }
@@ -129,8 +129,8 @@ export function IntegrityBadge({ integrity }: { integrity: IntegrityScore }) {
           <dd className="tabular-nums text-neutral-700">{integrity.totalClaims}</dd>
         </div>
         <div className="flex gap-1">
-          <dt>families</dt>
-          <dd className="tabular-nums text-neutral-700">{integrity.lineageDiversity}</dd>
+          <dt>contributors</dt>
+          <dd className="tabular-nums text-neutral-700">{integrity.independentContributors}</dd>
         </div>
         <div className="flex gap-1">
           <dt>dated</dt>

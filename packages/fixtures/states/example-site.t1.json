@@ -26,10 +26,11 @@
         "id": "cl-fronton",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
-        "recordId": "rec-001",
+        "sourceRecordId": "rec-001",
+        "evidenceRecordIds": [],
         "text": "There was a handball court built into the back of the building, behind the sleeping rooms. The men played in the winter when there was no work on the range. My mother said you could hear it through the floor.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "cl-fronton-e-place",
             "kind": "place",
@@ -62,12 +63,11 @@
       "contributor": {
         "id": "c-marisol",
         "displayName": "Marisol Etxeberria",
-        "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
+      "sourceRecord": {
         "id": "rec-001",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
@@ -77,6 +77,7 @@
         "media": [],
         "createdAt": "2026-01-08T16:20:00Z"
       },
+      "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [
@@ -93,19 +94,18 @@
           "createdAt": "2026-02-20T15:21:00Z"
         }
       ],
-      "independentLineageCount": 1,
+      "independentRecordCount": 1,
       "extensions": [
         "cl-fronton-floor"
       ],
-      "references": [],
       "passover": {
         "sounds_right": 1,
         "dont_know": 0,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "cl-fronton-e-place",
             "kind": "place",
             "value": "rear of building",
@@ -123,7 +123,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-fronton-e-use",
             "kind": "event",
             "value": "handball court / fronton",
@@ -141,7 +141,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-fronton-e-season",
             "kind": "event",
             "value": "winter use",
@@ -167,10 +167,11 @@
         "id": "cl-boarding",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
-        "recordId": "rec-001",
+        "sourceRecordId": "rec-001",
+        "evidenceRecordIds": [],
         "text": "The Anduiza building on Grove Street took in Basque sheepherders when they came off the range. My great-grandmother cooked there. She started in 1922, a few years after she came over, and she stayed in that kitchen until the boarding side of it shut down.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "cl-boarding-e-date",
             "kind": "date",
@@ -209,12 +210,11 @@
       "contributor": {
         "id": "c-marisol",
         "displayName": "Marisol Etxeberria",
-        "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
+      "sourceRecord": {
         "id": "rec-001",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
@@ -224,6 +224,7 @@
         "media": [],
         "createdAt": "2026-01-08T16:20:00Z"
       },
+      "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [
@@ -234,19 +235,18 @@
           "createdAt": "2026-02-20T15:20:00Z"
         }
       ],
-      "independentLineageCount": 0,
+      "independentRecordCount": 1,
       "extensions": [
         "cl-boarding-kitchen"
       ],
-      "references": [],
       "passover": {
         "sounds_right": 1,
         "dont_know": 0,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "cl-boarding-e-date",
             "kind": "date",
             "value": "1922",
@@ -264,7 +264,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-boarding-e-use",
             "kind": "event",
             "value": "boarding house for sheepherders",
@@ -282,7 +282,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-boarding-e-place",
             "kind": "place",
             "value": "620 W Grove St",
@@ -300,7 +300,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-boarding-e-person",
             "kind": "person",
             "value": "great-grandmother, cook",
@@ -318,18 +318,21 @@
           ]
         }
       ],
-      "weight": 3,
-      "confidence": "single_source"
+      "weight": 5,
+      "confidence": "corroborated"
     },
     {
       "claim": {
         "id": "cl-fronton-floor",
         "siteId": "site-anduiza",
         "contributorId": "c-joseba",
-        "recordId": "rec-003",
+        "sourceRecordId": "rec-001",
+        "evidenceRecordIds": [
+          "rec-003"
+        ],
         "text": "I played in that court myself as a teenager, so this would be 1963, 1964. By then the boarding was long over and the building was something else, but the court was still there and men still came. The floor was wood and it had a dead spot near the left wall that everybody knew about. You learned to play around it.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "cl-fronton-floor-e-date",
             "kind": "date",
@@ -362,60 +365,70 @@
       "contributor": {
         "id": "c-joseba",
         "displayName": "Joseba Iriondo",
-        "lineageId": "lin-iriondo",
         "joinedAt": "2026-02-14T19:30:00Z",
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
-        "id": "rec-003",
+      "sourceRecord": {
+        "id": "rec-001",
         "siteId": "site-anduiza",
-        "contributorId": "c-joseba",
-        "note": "The court floor, near the left wall. You can see where the boards run different.",
+        "contributorId": "c-marisol",
+        "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
         "language": "en",
-        "capturedAt": "2026-02-14T19:52:00Z",
-        "capturedLocation": {
-          "coordinates": [
-            -116.20268,
-            43.61549
-          ],
-          "method": "embedded",
-          "accuracyMetres": 65
-        },
         "submission": "published",
-        "media": [
-          {
-            "id": "med-003-a",
-            "recordId": "rec-003",
-            "kind": "image",
-            "storageKey": "records/rec-003/med-003-a/court-floor.jpg",
-            "contentType": "image/jpeg",
-            "byteSize": 3204118,
-            "originalFilename": "IMG_4471.jpg",
-            "processing": "ready",
-            "width": 4032,
-            "height": 3024,
-            "capturedAt": "2026-02-14T19:52:00Z",
-            "derivatives": [],
-            "createdAt": "2026-02-14T19:58:00Z"
-          }
-        ],
-        "createdAt": "2026-02-14T19:58:00Z"
+        "media": [],
+        "createdAt": "2026-01-08T16:20:00Z"
       },
+      "evidenceRecords": [
+        {
+          "id": "rec-003",
+          "siteId": "site-anduiza",
+          "contributorId": "c-joseba",
+          "note": "The court floor, near the left wall. You can see where the boards run different.",
+          "language": "en",
+          "capturedAt": "2026-02-14T19:52:00Z",
+          "capturedLocation": {
+            "coordinates": [
+              -116.20268,
+              43.61549
+            ],
+            "method": "embedded",
+            "accuracyMetres": 65
+          },
+          "submission": "published",
+          "media": [
+            {
+              "id": "med-003-a",
+              "recordId": "rec-003",
+              "kind": "image",
+              "storageKey": "records/rec-003/med-003-a/court-floor.jpg",
+              "contentType": "image/jpeg",
+              "byteSize": 3204118,
+              "originalFilename": "IMG_4471.jpg",
+              "processing": "ready",
+              "width": 4032,
+              "height": 3024,
+              "capturedAt": "2026-02-14T19:52:00Z",
+              "derivatives": [],
+              "createdAt": "2026-02-14T19:58:00Z"
+            }
+          ],
+          "createdAt": "2026-02-14T19:58:00Z"
+        }
+      ],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [],
-      "independentLineageCount": 0,
+      "independentRecordCount": 0,
       "extensions": [],
-      "references": [],
       "passover": {
         "sounds_right": 0,
         "dont_know": 0,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "cl-fronton-floor-e-date",
             "kind": "date",
             "value": "1963-1964",
@@ -433,7 +446,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-fronton-floor-e-mat",
             "kind": "event",
             "value": "wood floor",
@@ -451,7 +464,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-fronton-floor-e-detail",
             "kind": "place",
             "value": "dead spot near left wall",
@@ -477,10 +490,11 @@
         "id": "cl-prelot",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
-        "recordId": "rec-002",
+        "sourceRecordId": "rec-002",
+        "evidenceRecordIds": [],
         "text": "Before the boarding house there was a livery stable on that lot. That is what I was told, though I do not know who ran it or when it went.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "cl-prelot-e-use",
             "kind": "event",
@@ -505,12 +519,11 @@
       "contributor": {
         "id": "c-marisol",
         "displayName": "Marisol Etxeberria",
-        "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
+      "sourceRecord": {
         "id": "rec-002",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
@@ -520,20 +533,20 @@
         "media": [],
         "createdAt": "2026-01-09T02:10:00Z"
       },
+      "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [],
-      "independentLineageCount": 0,
+      "independentRecordCount": 0,
       "extensions": [],
-      "references": [],
       "passover": {
         "sounds_right": 0,
         "dont_know": 2,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "cl-prelot-e-use",
             "kind": "event",
             "value": "livery stable",
@@ -551,7 +564,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-prelot-e-seq",
             "kind": "date",
             "value": "before boarding house",
@@ -577,10 +590,13 @@
         "id": "cl-boarding-kitchen",
         "siteId": "site-anduiza",
         "contributorId": "c-ana",
-        "recordId": "rec-004",
+        "sourceRecordId": "rec-001",
+        "evidenceRecordIds": [
+          "rec-004"
+        ],
         "text": "Marisol and I are cousins and this is the same great-grandmother. What I have that she may not is that the kitchen ran two sittings, because the herders came in at different hours depending on whether they were going out or coming back. My grandmother described washing up twice.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "cl-boarding-kitchen-e-op",
             "kind": "event",
@@ -607,35 +623,45 @@
       "contributor": {
         "id": "c-ana",
         "displayName": "Ana Etxeberria-Woods",
-        "lineageId": "lin-etxeberria",
         "joinedAt": "2026-02-20T15:12:00Z",
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
-        "id": "rec-004",
+      "sourceRecord": {
+        "id": "rec-001",
         "siteId": "site-anduiza",
-        "contributorId": "c-ana",
-        "text": "Adding to what my cousin Marisol wrote about the kitchen.",
+        "contributorId": "c-marisol",
+        "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
         "language": "en",
         "submission": "published",
         "media": [],
-        "createdAt": "2026-02-20T15:36:00Z"
+        "createdAt": "2026-01-08T16:20:00Z"
       },
+      "evidenceRecords": [
+        {
+          "id": "rec-004",
+          "siteId": "site-anduiza",
+          "contributorId": "c-ana",
+          "text": "Adding to what my cousin Marisol wrote about the kitchen.",
+          "language": "en",
+          "submission": "published",
+          "media": [],
+          "createdAt": "2026-02-20T15:36:00Z"
+        }
+      ],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [],
-      "independentLineageCount": 0,
+      "independentRecordCount": 0,
       "extensions": [],
-      "references": [],
       "passover": {
         "sounds_right": 0,
         "dont_know": 0,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "cl-boarding-kitchen-e-op",
             "kind": "event",
             "value": "two meal sittings",
@@ -653,7 +679,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-boarding-kitchen-e-rel",
             "kind": "attribution",
             "value": "same lineage as cl-boarding",
@@ -679,11 +705,12 @@
         "id": "cl-domingo",
         "siteId": "site-anduiza",
         "contributorId": "c-domingo",
-        "recordId": "rec-005",
+        "sourceRecordId": "rec-005",
+        "evidenceRecordIds": [],
         "text": "",
         "sourceLanguage": "eu",
         "sourceLanguageText": "Gure aitona hemen bizi izan zen. Neguan pilotan jokatzen zuten atzeko aldean. Guretzat gure etxea zen, ez ostatu bat.",
-        "elements": [],
+        "details": [],
         "topics": [
           "boarding house",
           "pilota",
@@ -696,12 +723,11 @@
       "contributor": {
         "id": "c-domingo",
         "displayName": "Domingo Sagastume",
-        "lineageId": "lin-sagastume",
         "joinedAt": "2026-03-02T22:10:00Z",
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
+      "sourceRecord": {
         "id": "rec-005",
         "siteId": "site-anduiza",
         "contributorId": "c-domingo",
@@ -739,18 +765,18 @@
         ],
         "createdAt": "2026-03-02T22:25:00Z"
       },
+      "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [],
-      "independentLineageCount": 0,
+      "independentRecordCount": 0,
       "extensions": [],
-      "references": [],
       "passover": {
         "sounds_right": 0,
         "dont_know": 0,
         "dont_care": 0
       },
-      "elementStatuses": [],
+      "detailStatuses": [],
       "weight": 0,
       "confidence": "single_source"
     }
@@ -759,7 +785,6 @@
     {
       "id": "c-marisol",
       "displayName": "Marisol Etxeberria",
-      "lineageId": "lin-etxeberria",
       "joinedAt": "2026-01-08T16:04:00Z",
       "fictional": true,
       "verification": "guest"
@@ -767,7 +792,6 @@
     {
       "id": "c-joseba",
       "displayName": "Joseba Iriondo",
-      "lineageId": "lin-iriondo",
       "joinedAt": "2026-02-14T19:30:00Z",
       "fictional": true,
       "verification": "guest"
@@ -775,7 +799,6 @@
     {
       "id": "c-ana",
       "displayName": "Ana Etxeberria-Woods",
-      "lineageId": "lin-etxeberria",
       "joinedAt": "2026-02-20T15:12:00Z",
       "fictional": true,
       "verification": "guest"
@@ -783,7 +806,6 @@
     {
       "id": "c-domingo",
       "displayName": "Domingo Sagastume",
-      "lineageId": "lin-sagastume",
       "joinedAt": "2026-03-02T22:10:00Z",
       "fictional": true,
       "verification": "guest"
@@ -901,7 +923,7 @@
       "lastContributionAt": "2026-01-09T02:15:00Z",
       "recordsSubmitted": 2,
       "claimsAuthored": 3,
-      "claimsCorroboratedByOtherLines": 1,
+      "claimsCorroborated": 2,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
@@ -916,7 +938,7 @@
       "lastContributionAt": "2026-02-14T20:01:00Z",
       "recordsSubmitted": 1,
       "claimsAuthored": 1,
-      "claimsCorroboratedByOtherLines": 0,
+      "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
@@ -931,7 +953,7 @@
       "lastContributionAt": "2026-02-20T15:39:00Z",
       "recordsSubmitted": 1,
       "claimsAuthored": 1,
-      "claimsCorroboratedByOtherLines": 0,
+      "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
@@ -946,7 +968,7 @@
       "lastContributionAt": "2026-03-02T22:31:00Z",
       "recordsSubmitted": 1,
       "claimsAuthored": 1,
-      "claimsCorroboratedByOtherLines": 0,
+      "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
@@ -961,12 +983,11 @@
   "integrity": {
     "totalClaims": 6,
     "independentContributors": 4,
-    "lineageDiversity": 3,
-    "corroborationDepth": 0,
+    "corroborationDepth": 0.4,
     "activeDisputes": 0,
     "datedClaims": 3,
     "awaitingTranslation": 1,
-    "overall": 48
+    "overall": 64
   },
   "eventIdsApplied": [
     "ev-001",

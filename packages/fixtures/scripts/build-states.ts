@@ -21,12 +21,16 @@ writeFileSync(
   'states/index.json',
   JSON.stringify(
     {
-      sites: built.map((b) => ({
-        key: b.key,
-        slug: b.states[0]!.site.slug,
-        name: b.states[0]!.site.name,
-        stateIds: b.states.map((s) => s.stateId),
-      })),
+      sites: built.map((b) => {
+        const first = b.states[0];
+        if (!first) throw new Error(`${b.key} produced no states`);
+        return {
+          key: b.key,
+          slug: first.site.slug,
+          name: first.site.name,
+          stateIds: b.states.map((s) => s.stateId),
+        };
+      }),
     },
     null,
     2,
@@ -50,7 +54,7 @@ function dump(s: GraphState) {
   console.log(
     `integrity ${String(i.overall).padStart(3)}/100  ` +
     `claims ${i.totalClaims}  contributors ${i.independentContributors}  ` +
-    `lineages ${i.lineageDiversity}  corroboration ${(i.corroborationDepth * 100).toFixed(0)}%  ` +
+    `corroboration ${(i.corroborationDepth * 100).toFixed(0)}%  ` +
     `disputes ${i.activeDisputes}  dated ${i.datedClaims}  untranslated ${i.awaitingTranslation}`,
   );
 
@@ -70,7 +74,7 @@ function dump(s: GraphState) {
     }
 
     if (c.affirmations.length) {
-      console.log(`  affirmed by ${c.affirmations.length} (${c.independentLineageCount} independent line(s))`);
+      console.log(`  affirmed by ${c.affirmations.length} (${c.independentRecordCount} independent record(s))`);
     }
     if (c.translations.length > 1) {
       console.log(`  ${c.translations.length} coexisting renderings, each attributed`);
@@ -78,19 +82,16 @@ function dump(s: GraphState) {
     for (const td of c.translationDisputes) {
       console.log(`  ! rendering contested: ${td.reasoning.slice(0, 100)}...`);
     }
-    for (const es of c.elementStatuses) {
+    for (const es of c.detailStatuses) {
       if (!es.disputes.length) continue;
       const readings = es.competingValues
-        .map((v) => `"${v.value}" (${v.count} line${v.count === 1 ? '' : 's'})`)
+        .map((v) => `"${v.value}" (${v.count} contributor${v.count === 1 ? '' : 's'})`)
         .join('  vs  ');
-      console.log(`  ⚡ ${es.element.kind} "${es.element.excerpt}" contested → ${readings}`);
+      console.log(`  ⚡ ${es.detail.kind} "${es.detail.excerpt}" contested → ${readings}`);
     }
     const pv = c.passover;
     if (pv.sounds_right + pv.dont_know + pv.dont_care > 0) {
       console.log(`  passover: ${pv.sounds_right} sounds-right, ${pv.dont_know} don't-know, ${pv.dont_care} don't-care`);
-    }
-    for (const r of c.references.filter((r) => !r.resolved)) {
-      console.log(`  → unresolved reference: "${r.excerpt}"`);
     }
   }
 }

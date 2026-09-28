@@ -25,10 +25,11 @@
           "id": "cl-bench-grandmother",
           "siteId": "site-hoefer-bench",
           "contributorId": "c-nadia",
-          "recordId": "rec-plaque",
+          "sourceRecordId": "rec-plaque",
+          "evidenceRecordIds": [],
           "text": "My grandmother walked this stretch every morning for about thirty years. After she died the family put the bench here because it is the spot where she used to stop and look at the water. The plaque was my aunt's idea.",
           "sourceLanguage": "en",
-          "elements": [
+          "details": [
             {
               "id": "el-hb-person",
               "kind": "person",
@@ -52,12 +53,11 @@
         "contributor": {
           "id": "c-nadia",
           "displayName": "Nadia Hoefer",
-          "lineageId": "lin-hoefer",
           "joinedAt": "2026-05-19T15:12:00Z",
           "fictional": true,
           "verification": "guest"
         },
-        "record": {
+        "sourceRecord": {
           "id": "rec-plaque",
           "siteId": "site-hoefer-bench",
           "contributorId": "c-nadia",
@@ -81,20 +81,20 @@
           ],
           "createdAt": "2026-05-19T15:28:00Z"
         },
+        "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
         "affirmations": [],
-        "independentLineageCount": 0,
+        "independentRecordCount": 0,
         "extensions": [],
-        "references": [],
         "passover": {
           "sounds_right": 0,
           "dont_know": 0,
           "dont_care": 0
         },
-        "elementStatuses": [
+        "detailStatuses": [
           {
-            "element": {
+            "detail": {
               "id": "el-hb-person",
               "kind": "person",
               "value": "Margarethe Hoefer",
@@ -112,7 +112,7 @@
             ]
           },
           {
-            "element": {
+            "detail": {
               "id": "el-hb-place",
               "kind": "place",
               "value": "Greenbelt near the Americana bridge",
@@ -138,7 +138,6 @@
       {
         "id": "c-nadia",
         "displayName": "Nadia Hoefer",
-        "lineageId": "lin-hoefer",
         "joinedAt": "2026-05-19T15:12:00Z",
         "fictional": true,
         "verification": "guest"
@@ -177,7 +176,7 @@
         "lastContributionAt": "2026-05-19T15:34:00Z",
         "recordsSubmitted": 1,
         "claimsAuthored": 1,
-        "claimsCorroboratedByOtherLines": 0,
+        "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
@@ -192,7 +191,6 @@
     "integrity": {
       "totalClaims": 1,
       "independentContributors": 1,
-      "lineageDiversity": 1,
       "corroborationDepth": 0,
       "activeDisputes": 0,
       "datedClaims": 0,
@@ -238,10 +236,11 @@
           "id": "cl-bench-grandmother",
           "siteId": "site-hoefer-bench",
           "contributorId": "c-nadia",
-          "recordId": "rec-plaque",
+          "sourceRecordId": "rec-plaque",
+          "evidenceRecordIds": [],
           "text": "My grandmother walked this stretch every morning for about thirty years. After she died the family put the bench here because it is the spot where she used to stop and look at the water. The plaque was my aunt's idea.",
           "sourceLanguage": "en",
-          "elements": [
+          "details": [
             {
               "id": "el-hb-person",
               "kind": "person",
@@ -265,12 +264,11 @@
         "contributor": {
           "id": "c-nadia",
           "displayName": "Nadia Hoefer",
-          "lineageId": "lin-hoefer",
           "joinedAt": "2026-05-19T15:12:00Z",
           "fictional": true,
           "verification": "guest"
         },
-        "record": {
+        "sourceRecord": {
           "id": "rec-plaque",
           "siteId": "site-hoefer-bench",
           "contributorId": "c-nadia",
@@ -294,20 +292,20 @@
           ],
           "createdAt": "2026-05-19T15:28:00Z"
         },
+        "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
         "affirmations": [],
-        "independentLineageCount": 0,
+        "independentRecordCount": 0,
         "extensions": [],
-        "references": [],
         "passover": {
           "sounds_right": 0,
           "dont_know": 0,
           "dont_care": 0
         },
-        "elementStatuses": [
+        "detailStatuses": [
           {
-            "element": {
+            "detail": {
               "id": "el-hb-person",
               "kind": "person",
               "value": "Margarethe Hoefer",
@@ -325,7 +323,7 @@
             ]
           },
           {
-            "element": {
+            "detail": {
               "id": "el-hb-place",
               "kind": "place",
               "value": "Greenbelt near the Americana bridge",
@@ -351,7 +349,6 @@
       {
         "id": "c-nadia",
         "displayName": "Nadia Hoefer",
-        "lineageId": "lin-hoefer",
         "joinedAt": "2026-05-19T15:12:00Z",
         "fictional": true,
         "verification": "guest"
@@ -390,7 +387,7 @@
         "lastContributionAt": "2026-05-19T15:34:00Z",
         "recordsSubmitted": 1,
         "claimsAuthored": 1,
-        "claimsCorroboratedByOtherLines": 0,
+        "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
@@ -405,7 +402,6 @@
     "integrity": {
       "totalClaims": 1,
       "independentContributors": 1,
-      "lineageDiversity": 1,
       "corroborationDepth": 0,
       "activeDisputes": 0,
       "datedClaims": 0,
@@ -446,10 +442,11 @@
           "id": "cl-bench-grandmother",
           "siteId": "site-hoefer-bench",
           "contributorId": "c-nadia",
-          "recordId": "rec-plaque",
+          "sourceRecordId": "rec-plaque",
+          "evidenceRecordIds": [],
           "text": "My grandmother walked this stretch every morning for about thirty years. After she died the family put the bench here because it is the spot where she used to stop and look at the water. The plaque was my aunt's idea.",
           "sourceLanguage": "en",
-          "elements": [
+          "details": [
             {
               "id": "el-hb-person",
               "kind": "person",
@@ -473,12 +470,11 @@
         "contributor": {
           "id": "c-nadia",
           "displayName": "Nadia Hoefer",
-          "lineageId": "lin-hoefer",
           "joinedAt": "2026-05-19T15:12:00Z",
           "fictional": true,
           "verification": "guest"
         },
-        "record": {
+        "sourceRecord": {
           "id": "rec-plaque",
           "siteId": "site-hoefer-bench",
           "contributorId": "c-nadia",
@@ -502,20 +498,20 @@
           ],
           "createdAt": "2026-05-19T15:28:00Z"
         },
+        "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
         "affirmations": [],
-        "independentLineageCount": 0,
+        "independentRecordCount": 0,
         "extensions": [],
-        "references": [],
         "passover": {
           "sounds_right": 0,
           "dont_know": 0,
           "dont_care": 0
         },
-        "elementStatuses": [
+        "detailStatuses": [
           {
-            "element": {
+            "detail": {
               "id": "el-hb-person",
               "kind": "person",
               "value": "Margarethe Hoefer",
@@ -533,7 +529,7 @@
             ]
           },
           {
-            "element": {
+            "detail": {
               "id": "el-hb-place",
               "kind": "place",
               "value": "Greenbelt near the Americana bridge",
@@ -559,7 +555,6 @@
       {
         "id": "c-nadia",
         "displayName": "Nadia Hoefer",
-        "lineageId": "lin-hoefer",
         "joinedAt": "2026-05-19T15:12:00Z",
         "fictional": true,
         "verification": "guest"
@@ -598,7 +593,7 @@
         "lastContributionAt": "2026-05-19T15:34:00Z",
         "recordsSubmitted": 1,
         "claimsAuthored": 1,
-        "claimsCorroboratedByOtherLines": 0,
+        "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
@@ -613,7 +608,6 @@
     "integrity": {
       "totalClaims": 1,
       "independentContributors": 1,
-      "lineageDiversity": 1,
       "corroborationDepth": 0,
       "activeDisputes": 0,
       "datedClaims": 0,
@@ -654,10 +648,11 @@
           "id": "cl-bench-grandmother",
           "siteId": "site-hoefer-bench",
           "contributorId": "c-nadia",
-          "recordId": "rec-plaque",
+          "sourceRecordId": "rec-plaque",
+          "evidenceRecordIds": [],
           "text": "My grandmother walked this stretch every morning for about thirty years. After she died the family put the bench here because it is the spot where she used to stop and look at the water. The plaque was my aunt's idea.",
           "sourceLanguage": "en",
-          "elements": [
+          "details": [
             {
               "id": "el-hb-person",
               "kind": "person",
@@ -681,12 +676,11 @@
         "contributor": {
           "id": "c-nadia",
           "displayName": "Nadia Hoefer",
-          "lineageId": "lin-hoefer",
           "joinedAt": "2026-05-19T15:12:00Z",
           "fictional": true,
           "verification": "guest"
         },
-        "record": {
+        "sourceRecord": {
           "id": "rec-plaque",
           "siteId": "site-hoefer-bench",
           "contributorId": "c-nadia",
@@ -710,20 +704,20 @@
           ],
           "createdAt": "2026-05-19T15:28:00Z"
         },
+        "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
         "affirmations": [],
-        "independentLineageCount": 0,
+        "independentRecordCount": 0,
         "extensions": [],
-        "references": [],
         "passover": {
           "sounds_right": 0,
           "dont_know": 0,
           "dont_care": 0
         },
-        "elementStatuses": [
+        "detailStatuses": [
           {
-            "element": {
+            "detail": {
               "id": "el-hb-person",
               "kind": "person",
               "value": "Margarethe Hoefer",
@@ -741,7 +735,7 @@
             ]
           },
           {
-            "element": {
+            "detail": {
               "id": "el-hb-place",
               "kind": "place",
               "value": "Greenbelt near the Americana bridge",
@@ -767,7 +761,6 @@
       {
         "id": "c-nadia",
         "displayName": "Nadia Hoefer",
-        "lineageId": "lin-hoefer",
         "joinedAt": "2026-05-19T15:12:00Z",
         "fictional": true,
         "verification": "guest"
@@ -806,7 +799,7 @@
         "lastContributionAt": "2026-05-19T15:34:00Z",
         "recordsSubmitted": 1,
         "claimsAuthored": 1,
-        "claimsCorroboratedByOtherLines": 0,
+        "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
@@ -821,7 +814,6 @@
     "integrity": {
       "totalClaims": 1,
       "independentContributors": 1,
-      "lineageDiversity": 1,
       "corroborationDepth": 0,
       "activeDisputes": 0,
       "datedClaims": 0,

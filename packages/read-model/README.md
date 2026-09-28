@@ -30,8 +30,9 @@ was free to fetch.
 ## Things that will bite
 
 **Coordinate order.** `[longitude, latitude]`, which is GeoJSON's order and the
-reverse of how everyone says it out loud. Getting it backwards fails silently by
-putting Boise in the Indian Ocean. See `docs/GIS.md`.
+reverse of how everyone says it out loud. Getting Boise's pair backwards gives a
+latitude of -116, which Mapbox rejects, but the error appears at the map rather
+than where the pair was swapped. See `docs/GIS.md`.
 
 **The bounding box.** `listSites()` returns every place in the fixtures, which
 is a handful. With real data the map has to fetch what is on screen rather than

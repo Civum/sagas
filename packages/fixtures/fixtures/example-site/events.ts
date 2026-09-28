@@ -51,7 +51,6 @@ export const events: ContributionEvent[] = [
     kind: 'contributor_registered',
     contributorId: 'c-marisol',
     displayName: 'Marisol Etxeberria',
-    lineageId: 'lin-etxeberria',
   },
 
   {
@@ -77,14 +76,14 @@ export const events: ContributionEvent[] = [
     id: 'ev-004', at: '2026-01-08T16:22:00Z', actorId: 'c-marisol',
     kind: 'claim_submitted',
     claimId: 'cl-boarding',
-    recordId: 'rec-001',
+    sourceRecordId: 'rec-001',
     siteId: SITE,
     sourceLanguage: 'en',
     text:
       'The Anduiza building on Grove Street took in Basque sheepherders when they came off the range. ' +
       'My great-grandmother cooked there. She started in 1922, a few years after she came over, and she ' +
       'stayed in that kitchen until the boarding side of it shut down.',
-    elements: [
+    details: [
       { id: 'cl-boarding-e-date', kind: 'date', value: '1922', excerpt: 'She started in 1922' },
       { id: 'cl-boarding-e-use', kind: 'event', value: 'boarding house for sheepherders', excerpt: 'took in Basque sheepherders' },
       { id: 'cl-boarding-e-place', kind: 'place', value: '620 W Grove St', excerpt: 'The Anduiza building on Grove Street' },
@@ -98,14 +97,14 @@ export const events: ContributionEvent[] = [
     id: 'ev-005', at: '2026-01-08T16:41:00Z', actorId: 'c-marisol',
     kind: 'claim_submitted',
     claimId: 'cl-fronton',
-    recordId: 'rec-001',
+    sourceRecordId: 'rec-001',
     siteId: SITE,
     sourceLanguage: 'en',
     text:
       'There was a handball court built into the back of the building, behind the sleeping rooms. ' +
       'The men played in the winter when there was no work on the range. My mother said you could ' +
       'hear it through the floor.',
-    elements: [
+    details: [
       { id: 'cl-fronton-e-place', kind: 'place', value: 'rear of building', excerpt: 'built into the back of the building' },
       { id: 'cl-fronton-e-use', kind: 'event', value: 'handball court / fronton', excerpt: 'a handball court' },
       { id: 'cl-fronton-e-season', kind: 'event', value: 'winter use', excerpt: 'played in the winter' },
@@ -129,13 +128,13 @@ export const events: ContributionEvent[] = [
     id: 'ev-007', at: '2026-01-09T02:15:00Z', actorId: 'c-marisol',
     kind: 'claim_submitted',
     claimId: 'cl-prelot',
-    recordId: 'rec-002',
+    sourceRecordId: 'rec-002',
     siteId: SITE,
     sourceLanguage: 'en',
     text:
       'Before the boarding house there was a livery stable on that lot. That is what I was told, ' +
       'though I do not know who ran it or when it went.',
-    elements: [
+    details: [
       { id: 'cl-prelot-e-use', kind: 'event', value: 'livery stable', excerpt: 'a livery stable on that lot' },
       { id: 'cl-prelot-e-seq', kind: 'date', value: 'before boarding house', excerpt: 'Before the boarding house' },
     ],
@@ -155,7 +154,6 @@ export const events: ContributionEvent[] = [
     kind: 'contributor_registered',
     contributorId: 'c-joseba',
     displayName: 'Joseba Iriondo',
-    lineageId: 'lin-iriondo',
   },
 
   {
@@ -201,7 +199,8 @@ export const events: ContributionEvent[] = [
     id: 'ev-011', at: '2026-02-14T20:01:00Z', actorId: 'c-joseba',
     kind: 'claim_extended',
     claimId: 'cl-fronton-floor',
-    recordId: 'rec-003',
+    sourceRecordId: 'rec-001',
+    evidenceRecordIds: ['rec-003'],
     parentClaimId: 'cl-fronton',
     siteId: SITE,
     sourceLanguage: 'en',
@@ -210,7 +209,7 @@ export const events: ContributionEvent[] = [
       'was long over and the building was something else, but the court was still there and men still ' +
       'came. The floor was wood and it had a dead spot near the left wall that everybody knew about. ' +
       'You learned to play around it.',
-    elements: [
+    details: [
       { id: 'cl-fronton-floor-e-date', kind: 'date', value: '1963-1964', excerpt: 'this would be 1963, 1964' },
       { id: 'cl-fronton-floor-e-mat', kind: 'event', value: 'wood floor', excerpt: 'The floor was wood' },
       { id: 'cl-fronton-floor-e-detail', kind: 'place', value: 'dead spot near left wall', excerpt: 'a dead spot near the left wall' },
@@ -224,7 +223,6 @@ export const events: ContributionEvent[] = [
     kind: 'contributor_registered',
     contributorId: 'c-ana',
     displayName: 'Ana Etxeberria-Woods',
-    lineageId: 'lin-etxeberria', // NOTE: same family line as c-marisol.
   },
 
   {
@@ -255,7 +253,8 @@ export const events: ContributionEvent[] = [
     id: 'ev-016', at: '2026-02-20T15:39:00Z', actorId: 'c-ana',
     kind: 'claim_extended',
     claimId: 'cl-boarding-kitchen',
-    recordId: 'rec-004',
+    sourceRecordId: 'rec-001',
+    evidenceRecordIds: ['rec-004'],
     parentClaimId: 'cl-boarding',
     siteId: SITE,
     sourceLanguage: 'en',
@@ -263,7 +262,7 @@ export const events: ContributionEvent[] = [
       'Marisol and I are cousins and this is the same great-grandmother. What I have that she may not ' +
       'is that the kitchen ran two sittings, because the herders came in at different hours depending ' +
       'on whether they were going out or coming back. My grandmother described washing up twice.',
-    elements: [
+    details: [
       { id: 'cl-boarding-kitchen-e-op', kind: 'event', value: 'two meal sittings', excerpt: 'the kitchen ran two sittings' },
       { id: 'cl-boarding-kitchen-e-rel', kind: 'attribution', value: 'same lineage as cl-boarding', excerpt: 'Marisol and I are cousins' },
     ],
@@ -276,7 +275,6 @@ export const events: ContributionEvent[] = [
     kind: 'contributor_registered',
     contributorId: 'c-domingo',
     displayName: 'Domingo Sagastume',
-    lineageId: 'lin-sagastume',
   },
 
   /* A claim given in Euskara. It is kept at its site and readable in the
@@ -315,7 +313,7 @@ export const events: ContributionEvent[] = [
     id: 'ev-019', at: '2026-03-02T22:31:00Z', actorId: 'c-domingo',
     kind: 'claim_submitted',
     claimId: 'cl-domingo',
-    recordId: 'rec-005',
+    sourceRecordId: 'rec-005',
     siteId: SITE,
     sourceLanguage: 'eu',
     awaitingTranslation: true,
@@ -323,7 +321,7 @@ export const events: ContributionEvent[] = [
       'Gure aitona hemen bizi izan zen. Neguan pilotan jokatzen zuten atzeko aldean. ' +
       'Guretzat gure etxea zen, ez ostatu bat.',
     text: '', // no rendering exists yet
-    elements: [],
+    details: [],
     topics: ['boarding house', 'pilota', 'family'],
     sourceType: 'family_oral',
   },
@@ -371,7 +369,7 @@ export const events: ContributionEvent[] = [
 
   /* ================================================================ */
   /* STATE t2 — May 2026. A documentary source arrives and contests    */
-  /* one element of an otherwise well-supported claim. The Euskara     */
+  /* one detail of an otherwise well-supported claim. The Euskara     */
   /* claim receives a rendering and enters the graph.                  */
   /* ================================================================ */
 
@@ -380,7 +378,7 @@ export const events: ContributionEvent[] = [
     kind: 'contributor_registered',
     contributorId: 'c-maite',
     displayName: 'Maite Elorriaga',
-    institution: 'Basque Museum & Cultural Center',
+    institution: 'A local cultural center (invented)',
   },
 
   {
@@ -411,7 +409,8 @@ export const events: ContributionEvent[] = [
     id: 'ev-027', at: '2026-04-06T14:35:00Z', actorId: 'c-maite',
     kind: 'claim_extended',
     claimId: 'cl-register',
-    recordId: 'rec-006',
+    sourceRecordId: 'rec-001',
+    evidenceRecordIds: ['rec-006'],
     parentClaimId: 'cl-boarding',
     siteId: SITE,
     sourceLanguage: 'en',
@@ -419,7 +418,7 @@ export const events: ContributionEvent[] = [
       'We hold a boarding register from this building. The earliest entries in our copy are from 1914, ' +
       'which is earlier than the date given in the account above. The register does not name kitchen ' +
       'staff, so it neither confirms nor contradicts who was cooking.',
-    elements: [
+    details: [
       { id: 'cl-register-e-date', kind: 'date', value: '1914', excerpt: 'The earliest entries in our copy are from 1914' },
       { id: 'cl-register-e-doc', kind: 'attribution', value: 'boarding register, museum holding', excerpt: 'We hold a boarding register' },
       { id: 'cl-register-e-limit', kind: 'attribution', value: 'register omits staff', excerpt: 'The register does not name kitchen staff' },
@@ -428,14 +427,14 @@ export const events: ContributionEvent[] = [
     sourceType: 'institutional',
   },
 
-  /* The dispute targets ONLY the date element. Place, use, and person on the
+  /* The dispute targets ONLY the date detail. Place, use, and person on the
      same claim remain undisputed. This is the granular-resolution case. */
   {
     id: 'ev-028', at: '2026-04-06T14:42:00Z', actorId: 'c-maite',
     kind: 'claim_disputed',
     edgeId: 'dis-001',
     targetClaimId: 'cl-boarding',
-    targetElementId: 'cl-boarding-e-date',
+    targetDetailId: 'cl-boarding-e-date',
     reasoning:
       'The register in our holdings has entries from 1914. The 1922 date may be when this particular ' +
       'cook began rather than when the boarding operation started. Those are different claims and the ' +
@@ -475,7 +474,7 @@ export const events: ContributionEvent[] = [
     kind: 'claim_disputed',
     edgeId: 'dis-002',
     targetClaimId: 'cl-prelot',
-    targetElementId: 'cl-prelot-e-use',
+    targetDetailId: 'cl-prelot-e-use',
     reasoning:
       'City directories for the 1890s list a blacksmith at this address, not a livery. I have not found ' +
       'a livery listed on this lot in any year I checked.',
@@ -494,7 +493,6 @@ export const events: ContributionEvent[] = [
     kind: 'contributor_registered',
     contributorId: 'c-kepa',
     displayName: 'Kepa Larrañaga',
-    lineageId: 'lin-larranaga',
   },
 
   /* The rendering lands. cl-domingo now enters the claim graph. */
@@ -528,7 +526,7 @@ export const events: ContributionEvent[] = [
     kind: 'claim_disputed',
     edgeId: 'dis-003',
     targetClaimId: 'cl-boarding',
-    targetElementId: 'cl-boarding-e-date',
+    targetDetailId: 'cl-boarding-e-date',
     reasoning:
       'Our family has always said 1922 and there is a photograph dated that year with her in the ' +
       'kitchen doorway. I am not disputing that the building took boarders earlier. I am saying 1922 ' +
@@ -541,7 +539,7 @@ export const events: ContributionEvent[] = [
     kind: 'claim_disputed',
     edgeId: 'dis-004',
     targetClaimId: 'cl-boarding',
-    targetElementId: 'cl-boarding-e-date',
+    targetDetailId: 'cl-boarding-e-date',
     reasoning:
       'A 1916 newspaper notice advertises rooms at this address for herders. That predates 1922 by six ' +
       'years and is independent of the museum register.',
@@ -565,7 +563,7 @@ export const events: ContributionEvent[] = [
   /* STATE t3 — July 2026. A competing rendering of the Euskara        */
   /* claim with a dispute about what it loses. A second lineage        */
   /* corroborates the fronton. An extension that could reconcile the   */
-  /* livery/blacksmith branch. An unresolved cross-site reference.     */
+  /* livery/blacksmith branch.                                         */
   /* ================================================================ */
 
   {
@@ -573,7 +571,6 @@ export const events: ContributionEvent[] = [
     kind: 'contributor_registered',
     contributorId: 'c-itxaso',
     displayName: 'Itxaso Zubieta',
-    lineageId: 'lin-zubieta',
   },
 
   /* A second rendering. It does not replace the first. Both coexist, each
@@ -622,14 +619,15 @@ export const events: ContributionEvent[] = [
     id: 'ev-047', at: '2026-06-08T15:44:00Z', actorId: 'c-domingo',
     kind: 'claim_extended',
     claimId: 'cl-fronton-deadspot',
-    recordId: 'rec-007',
+    sourceRecordId: 'rec-001',
+    evidenceRecordIds: ['rec-007'],
     parentClaimId: 'cl-fronton-floor',
     siteId: SITE,
     sourceLanguage: 'en',
     text:
       'The dead spot was where a drain had been patched over. My uncle said it was there from the start ' +
       'and nobody ever fixed it properly because it would have meant taking up half the floor.',
-    elements: [
+    details: [
       { id: 'cl-fronton-deadspot-e-cause', kind: 'event', value: 'patched drain', excerpt: 'where a drain had been patched over' },
     ],
     topics: ['pilota', 'fronton', 'building fabric'],
@@ -675,7 +673,8 @@ export const events: ContributionEvent[] = [
     id: 'ev-051', at: '2026-06-22T16:12:00Z', actorId: 'c-maite',
     kind: 'claim_extended',
     claimId: 'cl-prelot-both',
-    recordId: 'rec-008',
+    sourceRecordId: 'rec-002',
+    evidenceRecordIds: ['rec-008'],
     parentClaimId: 'cl-prelot',
     siteId: SITE,
     sourceLanguage: 'en',
@@ -683,7 +682,7 @@ export const events: ContributionEvent[] = [
       'Both may be right. A Sanborn sheet shows a smithy on the corner of this lot and stabling behind ' +
       'it in the same year. People who remember it as a livery and people who find a blacksmith in the ' +
       'directories are describing different parts of the same yard.',
-    elements: [
+    details: [
       { id: 'cl-prelot-both-e-use', kind: 'event', value: 'smithy and stabling coexisting', excerpt: 'a smithy on the corner of this lot and stabling behind it' },
       { id: 'cl-prelot-both-e-doc', kind: 'attribution', value: 'Sanborn fire insurance map', excerpt: 'A Sanborn sheet' },
     ],
@@ -726,14 +725,6 @@ export const events: ContributionEvent[] = [
       'ask her before it stays up.',
   },
 
-  {
-    id: 'ev-055', at: '2026-07-02T19:05:00Z', actorId: 'c-kepa',
-    kind: 'reference_marked',
-    edgeId: 'ref-001',
-    fromClaimId: 'cl-fronton-floor',
-    excerpt: 'men still came',
-    resolved: false,
-  },
 
   {
     id: 'ev-056', at: '2026-07-02T19:26:00Z', actorId: 'c-kepa',
@@ -766,14 +757,15 @@ export const events: ContributionEvent[] = [
     id: 'ev-057', at: '2026-07-02T19:30:00Z', actorId: 'c-kepa',
     kind: 'claim_extended',
     claimId: 'cl-afterhours',
-    recordId: 'rec-009',
+    sourceRecordId: 'rec-001',
+    evidenceRecordIds: ['rec-009'],
     parentClaimId: 'cl-fronton-floor',
     siteId: SITE,
     sourceLanguage: 'en',
     text:
       'The men who came in the sixties were mostly walking over from the Center after supper. It was ' +
       'not a boarding house crowd by then, it was whoever wanted a game.',
-    elements: [
+    details: [
       { id: 'cl-afterhours-e-origin', kind: 'place', value: 'the Center', excerpt: 'walking over from the Center' },
       { id: 'cl-afterhours-e-date', kind: 'date', value: '1960s', excerpt: 'The men who came in the sixties' },
     ],
@@ -781,14 +773,6 @@ export const events: ContributionEvent[] = [
     sourceType: 'community_oral',
   },
 
-  {
-    id: 'ev-058', at: '2026-07-02T19:33:00Z', actorId: 'c-kepa',
-    kind: 'reference_marked',
-    edgeId: 'ref-002',
-    fromClaimId: 'cl-afterhours',
-    excerpt: 'the Center',
-    resolved: false,
-  },
 
   {
     id: 'ev-059', at: '2026-07-09T14:50:00Z', actorId: 'c-maite',

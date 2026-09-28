@@ -8,12 +8,6 @@
  * THIS CONTENT IS INVENTED, including the business names. The street and the
  * coordinates are real. There were no such shops and there are no such people.
  *
- * This site also carries an unresolved cross-site reference. A claim here
- * points at the site next door, because the two shops shared a wall and
- * somebody remembers the doorway between them. Nothing in the model resolves
- * that pointer into anything, which is deliberate and is asked about in
- * `docs/DESIGN-QUESTIONS.md` under "How does a reference become an edge?"
- *
  * Authored as an append-only log. States are derived, never authored. See
  * ../../src/reduce.ts.
  */
@@ -40,7 +34,6 @@ export const events: ContributionEvent[] = [
     kind: 'contributor_registered',
     contributorId: 'c-esther',
     displayName: 'Esther Lindqvist',
-    lineageId: 'lin-lindqvist',
   },
 
   {
@@ -56,11 +49,11 @@ export const events: ContributionEvent[] = [
     id: 'hy-004', at: '2026-04-09T10:36:00Z', actorId: 'c-esther',
     kind: 'claim_submitted',
     claimId: 'cl-hays-bakery',
-    recordId: 'rec-hays-bakery',
+    sourceRecordId: 'rec-hays-bakery',
     siteId: SITE,
     text: 'There was a bakery at 1116 before it became a print shop. You could smell it from the end of the block on a Saturday. There was a doorway through to the shop next door, cut through the party wall, and the two of them used it as one premises for a while.',
     sourceLanguage: 'en',
-    elements: [
+    details: [
       { id: 'el-hy-trade', kind: 'event', value: 'bakery', excerpt: 'There was a bakery at 1116' },
       { id: 'el-hy-door', kind: 'place', value: 'doorway through the party wall', excerpt: 'a doorway through to the shop next door' },
     ],
@@ -68,15 +61,6 @@ export const events: ContributionEvent[] = [
     sourceType: 'community_oral',
   },
 
-  {
-    id: 'hy-005', at: '2026-04-09T10:38:00Z', actorId: 'c-esther',
-    kind: 'reference_marked',
-    edgeId: 'ref-hy-nextdoor',
-    fromClaimId: 'cl-hays-bakery',
-    toSiteId: 'site-hays-1114',
-    excerpt: 'the shop next door',
-    resolved: false,
-  },
 
   // Registered again here, for the same reason as in the 1114 log. He is the
   // contributor next door and he cannot speak to the doorway.
@@ -85,7 +69,6 @@ export const events: ContributionEvent[] = [
     kind: 'contributor_registered',
     contributorId: 'c-tomas',
     displayName: 'Tomás Iriarte',
-    lineageId: 'lin-iriarte',
   },
 
   {
@@ -98,7 +81,7 @@ export const events: ContributionEvent[] = [
 ];
 
 export const stateCuts = [
-  { stateId: 't0', label: 'Created, one claim, an unresolved reference next door', asOf: '2026-04-30T23:59:59Z' },
+  { stateId: 't0', label: 'Created, one claim about the shop next door', asOf: '2026-04-30T23:59:59Z' },
   { stateId: 't1', label: 'Unchanged', asOf: '2026-05-31T23:59:59Z' },
   { stateId: 't2', label: 'Unchanged', asOf: '2026-06-30T23:59:59Z' },
   { stateId: 't3', label: 'The neighbour cannot speak to the doorway', asOf: '2026-07-31T23:59:59Z' },

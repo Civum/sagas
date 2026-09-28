@@ -39,21 +39,21 @@ describe('fixtures satisfy the contract', () => {
   it('every dispute carries reasoning', () => {
     for (const state of states) {
       for (const c of state.claims) {
-        for (const es of c.elementStatuses) {
+        for (const es of c.detailStatuses) {
           for (const d of es.disputes) expect(d.reasoning.trim().length).toBeGreaterThan(0);
         }
       }
     }
   });
 
-  it('a dispute targets an element that exists on the claim it targets', () => {
+  it('a dispute targets a detail that exists on the claim it targets', () => {
     for (const state of states) {
       for (const c of state.claims) {
-        const elementIds = new Set(c.claim.elements.map((e) => e.id));
-        for (const es of c.elementStatuses) {
+        const detailIds = new Set(c.claim.details.map((e) => e.id));
+        for (const es of c.detailStatuses) {
           for (const d of es.disputes) {
             expect(d.targetClaimId).toBe(c.claim.id);
-            expect(elementIds.has(d.targetElementId)).toBe(true);
+            expect(detailIds.has(d.targetDetailId)).toBe(true);
           }
         }
       }
@@ -86,16 +86,16 @@ describe('acceptance criteria point at data that exhibits them', () => {
   });
 
   it('the affirmation-without-independence case really has that shape', () => {
-    const boarding = loadState('t1').claims.find((c) => c.claim.id === 'cl-boarding')!;
-    expect(boarding.affirmations.length).toBeGreaterThan(0);
-    expect(boarding.independentLineageCount).toBe(0);
-    expect(boarding.confidence).toBe('single_source');
+    const afterhours = loadState('t3').claims.find((c) => c.claim.id === 'cl-afterhours')!;
+    expect(afterhours.affirmations.length).toBeGreaterThan(0);
+    expect(afterhours.independentRecordCount).toBe(0);
+    expect(afterhours.confidence).toBe('single_source');
   });
 
-  it('the granular dispute case leaves other elements alone', () => {
+  it('the granular dispute case leaves other details alone', () => {
     const boarding = loadState('t2').claims.find((c) => c.claim.id === 'cl-boarding')!;
-    const contested = boarding.elementStatuses.filter((e) => e.disputes.length > 0);
-    const clean = boarding.elementStatuses.filter((e) => e.disputes.length === 0);
+    const contested = boarding.detailStatuses.filter((e) => e.disputes.length > 0);
+    const clean = boarding.detailStatuses.filter((e) => e.disputes.length === 0);
     expect(contested).toHaveLength(1);
     expect(clean.length).toBeGreaterThan(0);
   });
@@ -104,7 +104,7 @@ describe('acceptance criteria point at data that exhibits them', () => {
     for (const state of states) {
       const known = new Set(state.records.map((r) => r.id));
       for (const c of state.claims) {
-        expect(known.has(c.claim.recordId), `${c.claim.id} -> ${c.claim.recordId}`).toBe(true);
+        expect(known.has(c.claim.sourceRecordId), `${c.claim.id} -> ${c.claim.sourceRecordId}`).toBe(true);
       }
     }
   });
@@ -122,7 +122,7 @@ describe('acceptance criteria point at data that exhibits them', () => {
     // standing that is a rating rather than a tally, this fails.
     const allowed = new Set([
       'contributorId', 'firstContributionAt', 'lastContributionAt',
-      'recordsSubmitted', 'claimsAuthored', 'claimsCorroboratedByOtherLines',
+      'recordsSubmitted', 'claimsAuthored', 'claimsCorroborated',
       'claimsDisputed', 'disputesRaised', 'disputesRaisedWithAlternative',
       'affirmationsGiven', 'translationsContributed', 'transcriptsContributed',
       'flagsRaised',

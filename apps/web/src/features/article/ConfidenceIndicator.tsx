@@ -13,17 +13,18 @@
  * An affirmation is not corroboration.
  *
  * A claim can have five affirmations and zero independent support, because
- * everyone who agreed is from the same family as the person who said it. The
- * model counts by family line for exactly this reason: three cousins are one
- * source.
+ * agreeing is not bringing anything. Support comes from somebody else putting a
+ * record of their own behind the claim. Five people saying "sounds right" is
+ * five reactions to one source.
  *
  * So this never shows an affirmation count on its own. Showing "5 agree" next
  * to "single source" reads as a bug to anyone who thinks about evidence, and
  * showing "5 agree" without the qualifier is worse, because it is a lie that
  * looks like data.
  *
- * `cl-boarding` at t1 is the case: one affirmation, zero independent lines,
- * still single_source. Open `pnpm inspect --state t1 cl-boarding` and look.
+ * `cl-afterhours` at t3 is the case: two affirmations, zero independent
+ * sources, still single_source. Open `pnpm inspect --state t3 cl-afterhours`
+ * and look.
  *
  * Acceptance case: affirmation-without-independence.
  *
@@ -54,18 +55,18 @@ const LABELS: Record<ClaimState['confidence'], string> = {
  * Pure, and separated from the markup so the rule can be tested without
  * rendering. The rule is the whole point of the component.
  */
-export function supportSummary(independentLineageCount: number, affirmationCount: number): string {
-  if (independentLineageCount === 0 && affirmationCount === 0) {
+export function supportSummary(independentRecordCount: number, affirmationCount: number): string {
+  if (independentRecordCount === 0 && affirmationCount === 0) {
     return 'No one else has spoken to this yet';
   }
-  if (independentLineageCount === 0) {
-    // The dangerous case. People agreed, and none of them are independent.
+  if (independentRecordCount === 0) {
+    // The dangerous case. People agreed, and nobody brought anything.
     return affirmationCount === 1
-      ? '1 person agrees, from the same family as the author'
-      : `${affirmationCount} people agree, all from the author's family`;
+      ? '1 person agrees, with no independent record yet'
+      : `${affirmationCount} people agree, with no independent record yet`;
   }
-  const families = independentLineageCount === 1 ? '1 other family' : `${independentLineageCount} other families`;
-  return `Backed by ${families}`;
+  const records = independentRecordCount === 1 ? '1 other record' : `${independentRecordCount} other records`;
+  return `Backed by ${records}`;
 }
 
 export function ConfidenceIndicator({ claim }: { claim: ClaimState }) {
@@ -77,7 +78,7 @@ export function ConfidenceIndicator({ claim }: { claim: ClaimState }) {
     );
   }
 
-  const summary = supportSummary(claim.independentLineageCount, claim.affirmations.length);
+  const summary = supportSummary(claim.independentRecordCount, claim.affirmations.length);
 
   return (
     <p className="flex flex-wrap items-baseline gap-x-2 text-xs">
