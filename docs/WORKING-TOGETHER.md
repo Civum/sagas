@@ -41,10 +41,12 @@ pushing something rushed at 5:55pm.
 `@sagas/contracts` and `@sagas/fixtures` are sponsor-owned, and they *will*
 change during the semester. A change here is how something one team finds, or something learned from somebody in the community, reaches everyone else. Four rules make that safe:
 
-1. **Changes land on Mondays and only on Mondays.** The contract cannot move
-   mid-week. It limits when we can publish a change. It does not mean a change comes every Monday, and we expect three to five across a semester.
+1. **Changes land on Sundays.** The contract cannot move mid-week, and the
+   upstream watch reports a change on the Monday morning after it lands. This
+   limits when we can publish a change. It does not mean a change comes every
+   week, and we expect three to five across a semester.
 2. **Nothing lands cold.** A significant change is raised at a check-in *before*
-   it is built, then published the following Monday. You will hear "we might
+   it is built, then published the following Sunday. You will hear "we might
    change X" before you see X change.
 3. **Your fork is pinned to a tag.** A change is *available* to you, never
    imposed. Pulling forward is a decision made together at a check-in, not

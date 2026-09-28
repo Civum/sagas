@@ -25,8 +25,8 @@ Civum/sagas                     upstream, sponsor-owned
 **Your fork does not update itself.** Upstream can change and nothing happens to
 your fork until you decide it should, so nothing shifts under you mid-sprint.
 
-**Upstream changes are available, never imposed.** The contract moves on Mondays
-and only Mondays, it is announced at a check-in before it lands, and pulling it
+**Upstream changes are available, never imposed.** The contract moves on Sundays,
+it is announced at a check-in before it lands, and pulling it
 forward is a decision you make together at a check-in. See "When the contract
 changes" in the root README for the rules; this file is how to carry them out.
 
@@ -39,7 +39,7 @@ branch, no shared database, and no way to pull a change directly from another
 team. Every path between the three schools runs through upstream:
 
 ```
-YourOrg/sagas  ──PR──▶  Civum/sagas  ──Monday──▶  TheirOrg/sagas
+YourOrg/sagas  ──PR──▶  Civum/sagas  ──Sunday──▶  TheirOrg/sagas
                                                   (when they choose to pull)
 ```
 
@@ -51,7 +51,7 @@ telling the experience team at a check-in does not change their code. The
 contract change does.
 
 **It takes weeks, not days.** Open a pull request, we review it, it lands on a
-Monday, and the other teams pull it when they decide to at a check-in. Two to
+Sunday, and the other teams pull it when they decide to at a check-in. Two to
 three weeks from idea to it being in somebody else's build is normal, and it is
 the cost of nobody's work moving under them mid-sprint. If you know in week four that you will need something in week nine,
 raise it in week four.

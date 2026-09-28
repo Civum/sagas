@@ -115,7 +115,7 @@ Event: `passover_recorded`.
 
 **Intelligence layer.**
 
-The intelligence layer reads claims, not records. From the graph it can see:
+The intelligence layer's main focus is claims. From the graph it can see:
 
 - The date detail has two readings, one with an evidence record behind it.
 - The owner detail has an extension from a different contributor.

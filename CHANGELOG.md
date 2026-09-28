@@ -12,8 +12,8 @@ the middle. Splitting this file would hide the one thing it exists to show.
 Entries name **layers**, not schools. Layers are stable; which university owns
 one is not, and this file should still make sense to next year's cohort.
 
-Changes land on Mondays and only on Mondays. See "When the contract changes" in
-the root README. Your fork is pinned, so nothing here reaches you until you pull.
+Changes land on Sundays, and the upstream watch in each fork reports them on Monday morning. See "When the contract changes" in
+`docs/WORKING-TOGETHER.md`. Your fork is pinned, so nothing here reaches you until you pull.
 
 **Two kinds of entry.** A contract change carries a version number. A repo change
 (a new app, a new guide, tooling) carries a date only, because it does not move

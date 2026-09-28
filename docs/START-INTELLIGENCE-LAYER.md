@@ -227,8 +227,8 @@ and some things are missing entirely. Finding them is the assignment.
 
 Here are three gaps I know about. Where one has been decided, it says so.
 
-**Records and claims.** Your layer scores claims, not records, though it reads
-which records a claim leans on. A record plays one
+**Records and claims.** Your main focus is claims. How much your layer reads the
+records behind them is still being worked out. A record plays one
 of two parts. As a *source record* it is where a conversation starts, and every
 claim in that conversation has it as `claim.sourceRecordId`. As an *evidence
 record* it is attached to a claim to back it up, through
