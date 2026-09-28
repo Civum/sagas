@@ -14,12 +14,12 @@
 
 import { describe, expect, it } from 'vitest';
 import { graphState } from '@sagas/contracts';
-import { ACCEPTANCE_CRITERIA, loadAllStates, loadState } from './index';
+import { ACCEPTANCE_CRITERIA, loadAllStates, loadSiteState } from './index';
 
 const states = loadAllStates();
 
 describe('fixtures satisfy the contract', () => {
-  it.each(states.map((s) => [s.stateId, s] as const))('%s parses', (_id, state) => {
+  it.each(states.map((s) => [`${s.site.slug} ${s.stateId}`, s] as const))('%s parses', (_id, state) => {
     expect(() => graphState.parse(state)).not.toThrow();
   });
 
@@ -73,7 +73,7 @@ describe('fixtures satisfy the contract', () => {
 
 describe('acceptance criteria point at data that exhibits them', () => {
   it.each(ACCEPTANCE_CRITERIA.map((c) => [c.id, c] as const))('%s', (_id, c) => {
-    const state = loadState(c.stateId);
+    const state = loadSiteState(c.site, c.stateId);
     expect(state).toBeTruthy();
     if (c.subject) {
       // A case can be about a claim, the record it came from, or a person.
@@ -81,21 +81,21 @@ describe('acceptance criteria point at data that exhibits them', () => {
         state.claims.find((cl) => cl.claim.id === c.subject) ??
         state.records.find((r) => r.id === c.subject) ??
         state.contributors.find((p) => p.id === c.subject);
-      expect(subject, `${c.subject} not present in ${c.stateId}`).toBeTruthy();
+      expect(subject, `${c.subject} not present in ${c.site} ${c.stateId}`).toBeTruthy();
     }
   });
 
   it('the affirmation-without-independence case really has that shape', () => {
-    const afterhours = loadState('t3').claims.find((c) => c.claim.id === 'cl-afterhours')!;
-    expect(afterhours.affirmations.length).toBeGreaterThan(0);
-    expect(afterhours.independentRecordCount).toBe(0);
-    expect(afterhours.confidence).toBe('single_source');
+    const shop = loadSiteState('corner-shop', 't1').claims.find((c) => c.claim.id === 'cl-cs-shop');
+    expect(shop?.affirmations.length).toBeGreaterThan(0);
+    expect(shop?.independentRecordCount).toBe(0);
+    expect(shop?.confidence).toBe('single_source');
   });
 
   it('the granular dispute case leaves other details alone', () => {
-    const boarding = loadState('t2').claims.find((c) => c.claim.id === 'cl-boarding')!;
-    const contested = boarding.detailStatuses.filter((e) => e.disputes.length > 0);
-    const clean = boarding.detailStatuses.filter((e) => e.disputes.length === 0);
+    const shop = loadSiteState('corner-shop', 't2').claims.find((c) => c.claim.id === 'cl-cs-shop');
+    const contested = shop?.detailStatuses.filter((e) => e.disputes.length > 0) ?? [];
+    const clean = shop?.detailStatuses.filter((e) => e.disputes.length === 0) ?? [];
     expect(contested).toHaveLength(1);
     expect(clean.length).toBeGreaterThan(0);
   });

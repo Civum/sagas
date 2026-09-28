@@ -5,10 +5,10 @@
  * event log and adding a line here. Nothing else in the package needs to know
  * the site exists.
  *
- * `example-site` is the flagship. It is the richest log, it carries the
- * translation and rendering cases, and it is the one to read first.
- * `corner-shop` is the worked example from `docs/HOW-THE-LAYERS-FIT.md`, and
- * the one to read for how details, evidence and separate conversations work. The others
+ * `corner-shop` is the flagship and the one to read first. It is the worked
+ * example from `docs/HOW-THE-LAYERS-FIT.md`: details, evidence, and separate
+ * conversations about one place. `example-site` is the longest log and carries
+ * the translation and rendering cases. The others
  * exist so that the map has more than one pin, so that "everything within two
  * kilometres" has something to find, and so that a contributor can appear in
  * more than one place.
@@ -40,4 +40,4 @@ export const siteFixtures: SiteFixture[] = [
 ];
 
 /** The stem of the flagship, which several documents point at by name. */
-export const FLAGSHIP = 'example-site';
+export const FLAGSHIP = 'corner-shop';

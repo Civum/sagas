@@ -1,27 +1,30 @@
 /**
  * Why does a claim score what it scores?
  *
- *   pnpm inspect                     every claim at t3, one line each
- *   pnpm inspect cl-boarding         one claim, with its inputs
- *   pnpm inspect --state t1          a different snapshot
- *   pnpm inspect --state t1 cl-boarding
+ *   pnpm inspect                          every claim at t3, one line each
+ *   pnpm inspect cl-cs-shop               one claim, with its inputs
+ *   pnpm inspect --state t1               a different snapshot
+ *   pnpm inspect --state t1 cl-cs-shop
+ *   pnpm inspect --site example-site      a different site (directory name)
  *
  * This prints what went into a score rather than just the score. A number on
  * its own tells you nothing about whether your scoring is right; the inputs
  * next to it tell you whether the number is defensible.
  */
 
-import { loadState } from '../acceptance';
+import { FLAGSHIP, loadSiteState } from '../acceptance';
 import { computeWeight, classifyConfidence } from '../src/weight';
 import type { ClaimState, GraphState } from '@sagas/contracts';
 
 const argv = process.argv.slice(2);
 const stateFlag = argv.indexOf('--state');
 const stateId = stateFlag === -1 ? 't3' : (argv[stateFlag + 1] ?? 't3');
-const stateValueIndex = stateFlag === -1 ? -1 : stateFlag + 1;
-const claimId = argv.find((a, i) => !a.startsWith('--') && i !== stateValueIndex);
+const siteFlag = argv.indexOf('--site');
+const siteKey = siteFlag === -1 ? FLAGSHIP : (argv[siteFlag + 1] ?? FLAGSHIP);
+const flagValues = new Set([stateFlag, siteFlag].filter((i) => i !== -1).map((i) => i + 1));
+const claimId = argv.find((a, i) => !a.startsWith('--') && !flagValues.has(i));
 
-const state: GraphState = loadState(stateId);
+const state: GraphState = loadSiteState(siteKey, stateId);
 
 function inputsFor(c: ClaimState) {
   // Source-type diversity counts this claim plus everything added onto it, the
@@ -84,7 +87,7 @@ function one(c: ClaimState) {
     console.log('\n  WHERE PEOPLE DISAGREE');
     for (const e of contested) {
       const readings = e.competingValues
-        .map((v) => `"${v.value}" (${v.count} line${v.count === 1 ? '' : 's'})`)
+        .map((v) => `"${v.value}" (${v.count} contributor${v.count === 1 ? '' : 's'})`)
         .join('  vs  ');
       console.log(`    ${e.detail.kind}: ${readings}`);
     }
