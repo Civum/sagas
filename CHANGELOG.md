@@ -68,6 +68,10 @@ migration rather than four.
   contributor's claims that have at least one. Agreement never counts as a
   source. Competing readings of a detail are listed in the order they arrived,
   not by headcount.
+- The flagship fixture is now `corner-shop`, an invented site that follows
+  `docs/HOW-THE-LAYERS-FIT.md`. The Basque site (`example-site`) stays as one of
+  six. Every acceptance case now names its `site`, `loadAllStates()` returns
+  every state of every site, and `/dev` has a site picker.
 
 **Why:** "Element" and "detail" were two words for one idea. A claim's record
 was doing two jobs: being where a conversation starts, and being evidence for
@@ -88,6 +92,8 @@ own fallback. `docs/CLOSED-QUESTIONS.md` has the reasoning for each.
 - *content layer* — a claim you create needs `sourceRecordId`, and can carry
   `evidenceRecordIds`. An extension that brings a new record attaches it as
   evidence.
+- *all layers* — if you read `ACCEPTANCE_CRITERIA`, load each case's state with
+  `loadSiteState(c.site, c.stateId)` rather than `loadState(c.stateId)`.
 
 ---
 
