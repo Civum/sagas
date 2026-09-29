@@ -1,27 +1,30 @@
 /**
  * Why does a claim score what it scores?
  *
- *   pnpm inspect                     every claim at t3, one line each
- *   pnpm inspect cl-boarding         one claim, with its inputs
- *   pnpm inspect --state t1          a different snapshot
- *   pnpm inspect --state t1 cl-boarding
+ *   pnpm inspect                          every claim at t3, one line each
+ *   pnpm inspect cl-cs-shop               one claim, with its inputs
+ *   pnpm inspect --state t1               a different snapshot
+ *   pnpm inspect --state t1 cl-cs-shop
+ *   pnpm inspect --site example-site      a different site (directory name)
  *
  * This prints what went into a score rather than just the score. A number on
  * its own tells you nothing about whether your scoring is right; the inputs
  * next to it tell you whether the number is defensible.
  */
 
-import { loadState } from '../acceptance';
+import { FLAGSHIP, loadSiteState } from '../acceptance';
 import { computeWeight, classifyConfidence } from '../src/weight';
 import type { ClaimState, GraphState } from '@sagas/contracts';
 
 const argv = process.argv.slice(2);
 const stateFlag = argv.indexOf('--state');
 const stateId = stateFlag === -1 ? 't3' : (argv[stateFlag + 1] ?? 't3');
-const stateValueIndex = stateFlag === -1 ? -1 : stateFlag + 1;
-const claimId = argv.find((a, i) => !a.startsWith('--') && i !== stateValueIndex);
+const siteFlag = argv.indexOf('--site');
+const siteKey = siteFlag === -1 ? FLAGSHIP : (argv[siteFlag + 1] ?? FLAGSHIP);
+const flagValues = new Set([stateFlag, siteFlag].filter((i) => i !== -1).map((i) => i + 1));
+const claimId = argv.find((a, i) => !a.startsWith('--') && !flagValues.has(i));
 
-const state: GraphState = loadState(stateId);
+const state: GraphState = loadSiteState(siteKey, stateId);
 
 function inputsFor(c: ClaimState) {
   // Source-type diversity counts this claim plus everything added onto it, the
@@ -33,10 +36,10 @@ function inputsFor(c: ClaimState) {
 
   return {
     sourceType: c.claim.sourceType,
-    independentLineageCount: c.independentLineageCount,
+    independentRecordCount: c.independentRecordCount,
     affirmationCount: c.affirmations.length,
     extensionCount: c.extensions.length,
-    disputeCount: c.elementStatuses.reduce((n, e) => n + e.disputes.length, 0),
+    disputeCount: c.detailStatuses.reduce((n, e) => n + e.disputes.length, 0),
     sourceTypeDiversity: new Set([c.claim.sourceType, ...extensionTypes]).size,
     awaitingTranslation: c.claim.awaitingTranslation,
   };
@@ -56,10 +59,10 @@ function one(c: ClaimState) {
 
   console.log('\n  WHAT WENT IN');
   line('sourceType', i.sourceType);
-  line('independent family lines', i.independentLineageCount,
-    i.independentLineageCount === 0 ? 'nobody outside the author\'s family' : '');
+  line('independent records', i.independentRecordCount,
+    i.independentRecordCount === 0 ? 'no independent record yet' : '');
   line('affirmations', i.affirmationCount,
-    i.affirmationCount > 0 && i.independentLineageCount === 0
+    i.affirmationCount > 0 && i.independentRecordCount === 0
       ? 'people agreed, none independently' : '');
   line('extensions', i.extensionCount);
   line('disputes', i.disputeCount);
@@ -74,19 +77,19 @@ function one(c: ClaimState) {
       ? `MISMATCH. Stored is ${c.weight.toFixed(2)}. Regenerate the states.`
       : 'matches the stored value');
   line('confidence', classifyConfidence({
-    independentLineageCount: i.independentLineageCount,
+    independentRecordCount: i.independentRecordCount,
     disputeCount: i.disputeCount,
     awaitingTranslation: i.awaitingTranslation,
   }), `stored: ${c.confidence}`);
 
-  const contested = c.elementStatuses.filter((e) => e.disputes.length > 0);
+  const contested = c.detailStatuses.filter((e) => e.disputes.length > 0);
   if (contested.length) {
     console.log('\n  WHERE PEOPLE DISAGREE');
     for (const e of contested) {
       const readings = e.competingValues
-        .map((v) => `"${v.value}" (${v.count} line${v.count === 1 ? '' : 's'})`)
+        .map((v) => `"${v.value}" (${v.count} contributor${v.count === 1 ? '' : 's'})`)
         .join('  vs  ');
-      console.log(`    ${e.element.kind}: ${readings}`);
+      console.log(`    ${e.detail.kind}: ${readings}`);
     }
   }
 }
@@ -106,7 +109,7 @@ if (claimId) {
     const i = inputsFor(c);
     console.log(
       `  ${c.weight.toFixed(2).padStart(6)}` +
-      `  ${String(i.independentLineageCount).padStart(5)}` +
+      `  ${String(i.independentRecordCount).padStart(5)}` +
       `  ${String(i.affirmationCount).padStart(6)}` +
       `  ${String(i.disputeCount).padStart(8)}` +
       `  ${c.confidence.padEnd(18)}  ${c.claim.id}`,

@@ -25,16 +25,22 @@ test('nothing is ever removed: claim counts are monotonic', () => {
   }
 });
 
-test('a cousin affirming a cousin is not independent corroboration', () => {
-  // Ana shares Marisol's family line and affirms Marisol's claim.
-  const boarding = find(t1, 'cl-boarding');
-  expect2eq(boarding.affirmations.length, 1, 'the affirmation is recorded');
-  expect2eq(boarding.independentLineageCount, 0, 'but it adds no independence');
-  expect2eq(boarding.confidence, 'single_source');
+test('agreement is never independent support', () => {
+  // Two people said "sounds right" and nobody brought a record of their own.
+  const afterhours = find(t3, 'cl-afterhours');
+  expect2eq(afterhours.affirmations.length, 2, 'the affirmations are recorded');
+  expect2eq(afterhours.independentRecordCount, 0, 'but they add no source');
+  expect2eq(afterhours.confidence, 'single_source');
+});
 
-  // Whereas the fronton claim is affirmed across genuinely distinct lines.
-  const fronton = find(t1, 'cl-fronton');
-  expect2ok(fronton.independentLineageCount >= 1);
+test('a record somebody else brings is an independent record', () => {
+  // Ana extends the boarding claim with a record of her own. The stand-in
+  // counts it. Ana and the author are cousins who may have heard one telling,
+  // which the stand-in cannot see: that is the open "cousin case", and working
+  // it out from the graph is the intelligence layer's job.
+  const boarding = find(t1, 'cl-boarding');
+  expect2eq(boarding.independentRecordCount, 1);
+  expect2eq(boarding.confidence, 'corroborated');
 });
 
 test('an untranslated claim is present, pinned, and outside the graph', () => {
@@ -58,21 +64,22 @@ test('competing renderings coexist; neither replaces the other', () => {
   expect2eq(d3.translationDisputes.length, 1, 'the objection is preserved, not resolved');
 });
 
-test('a dispute targets one element and leaves the rest of the claim alone', () => {
+test('a dispute targets one detail and leaves the rest of the claim alone', () => {
   const boarding = find(t3, 'cl-boarding');
-  const contested = boarding.elementStatuses.filter((e) => e.disputes.length > 0);
+  const contested = boarding.detailStatuses.filter((e) => e.disputes.length > 0);
   expect2eq(contested.length, 1);
-  expect2eq(contested[0]!.element.kind, 'date');
+  expect2eq(contested[0]!.detail.kind, 'date');
 
-  const untouched = boarding.elementStatuses.filter((e) => e.disputes.length === 0);
-  expect2ok(untouched.some((e) => e.element.kind === 'place'), 'location stays undisputed');
-  expect2ok(untouched.some((e) => e.element.kind === 'person'));
+  const untouched = boarding.detailStatuses.filter((e) => e.disputes.length === 0);
+  expect2ok(untouched.some((e) => e.detail.kind === 'place'), 'location stays undisputed');
+  expect2ok(untouched.some((e) => e.detail.kind === 'person'));
 });
 
-test('competing readings are ordered by independent lines, not headcount', () => {
-  const dateEl = find(t3, 'cl-boarding').elementStatuses.find((e) => e.element.kind === 'date')!;
-  expect2deep(dateEl.competingValues.map((v) => v.value), ['1914', '1922']);
-  expect2ok(dateEl.competingValues[0]!.count > dateEl.competingValues[1]!.count);
+test('competing readings are all kept, in the order they arrived, not by headcount', () => {
+  const dateEl = find(t3, 'cl-boarding').detailStatuses.find((e) => e.detail.kind === 'date')!;
+  const values = dateEl.competingValues.map((v) => v.value);
+  expect2eq(values[0], dateEl.detail.value, 'the claim\'s own reading comes first');
+  expect2ok(values.includes('1914') && values.includes('1922'), 'both readings stay visible');
 });
 
 test('claims are ordered by weight, and disputed claims are not hidden', () => {
@@ -99,9 +106,3 @@ test('integrity rises as the record fills in', () => {
   expect2ok(t3.integrity.overall > 70, 'rich site reads as rich');
 });
 
-test('unresolved cross-site references are kept, not dropped', () => {
-  const refs = t3.claims.flatMap((c) => c.references);
-  expect2ok(refs.length >= 2);
-  expect2ok(refs.every((r) => !r.resolved));
-  expect2ok(refs.some((r) => r.excerpt === 'the Center'));
-});

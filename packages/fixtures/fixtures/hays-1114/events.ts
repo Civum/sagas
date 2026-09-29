@@ -49,7 +49,6 @@ export const events: ContributionEvent[] = [
     kind: 'contributor_registered',
     contributorId: 'c-tomas',
     displayName: 'Tomás Iriarte',
-    lineageId: 'lin-iriarte',
   },
 
   {
@@ -65,11 +64,11 @@ export const events: ContributionEvent[] = [
     id: 'ha-004', at: '2026-04-02T17:22:00Z', actorId: 'c-tomas',
     kind: 'claim_submitted',
     claimId: 'cl-hays-shoes',
-    recordId: 'rec-hays-shoes',
+    sourceRecordId: 'rec-hays-shoes',
     siteId: SITE,
     text: 'The shoe repair at 1114 was there from the late fifties until it shut. The family lived above the shop.',
     sourceLanguage: 'en',
-    elements: [
+    details: [
       { id: 'el-ha-trade', kind: 'event', value: 'shoe repair', excerpt: 'The shoe repair at 1114' },
       { id: 'el-ha-from', kind: 'date', value: 'late 1950s', excerpt: 'from the late fifties' },
     ],

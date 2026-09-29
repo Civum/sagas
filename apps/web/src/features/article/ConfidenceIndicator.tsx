@@ -3,40 +3,41 @@
  *
  * ---
  *
- * WORKED EXAMPLE, like IntegrityBadge. Structure is the lesson, styling is a
+ * WORKED EXAMPLE, like IntegrityBadge. Copy the structure. The styling is a
  * placeholder to replace.
  *
  * ---
  *
- * THE IDEA THIS COMPONENT EXISTS TO PROTECT
+ * WHY AN AFFIRMATION COUNT IS NEVER SHOWN ON ITS OWN
  *
  * An affirmation is not corroboration.
  *
  * A claim can have five affirmations and zero independent support, because
- * everyone who agreed is from the same family as the person who said it. The
- * model counts by family line for exactly this reason: three cousins are one
- * source.
+ * agreeing is not bringing anything. Support comes from somebody else putting a
+ * record of their own behind the claim. Five people saying "sounds right" is
+ * five reactions to one source.
  *
- * So this never shows an affirmation count on its own. Showing "5 agree" next
- * to "single source" reads as a bug to anyone who thinks about evidence, and
- * showing "5 agree" without the qualifier is worse, because it is a lie that
- * looks like data.
+ * So this never shows an affirmation count on its own. "5 agree" next to
+ * "single source" looks like a contradiction, and "5 agree" without the
+ * qualifier reads as support that is not there.
  *
- * `cl-boarding` at t1 is the case: one affirmation, zero independent lines,
- * still single_source. Open `pnpm inspect --state t1 cl-boarding` and look.
+ * `cl-afterhours` at t3 is the case: two affirmations, zero independent
+ * sources, still single_source. Open `pnpm inspect --state t3 cl-afterhours`
+ * and look.
  *
- * Acceptance case: affirmation-without-independence.
+ * Acceptance criterion: affirmation-without-independence.
  *
- * A NOTE ON "CONTESTED"
+ * WHY "CONTESTED" IS NOT RED
  *
- * Contested is not wrong. It usually means the claim matters enough that
- * somebody bothered to argue. Nothing here should make it look like a failure,
- * which is why there is no red.
+ * This project reads "contested" as a sign that a claim matters enough for
+ * somebody to argue. Nothing here should make it look like a failure, which is
+ * why there is no red.
  *
- * TODO for whoever takes this further: the version a historian actually wants is
- * subtler than a label. Something you can skim a paragraph and see, without the
- * page looking like a dashboard. Margin marks, a weight in the type, something
- * on hover. This is the honest version, not the finished one.
+ * TODO for whoever takes this further: a historian probably wants something
+ * subtler than a label, which they can take in while skimming a paragraph
+ * without the page looking like a dashboard. Margin marks, a weight in the
+ * type or something on hover are all options. This version gets the rule right
+ * and is not the finished design.
  */
 
 import type { ClaimState } from '@sagas/contracts';
@@ -51,21 +52,21 @@ const LABELS: Record<ClaimState['confidence'], string> = {
 /**
  * How support should be described, given the two numbers that matter.
  *
- * Pure, and separated from the markup so the rule can be tested without
- * rendering. The rule is the whole point of the component.
+ * A pure function, separate from the markup, so the rule can be tested
+ * without rendering anything.
  */
-export function supportSummary(independentLineageCount: number, affirmationCount: number): string {
-  if (independentLineageCount === 0 && affirmationCount === 0) {
+export function supportSummary(independentRecordCount: number, affirmationCount: number): string {
+  if (independentRecordCount === 0 && affirmationCount === 0) {
     return 'No one else has spoken to this yet';
   }
-  if (independentLineageCount === 0) {
-    // The dangerous case. People agreed, and none of them are independent.
+  if (independentRecordCount === 0) {
+    // The case this component exists for: people agreed, and nobody brought a record.
     return affirmationCount === 1
-      ? '1 person agrees, from the same family as the author'
-      : `${affirmationCount} people agree, all from the author's family`;
+      ? '1 person agrees, with no independent record yet'
+      : `${affirmationCount} people agree, with no independent record yet`;
   }
-  const families = independentLineageCount === 1 ? '1 other family' : `${independentLineageCount} other families`;
-  return `Backed by ${families}`;
+  const records = independentRecordCount === 1 ? '1 other record' : `${independentRecordCount} other records`;
+  return `Backed by ${records}`;
 }
 
 export function ConfidenceIndicator({ claim }: { claim: ClaimState }) {
@@ -77,7 +78,7 @@ export function ConfidenceIndicator({ claim }: { claim: ClaimState }) {
     );
   }
 
-  const summary = supportSummary(claim.independentLineageCount, claim.affirmations.length);
+  const summary = supportSummary(claim.independentRecordCount, claim.affirmations.length);
 
   return (
     <p className="flex flex-wrap items-baseline gap-x-2 text-xs">

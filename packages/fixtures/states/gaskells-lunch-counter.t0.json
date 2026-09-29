@@ -25,10 +25,11 @@
         "id": "cl-closed-1979",
         "siteId": "site-gaskells",
         "contributorId": "c-dolores",
-        "recordId": "rec-menu-photo",
+        "sourceRecordId": "rec-menu-photo",
+        "evidenceRecordIds": [],
         "text": "Gaskell's was on the corner of 9th and Bannock and it closed in 1979. My mother took this photograph of the menu on one of the last days it was open. She kept it in the kitchen drawer for the rest of her life.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "el-gk-year",
             "kind": "date",
@@ -53,12 +54,11 @@
       "contributor": {
         "id": "c-dolores",
         "displayName": "Dolores Whitcomb",
-        "lineageId": "lin-whitcomb",
         "joinedAt": "2026-02-03T18:22:00Z",
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
+      "sourceRecord": {
         "id": "rec-menu-photo",
         "siteId": "site-gaskells",
         "contributorId": "c-dolores",
@@ -82,20 +82,20 @@
         ],
         "createdAt": "2026-02-03T18:41:00Z"
       },
+      "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [],
-      "independentLineageCount": 0,
+      "independentRecordCount": 0,
       "extensions": [],
-      "references": [],
       "passover": {
         "sounds_right": 0,
         "dont_know": 0,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "el-gk-year",
             "kind": "date",
             "value": "1979",
@@ -113,7 +113,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "el-gk-place",
             "kind": "place",
             "value": "9th and Bannock",
@@ -139,7 +139,6 @@
     {
       "id": "c-dolores",
       "displayName": "Dolores Whitcomb",
-      "lineageId": "lin-whitcomb",
       "joinedAt": "2026-02-03T18:22:00Z",
       "fictional": true,
       "verification": "guest"
@@ -178,7 +177,7 @@
       "lastContributionAt": "2026-02-03T18:44:00Z",
       "recordsSubmitted": 1,
       "claimsAuthored": 1,
-      "claimsCorroboratedByOtherLines": 0,
+      "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
@@ -193,7 +192,6 @@
   "integrity": {
     "totalClaims": 1,
     "independentContributors": 1,
-    "lineageDiversity": 1,
     "corroborationDepth": 0,
     "activeDisputes": 0,
     "datedClaims": 1,

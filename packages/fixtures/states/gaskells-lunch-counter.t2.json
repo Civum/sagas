@@ -25,10 +25,11 @@
         "id": "cl-shift-workers",
         "siteId": "site-gaskells",
         "contributorId": "c-priya",
-        "recordId": "rec-menu-photo",
+        "sourceRecordId": "rec-menu-photo",
+        "evidenceRecordIds": [],
         "text": "The hours on this menu are five in the morning until two in the afternoon. That is a shift pattern, not a lunch trade. Whoever ate here was going to work before dawn.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "el-gk-hours",
             "kind": "quantity",
@@ -51,7 +52,7 @@
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
+      "sourceRecord": {
         "id": "rec-menu-photo",
         "siteId": "site-gaskells",
         "contributorId": "c-dolores",
@@ -75,22 +76,22 @@
         ],
         "createdAt": "2026-02-03T18:41:00Z"
       },
+      "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [],
-      "independentLineageCount": 0,
+      "independentRecordCount": 0,
       "extensions": [
         "cl-mother-worked"
       ],
-      "references": [],
       "passover": {
         "sounds_right": 1,
         "dont_know": 0,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "el-gk-hours",
             "kind": "quantity",
             "value": "05:00 to 14:00",
@@ -116,10 +117,11 @@
         "id": "cl-closed-1979",
         "siteId": "site-gaskells",
         "contributorId": "c-dolores",
-        "recordId": "rec-menu-photo",
+        "sourceRecordId": "rec-menu-photo",
+        "evidenceRecordIds": [],
         "text": "Gaskell's was on the corner of 9th and Bannock and it closed in 1979. My mother took this photograph of the menu on one of the last days it was open. She kept it in the kitchen drawer for the rest of her life.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "el-gk-year",
             "kind": "date",
@@ -144,12 +146,11 @@
       "contributor": {
         "id": "c-dolores",
         "displayName": "Dolores Whitcomb",
-        "lineageId": "lin-whitcomb",
         "joinedAt": "2026-02-03T18:22:00Z",
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
+      "sourceRecord": {
         "id": "rec-menu-photo",
         "siteId": "site-gaskells",
         "contributorId": "c-dolores",
@@ -173,6 +174,7 @@
         ],
         "createdAt": "2026-02-03T18:41:00Z"
       },
+      "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [
@@ -189,17 +191,16 @@
           "createdAt": "2026-04-14T16:52:00Z"
         }
       ],
-      "independentLineageCount": 1,
+      "independentRecordCount": 0,
       "extensions": [],
-      "references": [],
       "passover": {
         "sounds_right": 0,
         "dont_know": 0,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "el-gk-year",
             "kind": "date",
             "value": "1979",
@@ -217,7 +218,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "el-gk-place",
             "kind": "place",
             "value": "9th and Bannock",
@@ -235,18 +236,19 @@
           ]
         }
       ],
-      "weight": 4.5,
-      "confidence": "corroborated"
+      "weight": 2.5,
+      "confidence": "single_source"
     },
     {
       "claim": {
         "id": "cl-mother-worked",
         "siteId": "site-gaskells",
         "contributorId": "c-dolores",
-        "recordId": "rec-menu-photo",
+        "sourceRecordId": "rec-menu-photo",
+        "evidenceRecordIds": [],
         "text": "That is right, and my mother was one of them. She was on the early shift at the laundry two streets over and she ate here before work most days.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "el-gk-person",
             "kind": "person",
@@ -265,12 +267,11 @@
       "contributor": {
         "id": "c-dolores",
         "displayName": "Dolores Whitcomb",
-        "lineageId": "lin-whitcomb",
         "joinedAt": "2026-02-03T18:22:00Z",
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
+      "sourceRecord": {
         "id": "rec-menu-photo",
         "siteId": "site-gaskells",
         "contributorId": "c-dolores",
@@ -294,20 +295,20 @@
         ],
         "createdAt": "2026-02-03T18:41:00Z"
       },
+      "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [],
-      "independentLineageCount": 0,
+      "independentRecordCount": 0,
       "extensions": [],
-      "references": [],
       "passover": {
         "sounds_right": 0,
         "dont_know": 0,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "el-gk-person",
             "kind": "person",
             "value": "Dolores Whitcomb's mother",
@@ -333,7 +334,6 @@
     {
       "id": "c-dolores",
       "displayName": "Dolores Whitcomb",
-      "lineageId": "lin-whitcomb",
       "joinedAt": "2026-02-03T18:22:00Z",
       "fictional": true,
       "verification": "guest"
@@ -341,7 +341,6 @@
     {
       "id": "c-raymond",
       "displayName": "Raymond Whitcomb",
-      "lineageId": "lin-whitcomb",
       "joinedAt": "2026-03-11T14:02:00Z",
       "fictional": true,
       "verification": "guest"
@@ -411,7 +410,7 @@
       "lastContributionAt": "2026-03-22T11:15:00Z",
       "recordsSubmitted": 1,
       "claimsAuthored": 2,
-      "claimsCorroboratedByOtherLines": 1,
+      "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
@@ -426,7 +425,7 @@
       "lastContributionAt": "2026-03-11T14:09:00Z",
       "recordsSubmitted": 0,
       "claimsAuthored": 0,
-      "claimsCorroboratedByOtherLines": 0,
+      "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
@@ -441,7 +440,7 @@
       "lastContributionAt": "2026-04-14T16:52:00Z",
       "recordsSubmitted": 1,
       "claimsAuthored": 1,
-      "claimsCorroboratedByOtherLines": 0,
+      "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
@@ -456,7 +455,6 @@
   "integrity": {
     "totalClaims": 3,
     "independentContributors": 2,
-    "lineageDiversity": 2,
     "corroborationDepth": 0,
     "activeDisputes": 0,
     "datedClaims": 1,

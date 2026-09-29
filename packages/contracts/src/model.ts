@@ -8,14 +8,14 @@
  *
  * ---
  *
- * These shapes are deliberately flat and repetitive. Look at the three edge
- * types below: every one starts with an id, a contributor, and a timestamp, and
+ * These shapes are deliberately flat and repetitive. Look at the two edge
+ * types below: each starts with an id, a contributor, and a timestamp, and
  * nothing captures that. `translationDispute` and `disputeEdge` are the same
  * idea applied to different targets, and nothing captures that either.
  *
  * It's written out longhand so you can read the whole thing without decoding
  * an inheritance chain, and so the patterns are yours to find rather than ours
- * to impose. Finding them is part of the job. A pull request that collapses three
+ * to impose. Finding them is part of the job. A pull request that collapses the
  * edge types into one, with a reason, is exactly the kind of contribution we want.
  *
  * `docs/DESIGN-QUESTIONS.md` lists the ones we already know about, along with
@@ -33,14 +33,14 @@
  *   SHARED · Places and people    sites and contributors
  *   CONTENT LAYER · Records       what people hand over, and their files
  *   SHARED · Claims               somebody's reading of a record
- *   SHARED · Edges                disputes, extensions, references
+ *   SHARED · Edges                disputes and extensions
  *   SHARED · Signals              low-effort reactions
  *   CALCULATED                    what a consumer actually receives
  *
- * Most of this is shared, and that is not a hedge. A claim is produced by the
- * content layer, scored by the intelligence layer and rendered by the
- * experience layer, so carving it up by team would be a fiction. Only the
- * records section belongs mostly to one team.
+ * Most of this is shared on purpose. Claims belong to all three layers: the
+ * content layer takes them in, the intelligence layer models and scores them,
+ * and the experience layer renders them and composes them into a page.
+ * Only the records section belongs mostly to one team.
  *
  * If you are on the content layer, start at CONTENT LAYER · Records.
  * If you are on the intelligence layer, start at CALCULATED, then Claims.
@@ -60,9 +60,8 @@ import { z } from 'zod';
  */
 export type SiteId = string;
 export type ClaimId = string;
-export type ElementId = string;
+export type DetailId = string;
 export type ContributorId = string;
-export type LineageId = string;
 export type EventId = string;
 export type TranslationId = string;
 export type RecordId = string;
@@ -85,8 +84,8 @@ export type FlagId = string;
  *   es  Spanish
  *   fr  French
  *
- * Spanish and French are both here because the Basque Country spans the border,
- * and Basque communities in Canada speak French. Expect this list to grow. A
+ * Spanish and French are both here because the Basque Country spans the border
+ * between Spain and France. Expect this list to grow. A
  * record in a language not listed is a reason to add one, never a reason to
  * turn the record away.
  */
@@ -145,15 +144,14 @@ export const confidence = z.enum([
 export type Confidence = z.infer<typeof confidence>;
 
 /** What kind of relationship one thing has to another. */
-export const edgeType = z.enum(['dispute', 'extension', 'reference']);
+export const edgeType = z.enum(['dispute', 'extension']);
 export type EdgeType = z.infer<typeof edgeType>;
 
 /* ================================================================== */
 /* SHARED · Places and people                                          */
 /*                                                                     */
 /* Everything hangs off these two. A site is what claims attach to; a   */
-/* contributor is who said something. `lineageId` on a contributor is   */
-/* what decides whether two people count as one source or two.          */
+/* contributor is who said something.                                  */
 /* ================================================================== */
 
 /** A physical location that claims get attached to. */
@@ -162,9 +160,8 @@ export const site = z.object({
   slug: z.string(),
   name: z.string(),
   /**
-   * What the community actually calls it. People don't say "the Basque Museum
-   * and Cultural Center", they say a nickname, and search has to find it either
-   * way.
+   * What the community actually calls it. People rarely use a building's full
+   * formal name, they use a nickname, and search has to find it either way.
    */
   aka: z.array(z.string()),
   /** [longitude, latitude]. GeoJSON order, which is what PostGIS and Mapbox want. */
@@ -180,15 +177,7 @@ export type Site = z.infer<typeof site>;
 export const contributor = z.object({
   id: z.string(),
   displayName: z.string(),
-  /**
-   * Which family they're from.
-   *
-   * This field decides how corroboration is counted. Two people from the same
-   * family agreeing is one source, not two. Without it, a large family can make
-   * a shaky claim look well-supported just by showing up.
-   */
-  lineageId: z.string().optional(),
-  /** e.g. "Basque Museum & Cultural Center". A statement of affiliation, not a credential check. */
+  /** e.g. "County Historical Society". A statement of affiliation, not a credential check. */
   institution: z.string().optional(),
   joinedAt: z.string(),
   /**
@@ -209,8 +198,7 @@ export const contributor = z.object({
    * adding it later would mean deciding, retrospectively, what every
    * contribution made before it counted for.
    *
-   * This is a distinctness check. It asks whether this is one person once,
-   * which is the same question `independentLineageCount` asks about families.
+   * This is a distinctness check. It asks whether this is one person once.
    * It must never come to mean that a verified person's claims are worth more
    * because of who they are. See DESIGN-QUESTIONS, "A profile has no way to say
    * whether anyone can prove it is theirs", for what is still unanswered,
@@ -239,13 +227,13 @@ export type Contributor = z.infer<typeof contributor>;
  * lands on a claim instead, where it is about a reading rather than about the
  * person who brought the photograph in.
  *
- * The split is also what lets a contribution be small. Someone with a shoebox of
- * photos and one sentence about each can contribute without also being a
- * transcriber and a translator. Somebody else does those parts later and gets
- * credited for them.
- *
- * Every claim points at one. `claim.recordId` is required, so there is always a
- * route from a sentence in an article back to the thing it was read out of.
+ * A record plays one of two parts. As a **source record** it is where a
+ * conversation starts, and every claim in that conversation has it as
+ * `claim.sourceRecordId`, which is required. As an **evidence record** it is
+ * attached to a claim as support, through `claim.evidenceRecordIds`, which is
+ * optional. It is the same record either way, and one record can do both in
+ * different conversations. The schema is called `sourceRecord` (the comment on
+ * it says why) and describes every record.
  */
 
 /** What kind of thing was handed over. */
@@ -270,8 +258,8 @@ export type ProcessingState = z.infer<typeof processingState>;
  * speaks the language on the recording, and for the languages this archive
  * cares about there are not many of them.
  *
- * Note what is missing. There is no state for a record being taken back. That is
- * not an oversight. "Nothing is deleted" and "a family can change its mind" are
+ * There is no state for a record being taken back, and that is on purpose.
+ * "Nothing is deleted" and "a family can change its mind" are
  * both things this project believes and they contradict each other. Until
  * somebody answers that, the state machine has no exit. See DESIGN-QUESTIONS.
  */
@@ -509,9 +497,9 @@ export type Flag = z.infer<typeof flag>;
 /* ================================================================== */
 /* SHARED · Claims                                                     */
 /*                                                                     */
-/* A claim is somebody's reading of a record. The content layer produces */
-/* the record, the intelligence layer scores the claim, the experience   */
-/* layer renders it. All three touch this.                              */
+/* A claim is somebody's reading of a record. The content layer takes   */
+/* claims in, the intelligence layer models them, and the experience    */
+/* layer renders and composes them. All three own this section.         */
 /* ================================================================== */
 
 /**
@@ -524,7 +512,7 @@ export type Flag = z.infer<typeof flag>;
  * `excerpt` is the literal phrase from the claim text, so an interface can
  * highlight it without doing character-offset arithmetic.
  */
-export const claimElement = z.object({
+export const claimDetail = z.object({
   id: z.string(),
   kind: z.enum(['date', 'place', 'person', 'event', 'quantity', 'attribution']),
   /** The value being asserted, tidied up. "1943", "Grove Street entrance". */
@@ -532,7 +520,7 @@ export const claimElement = z.object({
   /** The words in the claim text this refers to. */
   excerpt: z.string(),
 });
-export type ClaimElement = z.infer<typeof claimElement>;
+export type ClaimDetail = z.infer<typeof claimDetail>;
 
 /** Something someone asserts about a place. */
 export const claim = z.object({
@@ -547,23 +535,32 @@ export const claim = z.object({
    * field, not an attachment, so nothing is lost by rendering it.
    */
   sourceLanguageText: z.string().optional(),
-  elements: z.array(claimElement),
+  details: z.array(claimDetail),
   topics: z.array(z.string()),
   sourceType,
   createdAt: z.string(),
   /**
-   * The artifact this claim was read out of.
+   * The source record: the record the conversation this claim belongs to
+   * started from. Required.
    *
-   * Every claim is somebody's reading of something that exists. Without this
-   * there is no route from a sentence in an article back to the recording it
-   * came out of, and no way for a reader to check a reading against the thing
-   * being read.
+   * Every claim is part of a conversation about something that exists. Without
+   * this there is no route from a sentence in an article back to the recording
+   * or photograph it came out of, and no way for a reader to check a reading
+   * against the thing being read.
    *
    * One record often produces several claims. Somebody writes three paragraphs
    * about a building and three separate assertions come out of it, each of which
    * can be corroborated or disputed on its own.
    */
-  recordId: z.string(),
+  sourceRecordId: z.string(),
+  /**
+   * Evidence records: records attached to this claim to back it up. Optional,
+   * so often empty.
+   *
+   * The same record can be the source of one conversation and evidence in
+   * another. The record does not change. Its part in each place does.
+   */
+  evidenceRecordIds: z.array(z.string()),
   /** Set when this was added as context on another claim. */
   parentClaimId: z.string().optional(),
   /**
@@ -608,8 +605,8 @@ export type TranslationDispute = z.infer<typeof translationDispute>;
 /* ================================================================== */
 /* SHARED · Edges                                                      */
 /*                                                                     */
-/* What people do to a claim: disagree with part of it, add context, or */
-/* point at somewhere else. These are the graph.                        */
+/* What people do to a claim: disagree with part of it, or add context. */
+/* These are the graph.                                                 */
 /* ================================================================== */
 
 /** Someone disagreeing with one specific part of a claim. */
@@ -617,8 +614,8 @@ export const disputeEdge = z.object({
   id: z.string(),
   type: z.literal('dispute'),
   targetClaimId: z.string(),
-  /** Which part. Disagreement always lands on an element, never a whole claim. */
-  targetElementId: z.string(),
+  /** Which part. Disagreement always lands on a detail, never a whole claim. */
+  targetDetailId: z.string(),
   /**
    * Why. Required, and checked here rather than left to the interface, because
    * it's a property of the record. "This is wrong" cannot be filed.
@@ -642,28 +639,7 @@ export const extensionEdge = z.object({
 });
 export type ExtensionEdge = z.infer<typeof extensionEdge>;
 
-/**
- * A claim pointing at another place, or another claim.
- *
- * Often the target doesn't exist in the archive yet. Someone mentions a
- * building nobody has added. The marker is kept unresolved rather than dropped,
- * so a later reader can connect it.
- */
-export const referenceEdge = z.object({
-  id: z.string(),
-  type: z.literal('reference'),
-  fromClaimId: z.string(),
-  toSiteId: z.string().optional(),
-  toClaimId: z.string().optional(),
-  /** The words that pointed somewhere. */
-  excerpt: z.string(),
-  resolved: z.boolean(),
-  contributorId: z.string(),
-  createdAt: z.string(),
-});
-export type ReferenceEdge = z.infer<typeof referenceEdge>;
-
-export const edge = z.discriminatedUnion('type', [disputeEdge, extensionEdge, referenceEdge]);
+export const edge = z.discriminatedUnion('type', [disputeEdge, extensionEdge]);
 export type Edge = z.infer<typeof edge>;
 
 /* ================================================================== */
@@ -674,11 +650,11 @@ export type Edge = z.infer<typeof edge>;
 /* ================================================================== */
 
 /**
- * Someone agreeing with a claim. No new node, no new source.
+ * Someone agreeing with a claim. It adds no new node and no new source.
  *
- * Worth less than it looks. An affirmation from within the same family as the
- * author adds nothing, which is why `independentLineageCount` exists separately
- * from the raw count.
+ * Agreement is not evidence, so an affirmation never
+ * counts as independent support. It is a soft signal: it matters most for what
+ * gets suggested to whom, and only a little for a claim's weight.
  */
 export const affirmation = z.object({
   id: z.string(),
@@ -709,15 +685,17 @@ export type Passover = z.infer<typeof passover>;
 /* comment on it explains why it holds counts and never a score.        */
 /* ================================================================== */
 
-/** One element of a claim, plus whatever anyone has said about it. */
-export const elementStatus = z.object({
-  element: claimElement,
+/** One detail of a claim, plus whatever anyone has said about it. */
+export const detailStatus = z.object({
+  detail: claimDetail,
   disputes: z.array(disputeEdge),
   /**
-   * Every value anyone has asserted for this element, strongest first.
+   * Every value anyone has asserted for this detail, in the order they arrived,
+   * the claim's own first. Ordering by strength is the intelligence layer's.
    *
-   * `count` is distinct family lines, not number of people. Label it that way
-   * in any interface, or a reader will assume it's a vote count.
+   * `count` is how many distinct contributors asserted the value. It is not a
+   * vote, and an interface must not present it as one. Showing the readings
+   * with their reasoning matters more than showing the number.
    */
   competingValues: z.array(
     z.object({
@@ -727,39 +705,47 @@ export const elementStatus = z.object({
     }),
   ),
 });
-export type ElementStatus = z.infer<typeof elementStatus>;
+export type DetailStatus = z.infer<typeof detailStatus>;
 
 /** A claim with everything the community has done to it, worked out. */
 export const claimState = z.object({
   claim,
   contributor,
   /**
-   * The artifact this claim was read out of, copied in.
+   * The claim's source record and evidence records, copied in.
    *
-   * It is already in `graphState.records`, so this is duplication. It is here
+   * They are already in `graphState.records`, so this is duplication. It is here
    * because almost everything that shows a claim also has to show what it
    * came from, and making every consumer join by hand is how you end up with
    * three slightly different joins. The same reasoning put `contributor` here.
    *
    * The cost is real: one record producing four claims appears four times, and
    * a record with large media metadata pays that four times over. If this
-   * becomes a problem it should become a reference, not a half-copy.
+   * becomes a problem it should become a lookup by id, not a half-copy.
    */
-  record: sourceRecord,
+  sourceRecord: sourceRecord,
+  evidenceRecords: z.array(sourceRecord),
   translations: z.array(translation),
   translationDisputes: z.array(translationDispute),
   affirmations: z.array(affirmation),
-  /** Distinct family lines backing this, excluding the author's own. */
-  independentLineageCount: z.number(),
+  /**
+   * Distinct records, other than this claim's own, that other contributors have
+   * brought to back it (today: the evidence on extensions of it).
+   *
+   * A stand-in. Corroboration counts independent records, not people, and this
+   * counts records because a record is the one thing the graph can see. How
+   * independence is really worked out is the intelligence layer's design work.
+   * Affirmations never count here.
+   */
+  independentRecordCount: z.number(),
   extensions: z.array(z.string()),
-  references: z.array(referenceEdge),
   /** Counts for all three kinds, always present, zero when nobody has reacted. */
   passover: z.object({
     sounds_right: z.number(),
     dont_know: z.number(),
     dont_care: z.number(),
   }),
-  elementStatuses: z.array(elementStatus),
+  detailStatuses: z.array(detailStatus),
   /** See `weight.ts` in the fixtures package. This is a stand-in, not the real scoring. */
   weight: z.number(),
   confidence,
@@ -776,9 +762,9 @@ export type ClaimState = z.infer<typeof claimState>;
  * of it should touch a claim's weight at all, is the intelligence layer's
  * deliverable and the hardest open question in the project.
  *
- * What this is, is the toolbox. An algorithm can only be as good as what the
- * model bothered to write down, so the job here is to record behaviour
- * faithfully and judge none of it.
+ * This shape is the raw material. An algorithm can only use what the model
+ * writes down, so the job here is to record behaviour faithfully and judge
+ * none of it.
  *
  * Two of these are worth more than their names suggest:
  *
@@ -786,9 +772,9 @@ export type ClaimState = z.infer<typeof claimState>;
  * from "that date is wrong". Both are disputes. Only one of them moves the
  * record forward, and telling them apart needs no reading.
  *
- * `claimsCorroboratedByOtherLines` counts claims of theirs that somebody from a
- * different family backed. That is the one signal here that cannot be produced
- * by a person being enthusiastic on their own.
+ * `claimsCorroborated` counts claims of theirs that somebody else backed with a
+ * record of their own. That is the one signal here that cannot be produced by a
+ * person being enthusiastic on their own.
  *
  * What is deliberately missing: there is no vouching. No contributor can stand
  * behind another, so a person who is known and trusted by everyone in the room
@@ -802,8 +788,8 @@ export const contributorStanding = z.object({
   lastContributionAt: z.string().optional(),
   recordsSubmitted: z.number(),
   claimsAuthored: z.number(),
-  /** Claims of theirs backed by at least one other family line. */
-  claimsCorroboratedByOtherLines: z.number(),
+  /** Claims of theirs with at least one independent record. */
+  claimsCorroborated: z.number(),
   /** Claims of theirs that somebody has disputed part of. Not a mark against them. */
   claimsDisputed: z.number(),
   disputesRaised: z.number(),
@@ -820,15 +806,13 @@ export type ContributorStanding = z.infer<typeof contributorStanding>;
 export const integrityScore = z.object({
   totalClaims: z.number(),
   independentContributors: z.number(),
-  /** Distinct family lines represented. */
-  lineageDiversity: z.number(),
-  /** Share of claims backed by two or more unrelated people. */
+  /** Share of claims with at least one independent record. */
   corroborationDepth: z.number().min(0).max(1),
   activeDisputes: z.number(),
   /**
    * How many claims name a date.
    *
-   * Counted from date elements, so it reflects what people actually said rather
+   * Counted from date details, so it reflects what people actually said rather
    * than a period somebody chose for them at entry time. A record where nobody
    * has pinned down when anything happened is a thinner record, and this is the
    * part of the score that says so.
@@ -875,13 +859,12 @@ export const schemas = {
   site,
   contributor,
   claim,
-  claimElement,
+  claimDetail,
   claimState,
   graphState,
   integrityScore,
   disputeEdge,
   extensionEdge,
-  referenceEdge,
   edge,
   affirmation,
   passover,

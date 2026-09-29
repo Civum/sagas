@@ -26,10 +26,11 @@
         "id": "cl-boarding",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
-        "recordId": "rec-001",
+        "sourceRecordId": "rec-001",
+        "evidenceRecordIds": [],
         "text": "The Anduiza building on Grove Street took in Basque sheepherders when they came off the range. My great-grandmother cooked there. She started in 1922, a few years after she came over, and she stayed in that kitchen until the boarding side of it shut down.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "cl-boarding-e-date",
             "kind": "date",
@@ -68,12 +69,11 @@
       "contributor": {
         "id": "c-marisol",
         "displayName": "Marisol Etxeberria",
-        "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
+      "sourceRecord": {
         "id": "rec-001",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
@@ -83,20 +83,20 @@
         "media": [],
         "createdAt": "2026-01-08T16:20:00Z"
       },
+      "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [],
-      "independentLineageCount": 0,
+      "independentRecordCount": 0,
       "extensions": [],
-      "references": [],
       "passover": {
         "sounds_right": 0,
         "dont_know": 0,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "cl-boarding-e-date",
             "kind": "date",
             "value": "1922",
@@ -114,7 +114,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-boarding-e-use",
             "kind": "event",
             "value": "boarding house for sheepherders",
@@ -132,7 +132,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-boarding-e-place",
             "kind": "place",
             "value": "620 W Grove St",
@@ -150,7 +150,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-boarding-e-person",
             "kind": "person",
             "value": "great-grandmother, cook",
@@ -176,10 +176,11 @@
         "id": "cl-fronton",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
-        "recordId": "rec-001",
+        "sourceRecordId": "rec-001",
+        "evidenceRecordIds": [],
         "text": "There was a handball court built into the back of the building, behind the sleeping rooms. The men played in the winter when there was no work on the range. My mother said you could hear it through the floor.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "cl-fronton-e-place",
             "kind": "place",
@@ -212,12 +213,11 @@
       "contributor": {
         "id": "c-marisol",
         "displayName": "Marisol Etxeberria",
-        "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
+      "sourceRecord": {
         "id": "rec-001",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
@@ -227,20 +227,20 @@
         "media": [],
         "createdAt": "2026-01-08T16:20:00Z"
       },
+      "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [],
-      "independentLineageCount": 0,
+      "independentRecordCount": 0,
       "extensions": [],
-      "references": [],
       "passover": {
         "sounds_right": 0,
         "dont_know": 0,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "cl-fronton-e-place",
             "kind": "place",
             "value": "rear of building",
@@ -258,7 +258,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-fronton-e-use",
             "kind": "event",
             "value": "handball court / fronton",
@@ -276,7 +276,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-fronton-e-season",
             "kind": "event",
             "value": "winter use",
@@ -302,10 +302,11 @@
         "id": "cl-prelot",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
-        "recordId": "rec-002",
+        "sourceRecordId": "rec-002",
+        "evidenceRecordIds": [],
         "text": "Before the boarding house there was a livery stable on that lot. That is what I was told, though I do not know who ran it or when it went.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "cl-prelot-e-use",
             "kind": "event",
@@ -330,12 +331,11 @@
       "contributor": {
         "id": "c-marisol",
         "displayName": "Marisol Etxeberria",
-        "lineageId": "lin-etxeberria",
         "joinedAt": "2026-01-08T16:04:00Z",
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
+      "sourceRecord": {
         "id": "rec-002",
         "siteId": "site-anduiza",
         "contributorId": "c-marisol",
@@ -345,20 +345,20 @@
         "media": [],
         "createdAt": "2026-01-09T02:10:00Z"
       },
+      "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [],
-      "independentLineageCount": 0,
+      "independentRecordCount": 0,
       "extensions": [],
-      "references": [],
       "passover": {
         "sounds_right": 0,
         "dont_know": 0,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "cl-prelot-e-use",
             "kind": "event",
             "value": "livery stable",
@@ -376,7 +376,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "cl-prelot-e-seq",
             "kind": "date",
             "value": "before boarding house",
@@ -402,7 +402,6 @@
     {
       "id": "c-marisol",
       "displayName": "Marisol Etxeberria",
-      "lineageId": "lin-etxeberria",
       "joinedAt": "2026-01-08T16:04:00Z",
       "fictional": true,
       "verification": "guest"
@@ -437,7 +436,7 @@
       "lastContributionAt": "2026-01-09T02:15:00Z",
       "recordsSubmitted": 2,
       "claimsAuthored": 3,
-      "claimsCorroboratedByOtherLines": 0,
+      "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
@@ -452,7 +451,6 @@
   "integrity": {
     "totalClaims": 3,
     "independentContributors": 1,
-    "lineageDiversity": 1,
     "corroborationDepth": 0,
     "activeDisputes": 0,
     "datedClaims": 2,

@@ -54,6 +54,17 @@
         "t2",
         "t3"
       ]
+    },
+    {
+      "key": "corner-shop",
+      "slug": "corner-shop",
+      "name": "The corner shop",
+      "stateIds": [
+        "t0",
+        "t1",
+        "t2",
+        "t3"
+      ]
     }
   ]
 }

@@ -9,7 +9,7 @@ export * from './cases';
 const here = dirname(fileURLToPath(import.meta.url));
 
 /** The stem of the flagship site, which is what `loadState` reads by default. */
-const FLAGSHIP = 'example-site';
+export const FLAGSHIP = 'corner-shop';
 
 interface StatesIndex {
   sites: { key: string; slug: string; name: string; stateIds: string[] }[];
@@ -42,9 +42,9 @@ export function loadState(stateId: string): GraphState {
   return loadSiteState(FLAGSHIP, stateId);
 }
 
-/** The flagship's four snapshots, in order. */
+/** Every snapshot of every site, site by site, in order. */
 export function loadAllStates(): GraphState[] {
-  return ['t0', 't1', 't2', 't3'].map(loadState);
+  return loadIndex().sites.flatMap((s) => s.stateIds.map((id) => loadSiteState(s.key, id)));
 }
 
 /** Every site at one moment. This is what the map reads. */

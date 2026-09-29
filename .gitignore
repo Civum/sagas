@@ -34,7 +34,6 @@ coverage
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
-.idea/
 
 # vercel
 .vercel
@@ -45,7 +44,3 @@ coverage
 pitch/
 internal/
 _to_delete/
-
-#For BSU
-
-README.md

@@ -25,10 +25,11 @@
           "id": "cl-hays-shoes",
           "siteId": "site-hays-1114",
           "contributorId": "c-tomas",
-          "recordId": "rec-hays-shoes",
+          "sourceRecordId": "rec-hays-shoes",
+          "evidenceRecordIds": [],
           "text": "The shoe repair at 1114 was there from the late fifties until it shut. The family lived above the shop.",
           "sourceLanguage": "en",
-          "elements": [
+          "details": [
             {
               "id": "el-ha-trade",
               "kind": "event",
@@ -52,12 +53,11 @@
         "contributor": {
           "id": "c-tomas",
           "displayName": "Tomás Iriarte",
-          "lineageId": "lin-iriarte",
           "joinedAt": "2026-04-02T17:06:00Z",
           "fictional": true,
           "verification": "guest"
         },
-        "record": {
+        "sourceRecord": {
           "id": "rec-hays-shoes",
           "siteId": "site-hays-1114",
           "contributorId": "c-tomas",
@@ -67,20 +67,20 @@
           "media": [],
           "createdAt": "2026-04-02T17:19:00Z"
         },
+        "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
         "affirmations": [],
-        "independentLineageCount": 0,
+        "independentRecordCount": 0,
         "extensions": [],
-        "references": [],
         "passover": {
           "sounds_right": 0,
           "dont_know": 0,
           "dont_care": 0
         },
-        "elementStatuses": [
+        "detailStatuses": [
           {
-            "element": {
+            "detail": {
               "id": "el-ha-trade",
               "kind": "event",
               "value": "shoe repair",
@@ -98,7 +98,7 @@
             ]
           },
           {
-            "element": {
+            "detail": {
               "id": "el-ha-from",
               "kind": "date",
               "value": "late 1950s",
@@ -124,7 +124,6 @@
       {
         "id": "c-tomas",
         "displayName": "Tomás Iriarte",
-        "lineageId": "lin-iriarte",
         "joinedAt": "2026-04-02T17:06:00Z",
         "fictional": true,
         "verification": "guest"
@@ -149,7 +148,7 @@
         "lastContributionAt": "2026-04-02T17:22:00Z",
         "recordsSubmitted": 1,
         "claimsAuthored": 1,
-        "claimsCorroboratedByOtherLines": 0,
+        "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
@@ -164,7 +163,6 @@
     "integrity": {
       "totalClaims": 1,
       "independentContributors": 1,
-      "lineageDiversity": 1,
       "corroborationDepth": 0,
       "activeDisputes": 0,
       "datedClaims": 1,
@@ -210,10 +208,11 @@
           "id": "cl-hays-shoes",
           "siteId": "site-hays-1114",
           "contributorId": "c-tomas",
-          "recordId": "rec-hays-shoes",
+          "sourceRecordId": "rec-hays-shoes",
+          "evidenceRecordIds": [],
           "text": "The shoe repair at 1114 was there from the late fifties until it shut. The family lived above the shop.",
           "sourceLanguage": "en",
-          "elements": [
+          "details": [
             {
               "id": "el-ha-trade",
               "kind": "event",
@@ -237,12 +236,11 @@
         "contributor": {
           "id": "c-tomas",
           "displayName": "Tomás Iriarte",
-          "lineageId": "lin-iriarte",
           "joinedAt": "2026-04-02T17:06:00Z",
           "fictional": true,
           "verification": "guest"
         },
-        "record": {
+        "sourceRecord": {
           "id": "rec-hays-shoes",
           "siteId": "site-hays-1114",
           "contributorId": "c-tomas",
@@ -252,20 +250,20 @@
           "media": [],
           "createdAt": "2026-04-02T17:19:00Z"
         },
+        "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
         "affirmations": [],
-        "independentLineageCount": 0,
+        "independentRecordCount": 0,
         "extensions": [],
-        "references": [],
         "passover": {
           "sounds_right": 0,
           "dont_know": 0,
           "dont_care": 0
         },
-        "elementStatuses": [
+        "detailStatuses": [
           {
-            "element": {
+            "detail": {
               "id": "el-ha-trade",
               "kind": "event",
               "value": "shoe repair",
@@ -283,7 +281,7 @@
             ]
           },
           {
-            "element": {
+            "detail": {
               "id": "el-ha-from",
               "kind": "date",
               "value": "late 1950s",
@@ -309,7 +307,6 @@
       {
         "id": "c-tomas",
         "displayName": "Tomás Iriarte",
-        "lineageId": "lin-iriarte",
         "joinedAt": "2026-04-02T17:06:00Z",
         "fictional": true,
         "verification": "guest"
@@ -334,7 +331,7 @@
         "lastContributionAt": "2026-04-02T17:22:00Z",
         "recordsSubmitted": 1,
         "claimsAuthored": 1,
-        "claimsCorroboratedByOtherLines": 0,
+        "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
@@ -349,7 +346,6 @@
     "integrity": {
       "totalClaims": 1,
       "independentContributors": 1,
-      "lineageDiversity": 1,
       "corroborationDepth": 0,
       "activeDisputes": 0,
       "datedClaims": 1,
@@ -390,10 +386,11 @@
           "id": "cl-hays-shoes",
           "siteId": "site-hays-1114",
           "contributorId": "c-tomas",
-          "recordId": "rec-hays-shoes",
+          "sourceRecordId": "rec-hays-shoes",
+          "evidenceRecordIds": [],
           "text": "The shoe repair at 1114 was there from the late fifties until it shut. The family lived above the shop.",
           "sourceLanguage": "en",
-          "elements": [
+          "details": [
             {
               "id": "el-ha-trade",
               "kind": "event",
@@ -417,12 +414,11 @@
         "contributor": {
           "id": "c-tomas",
           "displayName": "Tomás Iriarte",
-          "lineageId": "lin-iriarte",
           "joinedAt": "2026-04-02T17:06:00Z",
           "fictional": true,
           "verification": "guest"
         },
-        "record": {
+        "sourceRecord": {
           "id": "rec-hays-shoes",
           "siteId": "site-hays-1114",
           "contributorId": "c-tomas",
@@ -432,6 +428,7 @@
           "media": [],
           "createdAt": "2026-04-02T17:19:00Z"
         },
+        "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
         "affirmations": [
@@ -442,17 +439,16 @@
             "createdAt": "2026-06-17T12:40:00Z"
           }
         ],
-        "independentLineageCount": 1,
+        "independentRecordCount": 0,
         "extensions": [],
-        "references": [],
         "passover": {
           "sounds_right": 0,
           "dont_know": 0,
           "dont_care": 0
         },
-        "elementStatuses": [
+        "detailStatuses": [
           {
-            "element": {
+            "detail": {
               "id": "el-ha-trade",
               "kind": "event",
               "value": "shoe repair",
@@ -470,7 +466,7 @@
             ]
           },
           {
-            "element": {
+            "detail": {
               "id": "el-ha-from",
               "kind": "date",
               "value": "late 1950s",
@@ -488,15 +484,14 @@
             ]
           }
         ],
-        "weight": 4.25,
-        "confidence": "corroborated"
+        "weight": 2.25,
+        "confidence": "single_source"
       }
     ],
     "contributors": [
       {
         "id": "c-tomas",
         "displayName": "Tomás Iriarte",
-        "lineageId": "lin-iriarte",
         "joinedAt": "2026-04-02T17:06:00Z",
         "fictional": true,
         "verification": "guest"
@@ -528,7 +523,7 @@
         "lastContributionAt": "2026-04-02T17:22:00Z",
         "recordsSubmitted": 1,
         "claimsAuthored": 1,
-        "claimsCorroboratedByOtherLines": 1,
+        "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
@@ -543,7 +538,7 @@
         "lastContributionAt": "2026-06-17T12:40:00Z",
         "recordsSubmitted": 0,
         "claimsAuthored": 0,
-        "claimsCorroboratedByOtherLines": 0,
+        "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
@@ -558,7 +553,6 @@
     "integrity": {
       "totalClaims": 1,
       "independentContributors": 1,
-      "lineageDiversity": 1,
       "corroborationDepth": 0,
       "activeDisputes": 0,
       "datedClaims": 1,
@@ -604,10 +598,11 @@
           "id": "cl-hays-shoes",
           "siteId": "site-hays-1114",
           "contributorId": "c-tomas",
-          "recordId": "rec-hays-shoes",
+          "sourceRecordId": "rec-hays-shoes",
+          "evidenceRecordIds": [],
           "text": "The shoe repair at 1114 was there from the late fifties until it shut. The family lived above the shop.",
           "sourceLanguage": "en",
-          "elements": [
+          "details": [
             {
               "id": "el-ha-trade",
               "kind": "event",
@@ -631,12 +626,11 @@
         "contributor": {
           "id": "c-tomas",
           "displayName": "Tomás Iriarte",
-          "lineageId": "lin-iriarte",
           "joinedAt": "2026-04-02T17:06:00Z",
           "fictional": true,
           "verification": "guest"
         },
-        "record": {
+        "sourceRecord": {
           "id": "rec-hays-shoes",
           "siteId": "site-hays-1114",
           "contributorId": "c-tomas",
@@ -646,6 +640,7 @@
           "media": [],
           "createdAt": "2026-04-02T17:19:00Z"
         },
+        "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
         "affirmations": [
@@ -656,17 +651,16 @@
             "createdAt": "2026-06-17T12:40:00Z"
           }
         ],
-        "independentLineageCount": 1,
+        "independentRecordCount": 0,
         "extensions": [],
-        "references": [],
         "passover": {
           "sounds_right": 0,
           "dont_know": 0,
           "dont_care": 0
         },
-        "elementStatuses": [
+        "detailStatuses": [
           {
-            "element": {
+            "detail": {
               "id": "el-ha-trade",
               "kind": "event",
               "value": "shoe repair",
@@ -684,7 +678,7 @@
             ]
           },
           {
-            "element": {
+            "detail": {
               "id": "el-ha-from",
               "kind": "date",
               "value": "late 1950s",
@@ -702,15 +696,14 @@
             ]
           }
         ],
-        "weight": 4.25,
-        "confidence": "corroborated"
+        "weight": 2.25,
+        "confidence": "single_source"
       }
     ],
     "contributors": [
       {
         "id": "c-tomas",
         "displayName": "Tomás Iriarte",
-        "lineageId": "lin-iriarte",
         "joinedAt": "2026-04-02T17:06:00Z",
         "fictional": true,
         "verification": "guest"
@@ -742,7 +735,7 @@
         "lastContributionAt": "2026-04-02T17:22:00Z",
         "recordsSubmitted": 1,
         "claimsAuthored": 1,
-        "claimsCorroboratedByOtherLines": 1,
+        "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
@@ -757,7 +750,7 @@
         "lastContributionAt": "2026-06-17T12:40:00Z",
         "recordsSubmitted": 0,
         "claimsAuthored": 0,
-        "claimsCorroboratedByOtherLines": 0,
+        "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
@@ -772,7 +765,6 @@
     "integrity": {
       "totalClaims": 1,
       "independentContributors": 1,
-      "lineageDiversity": 1,
       "corroborationDepth": 0,
       "activeDisputes": 0,
       "datedClaims": 1,

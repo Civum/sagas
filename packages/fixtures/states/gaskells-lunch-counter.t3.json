@@ -25,10 +25,11 @@
         "id": "cl-shift-workers",
         "siteId": "site-gaskells",
         "contributorId": "c-priya",
-        "recordId": "rec-menu-photo",
+        "sourceRecordId": "rec-menu-photo",
+        "evidenceRecordIds": [],
         "text": "The hours on this menu are five in the morning until two in the afternoon. That is a shift pattern, not a lunch trade. Whoever ate here was going to work before dawn.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "el-gk-hours",
             "kind": "quantity",
@@ -51,7 +52,7 @@
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
+      "sourceRecord": {
         "id": "rec-menu-photo",
         "siteId": "site-gaskells",
         "contributorId": "c-dolores",
@@ -75,22 +76,22 @@
         ],
         "createdAt": "2026-02-03T18:41:00Z"
       },
+      "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [],
-      "independentLineageCount": 0,
+      "independentRecordCount": 0,
       "extensions": [
         "cl-mother-worked"
       ],
-      "references": [],
       "passover": {
         "sounds_right": 1,
         "dont_know": 0,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "el-gk-hours",
             "kind": "quantity",
             "value": "05:00 to 14:00",
@@ -113,13 +114,104 @@
     },
     {
       "claim": {
+        "id": "cl-mother-worked",
+        "siteId": "site-gaskells",
+        "contributorId": "c-dolores",
+        "sourceRecordId": "rec-menu-photo",
+        "evidenceRecordIds": [],
+        "text": "That is right, and my mother was one of them. She was on the early shift at the laundry two streets over and she ate here before work most days.",
+        "sourceLanguage": "en",
+        "details": [
+          {
+            "id": "el-gk-person",
+            "kind": "person",
+            "value": "Dolores Whitcomb's mother",
+            "excerpt": "my mother was one of them"
+          }
+        ],
+        "topics": [
+          "who ate there"
+        ],
+        "sourceType": "family_oral",
+        "createdAt": "2026-03-22T11:15:00Z",
+        "parentClaimId": "cl-shift-workers",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-dolores",
+        "displayName": "Dolores Whitcomb",
+        "joinedAt": "2026-02-03T18:22:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "sourceRecord": {
+        "id": "rec-menu-photo",
+        "siteId": "site-gaskells",
+        "contributorId": "c-dolores",
+        "note": "A photograph of the paper menu, taken on the counter. The prices and the hours are legible. The date is not printed anywhere on it.",
+        "submission": "submitted",
+        "media": [
+          {
+            "id": "med-menu-photo",
+            "recordId": "rec-menu-photo",
+            "kind": "image",
+            "storageKey": "records/rec-menu-photo/menu.jpg",
+            "contentType": "image/jpeg",
+            "byteSize": 2180400,
+            "originalFilename": "menu.jpg",
+            "processing": "ready",
+            "width": 3024,
+            "height": 4032,
+            "derivatives": [],
+            "createdAt": "2026-02-03T18:41:00Z"
+          }
+        ],
+        "createdAt": "2026-02-03T18:41:00Z"
+      },
+      "evidenceRecords": [],
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [],
+      "independentRecordCount": 0,
+      "extensions": [],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "detailStatuses": [
+        {
+          "detail": {
+            "id": "el-gk-person",
+            "kind": "person",
+            "value": "Dolores Whitcomb's mother",
+            "excerpt": "my mother was one of them"
+          },
+          "disputes": [],
+          "competingValues": [
+            {
+              "value": "Dolores Whitcomb's mother",
+              "count": 1,
+              "contributorIds": [
+                "c-dolores"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 2,
+      "confidence": "single_source"
+    },
+    {
+      "claim": {
         "id": "cl-closed-1979",
         "siteId": "site-gaskells",
         "contributorId": "c-dolores",
-        "recordId": "rec-menu-photo",
+        "sourceRecordId": "rec-menu-photo",
+        "evidenceRecordIds": [],
         "text": "Gaskell's was on the corner of 9th and Bannock and it closed in 1979. My mother took this photograph of the menu on one of the last days it was open. She kept it in the kitchen drawer for the rest of her life.",
         "sourceLanguage": "en",
-        "elements": [
+        "details": [
           {
             "id": "el-gk-year",
             "kind": "date",
@@ -144,12 +236,11 @@
       "contributor": {
         "id": "c-dolores",
         "displayName": "Dolores Whitcomb",
-        "lineageId": "lin-whitcomb",
         "joinedAt": "2026-02-03T18:22:00Z",
         "fictional": true,
         "verification": "guest"
       },
-      "record": {
+      "sourceRecord": {
         "id": "rec-menu-photo",
         "siteId": "site-gaskells",
         "contributorId": "c-dolores",
@@ -173,6 +264,7 @@
         ],
         "createdAt": "2026-02-03T18:41:00Z"
       },
+      "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
       "affirmations": [
@@ -189,17 +281,16 @@
           "createdAt": "2026-04-14T16:52:00Z"
         }
       ],
-      "independentLineageCount": 1,
+      "independentRecordCount": 0,
       "extensions": [],
-      "references": [],
       "passover": {
         "sounds_right": 0,
         "dont_know": 1,
         "dont_care": 0
       },
-      "elementStatuses": [
+      "detailStatuses": [
         {
-          "element": {
+          "detail": {
             "id": "el-gk-year",
             "kind": "date",
             "value": "1979",
@@ -210,7 +301,7 @@
               "id": "de-gk-year",
               "type": "dispute",
               "targetClaimId": "cl-closed-1979",
-              "targetElementId": "el-gk-year",
+              "targetDetailId": "el-gk-year",
               "reasoning": "The 1981 city directory still lists the business at this address. A directory is compiled the year before it is printed, so the business was trading in 1980 at the latest. It did not close in 1979.",
               "proposedValue": "1981",
               "contributorId": "c-arlen",
@@ -235,7 +326,7 @@
           ]
         },
         {
-          "element": {
+          "detail": {
             "id": "el-gk-place",
             "kind": "place",
             "value": "9th and Bannock",
@@ -253,105 +344,14 @@
           ]
         }
       ],
-      "weight": 3.25,
+      "weight": 1.25,
       "confidence": "contested"
-    },
-    {
-      "claim": {
-        "id": "cl-mother-worked",
-        "siteId": "site-gaskells",
-        "contributorId": "c-dolores",
-        "recordId": "rec-menu-photo",
-        "text": "That is right, and my mother was one of them. She was on the early shift at the laundry two streets over and she ate here before work most days.",
-        "sourceLanguage": "en",
-        "elements": [
-          {
-            "id": "el-gk-person",
-            "kind": "person",
-            "value": "Dolores Whitcomb's mother",
-            "excerpt": "my mother was one of them"
-          }
-        ],
-        "topics": [
-          "who ate there"
-        ],
-        "sourceType": "family_oral",
-        "createdAt": "2026-03-22T11:15:00Z",
-        "parentClaimId": "cl-shift-workers",
-        "awaitingTranslation": false
-      },
-      "contributor": {
-        "id": "c-dolores",
-        "displayName": "Dolores Whitcomb",
-        "lineageId": "lin-whitcomb",
-        "joinedAt": "2026-02-03T18:22:00Z",
-        "fictional": true,
-        "verification": "guest"
-      },
-      "record": {
-        "id": "rec-menu-photo",
-        "siteId": "site-gaskells",
-        "contributorId": "c-dolores",
-        "note": "A photograph of the paper menu, taken on the counter. The prices and the hours are legible. The date is not printed anywhere on it.",
-        "submission": "submitted",
-        "media": [
-          {
-            "id": "med-menu-photo",
-            "recordId": "rec-menu-photo",
-            "kind": "image",
-            "storageKey": "records/rec-menu-photo/menu.jpg",
-            "contentType": "image/jpeg",
-            "byteSize": 2180400,
-            "originalFilename": "menu.jpg",
-            "processing": "ready",
-            "width": 3024,
-            "height": 4032,
-            "derivatives": [],
-            "createdAt": "2026-02-03T18:41:00Z"
-          }
-        ],
-        "createdAt": "2026-02-03T18:41:00Z"
-      },
-      "translations": [],
-      "translationDisputes": [],
-      "affirmations": [],
-      "independentLineageCount": 0,
-      "extensions": [],
-      "references": [],
-      "passover": {
-        "sounds_right": 0,
-        "dont_know": 0,
-        "dont_care": 0
-      },
-      "elementStatuses": [
-        {
-          "element": {
-            "id": "el-gk-person",
-            "kind": "person",
-            "value": "Dolores Whitcomb's mother",
-            "excerpt": "my mother was one of them"
-          },
-          "disputes": [],
-          "competingValues": [
-            {
-              "value": "Dolores Whitcomb's mother",
-              "count": 1,
-              "contributorIds": [
-                "c-dolores"
-              ]
-            }
-          ]
-        }
-      ],
-      "weight": 2,
-      "confidence": "single_source"
     }
   ],
   "contributors": [
     {
       "id": "c-dolores",
       "displayName": "Dolores Whitcomb",
-      "lineageId": "lin-whitcomb",
       "joinedAt": "2026-02-03T18:22:00Z",
       "fictional": true,
       "verification": "guest"
@@ -359,7 +359,6 @@
     {
       "id": "c-raymond",
       "displayName": "Raymond Whitcomb",
-      "lineageId": "lin-whitcomb",
       "joinedAt": "2026-03-11T14:02:00Z",
       "fictional": true,
       "verification": "guest"
@@ -459,7 +458,7 @@
       "lastContributionAt": "2026-03-22T11:15:00Z",
       "recordsSubmitted": 1,
       "claimsAuthored": 2,
-      "claimsCorroboratedByOtherLines": 1,
+      "claimsCorroborated": 0,
       "claimsDisputed": 1,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
@@ -474,7 +473,7 @@
       "lastContributionAt": "2026-03-11T14:09:00Z",
       "recordsSubmitted": 0,
       "claimsAuthored": 0,
-      "claimsCorroboratedByOtherLines": 0,
+      "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
@@ -489,7 +488,7 @@
       "lastContributionAt": "2026-04-14T16:52:00Z",
       "recordsSubmitted": 1,
       "claimsAuthored": 1,
-      "claimsCorroboratedByOtherLines": 0,
+      "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
@@ -504,7 +503,7 @@
       "lastContributionAt": "2026-06-02T13:51:00Z",
       "recordsSubmitted": 1,
       "claimsAuthored": 0,
-      "claimsCorroboratedByOtherLines": 0,
+      "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 1,
       "disputesRaisedWithAlternative": 1,
@@ -519,7 +518,6 @@
   "integrity": {
     "totalClaims": 3,
     "independentContributors": 2,
-    "lineageDiversity": 2,
     "corroborationDepth": 0,
     "activeDisputes": 1,
     "datedClaims": 1,

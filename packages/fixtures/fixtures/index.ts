@@ -5,8 +5,10 @@
  * event log and adding a line here. Nothing else in the package needs to know
  * the site exists.
  *
- * `example-site` is the flagship. It is the richest log, it carries the
- * translation and rendering cases, and it is the one to read first. The others
+ * `corner-shop` is the flagship and the one to read first. It is the worked
+ * example from `docs/HOW-THE-LAYERS-FIT.md`: details, evidence, and separate
+ * conversations about one place. `example-site` is the longest log and carries
+ * the translation and rendering cases. The others
  * exist so that the map has more than one pin, so that "everything within two
  * kilometres" has something to find, and so that a contributor can appear in
  * more than one place.
@@ -26,6 +28,7 @@ import { events as gaskells, stateCuts as gaskellsCuts } from './gaskells-lunch-
 import { events as bench, stateCuts as benchCuts } from './hoefer-bench/events';
 import { events as hays1114, stateCuts as hays1114Cuts } from './hays-1114/events';
 import { events as hays1116, stateCuts as hays1116Cuts } from './hays-1116/events';
+import { events as cornerShop, stateCuts as cornerShopCuts } from './corner-shop/events';
 
 export const siteFixtures: SiteFixture[] = [
   { key: 'example-site', events: exampleSite, cuts: exampleSiteCuts },
@@ -33,7 +36,8 @@ export const siteFixtures: SiteFixture[] = [
   { key: 'hoefer-bench', events: bench, cuts: benchCuts },
   { key: 'hays-1114', events: hays1114, cuts: hays1114Cuts },
   { key: 'hays-1116', events: hays1116, cuts: hays1116Cuts },
+  { key: 'corner-shop', events: cornerShop, cuts: cornerShopCuts },
 ];
 
 /** The stem of the flagship, which several documents point at by name. */
-export const FLAGSHIP = 'example-site';
+export const FLAGSHIP = 'corner-shop';

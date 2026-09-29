@@ -2,15 +2,16 @@ import Link from 'next/link';
 import { ACCEPTANCE_CRITERIA } from '@sagas/fixtures/acceptance';
 import type { FixtureStateId } from '@/lib/queries';
 import { DEFAULT_SITE, FIXTURE_STATES, getSiteState, listSites } from '@/lib/queries';
+import { loadIndex } from '@sagas/fixtures/acceptance';
 import { ArticleView } from '@/features/article/ArticleView';
 import { MapView } from '@/features/map/MapView';
 
 /**
  * A sandbox for looking at your components against every fixture state.
  *
- * Pick a state at the top. Everything below re-renders against it. The
- * acceptance criteria that apply to that state are listed underneath, so you can
- * read the requirement and look at the thing at the same time.
+ * Pick a site and a state at the top. Everything below re-renders against it.
+ * The acceptance criteria for that site and state are listed underneath, so you
+ * can read the requirement and look at the thing at the same time.
  *
  * Use it while you build. A component that looks right on t3 and falls apart on
  * t0 is the normal failure, and t0 is the state most real places sit in.
@@ -22,16 +23,21 @@ import { MapView } from '@/features/map/MapView';
 export default async function DevPage({
   searchParams,
 }: {
-  searchParams: Promise<{ state?: string }>;
+  searchParams: Promise<{ state?: string; site?: string }>;
 }) {
-  const { state: requested } = await searchParams;
+  const { state: requested, site: requestedSite } = await searchParams;
   const stateId = (
     FIXTURE_STATES.includes(requested as FixtureStateId) ? requested : 't3'
   ) as FixtureStateId;
 
-  const state = getSiteState(DEFAULT_SITE, stateId);
+  // Acceptance cases name a site by its fixture directory, and pages use slugs.
+  const index = loadIndex().sites;
+  const entry = index.find((s) => s.slug === requestedSite) ?? index.find((s) => s.slug === DEFAULT_SITE);
+  const slug = entry?.slug ?? DEFAULT_SITE;
+
+  const state = getSiteState(slug, stateId);
   const sites = listSites(stateId);
-  const cases = ACCEPTANCE_CRITERIA.filter((c) => c.stateId === stateId);
+  const cases = ACCEPTANCE_CRITERIA.filter((c) => c.stateId === stateId && c.site === entry?.key);
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 p-8 font-sans">
@@ -40,11 +46,24 @@ export default async function DevPage({
         <p className="text-sm text-neutral-600">
           Fixture data. Every contributor and event is invented for development.
         </p>
+        <nav className="flex flex-wrap gap-2 text-sm">
+          {index.map((s) => (
+            <Link
+              key={s.key}
+              href={`/dev?site=${s.slug}&state=${stateId}`}
+              className={
+                s.slug === slug ? 'rounded border px-2 py-1 font-semibold' : 'rounded border px-2 py-1'
+              }
+            >
+              {s.name}
+            </Link>
+          ))}
+        </nav>
         <nav className="flex gap-2 text-sm">
           {FIXTURE_STATES.map((id) => (
             <Link
               key={id}
-              href={`/dev?state=${id}`}
+              href={`/dev?site=${slug}&state=${id}`}
               className={
                 id === stateId ? 'rounded border px-2 py-1 font-semibold' : 'rounded border px-2 py-1'
               }
@@ -75,10 +94,10 @@ export default async function DevPage({
 
       <section className="space-y-3">
         <h2 className="text-sm font-semibold uppercase tracking-wide">
-          What has to be true of {stateId}
+          What has to be true here at {stateId}
         </h2>
         {cases.length === 0 ? (
-          <p className="text-sm text-neutral-600">No cases listed for this state.</p>
+          <p className="text-sm text-neutral-600">No cases listed for this site at this state.</p>
         ) : (
           <ul className="space-y-3">
             {cases.map((c) => (

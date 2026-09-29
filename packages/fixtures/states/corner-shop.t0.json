@@ -1,0 +1,95 @@
+{
+  "stateId": "t0",
+  "label": "A photograph, nothing claimed",
+  "asOf": "2026-01-31T23:59:59Z",
+  "site": {
+    "id": "site-corner-shop",
+    "slug": "corner-shop",
+    "name": "The corner shop",
+    "aka": [
+      "Ferris's",
+      "the shop on the corner"
+    ],
+    "coordinates": [
+      -116.2016,
+      43.6149
+    ],
+    "address": "N 4th St and W Main St",
+    "city": "Boise, Idaho",
+    "coordinatePrecision": "approximate"
+  },
+  "claims": [],
+  "contributors": [
+    {
+      "id": "c-june",
+      "displayName": "June Alder",
+      "joinedAt": "2026-01-12T17:01:00Z",
+      "fictional": true,
+      "verification": "guest"
+    }
+  ],
+  "records": [
+    {
+      "id": "rec-cs-photo",
+      "siteId": "site-corner-shop",
+      "contributorId": "c-june",
+      "note": "My grandmother's shop, I think. I don't know when this was taken.",
+      "submission": "submitted",
+      "media": [
+        {
+          "id": "med-cs-photo",
+          "recordId": "rec-cs-photo",
+          "kind": "image",
+          "storageKey": "records/rec-cs-photo/shopfront.jpg",
+          "contentType": "image/jpeg",
+          "byteSize": 1912004,
+          "originalFilename": "shopfront.jpg",
+          "processing": "ready",
+          "width": 2400,
+          "height": 1600,
+          "derivatives": [],
+          "createdAt": "2026-01-12T17:14:00Z"
+        }
+      ],
+      "createdAt": "2026-01-12T17:14:00Z"
+    }
+  ],
+  "standings": [
+    {
+      "contributorId": "c-june",
+      "firstContributionAt": "2026-01-12T17:14:00Z",
+      "lastContributionAt": "2026-01-12T17:14:00Z",
+      "recordsSubmitted": 1,
+      "claimsAuthored": 0,
+      "claimsCorroborated": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 0,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    }
+  ],
+  "transcripts": [],
+  "flags": [],
+  "integrity": {
+    "totalClaims": 0,
+    "independentContributors": 0,
+    "corroborationDepth": 0,
+    "activeDisputes": 0,
+    "datedClaims": 0,
+    "awaitingTranslation": 0,
+    "overall": 0
+  },
+  "eventIdsApplied": [
+    "cs-001",
+    "cs-002",
+    "cs-003"
+  ],
+  "eventIdsSincePrevious": [
+    "cs-001",
+    "cs-002",
+    "cs-003"
+  ]
+}

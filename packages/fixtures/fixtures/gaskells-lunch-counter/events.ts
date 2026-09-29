@@ -23,13 +23,11 @@
  *
  *   - One record producing several claims. The menu photograph is read three
  *     different ways by three people.
- *   - A dispute landing on one element while the rest of the claim stands.
+ *   - A dispute landing on one detail while the rest of the claim stands.
  *     The closing year is contested. The address, the owners and the fire are
  *     not.
- *   - Corroboration counted by family line. Two of the contributors are
- *     siblings and share a `lineageId`, so their agreement is one source
- *     rather than two. A third is unrelated, and that is what moves the
- *     number.
+ *   - Agreement that is not corroboration. Two of the contributors are
+ *     siblings who agree with each other, and agreeing adds no source.
  *   - A documentary source arriving late and contradicting the memory that
  *     everybody had agreed on.
  *
@@ -63,7 +61,6 @@ export const events: ContributionEvent[] = [
     kind: 'contributor_registered',
     contributorId: 'c-dolores',
     displayName: 'Dolores Whitcomb',
-    lineageId: 'lin-whitcomb',
   },
 
   {
@@ -91,11 +88,11 @@ export const events: ContributionEvent[] = [
     id: 'gk-004', at: '2026-02-03T18:44:00Z', actorId: 'c-dolores',
     kind: 'claim_submitted',
     claimId: 'cl-closed-1979',
-    recordId: 'rec-menu-photo',
+    sourceRecordId: 'rec-menu-photo',
     siteId: SITE,
     text: "Gaskell's was on the corner of 9th and Bannock and it closed in 1979. My mother took this photograph of the menu on one of the last days it was open. She kept it in the kitchen drawer for the rest of her life.",
     sourceLanguage: 'en',
-    elements: [
+    details: [
       { id: 'el-gk-year', kind: 'date', value: '1979', excerpt: 'it closed in 1979' },
       { id: 'el-gk-place', kind: 'place', value: '9th and Bannock', excerpt: 'on the corner of 9th and Bannock' },
     ],
@@ -113,7 +110,6 @@ export const events: ContributionEvent[] = [
     kind: 'contributor_registered',
     contributorId: 'c-raymond',
     displayName: 'Raymond Whitcomb',
-    lineageId: 'lin-whitcomb', // NOTE: same family line as c-dolores. Her brother.
   },
 
   {
@@ -134,11 +130,11 @@ export const events: ContributionEvent[] = [
     id: 'gk-008', at: '2026-03-18T20:47:00Z', actorId: 'c-priya',
     kind: 'claim_submitted',
     claimId: 'cl-shift-workers',
-    recordId: 'rec-menu-photo',
+    sourceRecordId: 'rec-menu-photo',
     siteId: SITE,
     text: 'The hours on this menu are five in the morning until two in the afternoon. That is a shift pattern, not a lunch trade. Whoever ate here was going to work before dawn.',
     sourceLanguage: 'en',
-    elements: [
+    details: [
       { id: 'el-gk-hours', kind: 'quantity', value: '05:00 to 14:00', excerpt: 'five in the morning until two in the afternoon' },
     ],
     topics: ['the menu', 'who ate there'],
@@ -149,12 +145,12 @@ export const events: ContributionEvent[] = [
     id: 'gk-009', at: '2026-03-22T11:15:00Z', actorId: 'c-dolores',
     kind: 'claim_extended',
     claimId: 'cl-mother-worked',
-    recordId: 'rec-menu-photo',
+    sourceRecordId: 'rec-menu-photo',
     parentClaimId: 'cl-shift-workers',
     siteId: SITE,
     text: 'That is right, and my mother was one of them. She was on the early shift at the laundry two streets over and she ate here before work most days.',
     sourceLanguage: 'en',
-    elements: [
+    details: [
       { id: 'el-gk-person', kind: 'person', value: 'Dolores Whitcomb\'s mother', excerpt: 'my mother was one of them' },
     ],
     topics: ['who ate there'],
@@ -205,7 +201,7 @@ export const events: ContributionEvent[] = [
 
   /* ================================================================ */
   /* t3 — A city directory contradicts the year everybody agreed on.   */
-  /*      The dispute lands on the date element only. The address, the */
+  /*      The dispute lands on the date detail only. The address, the */
   /*      hours and the people are untouched.                          */
   /* ================================================================ */
 
@@ -241,7 +237,7 @@ export const events: ContributionEvent[] = [
     kind: 'claim_disputed',
     edgeId: 'de-gk-year',
     targetClaimId: 'cl-closed-1979',
-    targetElementId: 'el-gk-year',
+    targetDetailId: 'el-gk-year',
     reasoning: 'The 1981 city directory still lists the business at this address. A directory is compiled the year before it is printed, so the business was trading in 1980 at the latest. It did not close in 1979.',
     proposedValue: '1981',
   },

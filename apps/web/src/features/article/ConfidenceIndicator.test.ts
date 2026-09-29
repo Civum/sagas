@@ -5,9 +5,9 @@
  * without any ordinary test noticing.
  *
  *   1. Agreement is not corroboration. Twenty people nodding is not evidence
- *      if none of them is an independent source.
- *   2. Support is counted by family line, not by headcount.
- *   3. When everyone who agreed shares a lineage, say so.
+ *      if none of them is an independent record.
+ *   2. Support is counted in independent records, not heads.
+ *   3. When people agreed and nobody brought a source, say so.
  *   4. Silence is not doubt. A claim nobody has engaged with has not been
  *      questioned, it has not been seen.
  *
@@ -20,11 +20,10 @@ import { describe, it, expect } from 'vitest';
 import { supportSummary } from './ConfidenceIndicator';
 
 describe('supportSummary', () => {
-  it('says so when everyone who agreed is from the same family', () => {
-    // Zero independent lines, one affirmation. This is the shape of a claim
-    // backed only by the contributor's own relatives.
+  it('says so when people agreed and nobody brought a record', () => {
+    // Zero independent records, one affirmation.
     const summary = supportSummary(0, 1);
-    expect(summary).toMatch(/same family/i);
+    expect(summary).toMatch(/no independent record/i);
   });
 
   it('never reports agreement as corroboration when nobody independent spoke', () => {
@@ -34,9 +33,9 @@ describe('supportSummary', () => {
     }
   });
 
-  it('counts families rather than people when there is real support', () => {
-    expect(supportSummary(1, 4)).toMatch(/1 other family/);
-    expect(supportSummary(3, 3)).toMatch(/3 other families/);
+  it('counts records rather than people when there is real support', () => {
+    expect(supportSummary(1, 4)).toMatch(/1 other record/);
+    expect(supportSummary(3, 3)).toMatch(/3 other records/);
   });
 
   it('is honest about silence rather than treating it as doubt', () => {

@@ -1,0 +1,521 @@
+{
+  "stateId": "t2",
+  "label": "The year is disputed; the owner is extended with evidence",
+  "asOf": "2026-04-30T23:59:59Z",
+  "site": {
+    "id": "site-corner-shop",
+    "slug": "corner-shop",
+    "name": "The corner shop",
+    "aka": [
+      "Ferris's",
+      "the shop on the corner"
+    ],
+    "coordinates": [
+      -116.2016,
+      43.6149
+    ],
+    "address": "N 4th St and W Main St",
+    "city": "Boise, Idaho",
+    "coordinatePrecision": "approximate"
+  },
+  "claims": [
+    {
+      "claim": {
+        "id": "cl-cs-shop",
+        "siteId": "site-corner-shop",
+        "contributorId": "c-ray",
+        "sourceRecordId": "rec-cs-photo",
+        "evidenceRecordIds": [],
+        "text": "That's the shop on the corner of Fourth and Main, around 1950. The man in the doorway is the owner, Mr. Ferris.",
+        "sourceLanguage": "en",
+        "details": [
+          {
+            "id": "dt-cs-place",
+            "kind": "place",
+            "value": "Fourth and Main",
+            "excerpt": "the corner of Fourth and Main"
+          },
+          {
+            "id": "dt-cs-year",
+            "kind": "date",
+            "value": "c. 1950",
+            "excerpt": "around 1950"
+          },
+          {
+            "id": "dt-cs-owner",
+            "kind": "person",
+            "value": "Ferris",
+            "excerpt": "the owner, Mr. Ferris"
+          }
+        ],
+        "topics": [
+          "the shop",
+          "the owner"
+        ],
+        "sourceType": "firsthand",
+        "createdAt": "2026-02-03T19:31:00Z",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-ray",
+        "displayName": "Ray Okafor",
+        "joinedAt": "2026-02-03T19:20:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "sourceRecord": {
+        "id": "rec-cs-photo",
+        "siteId": "site-corner-shop",
+        "contributorId": "c-june",
+        "note": "My grandmother's shop, I think. I don't know when this was taken.",
+        "submission": "submitted",
+        "media": [
+          {
+            "id": "med-cs-photo",
+            "recordId": "rec-cs-photo",
+            "kind": "image",
+            "storageKey": "records/rec-cs-photo/shopfront.jpg",
+            "contentType": "image/jpeg",
+            "byteSize": 1912004,
+            "originalFilename": "shopfront.jpg",
+            "processing": "ready",
+            "width": 2400,
+            "height": 1600,
+            "derivatives": [],
+            "createdAt": "2026-01-12T17:14:00Z"
+          }
+        ],
+        "createdAt": "2026-01-12T17:14:00Z"
+      },
+      "evidenceRecords": [],
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [
+        {
+          "id": "aff-cs-lena",
+          "claimId": "cl-cs-shop",
+          "contributorId": "c-lena",
+          "createdAt": "2026-02-10T15:05:00Z"
+        }
+      ],
+      "independentRecordCount": 1,
+      "extensions": [
+        "cl-cs-uncle"
+      ],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "detailStatuses": [
+        {
+          "detail": {
+            "id": "dt-cs-place",
+            "kind": "place",
+            "value": "Fourth and Main",
+            "excerpt": "the corner of Fourth and Main"
+          },
+          "disputes": [],
+          "competingValues": [
+            {
+              "value": "Fourth and Main",
+              "count": 1,
+              "contributorIds": [
+                "c-ray"
+              ]
+            }
+          ]
+        },
+        {
+          "detail": {
+            "id": "dt-cs-year",
+            "kind": "date",
+            "value": "c. 1950",
+            "excerpt": "around 1950"
+          },
+          "disputes": [
+            {
+              "id": "dsp-cs-year",
+              "type": "dispute",
+              "targetClaimId": "cl-cs-shop",
+              "targetDetailId": "dt-cs-year",
+              "reasoning": "It can't be 1950. The awning in the photo went up in 1956. The directory page I uploaded shows the change.",
+              "proposedValue": "1956 or later",
+              "contributorId": "c-owen",
+              "createdAt": "2026-04-06T18:20:00Z"
+            }
+          ],
+          "competingValues": [
+            {
+              "value": "c. 1950",
+              "count": 1,
+              "contributorIds": [
+                "c-ray"
+              ]
+            },
+            {
+              "value": "1956 or later",
+              "count": 1,
+              "contributorIds": [
+                "c-owen"
+              ]
+            }
+          ]
+        },
+        {
+          "detail": {
+            "id": "dt-cs-owner",
+            "kind": "person",
+            "value": "Ferris",
+            "excerpt": "the owner, Mr. Ferris"
+          },
+          "disputes": [],
+          "competingValues": [
+            {
+              "value": "Ferris",
+              "count": 1,
+              "contributorIds": [
+                "c-ray"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 6.25,
+      "confidence": "contested"
+    },
+    {
+      "claim": {
+        "id": "cl-cs-uncle",
+        "siteId": "site-corner-shop",
+        "contributorId": "c-mae",
+        "sourceRecordId": "rec-cs-photo",
+        "evidenceRecordIds": [
+          "rec-cs-audio"
+        ],
+        "text": "Mr. Ferris was my uncle. He ran that shop until the sixties.",
+        "sourceLanguage": "en",
+        "details": [
+          {
+            "id": "dt-cs-uncle-until",
+            "kind": "date",
+            "value": "1960s",
+            "excerpt": "until the sixties"
+          }
+        ],
+        "topics": [
+          "the owner"
+        ],
+        "sourceType": "family_oral",
+        "createdAt": "2026-04-19T20:51:00Z",
+        "parentClaimId": "cl-cs-shop",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-mae",
+        "displayName": "Mae Ferris-Holt",
+        "joinedAt": "2026-04-19T20:40:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "sourceRecord": {
+        "id": "rec-cs-photo",
+        "siteId": "site-corner-shop",
+        "contributorId": "c-june",
+        "note": "My grandmother's shop, I think. I don't know when this was taken.",
+        "submission": "submitted",
+        "media": [
+          {
+            "id": "med-cs-photo",
+            "recordId": "rec-cs-photo",
+            "kind": "image",
+            "storageKey": "records/rec-cs-photo/shopfront.jpg",
+            "contentType": "image/jpeg",
+            "byteSize": 1912004,
+            "originalFilename": "shopfront.jpg",
+            "processing": "ready",
+            "width": 2400,
+            "height": 1600,
+            "derivatives": [],
+            "createdAt": "2026-01-12T17:14:00Z"
+          }
+        ],
+        "createdAt": "2026-01-12T17:14:00Z"
+      },
+      "evidenceRecords": [
+        {
+          "id": "rec-cs-audio",
+          "siteId": "site-corner-shop",
+          "contributorId": "c-mae",
+          "submission": "submitted",
+          "media": [
+            {
+              "id": "med-cs-audio",
+              "recordId": "rec-cs-audio",
+              "kind": "audio",
+              "storageKey": "records/rec-cs-audio/uncle.m4a",
+              "contentType": "audio/mp4",
+              "byteSize": 1204311,
+              "originalFilename": "uncle.m4a",
+              "processing": "ready",
+              "durationSeconds": 48,
+              "derivatives": [],
+              "createdAt": "2026-04-19T20:44:00Z"
+            }
+          ],
+          "createdAt": "2026-04-19T20:44:00Z"
+        }
+      ],
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [],
+      "independentRecordCount": 0,
+      "extensions": [],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "detailStatuses": [
+        {
+          "detail": {
+            "id": "dt-cs-uncle-until",
+            "kind": "date",
+            "value": "1960s",
+            "excerpt": "until the sixties"
+          },
+          "disputes": [],
+          "competingValues": [
+            {
+              "value": "1960s",
+              "count": 1,
+              "contributorIds": [
+                "c-mae"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 2,
+      "confidence": "single_source"
+    }
+  ],
+  "contributors": [
+    {
+      "id": "c-june",
+      "displayName": "June Alder",
+      "joinedAt": "2026-01-12T17:01:00Z",
+      "fictional": true,
+      "verification": "guest"
+    },
+    {
+      "id": "c-ray",
+      "displayName": "Ray Okafor",
+      "joinedAt": "2026-02-03T19:20:00Z",
+      "fictional": true,
+      "verification": "guest"
+    },
+    {
+      "id": "c-lena",
+      "displayName": "Lena Varga",
+      "joinedAt": "2026-02-10T15:02:00Z",
+      "fictional": true,
+      "verification": "guest"
+    },
+    {
+      "id": "c-owen",
+      "displayName": "Owen Pike",
+      "joinedAt": "2026-04-06T18:00:00Z",
+      "fictional": true,
+      "verification": "guest"
+    },
+    {
+      "id": "c-mae",
+      "displayName": "Mae Ferris-Holt",
+      "joinedAt": "2026-04-19T20:40:00Z",
+      "fictional": true,
+      "verification": "guest"
+    }
+  ],
+  "records": [
+    {
+      "id": "rec-cs-photo",
+      "siteId": "site-corner-shop",
+      "contributorId": "c-june",
+      "note": "My grandmother's shop, I think. I don't know when this was taken.",
+      "submission": "submitted",
+      "media": [
+        {
+          "id": "med-cs-photo",
+          "recordId": "rec-cs-photo",
+          "kind": "image",
+          "storageKey": "records/rec-cs-photo/shopfront.jpg",
+          "contentType": "image/jpeg",
+          "byteSize": 1912004,
+          "originalFilename": "shopfront.jpg",
+          "processing": "ready",
+          "width": 2400,
+          "height": 1600,
+          "derivatives": [],
+          "createdAt": "2026-01-12T17:14:00Z"
+        }
+      ],
+      "createdAt": "2026-01-12T17:14:00Z"
+    },
+    {
+      "id": "rec-cs-directory",
+      "siteId": "site-corner-shop",
+      "contributorId": "c-owen",
+      "note": "City directory page, 1956 edition. The listing for the corner changes that year, the same year the awning went up.",
+      "submission": "submitted",
+      "media": [
+        {
+          "id": "med-cs-directory",
+          "recordId": "rec-cs-directory",
+          "kind": "document",
+          "storageKey": "records/rec-cs-directory/directory-1956.pdf",
+          "contentType": "application/pdf",
+          "byteSize": 412880,
+          "originalFilename": "directory-1956.pdf",
+          "processing": "ready",
+          "derivatives": [],
+          "createdAt": "2026-04-06T18:12:00Z"
+        }
+      ],
+      "createdAt": "2026-04-06T18:12:00Z"
+    },
+    {
+      "id": "rec-cs-audio",
+      "siteId": "site-corner-shop",
+      "contributorId": "c-mae",
+      "submission": "submitted",
+      "media": [
+        {
+          "id": "med-cs-audio",
+          "recordId": "rec-cs-audio",
+          "kind": "audio",
+          "storageKey": "records/rec-cs-audio/uncle.m4a",
+          "contentType": "audio/mp4",
+          "byteSize": 1204311,
+          "originalFilename": "uncle.m4a",
+          "processing": "ready",
+          "durationSeconds": 48,
+          "derivatives": [],
+          "createdAt": "2026-04-19T20:44:00Z"
+        }
+      ],
+      "createdAt": "2026-04-19T20:44:00Z"
+    }
+  ],
+  "standings": [
+    {
+      "contributorId": "c-june",
+      "firstContributionAt": "2026-01-12T17:14:00Z",
+      "lastContributionAt": "2026-01-12T17:14:00Z",
+      "recordsSubmitted": 1,
+      "claimsAuthored": 0,
+      "claimsCorroborated": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 0,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    },
+    {
+      "contributorId": "c-ray",
+      "firstContributionAt": "2026-02-03T19:31:00Z",
+      "lastContributionAt": "2026-02-03T19:31:00Z",
+      "recordsSubmitted": 0,
+      "claimsAuthored": 1,
+      "claimsCorroborated": 1,
+      "claimsDisputed": 1,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 0,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    },
+    {
+      "contributorId": "c-lena",
+      "firstContributionAt": "2026-02-10T15:05:00Z",
+      "lastContributionAt": "2026-02-10T15:05:00Z",
+      "recordsSubmitted": 0,
+      "claimsAuthored": 0,
+      "claimsCorroborated": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 1,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    },
+    {
+      "contributorId": "c-owen",
+      "firstContributionAt": "2026-04-06T18:12:00Z",
+      "lastContributionAt": "2026-04-06T18:20:00Z",
+      "recordsSubmitted": 1,
+      "claimsAuthored": 0,
+      "claimsCorroborated": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 1,
+      "disputesRaisedWithAlternative": 1,
+      "affirmationsGiven": 0,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    },
+    {
+      "contributorId": "c-mae",
+      "firstContributionAt": "2026-04-19T20:44:00Z",
+      "lastContributionAt": "2026-04-19T20:51:00Z",
+      "recordsSubmitted": 1,
+      "claimsAuthored": 1,
+      "claimsCorroborated": 0,
+      "claimsDisputed": 0,
+      "disputesRaised": 0,
+      "disputesRaisedWithAlternative": 0,
+      "affirmationsGiven": 0,
+      "translationsContributed": 0,
+      "transcriptsContributed": 0,
+      "flagsRaised": 0
+    }
+  ],
+  "transcripts": [],
+  "flags": [],
+  "integrity": {
+    "totalClaims": 2,
+    "independentContributors": 2,
+    "corroborationDepth": 0.5,
+    "activeDisputes": 1,
+    "datedClaims": 2,
+    "awaitingTranslation": 0,
+    "overall": 39
+  },
+  "eventIdsApplied": [
+    "cs-001",
+    "cs-002",
+    "cs-003",
+    "cs-004",
+    "cs-005",
+    "cs-006",
+    "cs-007",
+    "cs-008",
+    "cs-009",
+    "cs-010",
+    "cs-011",
+    "cs-012",
+    "cs-013"
+  ],
+  "eventIdsSincePrevious": [
+    "cs-008",
+    "cs-009",
+    "cs-010",
+    "cs-011",
+    "cs-012",
+    "cs-013"
+  ]
+}

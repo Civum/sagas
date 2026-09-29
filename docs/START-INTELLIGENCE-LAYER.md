@@ -14,11 +14,11 @@ cooked in a boarding house from 1922, somebody else says the register shows
 war. Your layer is what decides how much any of that is worth, and it has to do
 it without ever being told who is speaking.
 
-One app, yours, and empty apart from a failing scorer stub:
+You own one app, which is empty apart from a scorer stub whose tests fail:
 
-- `apps/graph-api`, the server, and the schema and migrations behind it
+- `apps/graph-api`, the server, and later the schema and migrations behind it
 
-## Five words used carefully
+## What the five core terms mean
 
 - **Site.** A place somebody has designated as meaningful. Records and claims
   attach to a site. A site does not attach to them.
@@ -38,20 +38,19 @@ find it still standing for either, that is a leftover and worth a pull request.
 
 ## What to ignore
 
-Genuinely ignore. It belongs to other teams and nothing you build depends on it.
+These belong to other teams and nothing you build depends on them.
 
 - `apps/web`, `apps/ui-api`, `packages/read-model`, the reading experience
 - `apps/capture-api`, `apps/capture-web`, how contributions arrive
 - Anything about uploads, media, transcoding, storage, or file processing
 - The object storage and ffmpeg sections of `SETUP.md`
 
-You do not need MinIO, ffmpeg, or a Mapbox token. Those are other people's
-problems and the setup instructions mention them because one document covers
-three teams.
+You do not need MinIO, ffmpeg, or a Mapbox token. The setup instructions mention
+them because one document covers three teams.
 
 ## What to install first
 
-Fewer things than the other teams need.
+You need fewer things than the other teams.
 
 | What | Version | Where |
 |---|---|---|
@@ -84,7 +83,7 @@ problems that look like real bugs.
 1. **Create a GitHub organisation for the team**, not a personal account. If the
    repository lives in one person's GitHub account and that person drops the
    class, the team loses everything, and your instructor needs access for grading.
-2. **One person forks `Civum/sagas` into it.** Once.
+2. **One person forks `Civum/sagas` into it, once.**
 3. **Everyone clones that fork**, including whoever created it.
 
 ```bash
@@ -96,12 +95,45 @@ git remote add upstream https://github.com/Civum/sagas.git
 Work on branches, open pull requests into your fork's main, review each other.
 `docs/GIT.md` has the rest.
 
+## Turn on the upstream watch
+
+When the shared design changes, a workflow in your fork opens an issue saying
+so, with the changelog in it. Nothing in your fork changes by itself. You decide
+whether to pull the change, at a check-in.
+
+It does not run until you switch it on, in three steps, once:
+
+1. **Enable Actions on the fork.** GitHub turns them off on a new fork. Open the
+   **Actions** tab and confirm you want workflows to run.
+2. **Enable the scheduled workflow.** GitHub's documentation says scheduled
+   workflows on a fork are disabled by default. In the Actions tab, pick
+   **Upstream contract watch** in the left sidebar and click **Enable workflow**.
+3. **Turn on Issues.** The watch reports by opening an issue, so Issues have to
+   be on for the fork (the fork's **Settings**, under **Features**).
+
+After that it runs every Monday morning. You can also run it by hand with the
+**Run workflow** button. The details are in `docs/GIT.md`, under "Finding out
+that upstream moved".
+
+## Why one repository holds three teams
+
+This is a monorepo: several apps and packages in one repository.
+
+Some of what you build is specific to your layer and stays in your fork. Some of
+it is shared with the other two layers: the contract that says what a claim or a
+record looks like (`packages/contracts`), and the fixture data everyone builds
+against (`packages/fixtures`). Keeping both in one place means that when the
+shared design moves, every team gets the same update through the watch above.
+When your own design moves, that stays with you.
+
+`docs/HOW-THE-LAYERS-FIT.md` follows one photograph through all three layers.
+
 ## Get it running
 
 ```bash
 pnpm install
 pnpm rules
-pnpm inspect cl-boarding
+pnpm inspect --site example-site cl-boarding
 ```
 
 That is the whole setup for now. `pnpm rules` runs ten rules against a
@@ -110,7 +142,7 @@ inputs beside its outputs, so you can see what a score is actually made of.
 
 ## The database, when you need it
 
-Not in September. Your first month is the model and then the scorer, and the
+You won't need it in September. Your first month is the model and then the scorer, and the
 scorer is arithmetic over numbers the fixtures already hold, so there is nothing
 to store and nothing to query. The database work starts in October, when you
 build the schema your diagram argued for.
@@ -139,7 +171,7 @@ nothing depends on it is much better than finding out in October when it is
 blocking you. Start it, see three ticks, stop it again, and forget about it
 until you need it.
 
-## Editor
+## Setting up VS Code
 
 Open the folder in VS Code and say yes when it offers the recommended
 extensions. Formatting and lint fixing on save are configured already, so
@@ -149,43 +181,38 @@ TypeScript rather than the bundled one when it prompts.
 ## Read these four, in this order
 
 1. `packages/fixtures/behaviour/scoring-contract.ts`. Ten rules any scorer
-   has to obey, written as executable tests. This is the closest thing to a
-   specification you will get and it is the best hour you can spend.
+   has to obey, written as executable tests. It is the closest thing to a
+   specification this project has.
 2. `packages/contracts/src/model.ts`. Read all of it rather than only your
    part, because your first task is a diagram of the whole thing. The media and
    processing fields on a record belong to another team and you can skim those.
 
-   One thing to have an opinion about. `edgeType` has three values and the third
-   is `reference`. Its fields are the claim it comes from, an optional site or
-   claim it points at, the words that pointed, and a `resolved` boolean. What it
-   is for is not written down beside it, and Part 3 of `docs/DESIGN-QUESTIONS.md`
-   still asks how a reference becomes an edge at all. Whether it belongs in that
-   enum is a good thing for your diagram to argue about.
+   `edgeType` has two values, dispute and extension.
 3. `packages/fixtures/src/reduce.ts`, which calculates a snapshot in memory with
    no database at all. It recomputes everything from scratch every time, which
-   is fine for 64 contributions and useless at any real size. That gap is your
+   is fine for the fixture data and useless at any real size. That gap is your
    work.
 4. `docs/DESIGN-QUESTIONS.md`, starting with "How do you tell a good source from
-   a bad one?" That is the headline problem and Part 3 is where the project gets
-   interesting.
+   a bad one?" This project treats that as the main problem, and it opens Part 3,
+   the questions that are open by design.
 
 ## The plan, month by month
 
 **September, the model and then the rules.** Get the stack running, read the
 model, and bring your own entity relationship diagram and the reasoning behind
-it to the check-in on the 22nd. The week after that, write a scorer that
+it to a check-in. The week after that, write a scorer that
 satisfies the seven required rules. No database work yet.
 
-**October, the schema.** Design the tables for claims, edges, contributors and
-lineage, write the migrations, and move the graph out of memory and into
+**October, the schema.** Design the tables for claims, details, edges and
+contributors, write the migrations, and move the graph out of memory and into
 Postgres. Spatial indexing lives here too.
 
 **November onward, propagation.** How weight actually moves through the graph,
 and whichever of the open questions you decide to take on.
 
-Scoring is the bounded half of your layer and you will finish it. The other half
-is routing: working out which claim to put in front of which person, and why.
-That is spring work. It has no known answer, and it will need signals the
+Scoring is the bounded half of your layer. The other half is routing: working
+out which claim to put in front of which person, and why. That is spring work.
+This project does not have an answer for it, and it will need signals the
 contract does not record yet, such as what somebody tends to contribute and
 where they keep coming back to. Asking for those is expected rather than a sign
 something went wrong.
@@ -193,63 +220,51 @@ something went wrong.
 ## Your first task, and it is not code
 
 Come back with an entity relationship diagram of the model as you think it
-should be. Not as the repository has it. As you think it should be after reading
-it.
+should be after reading it, rather than as the repository has it.
 
 This repository is a foundation with gaps in it. Some of what is here is wrong
 and some things are missing entirely. Finding them is the assignment.
 
-Three gaps I know about.
+Here are three gaps I know about. Where one has been decided, it says so.
 
-Claims attach directly to a site, so every claim at a place sits in one pool. A
-site accumulates unrelated topics though, and nothing separates them. One option
-is that a record introduces a conversation and claims live inside conversations.
-Another is that clustering is something you compute rather than something you
-store.
+**Records and claims.** Your main focus is claims. How much your layer reads the
+records behind them is still being worked out. A record plays one
+of two parts. As a *source record* it is where a conversation starts, and every
+claim in that conversation has it as `claim.sourceRecordId`. As an *evidence
+record* it is attached to a claim to back it up, through
+`claim.evidenceRecordIds`, which is optional. The same record can do both in
+different conversations. Whether "conversation" becomes a named object in the
+contract is open, and your diagram is a good place to propose one.
 
-And whether a record carries a score of its own. Not the quality of the
-artifact, but something derived from what the conversations on it turned out to
-be worth. I do not know whether that is a real thing or a category error.
+**Whether a record carries a score.** Decided: a record's score is a citation
+count, how many claims lean on it. It is kept separate from claim weight, because
+if a record's score fed back into the claims that cite it, the loop would reward
+itself. You do not rank records beyond that.
 
-And independence, which is the one I would most like the diagram to have an
-opinion about. `independentLineageCount` is what separates five cousins agreeing
-from two families agreeing. It is what `ScoringInput` gets instead of an author,
-and your scorer will lean on it harder than on anything else in there.
+**Independence**, which is the one I would most like the diagram to have an
+opinion about. Corroboration counts independent records, not people. The
+contract has a stand-in, `independentRecordCount`: the number of distinct records other contributors have
+brought to back a claim. Agreement never counts.
 
-It is counted from `lineageId`, a hand-authored optional string on a
-contributor. Nothing derives it and, with no logins, there is nothing to derive
-it from. You already knew that much, because `scoring-contract.ts` says so and
-six rules were removed over it. What is not written down anywhere is what
-`reduce.ts` does when the field is missing. It falls back to
-`solo:<contributorId>`, so a contributor with no lineage becomes their own
-family line. An archive where nobody has one does not lose the count. It gets a
-count in which everybody is independent of everybody, which is the exact thing
-the field exists to prevent.
+The stand-in cannot tell when two records share a source. Two cousins who heard
+one telling and each wrote it down look like two sources. Working out
+independence from the graph (the same record cited twice, the same branch,
+descent from the same root claim) is yours.
 
-The model has no way to say that independence is unknown. It can say two people
-are the same line or different lines, and there is no third value. Nothing is
-broken here. Something is missing, and proposing it is the kind of thing a
-diagram can do.
-
-Here is one candidate, so you have something to argue with. Make the fallback
-explicit: a fixture contributor with no family gets `solo:` written in when the
-fixture is authored, and the reducer treats a missing lineage as unknown. The
-fixtures still demonstrate everything they demonstrate today, and production
-fails closed. That exposes the real question, which is what a claim is worth
-when independence is unknown rather than absent. That part is yours.
-
-`docs/DESIGN-QUESTIONS.md` has this as "`independentLineageCount` defaults to
-the answer it exists to prevent", with "Can vouching carry what lineage cannot?"
-directly after it.
+This project treats the edges as the strong signals. An extension pushes a claim up, a dispute
+pushes it down, and a resolution would lift both branches it reconciles, so a
+claim's weight moves in both directions over time. Passovers (`sounds_right`,
+`dont_know`, `dont_care`) are soft signals, and they matter most for routing:
+what gets suggested to whom.
 
 There are more gaps than those three. Bring the diagram and the reasoning. Where
 you diverge from what is in the repository, say why.
 
-**Due at the check-in on 22 September.**
+**Bring the revised diagram to your next check-in.**
 
-## After that, the scorer
+## Your second task: the scorer
 
-The week after the diagram, so around the 29th.
+This is due the week after the diagram.
 
 `apps/graph-api/src/scorer.test.ts` is already there. It holds an empty scorer
 whose two methods throw `not implemented`, with the ten rules running against
@@ -270,9 +285,8 @@ people argue about should outrank one nobody has touched is a position rather
 than a law. A failure there might be a bug in your scorer, and it might be you
 disagreeing with me.
 
-So the week is not "make ten tests green". It is: satisfy the seven, then come
-to the check-in with which of the three you would change and why. The second
-half is the more interesting half and it is the one I actually want.
+So for the week, satisfy the seven, then come to the check-in with which of the
+three you would change and why. That second half is the part I most want to see.
 
 There is a worked example in the repository.
 `packages/fixtures/behaviour/placeholder.test.ts` is nineteen lines and does the
@@ -281,12 +295,11 @@ bad on purpose and it still passes, which tells you something about what the
 rules do and do not pin down.
 
 Then make the failures go away. The rules tell you what is wrong and
-they are specific: one of them will tell you that you are counting heads instead
-of family lines, another that you are treating disagreement as damage.
+they are specific: one of them will tell you that you are treating disagreement
+as damage, another that you are burying a claim nobody has translated yet.
 
 Do not aim for a good scorer. Aim for one that satisfies the seven, then read
-your own implementation and work out why it is not good enough. That gap is the
-project.
+your own implementation and work out why it is not good enough.
 
 I wrote those rules before any of this had been tried against a real claim, and
 I have not solved the problem they are circling. Treat them as a starting point
@@ -307,32 +320,29 @@ does not exist yet.
 ## Why the author is missing from `ScoringInput`
 
 `ScoringInput` is never given an author. No name, no identifier, no standing, no
-institution. What it gets instead are facts derived from who contributed:
-whether three affirmations came from three independent family lines or from one
-family. So the system knows who is speaking. The scorer does not, and cannot use
-it as a credential.
+institution. What it gets instead are facts about what was contributed, such as
+how many independent records back a claim. The rest of the system knows who is
+speaking. The scorer does not, so it cannot use that as a credential.
 
 Weight comes from what somebody has done, not from who they are. That is
 enforced by the missing field rather than by a test.
 
-An affirmation, in that sentence, is what a reader clicks to agree with a claim.
-Worth knowing before you build on it: it is currently stored as its own object,
-separate from a passover, even though a passover with the kind `sounds_right`
-means the same thing. That duplicate is going to be removed and
-`affirmationCount` will become a count of passovers. Nothing you write against
-the ten rules breaks when it does, because the number itself does not move.
+An affirmation is what a reader clicks to agree with a claim. It is currently
+stored as its own object, separate from a passover, even though a passover with
+the kind `sounds_right` means the same thing. That duplicate is going to be
+removed and `affirmationCount` will become a count of passovers. That change
+moves the fixture counts the rules check, so it waits until you have a working
+scorer, and `CHANGELOG.md` will say what to update.
 
-Two different things are going on here.
-
-**Permanent.** A claim must never be worth more because of who is taken to have
-made it. Not their name, not their reputation, not the institution they
-mention. The missing field is how this project makes that promise checkable
+**What is permanent.** A claim must never be worth more because of who is taken
+to have made it, whether that is their name, their reputation or an institution
+they mention. The missing field is how this project makes that promise checkable
 instead of merely stated. Anybody can open the file and see it.
 
-**Not permanent.** Weighing what a person has actually done is a different
-thing, and that is where this is going. `contributorStanding` exists to hold
-exactly that. Records submitted, claims written, claims other people backed,
-disputes raised, how many of those proposed an alternative rather than only
+**What is not permanent.** Weighing what a person has actually done is a
+different thing, and that is where this is going. `contributorStanding` holds
+it: records submitted, claims written, claims backed by other people's records,
+and disputes raised, including how many proposed an alternative rather than only
 objecting. None of it reaches `ScoringInput` today, and the reason is that
 nobody has worked out how to use it without the first thing sneaking in through
 it.
@@ -345,18 +355,18 @@ When you get there, it is a conversation at a check-in rather than a widened
 interface in a pull request. Read "How do you tell a good source from a bad
 one?" first.
 
-## Every Monday
+## What to check every Monday
 
 Check `CHANGELOG.md`. Anything that changed is listed there with a line saying
 which team it affects. If it does not say intelligence layer, skip it. Your fork
 never updates itself, so nothing changes underneath you.
 
-## A note on frameworks
+## Choosing a server framework
 
 `apps/graph-api` has no server framework yet and that is not a September
 question, because your first month has no HTTP in it. Decide it at a check-in in
-October. Express 5 is a perfectly good answer if you want the path of least
-resistance, and it is what the rest of this repository uses.
+October. Express 5 is what the rest of this repository uses, so it is the
+simplest choice.
 
 ## How we work
 
@@ -377,10 +387,9 @@ resistance, and it is what the rest of this repository uses.
 - Anything merged upstream is credited to you by name. Your fork is yours
   regardless, and what you write in it stays yours.
 
-## One thing worth saying plainly
+## You are not expected to finish it
 
-This is an open source project, which means it is never finished and you are not
-expected to finish it.
+This is an open source project, and you are not expected to finish it.
 
 The questions in Part 3 of `docs/DESIGN-QUESTIONS.md` are where the work is.
 Open there means I do not have an answer. I have not looked into whether anyone

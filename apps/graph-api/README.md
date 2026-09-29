@@ -1,10 +1,10 @@
 # apps/graph-api — the intelligence layer
 
-Yours. It ships empty on purpose.
+This app is yours, and it ships empty on purpose.
 
-Given everything the archive holds about a place: how much support does each
-claim have, what is contested, what is missing, and what should the narrative
-look like right now.
+This app takes everything the archive holds about a place and works out how
+much support each claim has, what is contested, what is missing, and what the
+narrative page should look like right now.
 
 ## What goes here, roughly
 
@@ -33,29 +33,27 @@ runScoringRules('my scorer', myScorer);
 
 `pnpm rules` runs it.
 
-They have teeth. A scorer that ranks by how many people showed up fails three of
-them. One that buries anything anyone argued with fails two. A sign error on
-disputes fails two more. Every one of those is a way this archive could go
-quietly wrong while ordinary unit tests stayed green.
+They are there to catch scorers that rank by how many people showed up, bury
+anything anyone argued with, or get the sign on disputes wrong. Each of those
+is a way this archive could go quietly wrong while ordinary unit tests stayed
+green.
 
 Look at what the scorer is given and, more importantly, what it is not. There is
 no author in the input: no name, no id, no standing, no join date. What it gets
-instead are facts derived from who contributed, such as whether three
-affirmations came from three independent family lines or from one. The system
-knows who is speaking. The scorer does not, and cannot use it as a credential.
-Weight comes from what somebody has done, not from who they are. That is
-enforced by the missing field rather than by a test.
+instead are facts about what was contributed, such as how many independent
+records back a claim. The system knows who is speaking. The scorer does not,
+and cannot use it as a credential. That is enforced by the missing field
+rather than by a test.
 
 If you think a rule is wrong, and some of them may be, open a pull request
 against it with your reasoning rather than editing it in your fork. Every team
 is held to the same list, and a rule only some teams follow is not a rule.
 
-**Ten passing rules is not a sound algorithm.** Every one of them is a
-property of a scalar function over one claim's own inputs, and none of them know
-what an edge is. Whether support travels along extensions, whether a cycle can
-let a claim corroborate itself, whether two people who heard it from the same
-source count as independent. All of it is untested, and all of it is listed at
-the top of `scoring-contract.ts`.
+**Ten passing rules is not a sound algorithm.** Every rule looks at one claim's
+own numbers and checks the single number your scorer returns, and none of them
+know what an edge is. Whether support travels along extensions, whether a cycle
+can let a claim corroborate itself, and whether two records share a source are
+all untested. They are listed at the top of `scoring-contract.ts`.
 
 That gap is deliberate. Writing those tests means fixing what a propagation
 algorithm looks like, and that is your design decision rather than ours. Bring
@@ -68,8 +66,8 @@ The derived states carry more than claims. Before you design anything, load one
 and look at what is in it, because the shape of your input decides what your
 algorithm can possibly be good at.
 
-- `claims` — each with its author, the record it was read out of, translations,
-  disputes per element, competing readings ordered by independent family line,
+- `claims` — each with its author, its source record and any evidence records, translations,
+  disputes per detail, competing readings kept side by side,
   affirmations, passover signals, and a placeholder weight.
 - `records` — what people actually handed over, with media, processing state,
   and where each one says it was made and how that location was determined.
@@ -82,8 +80,7 @@ That last one is yours. It records behaviour and judges none of it, and turning
 it into something that means anything is the deliverable. Read the comment on
 `contributorStanding` in `packages/contracts/src/model.ts` and then the entry in
 `docs/DESIGN-QUESTIONS.md` called "How do you tell a good source from a bad
-one?" before you write a line of scoring code. The failure modes there are not
-hypothetical.
+one?" before you write a line of scoring code.
 
 If a signal you need is missing, that is a contract change rather than something
 to work around. Raise it early, because everyone else is building on the same
@@ -100,7 +97,7 @@ Then read, in order:
 1. `packages/contracts/src/model.ts` for the shapes.
 2. `packages/fixtures/src/reduce.ts` for how a snapshot is calculated today, in
    memory, with no database at all. It recalculates everything from scratch every
-   time, which is fine for 64 contributions and useless at any real size.
+   time, which is fine for the fixture data and useless at any real size.
 3. `docs/DESIGN-QUESTIONS.md`, starting with "How do you tell a good source from
    a bad one?". That is your headline deliverable and everything else in that
    section is downstream of it.
@@ -112,19 +109,19 @@ Change the scorer, run `pnpm fixtures:build`, then `git diff` on
 the diff: which one now leads the article, how integrity shifted, whether the
 only untranslated claim just got buried.
 
-That is a regression test and a visualisation at once, and it is the only way to
-reason about the source-quality question. You cannot see "this quietly discounts
-small families" in a unit test.
+That works as a regression test and a picture at once, and this project expects
+you to use it on the source-quality question, because "this quietly discounts
+small communities" does not show up in a unit test.
 
 To ask why one claim scores what it does:
 
 ```bash
-pnpm inspect cl-boarding
+pnpm inspect --site example-site cl-boarding
 ```
 
 That prints the inputs next to the outputs. A weight on its own is not evidence
-of anything; a weight next to "zero independent family lines and three disputes
-on the date" is.
+of anything. A weight next to "two independent records and three disputes on
+the date" is.
 
 ## The database
 
@@ -164,7 +161,7 @@ This app is yours alone. `apps/capture-api` belongs to the content layer and
 `apps/ui-api` to the experience layer. They are separate apps so that no two
 teams edit the same files, and so each can be deployed on its own terms.
 
-Three databases, one per layer, and none of them reads another's tables. Yours
+There are three databases, one per layer, and none of them reads another's tables. Yours
 is the store for claims, edges, contributors and the graph derived from them,
 and designing it is your deliverable. The content layer runs its own for what
 people hand over: records, media, transcripts, translations, flags. The
@@ -172,10 +169,9 @@ experience layer runs a small Postgres seeded from the fixtures, shaped for map
 queries and article pages, so the interface is built against a database rather
 than a file.
 
-These are three different problems and forcing them into one schema this
-semester would make all three worse. It also means no team can be blocked by
-another team's migration. What has to line up is the contract between them,
-never the tables.
+This project keeps them apart because they are three different problems, and
+because it means no team can be blocked by another team's migration. What has
+to line up is the contract between them, never the tables.
 
 ## Your first week
 
@@ -191,7 +187,7 @@ Fill in `weight` and `confidence` until nothing fails. Read the rules first,
 because they are the closest thing to a specification you will get and each
 failure names what it thinks you got wrong.
 
-There is no database work in this. That is October.
+There is no database work in this. That starts in October.
 
 ## Making it a real app
 
@@ -202,5 +198,5 @@ perfectly reasonable answer. To turn this into a server:
 
 1. Add whatever you are using to `dependencies`
 2. Add a `dev` and a `start` script so `pnpm dev` picks it up
-3. Add a `test` script so CI runs it
+3. Add a `test` script so the automated checks run it
 4. `pnpm install` from the repo root

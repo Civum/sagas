@@ -12,8 +12,8 @@ the middle. Splitting this file would hide the one thing it exists to show.
 Entries name **layers**, not schools. Layers are stable; which university owns
 one is not, and this file should still make sense to next year's cohort.
 
-Changes land on Mondays and only on Mondays. See "When the contract changes" in
-the root README. Your fork is pinned, so nothing here reaches you until you pull.
+Changes land on Sundays, and the upstream watch in each fork reports them on Monday morning. See "When the contract changes" in
+`docs/WORKING-TOGETHER.md`. Your fork is pinned, so nothing here reaches you until you pull.
 
 **Two kinds of entry.** A contract change carries a version number. A repo change
 (a new app, a new guide, tooling) carries a date only, because it does not move
@@ -40,6 +40,81 @@ it. This is the most useful field in the entry.
 ```
 
 ---
+
+## v2.0.0 — 2026-09-28
+
+**Affects:** intelligence layer · experience layer · content layer
+
+**What:** Four changes to the shared model, in one release so there is one
+migration rather than four.
+
+- "Element" is now "detail". `claimElement` is `claimDetail`, `claim.elements`
+  is `claim.details`, `elementStatuses` is `detailStatuses`, and
+  `targetElementId` is `targetDetailId`.
+- `claim.recordId` is split in two. `sourceRecordId` (required) is the record
+  the claim's conversation started from. `evidenceRecordIds` (a list, often
+  empty) holds records attached to back the claim up. On `claimState`, `record`
+  is now `sourceRecord`, with `evidenceRecords` beside it. In the fixtures, an
+  extension's own record is now its evidence, and its source is the
+  conversation's source.
+- `reference` is removed: from `edgeType`, `referenceEdge`, the
+  `reference_marked` event, `claimState.references`, the three fixture
+  references, and the acceptance case about them.
+- Lineage is removed: `lineageId`, `independentLineageCount`,
+  `integrityScore.lineageDiversity` and
+  `contributorStanding.claimsCorroboratedByOtherLines`. In their place,
+  `claimState.independentRecordCount` counts the distinct records other
+  contributors have brought to back a claim, and `claimsCorroborated` counts a
+  contributor's claims that have at least one. Agreement never counts as a
+  source. Competing readings of a detail are listed in the order they arrived,
+  not by headcount.
+- The flagship fixture is now `corner-shop`, an invented site that follows
+  `docs/HOW-THE-LAYERS-FIT.md`. The Basque site (`example-site`) stays as one of
+  six. Every acceptance case now names its `site`, `loadAllStates()` returns
+  every state of every site, and `/dev` has a site picker.
+
+**Why:** "Element" and "detail" were two words for one idea. A claim's record
+was doing two jobs: being where a conversation starts, and being evidence for
+one claim. `reference` was never a form a claim takes. And nothing could ever
+fill in a contributor's family outside the fixture data, because the system
+records what people do, not who they are, so the family count was always its
+own fallback. `docs/CLOSED-QUESTIONS.md` has the reasoning for each.
+
+**You need to:**
+- *intelligence layer* — `ScoringInput.independentLineageCount` is now
+  `independentRecordCount`. Rename it in your scorer. The stand-in counts
+  records and cannot see two records that share one telling. Working that out
+  is yours.
+- *experience layer* — rename `elements` and `elementStatuses` in anything you
+  render, read the source record from `sourceRecord`, and stop describing
+  support in families. `ConfidenceIndicator` and `DetailDisputes` show the new
+  wording.
+- *content layer* — a claim you create needs `sourceRecordId`, and can carry
+  `evidenceRecordIds`. An extension that brings a new record attaches it as
+  evidence.
+- *all layers* — if you read `ACCEPTANCE_CRITERIA`, load each case's state with
+  `loadSiteState(c.site, c.stateId)` rather than `loadState(c.stateId)`.
+
+---
+
+## 2026-09-28 — experience layer guide, backlog and direction
+
+**Affects:** experience layer, and all three for the new walkthrough
+
+**What:**
+
+- `docs/START-EXPERIENCE-LAYER.md` is rewritten. It opens with what changed
+  since the first version.
+- New: `apps/web/BACKLOG.md` (the experience layer's epics and first stories)
+  and `apps/web/DIRECTION.md` (what is decided and open about the narrative
+  page, the suggestion interface, and references).
+- New: `docs/HOW-THE-LAYERS-FIT.md`, one photograph followed through all three
+  layers.
+- All three start guides now explain turning on the upstream watch in a fork,
+  and why one repository holds three teams.
+
+**Why:** the experience layer had concepts where it needed concrete work, and
+the first guide was written before several of the decisions above.
 
 ## 2026-09-15 — independence has no source outside the fixtures
 
@@ -79,7 +154,7 @@ This surfaced while writing the experience layer's start guide, from the
 
 **Not fixed here:** the comment above the fallback in
 `packages/fixtures/src/reduce.ts` calls it "the guard against three cousins
-reading as three independent sources." It is the guard's off switch. That
+reading as three independent records." It is the guard's off switch. That
 correction lands with the next contract pass.
 
 ---

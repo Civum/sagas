@@ -7,8 +7,8 @@
  */
 
 import type {
-  CapturedLocation, ClaimElement, ContributorId, ClaimId, ElementId, EventId,
-  FlagId, FlagReason, LanguageCode, LineageId, MediaDerivative, MediaId, MediaKind,
+  CapturedLocation, ClaimDetail, ContributorId, ClaimId, DetailId, EventId,
+  FlagId, FlagReason, LanguageCode, MediaDerivative, MediaId, MediaKind,
   PassoverKind, ProcessingState, RecordId, SiteId, SourceType, SubmissionState,
   TranscriptId, TranscriptMethod, TranslationId,
 } from '@sagas/contracts';
@@ -36,7 +36,6 @@ export interface ContributorRegistered extends BaseEvent {
   kind: 'contributor_registered';
   contributorId: ContributorId;
   displayName: string;
-  lineageId?: LineageId;
   institution?: string;
   /** Omitted means `guest`, which is every profile this semester. */
   verification?: 'guest' | 'verified';
@@ -45,15 +44,20 @@ export interface ContributorRegistered extends BaseEvent {
 export interface ClaimSubmitted extends BaseEvent {
   kind: 'claim_submitted';
   claimId: ClaimId;
-  /** The record this was read out of. One record can produce several claims. */
-  recordId: RecordId;
+  /**
+   * The record the conversation this claim belongs to started from. One record
+   * can produce several claims.
+   */
+  sourceRecordId: RecordId;
+  /** Records attached as support. Optional. */
+  evidenceRecordIds?: RecordId[];
   siteId: SiteId;
   text: string;
   sourceLanguage: LanguageCode;
   sourceLanguageText?: string;
   /** True when submitted in a language other than English with no rendering yet. */
   awaitingTranslation?: boolean;
-  elements: ClaimElement[];
+  details: ClaimDetail[];
   topics: string[];
   sourceType: SourceType;
 }
@@ -61,14 +65,15 @@ export interface ClaimSubmitted extends BaseEvent {
 export interface ClaimExtended extends BaseEvent {
   kind: 'claim_extended';
   claimId: ClaimId;
-  /** The record this was read out of. */
-  recordId: RecordId;
+  /** The conversation's source record. The extension's own record, if it has one, is evidence. */
+  sourceRecordId: RecordId;
+  evidenceRecordIds?: RecordId[];
   parentClaimId: ClaimId;
   siteId: SiteId;
   text: string;
   sourceLanguage: LanguageCode;
   sourceLanguageText?: string;
-  elements: ClaimElement[];
+  details: ClaimDetail[];
   topics: string[];
   sourceType: SourceType;
 }
@@ -77,7 +82,7 @@ export interface ClaimDisputed extends BaseEvent {
   kind: 'claim_disputed';
   edgeId: string;
   targetClaimId: ClaimId;
-  targetElementId: ElementId;
+  targetDetailId: DetailId;
   reasoning: string;
   proposedValue?: string;
 }
@@ -108,16 +113,6 @@ export interface TranslationDisputed extends BaseEvent {
   disputeId: string;
   translationId: TranslationId;
   reasoning: string;
-}
-
-export interface ReferenceMarked extends BaseEvent {
-  kind: 'reference_marked';
-  edgeId: string;
-  fromClaimId: ClaimId;
-  toSiteId?: SiteId;
-  toClaimId?: ClaimId;
-  excerpt: string;
-  resolved: boolean;
 }
 
 /**
@@ -208,7 +203,6 @@ export type ContributionEvent =
   | PassoverRecorded
   | TranslationSubmitted
   | TranslationDisputed
-  | ReferenceMarked
   | RecordSubmitted
   | MediaProcessed
   | TranscriptSubmitted

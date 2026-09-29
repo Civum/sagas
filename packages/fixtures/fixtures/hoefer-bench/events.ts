@@ -49,7 +49,6 @@ export const events: ContributionEvent[] = [
     kind: 'contributor_registered',
     contributorId: 'c-nadia',
     displayName: 'Nadia Hoefer',
-    lineageId: 'lin-hoefer',
   },
 
   {
@@ -77,11 +76,11 @@ export const events: ContributionEvent[] = [
     id: 'hb-004', at: '2026-05-19T15:34:00Z', actorId: 'c-nadia',
     kind: 'claim_submitted',
     claimId: 'cl-bench-grandmother',
-    recordId: 'rec-plaque',
+    sourceRecordId: 'rec-plaque',
     siteId: SITE,
     text: 'My grandmother walked this stretch every morning for about thirty years. After she died the family put the bench here because it is the spot where she used to stop and look at the water. The plaque was my aunt\'s idea.',
     sourceLanguage: 'en',
-    elements: [
+    details: [
       { id: 'el-hb-person', kind: 'person', value: 'Margarethe Hoefer', excerpt: 'My grandmother' },
       { id: 'el-hb-place', kind: 'place', value: 'Greenbelt near the Americana bridge', excerpt: 'this stretch' },
     ],

@@ -1,6 +1,6 @@
 # apps/capture-api — the content layer
 
-Yours. It ships empty on purpose.
+This app is yours, and it ships empty on purpose.
 
 This is the part real people touch. Somebody records something on a phone,
 uploads a photograph, types up a letter, adds a translation, or reports
@@ -11,7 +11,7 @@ over the decisions that make it interesting.
 
 ## This semester
 
-The list below is the domain. This is the order.
+The list under "What goes here, roughly" is the whole domain. This section is the order to build it in.
 
 **The first month is one thing: upload, probe, ready.** A file goes to storage,
 a worker probes it, the record says `ready`. Everything else in this document is
@@ -30,7 +30,7 @@ no password. This is deliberate and it is written up in
 [`docs/DESIGN-QUESTIONS.md`](../../docs/DESIGN-QUESTIONS.md) rather than
 forgotten about.
 
-**There is a browser app too** — `apps/capture-web`. Same team, same semester.
+**There is a browser app too**, `apps/capture-web`, and it belongs to the same team this semester.
 An API is not something you can put in front of a person, and being able to do
 that is why this layer is here.
 
@@ -40,15 +40,16 @@ with somebody in the community is a laptop with a phone on the same wifi.
 **Translation: the record is never blocked.** Somebody contributing in a
 language other than English finishes, submits, and their record exists, pinned
 and attributed and on the map.
-`sourceRecord` has no language requirement; only `claim` does, and claims are
-another team's problem. Machine translation proposes a draft, a person confirms
-or replaces it, and `transcriptMethod` already has `machine_corrected` for
-exactly that. Which model to use is a real decision with a licence attached:
-NLLB-200 covers the most languages and is non-commercial, so it cannot ship;
-Whisper is MIT and goes straight from speech to English; Helsinki-NLP's
-`opus-mt-*` models are small and usually permissive, though pair coverage
-varies. Which languages matter is a question for the communities using this,
-not an assumption to bake in. Checking the licence is part of the job.
+`sourceRecord` has no language requirement. Only `claim` does, and that
+requirement never blocks the record. Machine translation proposes a draft, a
+person confirms or replaces it, and `transcriptMethod` already has
+`machine_corrected` for exactly that.
+
+Which model to use is a real decision with a licence attached, and checking the
+licence yourself is part of the job. NLLB-200, Whisper and Helsinki-NLP's
+`opus-mt-*` models are places to start looking. Read each model card for its
+licence and language coverage before relying on it. The communities using this
+decide which languages matter.
 
 ## What goes here, roughly
 
@@ -59,6 +60,8 @@ not an assumption to bake in. Checking the licence is part of the job.
 - The queue of records waiting for somebody to add context or write a transcript
 - Submitting translations and transcripts, with more than one allowed to coexist
 - Reporting content, with reasoning attached, and a queue for reviewing reports
+- Claim intake: the endpoints where somebody writes a claim, a dispute or an
+  extension about a record
 
 ## Where to start
 
@@ -108,7 +111,7 @@ Derivatives live under the original they came from because they are disposable.
 Anything under `derived/` can be rebuilt by running the job again, and nothing
 should ever point at one as though it were the source.
 
-### The upload flow, which is the part to get right
+### How an upload works
 
 The browser uploads **straight to storage**. Your server never handles the
 bytes.
@@ -137,21 +140,21 @@ That is what makes a 600MB recording survive a phone dropping off wifi halfway
 through. Build the single-shot version first, then this.
 
 **The version not to build:** POSTing the file through your own API and having
-the API write it onward. It is fewer moving parts and it is the wrong shape.
-Your server holds a request open for the length of the upload, memory goes up
-with file size, and every timeout in front of it becomes a failed contribution.
-That is a different design, not a refactor away from the right one.
+the API write it onward. It has fewer moving parts, and this project still rules
+it out, because your server holds a request open for the length of the upload,
+memory goes up with file size, and every timeout in front of it becomes a failed
+contribution. Moving from that design to the one above later is a rewrite.
 
 ### Jobs
 
 Probing, transcoding, and thumbnailing are slow and they fail, so they run in
 the background rather than in a request.
 
-Put the queue in Postgres. `graphile-worker` and `pg-boss` both do this well.
-You get a queue that is transactional with the data it is about, survives a
-restart, and needs no extra service. Adding Redis here buys nothing at this size
-and costs you a container, a set of credentials, and a new way for the stack to
-be half-running.
+This project expects the queue to live in Postgres. `graphile-worker` and
+`pg-boss` are two libraries that do that. You get a queue that is transactional
+with the data it is about, survives a restart, and needs no extra service.
+Redis would add a container and a set of credentials, and at this size this
+project does not think that is worth it.
 
 There are two things called a queue in this project and they are not the same.
 The one above is jobs. The other is `submissionState`, records waiting for a
@@ -197,28 +200,28 @@ pnpm dev
 
 ## The decisions already made
 
-Three, so you can start building rather than evaluating. If any of them turns
+There are three, made so you can start building rather than evaluating. If any of them turns
 out to be wrong we change it together, at a check-in.
 
 **Express 5.** A route handler reads as an ordinary function that takes a
 request and returns a response, which is the thing worth understanding first.
 Version 5 specifically, because when an async handler throws, version 5 hands
 the error to your error middleware and version 4 silently hung the request
-forever. You will write async handlers for every database call, so this matters
-more than it sounds.
+forever. You will write an async handler for every database call, so you will
+hit this.
 
-Most tutorials you find will be for Express 4. Almost all of it transfers
-unchanged. The handful that will not: `app.del()` is now `app.delete()`,
+Many tutorials you find will be for Express 4, and almost all of it transfers
+unchanged. These are the changes that will catch you: `app.del()` is now `app.delete()`,
 `res.sendfile()` is now `res.sendFile()`, `res.json(obj, status)` is now
 `res.status(status).json(obj)`, and `req.param(name)` is gone in favour of
 reading `req.params`, `req.body` or `req.query` directly.
 
 **`pg`, with SQL written out.** No query builder and no object relational
-mapper. SQL is the thing at least one of you already knows, and a layer on top
-of it would hide the part you are strongest at. It also means the migrations and
+mapper. Writing SQL directly keeps the queries visible rather than hidden behind
+a layer you would also have to learn. It also means the migrations and
 the endpoints are the same subject rather than two.
 
-Two rules that come with it. Use `$1`, `$2`, `$3` placeholders and pass values
+Two rules come with it. Use `$1`, `$2`, `$3` placeholders and pass values
 as the second argument, never string concatenation, so nothing somebody typed is
 ever read as SQL. And use the shared `Pool` from `src/db.ts` rather than making a
 `Client`, because a single client serialises every request behind the one before

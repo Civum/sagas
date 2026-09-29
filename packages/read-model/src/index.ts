@@ -40,7 +40,7 @@ export function listSites(stateId: FixtureStateId = 't3'): Site[] {
 }
 
 /** The flagship site's slug, which is what a page falls back to with no slug. */
-export const DEFAULT_SITE = 'anduiza-hotel-fronton';
+export const DEFAULT_SITE = 'corner-shop';
 
 /** Turn a slug into the fixture directory the states were written under. */
 function keyForSlug(slug: string): string {

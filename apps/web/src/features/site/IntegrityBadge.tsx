@@ -3,13 +3,14 @@
  *
  * ---
  *
- * THIS IS THE WORKED EXAMPLE. Most components in here are one line and a TODO.
+ * THIS IS A WORKED EXAMPLE. Most components in here are one line and a TODO.
  * This one is finished, so that "how do I start" has an answer you can read
  * instead of a paragraph you have to interpret.
  *
- * What to copy: the shape. A pure function holding the judgment, separated from
- * the markup so it can be tested without rendering anything. Props in, no data
- * fetching. An explicit decision about what the hardest case should look like.
+ * What to copy is the shape. The judgment lives in a pure function, separate
+ * from the markup, so it can be tested without rendering anything. The
+ * component takes props and fetches nothing. And there is an explicit decision
+ * about what the hardest case should look like.
  *
  * What NOT to copy: the styling. Grey boxes and system fonts are a placeholder.
  * The design system is your deliverable and nothing here is a suggestion about
@@ -17,17 +18,17 @@
  *
  * ---
  *
- * THE HARD PART, WHICH IS THE LOW END
+ * HOW A THIN RECORD SHOULD LOOK
  *
  * A place with three claims and no corroboration scores about 23 out of 100.
  * That is not a broken site. It is a real place with a thin record, and it is
- * the state most places will be in for a long time.
+ * the state this project expects most places to be in for a long time.
  *
  * So there is no red, and no empty progress bar sitting next to a full one.
- * A colour scale from red to green would tell a contributor that the thing
- * their family just added is failing, when what it actually is, is early.
+ * A colour scale from red to green would tell a contributor that what their
+ * family just added is failing, when the record is only early.
  *
- * Acceptance case: sparse-site-is-not-empty-site.
+ * Acceptance criterion: sparse-site-is-not-empty-site.
  *
  * Docs worth having open:
  *   Tailwind utilities      https://tailwindcss.com/docs/utility-first
@@ -59,21 +60,21 @@ export function bandFor(overall: number): IntegrityBand {
   if (overall < 35) {
     return {
       label: 'Thin record',
-      invitation: 'A few claims, mostly from one family. More would help.',
+      invitation: 'A few claims, mostly from one person. More would help.',
       fill,
     };
   }
   if (overall < 65) {
     return {
       label: 'Growing record',
-      invitation: 'Several families have contributed. Gaps remain.',
+      invitation: 'Several people have contributed. Gaps remain.',
       fill,
     };
   }
   if (overall < 85) {
     return {
       label: 'Well documented',
-      invitation: 'Corroborated across families and source types.',
+      invitation: 'Corroborated across contributors and source types.',
       fill,
     };
   }
@@ -129,8 +130,8 @@ export function IntegrityBadge({ integrity }: { integrity: IntegrityScore }) {
           <dd className="tabular-nums text-neutral-700">{integrity.totalClaims}</dd>
         </div>
         <div className="flex gap-1">
-          <dt>families</dt>
-          <dd className="tabular-nums text-neutral-700">{integrity.lineageDiversity}</dd>
+          <dt>contributors</dt>
+          <dd className="tabular-nums text-neutral-700">{integrity.independentContributors}</dd>
         </div>
         <div className="flex gap-1">
           <dt>dated</dt>

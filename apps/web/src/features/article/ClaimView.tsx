@@ -1,6 +1,6 @@
 import type { ClaimState } from '@sagas/contracts';
 import { ConfidenceIndicator } from './ConfidenceIndicator';
-import { ElementDisputes } from './ElementDisputes';
+import { DetailDisputes } from './DetailDisputes';
 import { SourcePanel } from './SourcePanel';
 import { TranslationPanel } from './TranslationPanel';
 
@@ -16,7 +16,7 @@ export function ClaimView({ claim }: { claim: ClaimState }) {
     <article>
       <p>{claim.claim.awaitingTranslation ? claim.claim.sourceLanguageText : claim.claim.text}</p>
       <ConfidenceIndicator claim={claim} />
-      <ElementDisputes claim={claim} />
+      <DetailDisputes claim={claim} />
       <TranslationPanel claim={claim} />
       <SourcePanel claim={claim} />
     </article>

@@ -4,7 +4,7 @@ import { MapUnavailable } from './MapUnavailable';
 /**
  * The map.
  *
- * TODO: Mapbox GL. Markers styled by integrity score, so a well-documented
+ * TODO: build it with Mapbox GL. Markers are styled by integrity score, so a well-documented
  * place looks different from a thin one at a glance. Clustering when markers
  * overlap. A transition into the article view that doesn't feel like a page
  * load.
