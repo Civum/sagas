@@ -476,6 +476,23 @@ Working out which claims belong together is a graph question and belongs to the
 intelligence layer. How a grouping is laid out on a page belongs to the
 experience layer.
 
+Since contract 2.1.0 the page has a shape to build against while this stays
+open. A `section` has a heading, and a `composition` holds the section's passage
+with spans that lead from a phrase back to its claims. The fixtures carry
+invented ones. Two parts of that are still open:
+
+- **Where a heading comes from.** It is derived, not written by a contributor,
+  and it should not churn every time a claim arrives. What it is derived from,
+  and what it attaches to now that a conversation is not an object, are open.
+- **How finely a passage points into the claims.** A span always names the
+  claims behind it, and can also name the details it is about
+  (`detailIds`, optional). Whether a span should always reach a detail, never,
+  or only sometimes is open, so the fixtures show both.
+
+How a passage is written, and how it stays readable as claims arrive, is open
+too. The fixture passages show what a page can expect to receive, not how it
+gets made.
+
 ## Should a contributor see why their claim ranks where it does?
 
 No score is shown to anyone, but a contributor can see where their claim sits,

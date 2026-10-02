@@ -8,7 +8,7 @@ mkdirSync('states', { recursive: true });
 const built: { key: string; states: GraphState[] }[] = [];
 
 for (const fixture of siteFixtures) {
-  const states = reduceToStates(fixture.events, fixture.cuts);
+  const states = reduceToStates(fixture.events, fixture.cuts, fixture.narrative);
   for (const s of states) {
     writeFileSync(`states/${fixture.key}.${s.stateId}.json`, JSON.stringify(s, null, 2));
   }

@@ -41,6 +41,36 @@ it. This is the most useful field in the entry.
 
 ---
 
+## v2.1.0 — 2026-10-04
+
+**Affects:** experience layer · intelligence layer
+
+**What:** The page gets sections. `section` (an id, the site and a heading) and
+`composition` (a section's passage, with spans that lead from a phrase to the
+claims behind it, and optionally to the details) are new, and every
+`graphState` now carries `sections` and `compositions`. The corner shop has
+invented ones for t1 to t3. Every other site has none yet.
+
+**Why:** The experience layer cannot build a readable page without knowing what
+a section and its passage look like, and how they are produced will not be
+worked out soon enough to wait for. So the shape goes into the contract now,
+with invented values in the fixtures, the same way `weight.ts` stands in for
+scoring. What a heading is derived from, and how finely a passage points into
+the claims, are open: see "What groups claims together at a site?" in
+`docs/DESIGN-QUESTIONS.md`. The question for each team is what has to change to
+make this work, not whether it happens.
+
+**You need to:**
+- *experience layer* — nothing breaks. Render `sections` and `compositions`
+  when you are ready, and treat an empty list as a site with no passage yet.
+- *intelligence layer* — nothing breaks. This is the shape your grouping and
+  composition work is expected to produce. Bring what does not fit.
+- *content layer* — nothing.
+- *anyone who builds a `GraphState` by hand* — add `sections: []` and
+  `compositions: []`.
+
+---
+
 ## v2.0.0 — 2026-09-28
 
 **Affects:** intelligence layer · experience layer · content layer
