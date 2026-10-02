@@ -11,19 +11,18 @@ first version counted support by "family line", which the system has no way to
 know, because it records what people do rather than who they are. Here is
 everything that changed:
 
-- **Your first task is different.** The old page said to make `t0` look right,
-  finish two stubs under `src/features/article/`, and bring one screen. That is
-  replaced by the five stories in epic A of `apps/web/BACKLOG.md`. If you
-  started on the old task, bring what you have. It is not wasted, and the
-  stories in epic C pick up the same components.
-- **You now start with shared parts.** The old page said to build views first
-  and pull a design system out of them later. This project now starts with a
-  component library and a test setup, plus a short look at whether Storybook is
-  worth adopting, because five people building in parallel need the same parts
-  from the first week.
-- **The month-by-month plan is gone.** The backlog replaces it. The map is not
-  an October job any more: it is story B1, and you can register a Mapbox token
-  as soon as you start it.
+- **Your team now owns the whole reading product.** This includes the pipeline,
+  hosting and the data the page reads, as well as the interface. The plan is in
+  `apps/web/STATEMENT-OF-WORK.md`, and its sprint one replaces epic A as your
+  first sprint. Where this page and the statement of work disagree, the
+  statement of work wins.
+- **Your first task is different.** The oldest version of this page said to
+  make `t0` look right and finish two stubs. If you started on that, or on epic
+  A, bring what you have. It is not wasted, and the table under "Sprint one" in
+  `apps/web/BACKLOG.md` says where each earlier story went.
+- **The month-by-month plan is gone.** The backlog replaces it. The map is in
+  sprint one (story M1), and you can register a Mapbox token as soon as you
+  start it.
 - **The "family lines" idea is gone.** The old page taught `lineageId` and
   `independentLineageCount`. Both have been removed. Support is now counted as
   independent records that other people bring, and agreement never counts.
@@ -51,12 +50,15 @@ remember differently. Your layer is everything that person sees.
 The hardest part is showing a record that is thin, contested, half translated
 and still arriving, without any of that reading as failure.
 
-Three things are yours:
+In the repository, three things are yours:
 
 - `apps/web`, the interface
 - `apps/ui-api`, where your read API for the browser will live. It is empty
   today. The routes that exist so far are in `apps/web/src/app/api/sites/`
 - `packages/read-model`, which every read goes through
+
+Beyond the code, the pipeline, hosting and the landing page are yours too. See
+`apps/web/STATEMENT-OF-WORK.md`.
 
 ## Terms: site, record, claim, detail, rendering, profile
 
@@ -128,11 +130,11 @@ printing a table is the test.
 the Linux filesystem. Crossing between the two is slow and causes line ending
 problems that look like real bugs.
 
-**Mapbox** needs a free token once you start on the map (story B1). `SETUP.md`
+**Mapbox** needs a free token once you start on the map (story M1). `SETUP.md`
 covers registering. Each person uses their own token and nobody commits one.
 Without a token the map area shows a list of the same places instead. That list
 is also how the map reaches somebody using a screen reader, so a list view ships
-alongside the map either way (story B3).
+alongside the map either way (story M1).
 
 ## Getting the code
 
@@ -210,8 +212,9 @@ normal failure, and `t0` is the state most real places stay in for a long time.
    handle".** Situations a real archive spends its life in, and what your
    interface must not do about each. This is the closest thing to a
    specification you will get.
-3. **`apps/web/BACKLOG.md`**, then **`apps/web/DIRECTION.md`.** The work, and
-   where it is heading.
+3. **`apps/web/STATEMENT-OF-WORK.md`**, then **`apps/web/BACKLOG.md`**, then
+   **`apps/web/DIRECTION.md`.** The plan, the work, and where it is heading.
+   `apps/web/PAGE-MODEL.md` and `apps/web/DEFINITIONS.md` sit beside them.
 4. **`packages/contracts/src/model.ts`.** The shapes you render. The media and
    processing fields on a record belong to another layer and you can skim them.
 5. **`docs/DESIGN-QUESTIONS.md`.** What is unsettled. Four questions matter to
@@ -248,28 +251,16 @@ your fork. Before each specification meeting, send a short note using
 that is how we find out a specification was unclear before two weeks were built
 on top of it.
 
-**Small pull requests, opened early as drafts.** A deployed preview link makes
-review much faster.
+**Small pull requests, opened early as drafts.**
 
-**Questions by email**, through your product owner. Expect a reply within a
-working day.
+**Questions** go in one standing issue in your fork, titled "Questions for the
+sponsor", answered at least weekly. Anything urgent goes by email, through your
+product owner, with a reply within a working day.
 
 ## Your first sprint
 
-Five pieces of work that can run in parallel, one per person. Each one is
-written out in `apps/web/BACKLOG.md` under epic A, with what "done" means.
-
-- **A1. A component library for the renderer.** The shared pieces every view is
-  built from.
-- **A2. A front-end test setup** that extends the Vitest one already here, so
-  components can be rendered in a test.
-- **A3. A Storybook investigation.** Find out what it needs in this repository,
-  including whether the map can render in it, then decide with the sponsor
-  whether to adopt it.
-- **A4. Mockups for the first tasks**: the map with search, a site page, and one
-  conversation.
-- **A5. An entity relationship model from the reading side**: what a page needs
-  to draw, and how that becomes your schema.
+Your first sprint is "Sprint one" in `apps/web/BACKLOG.md`: two or three
+issues for each of five workstreams, set out in `apps/web/STATEMENT-OF-WORK.md`.
 
 ## What is in this layer, in priority order
 
@@ -342,7 +333,7 @@ support as wrong, and it is an easy mistake to make by accident.
 
 Every read goes through `packages/read-model`. Today it reads fixture JSON off
 disk. Putting Postgres behind it is real work for whoever on the team takes the
-back end: the schema, the queries, and the spatial index. Story A5 is where it
+back end: the schema, the queries, and the spatial index. Story Da1 is where it
 starts. Your schema is shaped for drawing a map and a page, and it is not meant
 to match the other layers' schemas.
 
@@ -370,10 +361,12 @@ a network hop and a new way to fail and gains nothing. Server components import
 
 ## Deploying it
 
-Yours to own, including where. Whatever you choose needs a URL that works from
-early on, a preview for each pull request, and no sponsor credentials. Deploy in
-week two, before there is anything interesting to see. `apps/web/README.md` has
-more.
+This is yours to own, through a proposal. `.github/workflows/ci.yml` already
+runs typecheck, lint and tests on every pull request. Build on it, and add a
+deploy on merge. Where it runs is the platform workstream's recommendation, with
+what it costs, and the sponsor signs up for whatever is approved. A preview for
+each pull request comes later, by proposal. See `apps/web/STATEMENT-OF-WORK.md`,
+and `apps/web/README.md` for more.
 
 ## Editor
 

@@ -41,6 +41,28 @@ it. This is the most useful field in the entry.
 
 ---
 
+## 2026-10-02 — experience layer statement of work
+
+**Affects:** experience layer
+
+**What:** `apps/web/STATEMENT-OF-WORK.md` sets out the whole reading product as
+this layer's work, in five workstreams, with what the team decides alone and
+what needs the sponsor. `apps/web/BACKLOG.md` gains "Sprint one", which replaces
+epic A as the first sprint, and a template for new stories.
+`apps/web/DEFINITIONS.md` defines the parts of the layer. `apps/web/PAGE-MODEL.md`
+and `apps/web/page-model.html` are a wireframe of the corner shop's site page.
+The guide and the web README now point at these, and their deploy sections
+match the statement of work.
+
+**Why:** The first plan gave this layer a slice of the product, and the team is
+ready for all of it.
+
+**You need to:**
+- *experience layer* — read the statement of work, then sprint one. Anything
+  started under epic A carries over, as the table under sprint one shows.
+
+---
+
 ## v2.0.0 — 2026-09-28
 
 **Affects:** intelligence layer · experience layer · content layer
