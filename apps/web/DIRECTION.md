@@ -6,7 +6,7 @@ what is still open. The open parts are meant to be worked out with you, at
 specification meetings, as the first steps land.
 
 Decided means you can build on it. Open means nobody has an answer yet, and a
-proposal from you is useful input, not a mistake.
+proposal from you is useful input even when it turns out to be wrong.
 
 ---
 
@@ -17,8 +17,8 @@ The page a person reads about a place. It is the centre of this layer.
 ### What is decided
 
 - **Each site has a page.** Everything people have said about a place is
-  reachable from its page. The page is one way into the graph, not the only
-  one.
+  reachable from its page. The page is one way into the graph. There are
+  others.
 - **Claims are ordered by weight.** The intelligence layer gives each claim a
   weight. Among claims that compete, the highest-weight one renders as the main
   reading, and the others stay visible beside it. The weight itself is never
@@ -28,8 +28,8 @@ The page a person reads about a place. It is the centre of this layer.
 - **Disagreement sits on a detail.** When somebody disputes the year in a claim,
   the year shows two readings and the rest of the claim reads normally.
 - **A thin page is not a broken one.** One contributor and nothing corroborated
-  is the normal state of a new place, and it has to read as early, not as
-  failing.
+  is the normal state of a new place, and it has to read as early. It must never read
+  as failing.
 - **Every claim can be traced** to the person who made it and the records it
   rests on.
 
@@ -69,10 +69,10 @@ something is pointed at where they could add it.
 
 - **Scoring decides what gets suggested, and is never shown.** The intelligence
   layer works out what a person should be pointed at. The interface shows the
-  suggestion, not the reason as a number.
+  suggestion. The reason behind it is never shown as a number.
 - **Passover is how a reader leaves a light signal.** `sounds_right`,
   `dont_know` and `dont_care` on a claim. None of them is a vote. They change
-  how far a claim travels, not whether it is true.
+  how far a claim travels. They say nothing about whether it is true.
 - **There is no downvote.** Disagreeing means writing a dispute, with reasoning.
   That is deliberate.
 - **Silence is not doubt.** A claim nobody has responded to has not reached
@@ -123,8 +123,8 @@ single claim, so somebody can cite one claim rather than a whole page.
 
 ### What is open
 
-- **Whether "relied on by 12 claims" is shown to readers.** It is a count, not a
-  judgment, but it could still read like a rating. Bring a view on this.
+- **Whether "relied on by 12 claims" is shown to readers.** It is a count rather
+  than a judgment, but it could still read like a rating. Bring a view on this.
 - **How a citation is formatted** for somebody citing a claim in their own
   writing.
 - **Rating records.** Whether readers need any sense of how well a record holds

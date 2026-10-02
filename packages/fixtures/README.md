@@ -12,7 +12,7 @@ to do about it. If one arrives without that, it's a mistake on our side. Say so.
 ## The content here is invented
 
 Every contributor, family, and remembered event in this package is fictional.
-It was written to exercise the data model, not to record anything.
+It was written to exercise the data model. It records nothing real.
 
 The building, street address, and coordinates are real. Nothing else is.
 Surnames were chosen to be plausibly Basque in form while avoiding the families
@@ -73,7 +73,7 @@ update this table, because a stale table here is worse than no table.
 Each state deliberately exercises something:
 
 - **t0** — everything single-source and low weight. A sparse site must look
-  sparse on the map, not empty.
+  sparse on the map. It must never look empty.
 - **t1** — the author's cousin affirms `cl-boarding` and then extends it with a
   record of her own. The affirmation adds no source. The record does, so the
   claim reads `corroborated`, even though the two cousins may have heard one
@@ -104,7 +104,7 @@ also carry evidence records.
 
 The fixture data exists to put these situations in front of you.
 
-They are **direction, not a specification of your work.** They say what must not
+They are **direction rather than a specification of your work.** They say what must not
 happen. How your interface satisfies them is your design, and most of what you
 build will be things this list says nothing about.
 
@@ -128,11 +128,11 @@ Someone reading a claim and agreeing carries almost no evidence. Two people
 independently bringing a record about the same building is real corroboration
 and it counts for far more.
 
-The model counts independent records, not heads. Agreeing is not bringing a
+The model counts independent records. It never counts heads. Agreeing is not bringing a
 source, so an affirmation count on its own must never be presented as support.
 Five people saying "sounds right" is one source with five reactions to it.
 
-### Disagreement lands on a part, not the whole
+### Disagreement lands on one detail
 
 Somebody disputes the date. The address, the person and the event on the same
 claim are untouched and still corroborated.
@@ -146,7 +146,7 @@ look discredited when one detail is in question.
 When two readings compete, show both with their support. Neither is marked the
 winner, neither is hidden behind an interaction, and they are never shown as a
 vote tally. Lead with each
-reading's reasoning, not with how many people gave it, or evidence turns into a
+reading's reasoning. Leading with how many people gave it turns evidence into a
 poll.
 
 ### A claim nobody has translated yet is not worth less
@@ -173,7 +173,8 @@ about meaning.
 
 ### Work in progress is not failure
 
-A large upload still being processed is a job running, not a broken upload. The
+A large upload still being processed is a job running. It is not a broken
+upload. The
 record stays readable while it finishes, and nobody is told to try again.
 
 ### Reports and signals are not ratings

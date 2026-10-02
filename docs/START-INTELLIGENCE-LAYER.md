@@ -70,7 +70,7 @@ docker ps      # must print a table, not an error
 
 **Two things that cost an hour if you skip them.** Node has to actually be 22.10
 or later, and an older one fails in ways that never mention Node. And Docker has
-to be running, not just installed. `docker ps` printing a table is the test.
+to be running. Installing it is not enough. `docker ps` printing a table is the test.
 
 **On Windows**, work inside WSL2 rather than PowerShell, with the repository in
 the Linux filesystem. Crossing the boundary is slow and causes line ending
@@ -78,9 +78,9 @@ problems that look like real bugs.
 
 ## Getting the code, before anyone clicks Fork
 
-**One fork for the whole team, not one each.**
+**One fork for the whole team.**
 
-1. **Create a GitHub organisation for the team**, not a personal account. If the
+1. **Create a GitHub organisation for the team** to hold the fork. If the
    repository lives in one person's GitHub account and that person drops the
    class, the team loses everything, and your instructor needs access for grading.
 2. **One person forks `Civum/sagas` into it, once.**
@@ -242,7 +242,7 @@ if a record's score fed back into the claims that cite it, the loop would reward
 itself. You do not rank records beyond that.
 
 **Independence**, which is the one I would most like the diagram to have an
-opinion about. Corroboration counts independent records, not people. The
+opinion about. Corroboration counts independent records. It never counts people. The
 contract has a stand-in, `independentRecordCount`: the number of distinct records other contributors have
 brought to back a claim. Agreement never counts.
 
@@ -324,7 +324,7 @@ institution. What it gets instead are facts about what was contributed, such as
 how many independent records back a claim. The rest of the system knows who is
 speaking. The scorer does not, so it cannot use that as a credential.
 
-Weight comes from what somebody has done, not from who they are. That is
+Weight comes from what somebody has done. Who they are plays no part. That is
 enforced by the missing field rather than by a test.
 
 An affirmation is what a reader clicks to agree with a claim. It is currently

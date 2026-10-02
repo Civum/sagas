@@ -54,8 +54,8 @@ location geography(Point, 4326)
 ```
 
 4326 is plain latitude and longitude, the system GPS uses. You will see
-3857 elsewhere; that is the projection web maps use for drawing tiles, not for
-storing points.
+3857 elsewhere. That is the projection web maps use for drawing tiles, and it is
+not for storing points.
 
 ---
 
@@ -126,7 +126,7 @@ location?" in `docs/DESIGN-QUESTIONS.md`.
 ## Things you probably do not need
 
 **Routing.** A heritage trail in this project is a curated ordered list of
-places, not a computed path between them. You do not need pgRouting and you
+places. Nothing computes a path between them. You do not need pgRouting and you
 almost certainly do not need a directions API.
 
 **Reprojection.** Everything is 4326. If you find yourself converting between
@@ -146,5 +146,5 @@ conversation first.
 - **Distances are tiny decimals** — you are on `geometry` and getting degrees.
 - **Query is slow** — `EXPLAIN ANALYZE`, look for `Seq Scan`, check the index
   and the types.
-- **Map is empty but the query returns rows** — the data is fine, the map is
-  not. Check the token and the bounds you handed the map, not the database.
+- **Map is empty but the query returns rows** — the data is fine, so the problem
+  is the map. Check the token and the bounds you handed it.

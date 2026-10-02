@@ -52,7 +52,7 @@ you're learning the model.
 
 **The problem:** nothing stops you passing a claim id where a contributor id
 belongs. TypeScript will let it through and you'll find out at runtime, or
-worse, not at all.
+worse, never.
 
 **Why this is hard:** branded types fix it (`type ClaimId = string & { __brand:
 'ClaimId' }`) at the cost of needing a cast every time you construct one from a
@@ -215,7 +215,7 @@ is. If an existing vocabulary fits, use it rather than inventing one.
 date, the invented flag, and `verification`, which is `guest` or `verified`.
 This semester every profile is a guest id kept in browser storage.
 
-**The problem:** a guest id is a way in, not an end state. Somebody starts
+**The problem:** a guest id is only a way in. Somebody starts
 contributing without signing up and verifies later. `verification` names the
 difference, but nothing can connect a guest profile to a verified one when
 verification arrives. On the day verified profiles exist, every contribution
@@ -224,7 +224,8 @@ made as a guest this year is orphaned unless it can be connected.
 **The part that is built:** `verification` lets a scorer treat a distinct
 verified person differently from an unrecoverable one, which is not reputation. It is the
 same kind of signal as counting corroboration by independent record. It asks
-whether this is one person once, not whether the person is any good.
+whether this is one person once. Whether the person is any good is a separate
+question.
 
 **The expensive part:** linking. If guest G and
 verified V turn out to be the same person, and V once brought a record to back
@@ -255,7 +256,7 @@ A resolution, on this reading, is not a new kind of thing. It is a claim
 attached by an extension edge that names what it settles, which is the same
 node-and-edge shape everything else has.
 
-**What a system can do here is propose, not decide.** Disputes already target
+**A system can propose here. It cannot decide.** Disputes already target
 specific details, so the set of open conflicts at a node is computable without
 reading anything. Showing somebody "these two readings disagree on the date and
 on the owner, do you want to write something that covers both" is the same
@@ -353,7 +354,7 @@ I don't have an answer. It's the most likely thing to matter in practice.
 
 ## How to tell silence from doubt
 
-A claim nobody has engaged with tells you about attention, not truth.
+A claim nobody has engaged with tells you about attention. It tells you nothing about truth.
 
 This matters here because the records most likely to sit untouched are probably
 the ones not in English, from rural places and small communities, and from
@@ -529,8 +530,8 @@ overcome the damping. A weak signal backed by enough independent records still
 ends up strong.
 
 In this idea, a period ends when activity on a topic rises, holds, and falls
-away. Engagement says when a period closed, not what is good inside one, and the
-damping would apply to everything in a period equally.
+away. Engagement says when a period closed. It says nothing about what is good
+inside one, and the damping would apply to everything in a period equally.
 
 Check this before anything else: the model records one date where this needs
 three: when the thing happened, when the person came to know it, and when they
@@ -576,13 +577,14 @@ moment it is filed and never gets resolved, and a task model that cannot express
 that will start asking interfaces to close disagreements. The shape of a dispute
 is also changing (see "A dispute should be a claim" in `CLOSED-QUESTIONS.md`).
 
-This is logged as a direction, not a decision, and it is not for this semester.
+This is logged as a direction rather than a decision, and it is not for this
+semester.
 
 ## What makes a place significant?
 
 Some places matter more than others, and the archive should be able to say so
 without anyone declaring it. One idea: a place referenced often in claims about
-*other* places has earned significance from how the community talks, not from
+*other* places has earned significance from how the community talks rather than from
 anyone's opinion.
 
 Any count like that has to follow this project's rule, which is that

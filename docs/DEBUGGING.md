@@ -147,7 +147,7 @@ skips it either way.
 
 ### An import of a package in this repo will not resolve
 
-Run `pnpm install` from the repo root, not from inside a package. Workspace
+Run `pnpm install` from the repo root. Workspace
 links are created at the root, and this is the most common failure after adding
 a package or pulling a change that added one.
 

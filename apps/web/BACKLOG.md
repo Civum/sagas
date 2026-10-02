@@ -302,8 +302,8 @@ or not. Decide as a team and write down why.
 
 **Status:** Ready
 
-**Goal.** Components can be rendered in a test, not only the pure functions
-beside them.
+**Goal.** A test can render a component. Today only the pure functions beside
+the components are tested.
 
 **Done when:**
 - The Vitest setup in `apps/web` is extended so a test can render a React
@@ -319,7 +319,7 @@ beside them.
 
 **Not in this story.** End-to-end browser tests. Those can come later.
 
-**Worth knowing.** Test behaviour, not markup. "A thin record is never described
+**Worth knowing.** Test what a component does. "A thin record is never described
 as failing" is worth a test. "This div has this class" breaks every time
 somebody improves the design.
 
@@ -405,7 +405,7 @@ components.
   `listSites()` as a pin, centred on the sites.
 - With no token, `MapUnavailable` still renders the list. Both paths work.
 - Pins show at a glance whether a place is thinly or well documented, using the
-  band from `IntegrityBadge`, not a number.
+  band from `IntegrityBadge`. No number is shown.
 - Clicking a pin opens that site's page.
 
 **Worth knowing.** `mapbox-gl` is already a dependency. Coordinates are
@@ -442,14 +442,14 @@ is not part of this layer's work.
 - A list view shows every site the map shows, and it is reachable whether or not
   a Mapbox token is set. `MapUnavailable` is where it starts.
 - A search field filters the list by site name, other names (`aka`) and address.
-  This searches the fixture data, not Mapbox, so it works with no token.
+  This searches the fixture data, so it works with no Mapbox token.
 - Each entry says in words how well documented the place is.
 
 ### B4 · Only load the sites in view
 
 **Status:** Later. Needs A5 and C0.
 
-**Goal.** The map asks for the sites inside the visible area, not all of them.
+**Goal.** The map asks only for the sites inside the visible area.
 
 **Done when:** `listSites()` takes a bounding box, the database answers it with
 a spatial index, and panning the map loads new sites. See `docs/GIS.md`.
@@ -466,7 +466,7 @@ has.
 
 **Status:** Later. Needs A5.
 
-**Goal.** `packages/read-model` reads from Postgres, not JSON files.
+**Goal.** `packages/read-model` reads from Postgres instead of JSON files.
 
 **Done when:** a seed script loads every fixture state, the read functions query
 the database, and `/dev` looks the same as before.
@@ -499,7 +499,7 @@ at that detail and the rest of the claim reads as undisputed.
 - A dispute with reasoning but no proposed value still shows, as an objection
   to the detail with its reasoning.
 
-See "Disagreement lands on a part, not the whole" in
+See "Disagreement lands on one detail" in
 `packages/fixtures/README.md`. The corner shop site at `t2` has a clean example.
 
 ### C3 · Where a claim comes from
@@ -526,7 +526,7 @@ one, and several, as its own comment describes.
 
 ## Epic D — Suggestion
 
-**Status:** Draft. Starts with a design exercise, not code.
+**Status:** Draft. Starts with a design exercise. Code comes after it.
 
 How a reader is pointed at what to read next and what they could add. The
 routing that decides this belongs to the intelligence layer and does not exist
