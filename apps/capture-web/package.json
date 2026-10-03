@@ -7,18 +7,26 @@
     ".": "./src/index.ts"
   },
   "scripts": {
+    "dev": "next dev -p 3002",
+    "build": "next build",
+    "start": "next start -p 3002",
     "clean": "git clean -xdf .cache .turbo node_modules",
     "typecheck": "tsc --noEmit",
     "lint": "eslint"
   },
   "dependencies": {
-    "@sagas/contracts": "workspace:*"
+    "@sagas/contracts": "workspace:*",
+    "next": "^15.1.6",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19"
   },
   "devDependencies": {
     "@sagas/tsconfig": "workspace:*",
     "@sagas/prettier-config": "workspace:*",
     "@sagas/eslint-config": "workspace:*",
     "@types/node": "catalog:",
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"

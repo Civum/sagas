@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  padding: 2rem;
+  color: #222;
+  font-family: system-ui, sans-serif;
+}
+
+main {
+  max-width: 42rem;
+  margin: 3rem auto;
+}
+
+.transcriptionbox {
+  border: 3px solid #0d0e0d;
+  border-radius: 1%;
+  padding: 10px;
+}
+
+.transbut {
+  padding: 2px;
+}
+
+.transbut:hover {
+  background-color: #00ff11;
+}
