@@ -58,11 +58,15 @@ Nothing in a suggestion is shown as a score or a count.
 ## Record capture
 
 Handing over a record: recording audio, uploading a photograph, typing up what
-somebody said. **This is not this layer's work.** It belongs to the content
-layer, in `apps/capture-web`, so two teams never edit the same screens.
+somebody said.
 
-This layer's part is the way in: a reader who knows something about a place can
-get from the page to the place where they hand it over. Leaving a passover
+The content layer builds the working version, in `apps/capture-api` and
+`apps/capture-web`, and real submissions go through it. This layer can design
+contributing as part of the whole product, in `apps/web`, against invented
+data. Anything submitted for real goes through the content layer's API. Each
+team works in its own app, so two teams never edit the same screens.
+
+Leaving a passover
 ("sounds right", "don't know", "don't care") is this layer's interaction,
 because it happens while reading. What a passover means is the intelligence
 layer's.

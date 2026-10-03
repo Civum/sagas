@@ -8,17 +8,20 @@ its own, and how the work is judged. It replaces the first-sprint plan in
 
 This team builds the whole reading product for Sagas. Somebody finds a place,
 reads what people have said about it, explores the claims it was built from, and
-later adds to it. This team owns what that person sees while reading, and
-everything needed to put it in front of them: the pipeline, hosting, and the
-data the page reads.
+later adds to it. This team owns what that person sees, and everything
+needed to put it in front of them: the pipeline, hosting, and the data the page
+reads.
 
 The bar is to make it good and worth using. How it gets built is the team's
 call, inside the limits below.
 
-Two things are not this team's. The screens for handing over a record
-(uploading, recording, the submission form) belong to the content layer, in
-`apps/capture-web`. The scoring that orders claims belongs to the intelligence
-layer. This team builds against the shared contract and fixtures instead.
+Two other layers sit on either side of this one. The content layer builds the
+working way to hand over a record (uploading, recording, the submission form),
+in `apps/capture-api` and `apps/capture-web`, and real submissions go through
+it. This team can design contributing as part of the whole product, in
+`apps/web`, against invented data. Anything it submits for real goes through the
+content layer's API. The intelligence layer owns the scoring that orders claims.
+This team builds against the shared contract and fixtures.
 
 ## How we work
 
