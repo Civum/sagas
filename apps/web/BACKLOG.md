@@ -105,8 +105,8 @@ and nothing that calls it has to change.
 
 **Read first.** Story A5 below, and the comments in
 `packages/read-model/src/index.ts`. If you started A5, that work carries over.
-Where A5 mentions conversations, use the sections in the shared contract
-instead: "conversation" may not become an object.
+A5 now models sections from the shared contract and groups claims by source
+record.
 
 ### Da2 · A seed script for any database
 
@@ -353,9 +353,9 @@ good end point. If it is not, the write-up alone is a complete result.
 **Done when:** mockups, sketched or in a design tool, for:
 - The map with a search bar, and what happens when you pick a result (see B2).
 - A site page at `t0` (one contributor, nothing corroborated) and at `t3`
-  (several conversations, a dispute, a translation).
-- One conversation: a source record and the claims made from it, including a
-  detail that somebody disputes.
+  (several source records with claims, a dispute, a translation).
+- One source record and the claims made from it, including a detail that
+  somebody disputes.
 - A short note with each screen saying what a person sees when they are the
   only contributor at a place.
 
@@ -371,11 +371,11 @@ good end point. If it is not, the write-up alone is a complete result.
 **Goal.** Decide what your database holds, shaped for drawing a map and a page.
 
 **Done when:**
-- A diagram of the entities a page needs (sites, conversations, source and
+- A diagram of the entities a page needs (sites, sections, source and
   evidence records, claims and their details, disputes, extensions, renderings,
   contributors) and how they relate.
 - A note on what is stored ready to draw versus worked out per request. Example:
-  whether a site's list of conversations is stored or built on each read.
+  whether a site's list of sections is stored or built on each read.
 - A first migration in `apps/ui-api` that creates the tables, run against the
   local database started with `pnpm db:up`. There is no migration tool in
   `apps/ui-api` yet, so choosing one is part of this story. Write down why.
@@ -383,9 +383,9 @@ good end point. If it is not, the write-up alone is a complete result.
 **Not in this story.** Loading the fixture data into it (C0), and matching the
 other layers' schemas, which is not a goal.
 
-**Worth knowing.** "Conversation" is a working idea, not yet a named object in
-the contract. Model it the way you think a page needs it, and bring what you
-decide to the specification meeting. That is useful input to the shared design.
+**Worth knowing.** "Conversation" is a working idea that may be dropped, so do
+not model it as its own table. Group claims by source record, and take sections
+from the shared contract.
 
 ---
 
@@ -471,9 +471,10 @@ has.
 **Done when:** a seed script loads every fixture state, the read functions query
 the database, and `/dev` looks the same as before.
 
-### C1 · Render one conversation
+### C1 · Render one source record and its claims
 
-**Status:** Later. Needs a few A1 components and the A4 conversation mockup.
+**Status:** Later. Needs a few A1 components and the A4 mockup of one source
+record.
 
 **Goal.** The source record and the claims made from it, readable in order.
 

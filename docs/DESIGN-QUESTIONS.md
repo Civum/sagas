@@ -452,8 +452,10 @@ who owned it in 1912. Nothing in the model separates them, and a reader arriving
 at a busy site gets one long undifferentiated list.
 
 One option is to make the conversation a named object, so claims live inside
-conversations and the grouping is a stored thing with an author. Whether that
-happens is open. The shape
+conversations and the grouping is a stored thing with an author. That option has
+been argued against and may be dropped: the source record already groups the
+claims read from it, so a conversation would be a middle layer doing the same
+job. It is not decided. Until it is, group claims by source record. The shape
 would go from a site holding claims directly to a site holding conversations,
 each of which holds claims. A site could then carry several unrelated
 conversations without them interfering, and a claim that wandered off topic
@@ -637,6 +639,43 @@ disputes like any other claim and needs no new machinery. The consequence is
 bad, because the people who can confirm it are her own family, who may all be
 repeating one telling. Identity is the case where the independence rule is least
 able to help and the case where being wrong costs the most.
+
+## What happens when one detail turns out to be two people?
+
+Somebody claims that a well-known man's son was a singer and died young, the
+same way his father did. A reply disputes the death: the son died in a car
+accident at nineteen. Then the first person explains that there were two sons.
+The oldest died in the accident and the second was the singer. Nobody was wrong.
+"His son" pointed at two people, and the disagreement was about who was meant.
+
+The model has no way to say this. A dispute targets a detail and offers another
+reading of it, which treats the two claims as competing values for one thing.
+Here the right outcome is to split the detail into two people, each with their
+own claims, both standing. A passage written from these claims would need to
+change from "his son" to "his oldest son" and "his second son".
+
+Open:
+
+- Can a detail be split, and who can split it?
+- Is a split a new kind of claim, or something the intelligence layer works out?
+- What happens to support already given to the detail before the split?
+
+## Can a claim be edited?
+
+A correction can arrive two ways. Somebody can change their own claim, or they
+can add a new claim that corrects it. The model does not say which is allowed.
+
+Editing in place keeps the page tidy, but it changes what other people already
+responded to. A dispute aimed at the old wording would then point at words
+that no longer exist. A new claim keeps the history and costs a little
+clutter. Either way, a correction from the same person is not independent
+support for anything, because it comes from one telling.
+
+Open:
+
+- Can a claim's text change after it is submitted?
+- If it can, what happens to the disputes, extensions and passovers aimed at
+  the old version?
 
 ---
 

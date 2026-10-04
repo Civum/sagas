@@ -154,7 +154,9 @@ from. `evidenceRecordIds` is a list, often empty, of records attached to back th
 claim up. An extension's new information lives in its own record, which is that
 extension's evidence. Its source is still the conversation's source record.
 
-Whether a conversation becomes a named object in the contract is still open.
+Whether a conversation becomes a named object in the contract is still open,
+and it may be dropped, because the source record already groups the claims read
+from it.
 
 ## Agreement and corroboration are counted separately
 

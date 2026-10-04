@@ -51,7 +51,7 @@ Mr. Ferris."
 
 That is a **claim**. The photograph is its **source record**, and together they
 start a **conversation** about that photograph. (Conversation is a working
-idea, not yet an object in the contract.) The claim is made of
+idea that may be dropped. The source record is what groups these claims.) The claim is made of
 **details**:
 
 | Detail | Kind | Value |

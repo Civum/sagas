@@ -28,6 +28,8 @@ You own two apps. `apps/capture-api` has a starting skeleton and `apps/capture-w
 - **Claim.** Somebody's reading of a record. The record the conversation started
   from is the claim's source record, and a claim can also carry other records as
   evidence. This is where disagreement lands. One record can produce several claims.
+  "Conversation" is a working idea that may be dropped. The source record is
+  what groups the claims read from it.
 - **Rendering.** A transcript or a translation. One person's version of a
   record or a claim, attributed, with more than one allowed to exist.
 - **Profile.** Who a contributor is to the software. This semester a profile is

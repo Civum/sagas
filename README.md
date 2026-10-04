@@ -54,7 +54,7 @@ here is who each of them is."
 - **Record.** What somebody hands over. A recording, a video, a photograph, a
   scanned document, or typed text. Nothing in the graph argues with a record.
   Disagreement lands on claims instead.
-- **Claim.** Somebody's reading of a record, and the place disagreement lands. Each claim has one source record, the one its conversation started from, and can have evidence records attached. One record can be the source of several claims.
+- **Claim.** Somebody's reading of a record, and the place disagreement lands. Each claim has one source record, the one its conversation started from, and can have evidence records attached. One record can be the source of several claims. "Conversation" is a working idea that may be dropped. The source record is what groups the claims read from it.
 - **Rendering.** A transcript or a translation. One person's version of a
   record or a claim, attributed, with more than one allowed to exist.
 - **Profile.** Who a contributor is to the software. This semester a profile is

@@ -241,8 +241,10 @@ of two parts. As a *source record* it is where a conversation starts, and every
 claim in that conversation has it as `claim.sourceRecordId`. As an *evidence
 record* it is attached to a claim to back it up, through
 `claim.evidenceRecordIds`, which is optional. The same record can do both in
-different conversations. Whether "conversation" becomes a named object in the
-contract is open, and your diagram is a good place to propose one.
+different conversations. Whether "conversation" becomes a named object is
+now in doubt. The argument against it is that the source record already groups
+the claims read from it. It is not decided, so build on the source record and
+bring anything that argues either way.
 
 **Whether a record carries a score.** Decided: a record's score is a citation
 count, how many claims lean on it. It is kept separate from claim weight, because

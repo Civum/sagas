@@ -543,6 +543,9 @@ export const claim = z.object({
    * The source record: the record the conversation this claim belongs to
    * started from. Required.
    *
+   * "Conversation" is a working idea that may be dropped. The source record is
+   * what groups the claims read from it, so build on this field.
+   *
    * Every claim is part of a conversation about something that exists. Without
    * this there is no route from a sentence in an article back to the recording
    * or photograph it came out of, and no way for a reader to check a reading

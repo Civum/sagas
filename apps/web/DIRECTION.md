@@ -35,22 +35,23 @@ The page a person reads about a place. It is the centre of this layer.
 
 ### First steps
 
-These are backlog items C1 to C4. Render one conversation, then disputes on a
-detail, then where each claim comes from, then translations. After that the
-page is a list of conversations, one after another, and that is enough to start.
+These are backlog items C1 to C4. Render one source record and the claims read
+from it, then disputes on a detail, then where each claim comes from, then
+translations. The sections in contract 2.1.0 then arrange these into a page.
 
 ### What is open
 
 - **How a page is divided up.** A busy place might have dozens of claims. A
-  reader needs them grouped into something like sections. One starting point is
-  that each conversation, meaning a source record and the claims made from it,
-  becomes a section. Whether that holds up once a site has twenty conversations
-  is not known. Working out which claims belong together is a graph question
+  reader needs them grouped into something like sections. Contract 2.1.0
+  gives each site sections, with invented ones in the fixtures for now. Whether
+  a section should follow one source record and its claims, or group by theme
+  across records, is not known. Working out which claims belong together is a graph question
   for the intelligence layer. How a grouping is laid out on a page is yours.
   `docs/DESIGN-QUESTIONS.md`, "What groups claims together at a site?", has the
   rest.
-- **Whether "conversation" is a named object in the shared contract.** For now
-  it is an idea your read model can shape however a page needs.
+- **Whether "conversation" is a named object in the shared contract.** It has
+  been argued against and may be dropped. Do not build on it. Group claims by
+  source record.
 - **How the claim graph becomes prose.** Claims extend and dispute each other,
   so they form a tree. Since contract 2.1.0, each section has a passage with
   phrases that lead back to the claims behind them. How a passage is written

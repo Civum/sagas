@@ -85,7 +85,9 @@ A record plays one of two parts, depending on where it is used:
 - **Evidence record.** A record attached to a claim to back it up. Optional.
 
 It is the same kind of record either way. A photograph can start one
-conversation and be evidence in another.
+conversation and be evidence in another. "Conversation" itself is a working
+idea that may be dropped. The source record is what groups the claims read from
+it, so build on that.
 
 "Account" is not a term in this project. It used to mean a contribution in some
 sentences and a login in others. If you find it standing for either, that is a
