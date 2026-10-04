@@ -66,8 +66,8 @@ change during the semester. A change here is how something one team finds, or so
 **Freeze windows.** The contract does not move after your team's design lock
 (around week three, when your team settles what it is building) except to fix something genuinely broken, and it does not
 move at all in the last three weeks of a semester. Anything learned during a
-freeze goes into the notes and lands the following term. If a change arrives
-outside these rules, that is a mistake on our side. Say so.
+freeze goes into the notes and lands the following term. If the contract
+changes outside these rules, that is a mistake on our side. Say so.
 
 ### What to do when you are blocked or disagree
 

@@ -655,6 +655,92 @@
     "awaitingTranslation": 0,
     "overall": 43
   },
+  "sections": [
+    {
+      "id": "sec-cs-shop",
+      "siteId": "site-corner-shop",
+      "heading": "The shop on the corner"
+    },
+    {
+      "id": "sec-cs-sign",
+      "siteId": "site-corner-shop",
+      "heading": "The sign"
+    }
+  ],
+  "compositions": [
+    {
+      "id": "cmp-cs-shop",
+      "sectionId": "sec-cs-shop",
+      "text": "The shop stood on the corner of Fourth and Main. Its owner, Mr. Ferris, ran it until the sixties. A photograph shows it sometime in the 1950s.",
+      "spans": [
+        {
+          "start": 18,
+          "end": 47,
+          "claimIds": [
+            "cl-cs-shop"
+          ],
+          "detailIds": [
+            "dt-cs-place"
+          ]
+        },
+        {
+          "start": 60,
+          "end": 70,
+          "claimIds": [
+            "cl-cs-shop",
+            "cl-cs-uncle"
+          ],
+          "detailIds": [
+            "dt-cs-owner"
+          ]
+        },
+        {
+          "start": 79,
+          "end": 96,
+          "claimIds": [
+            "cl-cs-uncle"
+          ],
+          "detailIds": [
+            "dt-cs-uncle-until"
+          ]
+        },
+        {
+          "start": 120,
+          "end": 141,
+          "claimIds": [
+            "cl-cs-shop"
+          ],
+          "detailIds": [
+            "dt-cs-year"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cmp-cs-sign",
+      "sectionId": "sec-cs-sign",
+      "text": "A sign reading FERRIS GROCERY came down when the shop closed.",
+      "spans": [
+        {
+          "start": 15,
+          "end": 29,
+          "claimIds": [
+            "cl-cs-sign"
+          ],
+          "detailIds": [
+            "dt-cs-sign-owner"
+          ]
+        },
+        {
+          "start": 30,
+          "end": 60,
+          "claimIds": [
+            "cl-cs-sign"
+          ]
+        }
+      ]
+    }
+  ],
   "eventIdsApplied": [
     "cs-001",
     "cs-002",

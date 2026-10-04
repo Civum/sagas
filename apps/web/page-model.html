@@ -1,0 +1,196 @@
+<title>Corner Shop Page Model</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500&display=swap">
+<style>
+/* Layout: a grey-box site page on the left, numbered annotations on the right; one column on phones. */
+:root{
+  --bg:#f3f4f6; --paper:#ffffff; --ink:#1d2229; --muted:#5e6672; --line:#c9ced6; --box:#e3e6eb;
+  --mark:#2f5fa8; --markbg:#e6eefb; --note:#fff8dc; --noteline:#d8c77a;
+  --sans:"IBM Plex Sans",system-ui,sans-serif; --serif:"IBM Plex Serif",Georgia,serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14171c; --paper:#1c2027; --ink:#e4e7ec; --muted:#9aa3b0; --line:#39404b; --box:#2a3039;
+  --mark:#8db4f0; --markbg:#22324d; --note:#2b2715; --noteline:#6e6230; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14171c; --paper:#1c2027; --ink:#e4e7ec; --muted:#9aa3b0; --line:#39404b; --box:#2a3039;
+  --mark:#8db4f0; --markbg:#22324d; --note:#2b2715; --noteline:#6e6230; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--sans);padding-inline:16px;padding-block:24px 48px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:20px}
+header.top h1{font:600 1.5rem/1.2 var(--sans);margin:0;text-wrap:balance}
+header.top p{margin:.35rem 0 0;color:var(--muted);max-width:70ch}
+.steps{display:flex;flex-wrap:wrap;gap:8px}
+.steps button{font:500 .85rem var(--sans);border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:.45rem .7rem;border-radius:6px;cursor:pointer;text-align:left}
+.steps button[aria-pressed="true"]{border-color:var(--mark);box-shadow:inset 0 0 0 1px var(--mark)}
+.steps small{display:block;color:var(--muted);font-weight:400}
+.cols{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.cols{grid-template-columns:1fr}}
+.page{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:22px;display:grid;gap:22px;min-width:0}
+.region{position:relative;border:1px dashed var(--line);border-radius:6px;padding:14px;display:grid;gap:10px;min-width:0}
+.pin{position:absolute;top:-11px;left:-11px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--paper);font:500 .75rem/22px var(--mono);text-align:center}
+.site-name{font:500 1.6rem/1.2 var(--serif);margin:0}
+.meta{color:var(--muted);font-size:.9rem}
+.band{display:inline-block;font:500 .78rem var(--mono);border:1px solid var(--line);border-radius:4px;padding:.1rem .45rem;color:var(--muted)}
+.records{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.rec{display:grid;gap:6px;font-size:.82rem;color:var(--muted)}
+.thumb{aspect-ratio:4/3;max-width:100%;background:repeating-linear-gradient(45deg,var(--box),var(--box) 8px,transparent 8px,transparent 16px);border:1px solid var(--line);border-radius:4px;display:grid;place-items:center;font:500 .75rem var(--mono);color:var(--muted)}
+.role{font:500 .7rem var(--mono);text-transform:uppercase;letter-spacing:.06em}
+h2.sec{font:500 1.2rem/1.3 var(--serif);margin:0}
+.passage{font:400 1.08rem/1.75 var(--serif);margin:0;max-width:62ch}
+.span{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-decoration:underline dotted var(--mark) 2px;text-underline-offset:4px}
+.span:hover,.span:focus-visible,.span[aria-expanded="true"]{background:var(--markbg);outline:none;border-radius:2px}
+.tree{border-left:3px solid var(--mark);padding:4px 0 4px 14px;display:grid;gap:12px}
+.tree-h{font:500 .75rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.claim{display:grid;gap:6px;min-width:0}
+.claim.child{margin-left:22px;padding-left:12px;border-left:1px solid var(--line)}
+.claim q{quotes:none;font-family:var(--serif)}
+.by{font-size:.82rem;color:var(--muted)}
+.hl{background:var(--markbg);border-radius:2px;padding:0 2px}
+.readings{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.reading{border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:.88rem;display:grid;gap:4px}
+.reading b{font-weight:500}
+.pass{display:flex;flex-wrap:wrap;gap:6px}
+.pass button{font:400 .8rem var(--sans);border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:.2rem .65rem;cursor:pointer}
+.pass button:focus-visible,.steps button:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+.empty{color:var(--muted);font-style:italic;margin:0}
+aside.notes{display:grid;gap:12px;min-width:0}
+.note{background:var(--note);border:1px solid var(--noteline);border-radius:6px;padding:12px 14px;display:grid;gap:4px;font-size:.9rem}
+.note h3{margin:0;font:600 .92rem var(--sans);display:flex;gap:8px;align-items:center}
+.note h3 .pin{position:static}
+.note code{font:400 .8rem var(--mono);background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:0 .3rem;overflow-wrap:anywhere}
+.note p{margin:0}
+.rules{border:1px solid var(--line);background:var(--paper);border-radius:6px;padding:12px 14px;font-size:.9rem}
+.rules h3{margin:0 0 6px;font:600 .92rem var(--sans)}
+.rules ul{margin:0;padding-left:1.1rem;display:grid;gap:4px}
+@media (prefers-reduced-motion:no-preference){.tree{animation:in .18s ease-out}@keyframes in{from{opacity:.4;transform:translateY(-3px)}to{opacity:1;transform:none}}}
+</style>
+<div class="wrap">
+  <header class="top">
+    <h1>Corner shop page model</h1>
+    <p>A grey-box wireframe of one site page, built from the corner shop fixture. It shows what each part of the page holds and which rule applies to it. It does not decide how anything looks. The place, the people and everything they say are invented. Pick a moment, then select a dotted phrase.</p>
+  </header>
+  <nav class="steps" id="steps" aria-label="Fixture state"></nav>
+  <div class="cols">
+    <main class="page" id="page" aria-live="polite"></main>
+    <aside class="notes">
+      <div class="note"><h3><span class="pin">1</span>The place</h3><p><code>site.name</code>, <code>site.aka</code>, <code>site.address</code>. How well documented the place is, said in words from <code>integrity</code>. Never a number. A thin page reads as early, not as failing.</p></div>
+      <div class="note"><h3><span class="pin">2</span>What people handed over</h3><p><code>records[]</code>. Whether a record is a source or evidence comes from the claims that use it (<code>sourceRecordId</code>, <code>evidenceRecordIds</code>). A record with nothing claimed about it is complete. Uploading is not part of this page.</p></div>
+      <div class="note"><h3><span class="pin">3</span>Section heading</h3><p><code>sections[].heading</code>. Invented for now. What a heading is derived from is open, and it should not change every time a claim arrives.</p></div>
+      <div class="note"><h3><span class="pin">4</span>The passage</h3><p><code>compositions[].text</code>, with <code>spans[]</code> marking the phrases that lead somewhere. When a detail is disputed the passage uses wording both readings fit. It never picks one.</p></div>
+      <div class="note"><h3><span class="pin">5</span>The claims behind a phrase</h3><p><code>spans[].claimIds</code>, and <code>detailIds</code> when the phrase is about one detail. Claims are ordered by <code>weight</code>, which is never shown. An extension sits under the claim it adds to (<code>parentClaimId</code>). The detail's <code>excerpt</code> is highlighted in the claim's own words.</p></div>
+      <div class="note"><h3><span class="pin">6</span>Two readings of one detail</h3><p><code>detailStatuses[].competingValues</code>, in the order they arrived, side by side with the same weight, each with who gave it and the reasoning. No winner and no count.</p></div>
+      <div class="note"><h3><span class="pin">7</span>Leaving a passover</h3><p>Sounds right, don't know, don't care. Three equal choices with no counts. How to offer them without nudging people toward what others chose is an open design question.</p></div>
+      <div class="rules"><h3>The rules every design keeps</h3><ul>
+        <li>No score, count or ranking on screen.</li>
+        <li>Nothing looks settled or official.</li>
+        <li>Disagreement stays visible, side by side.</li>
+        <li>A claim nobody has answered never looks rejected.</li>
+        <li>Every claim leads back to its author and its records.</li>
+      </ul></div>
+      <div class="rules"><h3>What this does not decide</h3><p style="margin:0">Layout, type, colour, motion and how deep the page can go are the designer's. This page fixes what information appears and where it comes from.</p></div>
+    </aside>
+  </div>
+</div>
+<script>
+const DATA = {"t0":{"label":"A photograph, nothing claimed","asOf":"2026-01-31","site":{"name":"The corner shop","aka":["Ferris's","the shop on the corner"],"address":"N 4th St and W Main St","city":"Boise, Idaho"},"records":[{"id":"rec-cs-photo","by":"June Alder","note":"My grandmother's shop, I think. I don't know when this was taken.","kind":"image","at":"2026-01-12"}],"claims":[],"sections":[],"compositions":[]},"t1":{"label":"Somebody else reads it; agreement adds no source","asOf":"2026-02-28","site":{"name":"The corner shop","aka":["Ferris's","the shop on the corner"],"address":"N 4th St and W Main St","city":"Boise, Idaho"},"records":[{"id":"rec-cs-photo","by":"June Alder","note":"My grandmother's shop, I think. I don't know when this was taken.","kind":"image","at":"2026-01-12"}],"claims":[{"id":"cl-cs-shop","text":"That's the shop on the corner of Fourth and Main, around 1950. The man in the doorway is the owner, Mr. Ferris.","by":"Ray Okafor","at":"2026-02-03","w":3.25,"parent":null,"source":"rec-cs-photo","evidence":[],"details":[{"id":"dt-cs-place","kind":"place","excerpt":"the corner of Fourth and Main","readings":[{"value":"Fourth and Main","by":["Ray Okafor"]}],"disputes":[]},{"id":"dt-cs-year","kind":"date","excerpt":"around 1950","readings":[{"value":"c. 1950","by":["Ray Okafor"]}],"disputes":[]},{"id":"dt-cs-owner","kind":"person","excerpt":"the owner, Mr. Ferris","readings":[{"value":"Ferris","by":["Ray Okafor"]}],"disputes":[]}],"passover":{"sounds_right":0,"dont_know":0,"dont_care":0},"affirmed":1}],"sections":[{"id":"sec-cs-shop","siteId":"site-corner-shop","heading":"The shop on the corner"}],"compositions":[{"id":"cmp-cs-shop","sectionId":"sec-cs-shop","text":"The shop stood on the corner of Fourth and Main, and its owner was Mr. Ferris. A photograph shows it around 1950.","spans":[{"start":18,"end":47,"claimIds":["cl-cs-shop"],"detailIds":["dt-cs-place"]},{"start":67,"end":77,"claimIds":["cl-cs-shop"],"detailIds":["dt-cs-owner"]},{"start":101,"end":112,"claimIds":["cl-cs-shop"],"detailIds":["dt-cs-year"]}]}]},"t2":{"label":"The year is disputed; the owner is extended with evidence","asOf":"2026-04-30","site":{"name":"The corner shop","aka":["Ferris's","the shop on the corner"],"address":"N 4th St and W Main St","city":"Boise, Idaho"},"records":[{"id":"rec-cs-photo","by":"June Alder","note":"My grandmother's shop, I think. I don't know when this was taken.","kind":"image","at":"2026-01-12"},{"id":"rec-cs-directory","by":"Owen Pike","note":"City directory page, 1956 edition. The listing for the corner changes that year, the same year the awning went up.","kind":"document","at":"2026-04-06"},{"id":"rec-cs-audio","by":"Mae Ferris-Holt","note":"","kind":"audio","at":"2026-04-19"}],"claims":[{"id":"cl-cs-shop","text":"That's the shop on the corner of Fourth and Main, around 1950. The man in the doorway is the owner, Mr. Ferris.","by":"Ray Okafor","at":"2026-02-03","w":6.25,"parent":null,"source":"rec-cs-photo","evidence":[],"details":[{"id":"dt-cs-place","kind":"place","excerpt":"the corner of Fourth and Main","readings":[{"value":"Fourth and Main","by":["Ray Okafor"]}],"disputes":[]},{"id":"dt-cs-year","kind":"date","excerpt":"around 1950","readings":[{"value":"c. 1950","by":["Ray Okafor"]},{"value":"1956 or later","by":["Owen Pike"]}],"disputes":[{"by":"Owen Pike","reasoning":"It can't be 1950. The awning in the photo went up in 1956. The directory page I uploaded shows the change.","proposed":"1956 or later"}]},{"id":"dt-cs-owner","kind":"person","excerpt":"the owner, Mr. Ferris","readings":[{"value":"Ferris","by":["Ray Okafor"]}],"disputes":[]}],"passover":{"sounds_right":0,"dont_know":0,"dont_care":0},"affirmed":1},{"id":"cl-cs-uncle","text":"Mr. Ferris was my uncle. He ran that shop until the sixties.","by":"Mae Ferris-Holt","at":"2026-04-19","w":2,"parent":"cl-cs-shop","source":"rec-cs-photo","evidence":["rec-cs-audio"],"details":[{"id":"dt-cs-uncle-until","kind":"date","excerpt":"until the sixties","readings":[{"value":"1960s","by":["Mae Ferris-Holt"]}],"disputes":[]}],"passover":{"sounds_right":0,"dont_know":0,"dont_care":0},"affirmed":0}],"sections":[{"id":"sec-cs-shop","siteId":"site-corner-shop","heading":"The shop on the corner"}],"compositions":[{"id":"cmp-cs-shop","sectionId":"sec-cs-shop","text":"The shop stood on the corner of Fourth and Main. Its owner, Mr. Ferris, ran it until the sixties. A photograph shows it sometime in the 1950s.","spans":[{"start":18,"end":47,"claimIds":["cl-cs-shop"],"detailIds":["dt-cs-place"]},{"start":60,"end":70,"claimIds":["cl-cs-shop","cl-cs-uncle"],"detailIds":["dt-cs-owner"]},{"start":79,"end":96,"claimIds":["cl-cs-uncle"],"detailIds":["dt-cs-uncle-until"]},{"start":120,"end":141,"claimIds":["cl-cs-shop"],"detailIds":["dt-cs-year"]}]}]},"t3":{"label":"A second conversation names the same owner","asOf":"2026-06-30","site":{"name":"The corner shop","aka":["Ferris's","the shop on the corner"],"address":"N 4th St and W Main St","city":"Boise, Idaho"},"records":[{"id":"rec-cs-photo","by":"June Alder","note":"My grandmother's shop, I think. I don't know when this was taken.","kind":"image","at":"2026-01-12"},{"id":"rec-cs-directory","by":"Owen Pike","note":"City directory page, 1956 edition. The listing for the corner changes that year, the same year the awning went up.","kind":"document","at":"2026-04-06"},{"id":"rec-cs-audio","by":"Mae Ferris-Holt","note":"","kind":"audio","at":"2026-04-19"},{"id":"rec-cs-sign","by":"Dev Castellanos","note":"The hand-painted sign from above the door, photographed in my garage. It came with the house.","kind":"image","at":"2026-06-08"}],"claims":[{"id":"cl-cs-shop","text":"That's the shop on the corner of Fourth and Main, around 1950. The man in the doorway is the owner, Mr. Ferris.","by":"Ray Okafor","at":"2026-02-03","w":6.25,"parent":null,"source":"rec-cs-photo","evidence":[],"details":[{"id":"dt-cs-place","kind":"place","excerpt":"the corner of Fourth and Main","readings":[{"value":"Fourth and Main","by":["Ray Okafor"]}],"disputes":[]},{"id":"dt-cs-year","kind":"date","excerpt":"around 1950","readings":[{"value":"c. 1950","by":["Ray Okafor"]},{"value":"1956 or later","by":["Owen Pike"]}],"disputes":[{"by":"Owen Pike","reasoning":"It can't be 1950. The awning in the photo went up in 1956. The directory page I uploaded shows the change.","proposed":"1956 or later"}]},{"id":"dt-cs-owner","kind":"person","excerpt":"the owner, Mr. Ferris","readings":[{"value":"Ferris","by":["Ray Okafor"]}],"disputes":[]}],"passover":{"sounds_right":0,"dont_know":0,"dont_care":0},"affirmed":1},{"id":"cl-cs-sign","text":"The sign reads FERRIS GROCERY. The previous owner of my house said it came down when the shop closed.","by":"Dev Castellanos","at":"2026-06-08","w":3,"parent":null,"source":"rec-cs-sign","evidence":[],"details":[{"id":"dt-cs-sign-owner","kind":"person","excerpt":"FERRIS GROCERY","readings":[{"value":"Ferris","by":["Dev Castellanos"]}],"disputes":[]},{"id":"dt-cs-sign-trade","kind":"event","excerpt":"GROCERY","readings":[{"value":"grocery","by":["Dev Castellanos"]}],"disputes":[]}],"passover":{"sounds_right":0,"dont_know":1,"dont_care":0},"affirmed":0},{"id":"cl-cs-uncle","text":"Mr. Ferris was my uncle. He ran that shop until the sixties.","by":"Mae Ferris-Holt","at":"2026-04-19","w":2,"parent":"cl-cs-shop","source":"rec-cs-photo","evidence":["rec-cs-audio"],"details":[{"id":"dt-cs-uncle-until","kind":"date","excerpt":"until the sixties","readings":[{"value":"1960s","by":["Mae Ferris-Holt"]}],"disputes":[]}],"passover":{"sounds_right":1,"dont_know":0,"dont_care":0},"affirmed":0}],"sections":[{"id":"sec-cs-shop","siteId":"site-corner-shop","heading":"The shop on the corner"},{"id":"sec-cs-sign","siteId":"site-corner-shop","heading":"The sign"}],"compositions":[{"id":"cmp-cs-shop","sectionId":"sec-cs-shop","text":"The shop stood on the corner of Fourth and Main. Its owner, Mr. Ferris, ran it until the sixties. A photograph shows it sometime in the 1950s.","spans":[{"start":18,"end":47,"claimIds":["cl-cs-shop"],"detailIds":["dt-cs-place"]},{"start":60,"end":70,"claimIds":["cl-cs-shop","cl-cs-uncle"],"detailIds":["dt-cs-owner"]},{"start":79,"end":96,"claimIds":["cl-cs-uncle"],"detailIds":["dt-cs-uncle-until"]},{"start":120,"end":141,"claimIds":["cl-cs-shop"],"detailIds":["dt-cs-year"]}]},{"id":"cmp-cs-sign","sectionId":"sec-cs-sign","text":"A sign reading FERRIS GROCERY came down when the shop closed.","spans":[{"start":15,"end":29,"claimIds":["cl-cs-sign"],"detailIds":["dt-cs-sign-owner"]},{"start":30,"end":60,"claimIds":["cl-cs-sign"]}]}]}};
+const order = ['t0','t1','t2','t3'];
+let current = 't3', openSpan = null;
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function steps() {
+  const nav = document.getElementById('steps');
+  nav.innerHTML = order.map((t) => `<button type="button" id="st-${t}" aria-pressed="${t===current}" data-t="${t}">${t.toUpperCase()}<small>${esc(DATA[t].label)}</small></button>`).join('');
+  nav.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { current = b.dataset.t; openSpan = null; steps(); render(); }));
+}
+
+function band(s) {
+  const people = new Set([...s.records.map((r) => r.by), ...s.claims.map((c) => c.by)]);
+  if (!s.claims.length) return 'New: one photograph, nothing said about it yet';
+  return people.size <= 3 ? 'Early: a few people have added to this place' : 'Growing: several people have added to this place';
+}
+
+function roles(s) {
+  const r = {};
+  s.claims.forEach((c) => { (r[c.source] ??= new Set()).add('source'); c.evidence.forEach((e) => (r[e] ??= new Set()).add('evidence')); });
+  return r;
+}
+
+function withHighlight(text, excerpts) {
+  let out = esc(text);
+  excerpts.forEach((x) => { const e = esc(x); out = out.replace(e, `<span class="hl">${e}</span>`); });
+  return out;
+}
+
+function claimBlock(c, s, focusDetails, child) {
+  const ex = c.details.filter((d) => focusDetails.includes(d.id)).map((d) => d.excerpt);
+  const recs = Object.fromEntries(s.records.map((r) => [r.id, r]));
+  const disputed = c.details.filter((d) => d.readings.length > 1 || d.disputes.length);
+  const parent = c.parent && s.claims.find((p) => p.id === c.parent);
+  return `<div class="claim${child ? ' child' : ''}">
+    ${parent && !child ? `<div class="by">Adds to: “${esc(parent.text)}”</div>` : ''}
+    <q>${withHighlight(c.text, ex)}</q>
+    <div class="by">${esc(c.by)} · ${c.at} · from ${esc(recs[c.source]?.kind || 'record')} by ${esc(recs[c.source]?.by || '')}${c.evidence.map((e) => ` · evidence: ${esc(recs[e]?.kind)} from ${esc(recs[e]?.by)}`).join('')}</div>
+    ${disputed.map((d) => `<div class="region" style="padding:10px"><span class="pin">6</span>
+      <div class="by">${esc(d.kind)}: “${esc(d.excerpt)}”</div>
+      <div class="readings">${d.readings.map((r) => {
+        const why = d.disputes.find((x) => x.proposed === r.value);
+        return `<div class="reading"><b>${esc(r.value)}</b><span class="by">${esc(r.by.join(', '))}</span>${why ? `<span>${esc(why.reasoning)}</span>` : ''}</div>`;
+      }).join('')}</div></div>`).join('')}
+    <div class="pass" aria-label="Leave a passover"><button type="button">Sounds right</button><button type="button">Don't know</button><button type="button">Don't care</button></div>
+  </div>`;
+}
+
+function tree(s, sp) {
+  const set = sp.claimIds.map((id) => s.claims.find((c) => c.id === id)).filter(Boolean);
+  const ids = new Set(set.map((c) => c.id));
+  const roots = set.filter((c) => !c.parent || !ids.has(c.parent)).sort((a, b) => b.w - a.w);
+  const focus = sp.detailIds || [];
+  return `<div class="tree region" style="border-style:solid"><span class="pin">5</span>
+    <div class="tree-h">The claims behind this phrase</div>
+    ${roots.map((r) => claimBlock(r, s, focus, false) + set.filter((c) => c.parent === r.id).sort((a, b) => b.w - a.w).map((c) => claimBlock(c, s, focus, true)).join('')).join('')}
+  </div>`;
+}
+
+function passage(comp, secId) {
+  const spans = [...comp.spans].map((sp, i) => ({ ...sp, i })).sort((a, b) => a.start - b.start);
+  let html = '', at = 0;
+  spans.forEach((sp) => {
+    const key = `${secId}:${sp.i}`;
+    html += esc(comp.text.slice(at, sp.start));
+    html += `<button type="button" class="span" data-key="${key}" aria-expanded="${openSpan === key}">${esc(comp.text.slice(sp.start, sp.end))}</button>`;
+    at = sp.end;
+  });
+  return html + esc(comp.text.slice(at));
+}
+
+function render() {
+  const s = DATA[current];
+  const rl = roles(s);
+  const el = document.getElementById('page');
+  const secs = s.sections.map((sec) => {
+    const comp = s.compositions.find((c) => c.sectionId === sec.id);
+    const open = openSpan && openSpan.startsWith(sec.id + ':') ? comp.spans[Number(openSpan.split(':')[1])] : null;
+    return `<section class="region"><span class="pin">3</span>
+      <h2 class="sec">${esc(sec.heading)}</h2>
+      <div class="region" style="border-style:dotted"><span class="pin">4</span><p class="passage">${passage(comp, sec.id)}</p></div>
+      ${open ? tree(s, open) : ''}
+    </section>`;
+  }).join('');
+  el.innerHTML = `
+    <div class="region"><span class="pin">1</span>
+      <h1 class="site-name">${esc(s.site.name)}</h1>
+      <div class="meta">Also known as ${s.site.aka.map(esc).join(', ')} · ${esc(s.site.address)}, ${esc(s.site.city)}</div>
+      <div><span class="band">${esc(band(s))}</span></div>
+    </div>
+    <div class="region"><span class="pin">2</span>
+      <div class="records">${s.records.map((r) => `<div class="rec"><div class="thumb">${esc(r.kind)}</div>
+        <span class="role">${rl[r.id] ? [...rl[r.id]].join(' · ') : 'nothing claimed yet'}</span>
+        <span>${esc(r.by)} · ${r.at}</span>${r.note ? `<span>“${esc(r.note)}”</span>` : ''}</div>`).join('')}</div>
+    </div>
+    ${secs || `<div class="region"><span class="pin">3</span><p class="empty">Nobody has said anything about this photograph yet. If you know the place, the year or the people in it, you could be the first.</p></div>`}`;
+  el.querySelectorAll('.span').forEach((b) => b.addEventListener('click', () => {
+    openSpan = openSpan === b.dataset.key ? null : b.dataset.key; render();
+    const again = el.querySelector(`.span[data-key="${b.dataset.key}"]`); if (again) again.focus();
+  }));
+}
+steps(); render();
+</script>

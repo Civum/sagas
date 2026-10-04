@@ -151,27 +151,24 @@ Adding fixture coverage for a gap is a useful pull request.
 
 ## Deploying it
 
-This is yours to own, including the choice of where. We are not picking for you,
-because picking would remove the part of this that looks like a real job.
+This is yours to own, through a proposal. `STATEMENT-OF-WORK.md` has the
+details, and the short version is below.
 
-What we need from it, whatever you choose:
+- **Build on the checks that exist.** `.github/workflows/ci.yml` already runs
+  typecheck, lint and tests on every pull request. Add a deploy on merge. The
+  landing page is the first thing deployed, so the pipeline works before there
+  is anything interesting to show.
+- **Where it runs is a recommendation, with costs.** The platform workstream
+  compares hosts with free tiers and brings a proposal. The sponsor signs up for
+  whatever is approved, so nobody on the team needs a payment method.
+- **A preview for each pull request comes later,** if a proposal makes the case
+  for it.
 
-- **A URL that works**, from early on. Deploy in week two, before there is
-  anything interesting to see, so the deployment already works by the time it
-  matters.
-- **A preview per pull request.** Reviewing your work then means opening a link
-  rather than pulling your branch and running it, so feedback can come back much
-  faster.
-- **No sponsor credentials.** Whatever it runs on is a hosting account your team owns.
+Keep the app portable. Nothing load-bearing should depend on one host's
+special behaviour, which is why putting the web app and the API in containers is
+on the backlog.
 
-Vercel is the easiest option for Next and gives you both of the first two
-without extra setup. Read the terms for its free Hobby plan before you commit to
-it, in particular what counts as commercial use and how much server time it
-allows, because they can change.
-
-This project keeps the deployment under your own hosting account rather than a
-sponsor's, and asks you not to build anything load-bearing on Vercel-specific
-behaviour. Spatial queries are the expensive part of this layer, which is one of
+Spatial queries are the expensive part of this layer, which is one of
 the reasons `apps/ui-api` is a separate app.
 
 Nothing about the local setup changes for any of this. `pnpm dev:web` is the

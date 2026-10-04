@@ -41,6 +41,62 @@ it. This is the most useful field in the entry.
 
 ---
 
+## v2.1.0 — 2026-10-04
+
+**Affects:** experience layer · intelligence layer
+
+**What:** A site's page gets sections. `section` is new: an id, the site and a
+heading. `composition` is new too: a section's passage, made of its text plus
+spans. A span is a stretch of the text that leads to the claims behind it, and
+can also name the details it is about. Every `graphState` now carries
+`sections` and `compositions`. The corner shop has invented ones in its states
+t1 to t3, with one composition for each section. Every other site has none yet.
+
+**Why:** The experience layer cannot build a readable page without knowing what
+a section and its passage look like. How they are produced is open design work
+that will take time, so the shape goes into the contract now,
+with invented values in the fixtures, the same way `weight.ts` stands in for
+scoring. What a heading is derived from, and how finely a passage points into
+the claims, are open: see "What groups claims together at a site?" in
+`docs/DESIGN-QUESTIONS.md`. Producing sections and passages is the intelligence
+layer's work. Showing and exploring them is the experience layer's. The shape is
+decided. If something has to change for it to work, bring it to a check-in.
+
+**You need to:**
+- *experience layer* — nothing breaks. Render `sections` and `compositions`
+  when you are ready. A site with no sections has no passage yet, and shows
+  its records on their own.
+- *intelligence layer* — nothing breaks. This is the shape your grouping and
+  passage-writing work is expected to produce. Bring what does not fit to a
+  check-in.
+- *content layer* — nothing.
+- *anyone who builds a graph state by hand* — add `sections: []` and
+  `compositions: []`.
+
+---
+
+## 2026-10-02 — experience layer statement of work
+
+**Affects:** experience layer
+
+**What:** `apps/web/STATEMENT-OF-WORK.md` sets out the whole reading product as
+this layer's work, in five workstreams, with what the team decides alone and
+what needs the sponsor. `apps/web/BACKLOG.md` gains "Sprint one", which replaces
+epic A as the first sprint, and a template for new stories.
+`apps/web/DEFINITIONS.md` defines the parts of the layer. `apps/web/PAGE-MODEL.md`
+and `apps/web/page-model.html` are a wireframe of the corner shop's site page.
+The guide and the web README now point at these, and their deploy sections
+match the statement of work.
+
+**Why:** The first plan gave this layer a slice of the product, and the team is
+ready for all of it.
+
+**You need to:**
+- *experience layer* — read the statement of work, then sprint one. Anything
+  started under epic A carries over, as the table under sprint one shows.
+
+---
+
 ## v2.0.0 — 2026-09-28
 
 **Affects:** intelligence layer · experience layer · content layer

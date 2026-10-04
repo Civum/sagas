@@ -65,3 +65,33 @@ test('two unrelated conversations assert the same detail, and nothing links them
   // Matching the two is open (intelligence layer), so neither counts the other.
   expect(sign.independentRecordCount).toBe(0);
 });
+
+/* Sections and passages are invented stand-ins (see fixtures/corner-shop/narrative.ts). */
+
+import { narrative } from '../fixtures/corner-shop/narrative';
+
+const withNarrative = reduceToStates(events, stateCuts, narrative);
+const page = (id: string) => {
+  const s = withNarrative.find((st) => st.stateId === id);
+  if (!s) throw new Error(`no state ${id}`);
+  return s;
+};
+
+test('a photograph with nothing claimed has no passage to write', () => {
+  expect(page('t0').sections).toHaveLength(0);
+  expect(page('t0').compositions).toHaveLength(0);
+});
+
+test('the disputed year reads as a range both readings fit, and leads to the date detail', () => {
+  const shop = page('t2').compositions.find((c) => c.sectionId === 'sec-cs-shop');
+  const year = shop?.spans.find((s) => s.detailIds?.includes('dt-cs-year'));
+  expect(year && shop?.text.slice(year.start, year.end)).toBe('sometime in the 1950s');
+});
+
+test('a second conversation becomes a second section, and spans come in both forms', () => {
+  const t3 = page('t3');
+  expect(t3.sections.map((s) => s.heading)).toEqual(['The shop on the corner', 'The sign']);
+  const spans = t3.compositions.flatMap((c) => c.spans);
+  expect(spans.some((s) => s.detailIds === undefined)).toBe(true);
+  expect(spans.some((s) => s.detailIds !== undefined)).toBe(true);
+});

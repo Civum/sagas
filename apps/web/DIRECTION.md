@@ -6,7 +6,7 @@ what is still open. The open parts are meant to be worked out with you, at
 specification meetings, as the first steps land.
 
 Decided means you can build on it. Open means nobody has an answer yet, and a
-proposal from you is useful input, not a mistake.
+proposal from you is useful input even when it turns out to be wrong.
 
 ---
 
@@ -17,8 +17,8 @@ The page a person reads about a place. It is the centre of this layer.
 ### What is decided
 
 - **Each site has a page.** Everything people have said about a place is
-  reachable from its page. The page is one way into the graph, not the only
-  one.
+  reachable from its page. The page is one way into the graph. There are
+  others.
 - **Claims are ordered by weight.** The intelligence layer gives each claim a
   weight. Among claims that compete, the highest-weight one renders as the main
   reading, and the others stay visible beside it. The weight itself is never
@@ -28,33 +28,35 @@ The page a person reads about a place. It is the centre of this layer.
 - **Disagreement sits on a detail.** When somebody disputes the year in a claim,
   the year shows two readings and the rest of the claim reads normally.
 - **A thin page is not a broken one.** One contributor and nothing corroborated
-  is the normal state of a new place, and it has to read as early, not as
-  failing.
+  is the normal state of a new place, and it has to read as early. It must never read
+  as failing.
 - **Every claim can be traced** to the person who made it and the records it
   rests on.
 
 ### First steps
 
-These are backlog items C1 to C4. Render one conversation, then disputes on a
-detail, then where each claim comes from, then translations. After that the
-page is a list of conversations, one after another, and that is enough to start.
+These are backlog items C1 to C4. Render one source record and the claims read
+from it, then disputes on a detail, then where each claim comes from, then
+translations. The sections in contract 2.1.0 then arrange these into a page.
 
 ### What is open
 
 - **How a page is divided up.** A busy place might have dozens of claims. A
-  reader needs them grouped into something like sections. One starting point is
-  that each conversation, meaning a source record and the claims made from it,
-  becomes a section. Whether that holds up once a site has twenty conversations
-  is not known. Working out which claims belong together is a graph question
+  reader needs them grouped into something like sections. Contract 2.1.0
+  gives each site sections, with invented ones in the fixtures for now. Whether
+  a section should follow one source record and its claims, or group by theme
+  across records, is not known. Working out which claims belong together is a graph question
   for the intelligence layer. How a grouping is laid out on a page is yours.
   `docs/DESIGN-QUESTIONS.md`, "What groups claims together at a site?", has the
   rest.
-- **Whether "conversation" is a named object in the shared contract.** For now
-  it is an idea your read model can shape however a page needs.
+- **Whether "conversation" is a named object in the shared contract.** It has
+  been argued against and may be dropped. Do not build on it. Group claims by
+  source record.
 - **How the claim graph becomes prose.** Claims extend and dispute each other,
-  so they form a tree. Whether the page reads as a tree, a thread, or as
-  continuous prose with the tree reachable behind it is a design question for
-  this layer.
+  so they form a tree. Since contract 2.1.0, each section has a passage with
+  phrases that lead back to the claims behind them. How a passage is written
+  belongs to the intelligence layer. How a reader moves between the passage and
+  the tree behind it is a design question for this layer.
 - **What "sometime in the fifties, probably" looks like on the page.** See the
   design question with that title.
 
@@ -69,10 +71,10 @@ something is pointed at where they could add it.
 
 - **Scoring decides what gets suggested, and is never shown.** The intelligence
   layer works out what a person should be pointed at. The interface shows the
-  suggestion, not the reason as a number.
+  suggestion. The reason behind it is never shown as a number.
 - **Passover is how a reader leaves a light signal.** `sounds_right`,
   `dont_know` and `dont_care` on a claim. None of them is a vote. They change
-  how far a claim travels, not whether it is true.
+  how far a claim travels. They say nothing about whether it is true.
 - **There is no downvote.** Disagreeing means writing a dispute, with reasoning.
   That is deliberate.
 - **Silence is not doubt.** A claim nobody has responded to has not reached
@@ -123,8 +125,8 @@ single claim, so somebody can cite one claim rather than a whole page.
 
 ### What is open
 
-- **Whether "relied on by 12 claims" is shown to readers.** It is a count, not a
-  judgment, but it could still read like a rating. Bring a view on this.
+- **Whether "relied on by 12 claims" is shown to readers.** It is a count rather
+  than a judgment, but it could still read like a rating. Bring a view on this.
 - **How a citation is formatted** for somebody citing a claim in their own
   writing.
 - **Rating records.** Whether readers need any sense of how well a record holds

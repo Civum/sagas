@@ -45,12 +45,12 @@ YourOrg/sagas  ──PR──▶  Civum/sagas  ──Sunday──▶  TheirOrg/s
 
 Four things follow from that.
 
-**A change another layer needs is a pull request, not a message.** If the
+**A change another layer needs is a pull request.** If the
 content layer works out that dialect has to be captured at contribution time,
 telling the experience team at a check-in does not change their code. The
 contract change does.
 
-**It takes weeks, not days.** Open a pull request, we review it, it lands on a
+**It takes weeks.** Open a pull request, we review it, it lands on a
 Sunday, and the other teams pull it when they decide to at a check-in. Two to
 three weeks from idea to it being in somebody else's build is normal, and it is
 the cost of nobody's work moving under them mid-sprint. If you know in week four that you will need something in week nine,
@@ -173,7 +173,7 @@ git log --oneline HEAD..upstream/main    # what we have that you don't
 
 ## Pulling upstream forward
 
-**Do this deliberately, at a check-in, not on a Monday morning reflex.** Pulling
+**Do this deliberately, at a check-in.** Pulling
 every week undoes the point of being pinned, and skipping a version is fine.
 
 When you have decided to:

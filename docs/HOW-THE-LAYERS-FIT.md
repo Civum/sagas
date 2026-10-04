@@ -51,7 +51,7 @@ Mr. Ferris."
 
 That is a **claim**. The photograph is its **source record**, and together they
 start a **conversation** about that photograph. (Conversation is a working
-idea, not yet an object in the contract.) The claim is made of
+idea that may be dropped. The source record is what groups these claims.) The claim is made of
 **details**:
 
 | Detail | Kind | Value |
@@ -106,8 +106,8 @@ The **experience layer** renders the buttons. The **intelligence layer** decides
 
 Several people read the conversation. Two leave `sounds_right` on the original
 claim. One leaves `dont_know`. These are **passovers**. They create no edge, and
-they are not votes. They change how far the claim travels, not whether it is
-true.
+they are not votes. They change how far the claim travels. They say nothing about
+whether it is true.
 
 Event: `passover_recorded`.
 
@@ -119,7 +119,8 @@ The intelligence layer's main focus is claims. From the graph it can see:
 
 - The date detail has two readings, one with an evidence record behind it.
 - The owner detail has an extension from a different contributor.
-- The two `sounds_right` passovers are agreement, not independent evidence.
+- The two `sounds_right` passovers are agreement. Agreement is never
+  independent evidence.
 - The photograph is the source record of the conversation, so both claims in it
   rely on it. The audio clip is evidence for one claim. A record's only score is
   its citation count, how many claims rely on it.
@@ -142,6 +143,12 @@ claim about it, and, at the words "around 1950", both readings of the date side
 by side, each with its reasoning and who gave it. There is no winner and no
 count. Mr. Ferris links to the relative's audio clip. Every claim leads back to
 its author and its records.
+
+The page is divided into sections. Each section has a heading and a passage
+built from its claims, and selecting a phrase in the passage opens the claims
+behind it. How headings and passages are produced is still open, and the
+sections in the fixtures are invented. `apps/web/PAGE-MODEL.md` walks through
+them.
 
 The suggestion interface might also show this conversation to a reader who has
 contributed about the same neighbourhood before, because the year is still in

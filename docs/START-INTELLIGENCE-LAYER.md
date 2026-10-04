@@ -70,7 +70,7 @@ docker ps      # must print a table, not an error
 
 **Two things that cost an hour if you skip them.** Node has to actually be 22.10
 or later, and an older one fails in ways that never mention Node. And Docker has
-to be running, not just installed. `docker ps` printing a table is the test.
+to be running. Installing it is not enough. `docker ps` printing a table is the test.
 
 **On Windows**, work inside WSL2 rather than PowerShell, with the repository in
 the Linux filesystem. Crossing the boundary is slow and causes line ending
@@ -78,9 +78,9 @@ problems that look like real bugs.
 
 ## Getting the code, before anyone clicks Fork
 
-**One fork for the whole team, not one each.**
+**One fork for the whole team.**
 
-1. **Create a GitHub organisation for the team**, not a personal account. If the
+1. **Create a GitHub organisation for the team** to hold the fork. If the
    repository lives in one person's GitHub account and that person drops the
    class, the team loses everything, and your instructor needs access for grading.
 2. **One person forks `Civum/sagas` into it, once.**
@@ -210,6 +210,13 @@ Postgres. Spatial indexing lives here too.
 **November onward, propagation.** How weight actually moves through the graph,
 and whichever of the open questions you decide to take on.
 
+Contract 2.1.0 adds sections to a site's page, and producing them is also your
+work, after the scoring design. A section has a heading and a passage, with
+phrases that lead back to the claims behind them. Which claims belong together, what a heading says and how a
+passage is written are yours to work out. The fixtures carry invented sections
+for the corner shop in the meantime, and the open parts are in
+`docs/DESIGN-QUESTIONS.md` under "What groups claims together at a site?".
+
 Scoring is the bounded half of your layer. The other half is routing: working
 out which claim to put in front of which person, and why. That is spring work.
 This project does not have an answer for it, and it will need signals the
@@ -233,8 +240,10 @@ of two parts. As a *source record* it is where a conversation starts, and every
 claim in that conversation has it as `claim.sourceRecordId`. As an *evidence
 record* it is attached to a claim to back it up, through
 `claim.evidenceRecordIds`, which is optional. The same record can do both in
-different conversations. Whether "conversation" becomes a named object in the
-contract is open, and your diagram is a good place to propose one.
+different conversations. Whether "conversation" becomes a named object is
+now in doubt. The argument against it is that the source record already groups
+the claims read from it. It is not decided, so build on the source record and
+bring anything that argues either way.
 
 **Whether a record carries a score.** Decided: a record's score is a citation
 count, how many claims lean on it. It is kept separate from claim weight, because
@@ -242,7 +251,7 @@ if a record's score fed back into the claims that cite it, the loop would reward
 itself. You do not rank records beyond that.
 
 **Independence**, which is the one I would most like the diagram to have an
-opinion about. Corroboration counts independent records, not people. The
+opinion about. Corroboration counts independent records. It never counts people. The
 contract has a stand-in, `independentRecordCount`: the number of distinct records other contributors have
 brought to back a claim. Agreement never counts.
 
@@ -324,7 +333,7 @@ institution. What it gets instead are facts about what was contributed, such as
 how many independent records back a claim. The rest of the system knows who is
 speaking. The scorer does not, so it cannot use that as a credential.
 
-Weight comes from what somebody has done, not from who they are. That is
+Weight comes from what somebody has done. Who they are plays no part. That is
 enforced by the missing field rather than by a test.
 
 An affirmation is what a reader clicks to agree with a claim. It is currently

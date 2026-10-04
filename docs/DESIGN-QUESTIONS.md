@@ -52,7 +52,7 @@ you're learning the model.
 
 **The problem:** nothing stops you passing a claim id where a contributor id
 belongs. TypeScript will let it through and you'll find out at runtime, or
-worse, not at all.
+worse, never.
 
 **Why this is hard:** branded types fix it (`type ClaimId = string & { __brand:
 'ClaimId' }`) at the cost of needing a cast every time you construct one from a
@@ -215,7 +215,7 @@ is. If an existing vocabulary fits, use it rather than inventing one.
 date, the invented flag, and `verification`, which is `guest` or `verified`.
 This semester every profile is a guest id kept in browser storage.
 
-**The problem:** a guest id is a way in, not an end state. Somebody starts
+**The problem:** a guest id is only a way in. Somebody starts
 contributing without signing up and verifies later. `verification` names the
 difference, but nothing can connect a guest profile to a verified one when
 verification arrives. On the day verified profiles exist, every contribution
@@ -224,7 +224,8 @@ made as a guest this year is orphaned unless it can be connected.
 **The part that is built:** `verification` lets a scorer treat a distinct
 verified person differently from an unrecoverable one, which is not reputation. It is the
 same kind of signal as counting corroboration by independent record. It asks
-whether this is one person once, not whether the person is any good.
+whether this is one person once. Whether the person is any good is a separate
+question.
 
 **The expensive part:** linking. If guest G and
 verified V turn out to be the same person, and V once brought a record to back
@@ -255,7 +256,7 @@ A resolution, on this reading, is not a new kind of thing. It is a claim
 attached by an extension edge that names what it settles, which is the same
 node-and-edge shape everything else has.
 
-**What a system can do here is propose, not decide.** Disputes already target
+**A system can propose here. It cannot decide.** Disputes already target
 specific details, so the set of open conflicts at a node is computable without
 reading anything. Showing somebody "these two readings disagree on the date and
 on the owner, do you want to write something that covers both" is the same
@@ -353,7 +354,7 @@ I don't have an answer. It's the most likely thing to matter in practice.
 
 ## How to tell silence from doubt
 
-A claim nobody has engaged with tells you about attention, not truth.
+A claim nobody has engaged with tells you about attention. It tells you nothing about truth.
 
 This matters here because the records most likely to sit untouched are probably
 the ones not in English, from rural places and small communities, and from
@@ -451,8 +452,10 @@ who owned it in 1912. Nothing in the model separates them, and a reader arriving
 at a busy site gets one long undifferentiated list.
 
 One option is to make the conversation a named object, so claims live inside
-conversations and the grouping is a stored thing with an author. Whether that
-happens is open. The shape
+conversations and the grouping is a stored thing with an author. That option has
+been argued against and may be dropped: the source record already groups the
+claims read from it, so a conversation would be a middle layer doing the same
+job. It is not decided. Until it is, group claims by source record. The shape
 would go from a site holding claims directly to a site holding conversations,
 each of which holds claims. A site could then carry several unrelated
 conversations without them interfering, and a claim that wandered off topic
@@ -475,6 +478,23 @@ be grouped.
 Working out which claims belong together is a graph question and belongs to the
 intelligence layer. How a grouping is laid out on a page belongs to the
 experience layer.
+
+Since contract 2.1.0 the page has a shape to build against while this stays
+open. A `section` has a heading. A `composition` is the section's passage: its
+text, plus spans, which are stretches of the text that lead back to the claims
+behind them. The fixtures carry invented ones. Three parts of that are still
+open:
+
+- **Where a heading comes from.** The sponsor's expectation is that it is
+  derived rather than written by a contributor, and that it holds steady as
+  claims arrive. What it is derived from, and what it attaches to while the
+  contract has no conversation object, are open.
+- **How finely a passage points into the claims.** A span always names the
+  claims behind it, and can also name the details it is about (`detailIds`,
+  optional). Whether a span should always reach a detail, never, or only
+  sometimes is open, so some fixture spans carry `detailIds` and some do not.
+- **How a passage is written,** and how it stays readable as claims arrive. The
+  fixture passages show what a page can expect to receive.
 
 ## Should a contributor see why their claim ranks where it does?
 
@@ -529,8 +549,8 @@ overcome the damping. A weak signal backed by enough independent records still
 ends up strong.
 
 In this idea, a period ends when activity on a topic rises, holds, and falls
-away. Engagement says when a period closed, not what is good inside one, and the
-damping would apply to everything in a period equally.
+away. Engagement says when a period closed. It says nothing about what is good
+inside one, and the damping would apply to everything in a period equally.
 
 Check this before anything else: the model records one date where this needs
 three: when the thing happened, when the person came to know it, and when they
@@ -576,13 +596,14 @@ moment it is filed and never gets resolved, and a task model that cannot express
 that will start asking interfaces to close disagreements. The shape of a dispute
 is also changing (see "A dispute should be a claim" in `CLOSED-QUESTIONS.md`).
 
-This is logged as a direction, not a decision, and it is not for this semester.
+This is logged as a direction rather than a decision, and it is not for this
+semester.
 
 ## What makes a place significant?
 
 Some places matter more than others, and the archive should be able to say so
 without anyone declaring it. One idea: a place referenced often in claims about
-*other* places has earned significance from how the community talks, not from
+*other* places has earned significance from how the community talks rather than from
 anyone's opinion.
 
 Any count like that has to follow this project's rule, which is that
@@ -610,7 +631,7 @@ is probably no. Being the person a story is about makes you one source among
 many, sometimes a badly placed one. Families can be unreliable about their own.
 
 A living claimant probably does not want more weight. She wants something taken down, softened, or corrected,
-and an identity claim is how that pressure arrives. That is the same problem as
+and she would use an identity claim to ask for it. That is the same problem as
 "Can someone take their record back?", reached from another direction.
 
 Treating "I am Maria" as a claim is a neat answer, because it corroborates and
@@ -618,6 +639,43 @@ disputes like any other claim and needs no new machinery. The consequence is
 bad, because the people who can confirm it are her own family, who may all be
 repeating one telling. Identity is the case where the independence rule is least
 able to help and the case where being wrong costs the most.
+
+## What happens when one detail turns out to be two people?
+
+Somebody claims that a well-known man's son was a singer and died young, the
+same way his father did. A reply disputes the death: the son died in a car
+accident at nineteen. Then the first person explains that there were two sons.
+The oldest died in the accident and the second was the singer. Nobody was wrong.
+"His son" pointed at two people, and the disagreement was about who was meant.
+
+The model has no way to say this. A dispute targets a detail and offers another
+reading of it, which treats the two claims as competing values for one thing.
+Here the right outcome is to split the detail into two people, each with their
+own claims, both standing. A passage written from these claims would need to
+change from "his son" to "his oldest son" and "his second son".
+
+Open:
+
+- Can a detail be split, and who can split it?
+- Is a split a new kind of claim, or something the intelligence layer works out?
+- What happens to support already given to the detail before the split?
+
+## Can a claim be edited?
+
+A correction can arrive two ways. Somebody can change their own claim, or they
+can add a new claim that corrects it. The model does not say which is allowed.
+
+Editing in place keeps the page tidy, but it changes what other people already
+responded to. A dispute aimed at the old wording would then point at words
+that no longer exist. A new claim keeps the history and costs a little
+clutter. Either way, a correction from the same person is not independent
+support for anything, because it comes from one telling.
+
+Open:
+
+- Can a claim's text change after it is submitted?
+- If it can, what happens to the disputes, extensions and passovers aimed at
+  the old version?
 
 ---
 
