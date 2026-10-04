@@ -52,6 +52,10 @@ back, and the team carries on without waiting for an answer.
 urgent goes by email, through the product owner, with a reply within a working
 day.
 
+**Before a specification meeting,** post questions and agenda items in the same
+issue by 4pm the day before. That gives the sponsor time to prepare. Anything
+raised later gets a written answer in the issue that week.
+
 ## The limits
 
 1. **The model's rules.** No score or ranking is shown to anyone, and no count
