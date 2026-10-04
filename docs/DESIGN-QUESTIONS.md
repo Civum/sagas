@@ -631,7 +631,7 @@ is probably no. Being the person a story is about makes you one source among
 many, sometimes a badly placed one. Families can be unreliable about their own.
 
 A living claimant probably does not want more weight. She wants something taken down, softened, or corrected,
-and an identity claim is how that pressure arrives. That is the same problem as
+and she would use an identity claim to ask for it. That is the same problem as
 "Can someone take their record back?", reached from another direction.
 
 Treating "I am Maria" as a claim is a neat answer, because it corroborates and

@@ -210,13 +210,12 @@ Postgres. Spatial indexing lives here too.
 **November onward, propagation.** How weight actually moves through the graph,
 and whichever of the open questions you decide to take on.
 
-A third piece arrives with contract 2.1.0: the sections of a site's page. A
-section has a heading and a passage, with phrases that lead back to the claims
-behind them. Which claims belong together, what a heading says and how a
+Contract 2.1.0 adds sections to a site's page, and producing them is also your
+work, after the scoring design. A section has a heading and a passage, with
+phrases that lead back to the claims behind them. Which claims belong together, what a heading says and how a
 passage is written are yours to work out. The fixtures carry invented sections
 for the corner shop in the meantime, and the open parts are in
-`docs/DESIGN-QUESTIONS.md` under "What groups claims together at a site?". This
-is not part of the scoring design.
+`docs/DESIGN-QUESTIONS.md` under "What groups claims together at a site?".
 
 Scoring is the bounded half of your layer. The other half is routing: working
 out which claim to put in front of which person, and why. That is spring work.
