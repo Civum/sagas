@@ -144,6 +144,12 @@ by side, each with its reasoning and who gave it. There is no winner and no
 count. Mr. Ferris links to the relative's audio clip. Every claim leads back to
 its author and its records.
 
+The page is divided into sections. Each section has a heading and a passage
+built from its claims, and selecting a phrase in the passage opens the claims
+behind it. How headings and passages are produced is still open, and the
+sections in the fixtures are invented. `apps/web/PAGE-MODEL.md` walks through
+them.
+
 The suggestion interface might also show this conversation to a reader who has
 contributed about the same neighbourhood before, because the year is still in
 dispute. Which signals drive suggestions is open.

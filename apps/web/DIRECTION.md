@@ -52,9 +52,10 @@ page is a list of conversations, one after another, and that is enough to start.
 - **Whether "conversation" is a named object in the shared contract.** For now
   it is an idea your read model can shape however a page needs.
 - **How the claim graph becomes prose.** Claims extend and dispute each other,
-  so they form a tree. Whether the page reads as a tree, a thread, or as
-  continuous prose with the tree reachable behind it is a design question for
-  this layer.
+  so they form a tree. Since contract 2.1.0, each section has a passage with
+  phrases that lead back to the claims behind them. How a passage is written
+  belongs to the intelligence layer. How a reader moves between the passage and
+  the tree behind it is a design question for this layer.
 - **What "sometime in the fifties, probably" looks like on the page.** See the
   design question with that title.
 

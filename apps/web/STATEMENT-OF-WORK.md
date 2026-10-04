@@ -169,7 +169,9 @@ Nobody has designed these. A proposal from the team is useful input.
 
 - **A view for researchers.** How historians and archivists would explore Sagas:
   search across sites, follow a claim to its records, cite or export.
-- **How a page is divided into sections**, and what a heading comes from.
+- **How sections are laid out on a page.** Which claims form a section, and
+  what its heading says, are the intelligence layer's work. The contract gives
+  this team the shape to build against.
 - **How a passage is shown and explored,** and how far the page can move from an
   encyclopedia entry. How a passage gets written is the intelligence layer's
   open work. The fixtures carry invented passages so the page can be built now.

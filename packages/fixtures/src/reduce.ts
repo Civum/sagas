@@ -15,6 +15,7 @@ import type {
   Transcript, Translation, TranslationDispute,
 } from '@sagas/contracts';
 import { classifyConfidence, computeWeight } from './weight';
+import type { SiteNarrative } from './narrative';
 
 interface Accumulator {
   site?: Site;
@@ -398,6 +399,8 @@ export function reduceToState(
     transcripts: acc.transcripts,
     flags: acc.flags,
     integrity: buildIntegrity(claimStates, acc),
+    sections: [],
+    compositions: [],
     eventIdsApplied: acc.applied,
     eventIdsSincePrevious: acc.applied.filter((id) => !prev.has(id)),
   };
@@ -406,11 +409,17 @@ export function reduceToState(
 export function reduceToStates(
   events: ContributionEvent[],
   cuts: { stateId: string; label: string; asOf: string }[],
+  narrative: SiteNarrative = {},
 ): GraphState[] {
   const states: GraphState[] = [];
   let previous: EventId[] = [];
   for (const cut of cuts) {
     const state = reduceToState(events, cut, previous);
+    // Sections are not derived from events. They stand in for output the
+    // intelligence layer will produce, so they are merged in after the fold.
+    const stand = narrative[cut.stateId];
+    state.sections = stand?.sections ?? [];
+    state.compositions = stand?.compositions ?? [];
     states.push(state);
     previous = state.eventIdsApplied;
   }

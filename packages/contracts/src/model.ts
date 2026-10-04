@@ -824,6 +824,62 @@ export const integrityScore = z.object({
 });
 export type IntegrityScore = z.infer<typeof integrityScore>;
 
+/**
+ * A section of a site's page: one heading, and the passage under it.
+ *
+ * The shape is decided and how a section is produced is not. Which claims
+ * belong together, and what the heading says, is the intelligence layer's work.
+ * Until that exists, the fixtures carry invented sections, the same way
+ * `weight.ts` stands in for scoring. A section does not list records or claims:
+ * what it covers follows from its composition.
+ *
+ * See `docs/DESIGN-QUESTIONS.md` for what is open about headings.
+ */
+export const section = z.object({
+  id: z.string(),
+  siteId: z.string(),
+  heading: z.string(),
+});
+export type Section = z.infer<typeof section>;
+
+/**
+ * A stretch of a composition's text, and the claims behind it.
+ *
+ * `start` and `end` are character offsets into `composition.text`, end
+ * exclusive. Selecting a span opens the claims it points at.
+ */
+export const compositionSpan = z.object({
+  start: z.number().int().min(0),
+  end: z.number().int().min(1),
+  claimIds: z.array(z.string()).min(1),
+  /**
+   * The details the span is about, when it is narrower than a whole claim.
+   * Optional on purpose: how finely a composition points into the claims is an
+   * open question, so both forms appear in the fixtures.
+   */
+  detailIds: z.array(z.string()).optional(),
+});
+export type CompositionSpan = z.infer<typeof compositionSpan>;
+
+/**
+ * The readable passage for one section, built from the claims beneath it.
+ *
+ * How the passage is written, and how it stays coherent as claims arrive, is
+ * not decided. The fixtures carry invented passages that show the shape a page
+ * can expect: text, plus spans that lead from a phrase back to its claims.
+ */
+export const composition = z
+  .object({
+    id: z.string(),
+    sectionId: z.string(),
+    text: z.string(),
+    spans: z.array(compositionSpan),
+  })
+  .refine((c) => c.spans.every((s) => s.start < s.end && s.end <= c.text.length), {
+    message: 'Every span has to sit inside the text, with start before end.',
+  });
+export type Composition = z.infer<typeof composition>;
+
 /** Everything known about one place, as of one moment. */
 export const graphState = z.object({
   stateId: z.string(),
@@ -847,6 +903,14 @@ export const graphState = z.object({
   /** Open and resolved reports, kept together. A resolved flag is still evidence. */
   flags: z.array(flag),
   integrity: integrityScore,
+  /**
+   * The page's sections and the passage under each. Invented stand-ins in the
+   * fixtures; see `section`. Empty when nothing has been claimed yet, and for
+   * every fixture site except the corner shop, which is the only one with
+   * invented sections so far.
+   */
+  sections: z.array(section),
+  compositions: z.array(composition),
   /** Which contributions produced this. The version history is built from these. */
   eventIdsApplied: z.array(z.string()),
   /** What arrived since the previous snapshot, so an interface can say what changed. */
@@ -862,6 +926,9 @@ export const schemas = {
   claimDetail,
   claimState,
   graphState,
+  section,
+  compositionSpan,
+  composition,
   integrityScore,
   disputeEdge,
   extensionEdge,

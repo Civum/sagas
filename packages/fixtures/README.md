@@ -291,6 +291,14 @@ up and a dispute pushes it down. Passovers, agreement included, are soft signals
 that matter most for what gets suggested. And agreement never counts as an
 independent record.
 
+**The sections and passages are invented by hand.**
+`fixtures/corner-shop/narrative.ts` holds sections and passages (`compositions`)
+written for the fixture, with helpers in `src/narrative.ts`, so the page can be
+built before anything produces real ones. They are merged into each state's
+`sections` and `compositions` after the event log is folded.
+`test/narrative.test.ts` checks that every span points at claims and details
+that exist in that state. Only the corner shop has them so far.
+
 **Emphasis is by weight ordering.** The highest-weight claim at a node is the
 primary reading; competing claims stay visible inline. There is no "community
 accepted" status and no endorsement threshold. Dissent is preserved, not

@@ -272,6 +272,52 @@
     "awaitingTranslation": 0,
     "overall": 13
   },
+  "sections": [
+    {
+      "id": "sec-cs-shop",
+      "siteId": "site-corner-shop",
+      "heading": "The shop on the corner"
+    }
+  ],
+  "compositions": [
+    {
+      "id": "cmp-cs-shop",
+      "sectionId": "sec-cs-shop",
+      "text": "The shop stood on the corner of Fourth and Main, and its owner was Mr. Ferris. A photograph shows it around 1950.",
+      "spans": [
+        {
+          "start": 18,
+          "end": 47,
+          "claimIds": [
+            "cl-cs-shop"
+          ],
+          "detailIds": [
+            "dt-cs-place"
+          ]
+        },
+        {
+          "start": 67,
+          "end": 77,
+          "claimIds": [
+            "cl-cs-shop"
+          ],
+          "detailIds": [
+            "dt-cs-owner"
+          ]
+        },
+        {
+          "start": 101,
+          "end": 112,
+          "claimIds": [
+            "cl-cs-shop"
+          ],
+          "detailIds": [
+            "dt-cs-year"
+          ]
+        }
+      ]
+    }
+  ],
   "eventIdsApplied": [
     "cs-001",
     "cs-002",
