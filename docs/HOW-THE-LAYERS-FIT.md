@@ -106,8 +106,8 @@ The **experience layer** renders the buttons. The **intelligence layer** decides
 
 Several people read the conversation. Two leave `sounds_right` on the original
 claim. One leaves `dont_know`. These are **passovers**. They create no edge, and
-they are not votes. They change how far the claim travels, not whether it is
-true.
+they are not votes. They change how far the claim travels. They say nothing about
+whether it is true.
 
 Event: `passover_recorded`.
 
@@ -119,7 +119,8 @@ The intelligence layer's main focus is claims. From the graph it can see:
 
 - The date detail has two readings, one with an evidence record behind it.
 - The owner detail has an extension from a different contributor.
-- The two `sounds_right` passovers are agreement, not independent evidence.
+- The two `sounds_right` passovers are agreement. Agreement is never
+  independent evidence.
 - The photograph is the source record of the conversation, so both claims in it
   rely on it. The audio clip is evidence for one claim. A record's only score is
   its citation count, how many claims rely on it.

@@ -87,7 +87,7 @@ git --version
 Node fails in ways that never mention Node. If `node -v` prints 18 or 20, fix that
 first. The repo has a `.nvmrc`, so `nvm use` picks the right one for you.
 
-**Docker has to be running, not just installed.** Open the Docker Desktop app
+**Docker has to be running. Installing it is not enough.** Open the Docker Desktop app
 and wait for the whale icon in your menu bar or system tray to stop animating.
 `docker ps` printing a table is the test. If it says it can't connect to the
 daemon, Docker is not running.
@@ -101,7 +101,7 @@ is unclear.
 
 ## Getting the code, before anyone clicks Fork
 
-**One fork for the whole team, not one each.** Three personal forks means three
+**One fork for the whole team.** Three personal forks means three
 diverging copies and no single place your work lives.
 
 1. **Create a free GitHub organisation for the team, rather than using a personal account.**
@@ -128,8 +128,8 @@ Civum/sagas              ours
 ```
 
 Work on branches, open pull requests into your fork's main, review each other.
-Pull requests to upstream are for contributing something back, not for daily
-work. `docs/GIT.md` has the rest, including what to do when a merge goes wrong.
+Pull requests to upstream are for contributing something back. Daily work stays
+in your fork. `docs/GIT.md` has the rest, including what to do when a merge goes wrong.
 
 ## Turn on the upstream watch
 
@@ -290,7 +290,7 @@ contributors at once. A normal window is one person, a private window is
 another, and a second browser is a third. You can also open developer tools and
 set the id by hand to become any contributor in the fixture data, which is the
 fastest way to reproduce a bug somebody else hit. Logins would make this
-harder, not easier, since you would have to register and sign in twice to do the
+harder, since you would have to register and sign in twice to do the
 same thing.
 
 The project is trying to work out whether a record can be trusted from what it
@@ -346,7 +346,7 @@ happen.
 that matter here are that it handles many writers at once, has a real type
 system, and has a geographic extension called **PostGIS** for questions like
 "what records are within two kilometres of this building". You'll meet PostGIS
-later, not in September.
+later in the semester.
 
 **MinIO** is file storage that speaks the same API as Amazon S3. Photographs and
 recordings don't belong in a database, so they go here instead, and the database
@@ -355,7 +355,7 @@ against the same interface a real deployment would use, without an AWS account
 or a bill.
 
 **ffmpeg and ffprobe** are command line programs for audio and video. They are
-programs, not libraries, which is why they're an install step. `ffprobe` reads a
+standalone programs, which is why they're an install step. `ffprobe` reads a
 file and tells you about it without changing it: how long a recording is, what
 format it really is, what its bitrate is. `ffmpeg` converts things. You'll use
 `ffprobe` to find out that an upload is fourteen minutes long and is actually a

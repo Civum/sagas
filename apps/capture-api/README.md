@@ -21,8 +21,8 @@ more interesting.
 **You own your database.** Records, media, transcripts, translations,
 flags. The schema and the migrations are yours, they live in this app, and no
 other team touches them. The other two layers run their own databases shaped for
-their own problems. What lines up between all three is the contract, not the
-tables, which is why nobody here waits on anybody.
+their own problems. The contract lines up between all three. The tables do not
+have to, which is why nobody here waits on anybody.
 
 **There is no authentication and you should not build any.** A contributor is a
 guest id generated in the browser and sent with the request. No login, no email,

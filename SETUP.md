@@ -167,7 +167,7 @@ It has the bucket layout and the upload flow, and it explains why this project u
 
 Working out how long a recording is, and making a smaller version people can
 actually play in a browser, is `ffmpeg` and `ffprobe`. They are ordinary command
-line programs, not libraries.
+line programs that you install on your machine.
 
 ```bash
 # macOS
@@ -248,7 +248,7 @@ Check these first:
 
 - **`pnpm install` fails.** Check that `node --version` is 22.10 or later.
 - **A workspace import doesn't resolve.** Run `pnpm install` again from the
-  repo root, not from inside a package.
+  repo root, where the workspace is defined.
 - **`db:verify` says the container isn't running.** From your app's directory,
   run `pnpm db:up`, wait,
   and try again.

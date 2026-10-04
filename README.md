@@ -68,8 +68,8 @@ People make **claims** about records: assertions that can be compared across sou
 change the shape of that graph:
 
 - **Dispute.** "I disagree with this specific detail, because." Disputes
-  target a *detail* of a claim (a date, a place, a person), not the whole
-  claim, so a record can say "three disputes target the date; the location is
+  target a *detail* of a claim (a date, a place, a person). The rest of the
+  claim stands, so a record can say "three disputes target the date; the location is
   undisputed." Disputes without reasoning are rejected.
 - **Extension.** "I have more context." A new claim that adds to another without contradicting it. If it brings a new record, that record is attached as evidence. Extensions are meant to target a detail the way disputes do, and that is decided but not built yet (see `docs/CLOSED-QUESTIONS.md`).
 
@@ -153,7 +153,7 @@ its own and they are meant to differ, so it lives in the app that queries it.
 No layer waits on another. All three build against the same fixture data, and
 that data is maintained by the sponsor. When work on one layer reveals that the
 model is wrong, the fixture changes. The other layer sees it as a versioned
-contract change, discussed at a check-in, not as a broken build.
+contract change, discussed at a check-in. It never arrives as a broken build.
 
 The file that matters most is `packages/fixtures/README.md`. It lists the situations the record can be in and what your code has to do about each one. They are
 deliberately awkward. A sparse site with three claims and no corroboration is

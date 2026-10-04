@@ -15,7 +15,7 @@ narrative page should look like right now.
 - Working out whether two claims in different languages are about the same
   thing
 
-## Start with the rules, not the code
+## Read the rules before the code
 
 There is a placeholder scorer in `packages/fixtures/src/weight.ts`. It is
 throwaway arithmetic that exists so claims have an order to render in. Do not

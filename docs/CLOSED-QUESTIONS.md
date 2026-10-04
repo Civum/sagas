@@ -93,7 +93,7 @@ same time. It is the same idea applied to a different target, and Part 1 of
 
 ## Extensions target a detail
 
-Decided on 27 September, not built. An extension points at a detail of the claim
+Decided on 27 September, and not built yet. An extension points at a detail of the claim
 it adds to, the same way a dispute does, with a fallback to the whole claim for
 an extension that is about all of it ("my family ran it until the war"). The new
 information an extension brings lives in its own record, which is attached as
@@ -119,9 +119,9 @@ Decided on 27 September and done in contract 2.0.0. `lineageId`,
 `independentLineageCount`, `lineageDiversity` and `claimsCorroboratedByOtherLines`
 are gone.
 
-The rule stays: corroboration counts independent records, not people. The idea that
+The rule stays: corroboration counts independent records. It never counts people. The idea that
 a family is the unit of independence is gone. The system records
-behaviour, not identity, so it has no way to know who anybody's family is.
+what people do rather than who they are, so it has no way to know who anybody's family is.
 Nothing could ever fill the field outside the fixture data, so the fallback was
 the only value it ever took. Family is also the wrong proxy. Two cousins
 who heard one telling are one source, and two siblings who both saw the fire are

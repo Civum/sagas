@@ -74,7 +74,7 @@ ourselves.
 
 ## Where to keep these
 
-In your fork, in a folder of your choosing. They are your record, not a
-deliverable to us, and nobody is grading the formatting.
+In your fork, in a folder of your choosing. They are your own record
+rather than a deliverable to us, and nobody is grading the formatting.
 
 Bring the link to the meeting.

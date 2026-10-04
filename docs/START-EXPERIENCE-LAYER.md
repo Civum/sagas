@@ -39,7 +39,7 @@ everything that changed:
 
 If something you built or planned depended on the old version, bring it to the
 next meeting. That was a reasonable thing to have done, and sorting it out is
-our job, not yours.
+our job.
 
 ## What you're building
 
@@ -69,7 +69,7 @@ Beyond the code, the pipeline, hosting and the landing page are yours too. See
 - **Claim.** Somebody's reading of a record. This is where disagreement lands.
   One record can produce several claims.
 - **Detail.** One piece of what a claim asserts, such as a year, a name or a
-  street. A dispute points at a detail, not at a whole claim. An extension is
+  street. A dispute points at a detail, and the rest of the claim stands. An extension is
   meant to point at a detail too, or at the whole claim when it is about all of
   it. That is decided and not yet in the contract.
 - **Rendering.** A transcript or a translation. One person's version of a record
@@ -123,7 +123,7 @@ docker ps      # must print a table, not an error
 ```
 
 Node has to actually be 22.10 or later, and an older one fails with errors that
-never mention Node. Docker has to be running, not just installed. `docker ps`
+never mention Node. Docker has to be running. Installing it is not enough. `docker ps`
 printing a table is the test.
 
 **On Windows**, work inside WSL2 rather than PowerShell, with the repository in
@@ -138,9 +138,9 @@ alongside the map either way (story M1).
 
 ## Getting the code
 
-**One fork for the whole team, not one each.**
+**One fork for the whole team.**
 
-1. **Create a GitHub organisation for the team**, not a personal account. If the
+1. **Create a GitHub organisation for the team** to hold the fork. If the
    repository lives in one person's GitHub account and that person drops the
    class, the team loses it, and your instructor needs access for grading.
 2. **One person forks `Civum/sagas` into it.** Once.
