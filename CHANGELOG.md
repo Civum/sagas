@@ -52,13 +52,14 @@ claims behind it, and optionally to the details) are new, and every
 invented ones for t1 to t3. Every other site has none yet.
 
 **Why:** The experience layer cannot build a readable page without knowing what
-a section and its passage look like, and how they are produced will not be
-worked out soon enough to wait for. So the shape goes into the contract now,
+a section and its passage look like. How they are produced is open design work
+that will take time, so the shape goes into the contract now,
 with invented values in the fixtures, the same way `weight.ts` stands in for
 scoring. What a heading is derived from, and how finely a passage points into
 the claims, are open: see "What groups claims together at a site?" in
-`docs/DESIGN-QUESTIONS.md`. The question for each team is what has to change to
-make this work, not whether it happens.
+`docs/DESIGN-QUESTIONS.md`. Producing sections and passages is the intelligence
+layer's work. Showing and exploring them is the experience layer's. The question
+for each team is what has to change to make this work.
 
 **You need to:**
 - *experience layer* — nothing breaks. Render `sections` and `compositions`
