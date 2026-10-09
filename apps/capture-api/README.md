@@ -177,8 +177,10 @@ pull request and a check-in rather than into your fork. See `docs/GIT.md`.
 
 You do not have to choose a framework or wire up configuration. Express is
 installed, `src/db.ts` holds a shared connection pool, and `scripts/migrate.ts`
-applies numbered SQL files from `migrations/`. `src/index.ts` is a placeholder
-with a comment describing the shape of the first endpoint.
+applies numbered SQL files from `migrations/`. `src/index.ts` holds one worked
+endpoint, `POST /records`, from request to stored row, with the commands to run
+it and a `curl` call to try it at the top of the file. Read it and run it, then
+write the read endpoint the same way.
 
 ```bash
 pnpm install

@@ -262,8 +262,11 @@ the database, the rest of the layer builds on that. Uploads come next.
 
 Express, a connection pool and a migration runner are already in
 `apps/capture-api`, so none of your first week goes on choosing a framework or
-wiring configuration. `src/index.ts` is a placeholder with a comment describing
-the shape. The endpoint is the part you write.
+wiring configuration. `src/index.ts` already holds one worked endpoint,
+`POST /records`, so you can see the whole path once: a request arrives, the
+contract checks it, a row is written, a response goes back. You don't need a
+front end to try it. The top of the file shows a `curl` call that sends a record
+straight to the API. Write the read endpoint the same way.
 
 **When the form needs something the endpoint does not give it,** put that in the
 check-in note. You own both sides, so building the form is how you find out
