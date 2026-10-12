@@ -41,6 +41,29 @@ it. This is the most useful field in the entry.
 
 ---
 
+## 2026-10-11 — how the experience layer works, and where it deploys
+
+**Affects:** experience layer · all layers (one line in the Git guide)
+
+**What:** `apps/web/STATEMENT-OF-WORK.md` gains the working rules under "How we
+work": teammate review on every pull request, squash for features and a merge
+commit for upstream syncs, what goes upstream, the team changelog, demos, a
+Thursday update, where to pick up work, and building against the contract when
+the docs disagree. `apps/web/CHANGELOG.md` is new and holds this layer's own
+changelog. The web README's deploy section records the approved landing page
+setup on Cloudflare Workers and the domain, and backlog story P2 is marked
+done. `docs/GIT.md` says to merge an upstream sync pull request with a merge
+commit.
+
+**Why:** These rules only existed in email until now.
+
+**You need to:**
+- *experience layer* — read "How we work" and start the changelog.
+- *content layer, intelligence layer* — if you sync from upstream through a pull
+  request on GitHub, merge it with a merge commit.
+
+---
+
 ## v2.1.0 — 2026-10-04
 
 **Affects:** experience layer · intelligence layer

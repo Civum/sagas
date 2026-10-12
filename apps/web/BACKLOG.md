@@ -54,7 +54,9 @@ which covers switching Actions on in a fork.
 
 ### P2 · Hosting and domain proposal
 
-**Workstream:** Platform. **Status:** Ready
+**Workstream:** Platform. **Status:** Done. The landing page runs on Cloudflare
+Workers, on the free plan, at `sagasproject.org`. See "Deploying it" in
+`README.md`.
 
 **Goal.** A recommendation, with costs, for where the landing page and later the
 full app run, and what the domain is.
@@ -72,7 +74,7 @@ proposal is approved.
 ### P3 · The landing page
 
 **Workstream:** Platform, with the copy from Design (De2). **Status:** Ready to
-build. Deploying needs P2 approved and the copy approved.
+build. P2 is approved. Deploying waits for the copy to be approved.
 
 **Goal.** A small public page for Sagas, deployed by the team's own pipeline.
 

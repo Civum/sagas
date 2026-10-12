@@ -151,16 +151,24 @@ Adding fixture coverage for a gap is a useful pull request.
 
 ## Deploying it
 
-This is yours to own, through a proposal. `STATEMENT-OF-WORK.md` has the
-details, and the short version is below.
+This is yours to own. The landing page's hosting is decided, and the full app's
+is a later proposal. `STATEMENT-OF-WORK.md` has the details, and the short
+version is below.
 
 - **Build on the checks that exist.** `.github/workflows/ci.yml` already runs
   typecheck, lint and tests on every pull request. Add a deploy on merge. The
   landing page is the first thing deployed, so the pipeline works before there
   is anything interesting to show.
-- **Where it runs is a recommendation, with costs.** The platform workstream
-  compares hosts with free tiers and brings a proposal. The sponsor signs up for
-  whatever is approved, so nobody on the team needs a payment method.
+- **The landing page runs on Cloudflare Workers, on the free plan,** as static
+  assets. The sponsor owns the Cloudflare account and is its only dashboard
+  user. GitHub Actions deploys with a token that can only edit Workers.
+  Cloudflare can also publish straight from a GitHub repository by itself. That
+  stays switched off, so only the pipeline decides what goes live. The sponsor connects `sagasproject.org` in the dashboard.
+- **Deploys stay switched off until the public copy is approved** by the
+  sponsor. Post the copy in the questions issue when it's ready.
+- **Where the full app runs is a later proposal, with costs.** The sponsor
+  signs up for whatever is approved, so nobody on the team needs a payment
+  method.
 - **A preview for each pull request comes later,** if a proposal makes the case
   for it.
 
