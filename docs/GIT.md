@@ -188,6 +188,13 @@ git merge upstream/main                # or the specific tag you agreed on
 Merge, do not rebase. Rebasing rewrites history that your teammates have already
 pulled, and on a shared `main` that is how a team loses an afternoon.
 
+If the sync goes through a pull request on GitHub, merge it with **Create a
+merge commit**. A squash copies upstream's changes into one new commit without
+recording that you merged upstream, so git keeps comparing against the old
+starting point. Each later sync then has more to reconcile, and lines that
+either side has edited since conflict. How you merge your own feature branches
+is your team's choice.
+
 Then, before you trust it:
 
 ```bash

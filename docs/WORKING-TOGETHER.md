@@ -61,7 +61,7 @@ change during the semester. A change here is how something one team finds, or so
 4. **Every change carries a version bump, a CHANGELOG entry, and its reason.**
    The reason matters more than the diff. For example, "dialect can't be recovered from text after the fact, so it has to be captured at contribution time" tells you something the diff never will.
 
-   There is **one** changelog for all three layers, and entries name layers rather than universities, so a change that starts on one layer is visible to the other two.
+   There is **one** changelog for all three layers, and entries name layers rather than universities, so a change that starts on one layer is visible to the other two. A team can keep a changelog of its own app inside that app's folder, as the experience layer does in `apps/web/CHANGELOG.md`.
 
 **Freeze windows.** The contract does not move after your team's design lock
 (around week three, when your team settles what it is building) except to fix something genuinely broken, and it does not
