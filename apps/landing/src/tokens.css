@@ -1,0 +1,23 @@
+/*
+ * TEMPORARY design tokens: neutral values so the shell renders.
+ *
+ * The Design workstream's tokens (story De1) replace these in P3-b. They should
+ * then live in one shared place that both apps/web and apps/landing import, so
+ * colours and spacing are defined once (statement of work, "Design direction").
+ *
+ * Values are HSL channels, matching the shared Tailwind preset. Every text and
+ * background pair here meets WCAG 2.1 AA contrast; src/tokens.test.ts checks it.
+ */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 19% 35%;
+  --accent: 48 96% 89%;
+  --accent-foreground: 26 83% 14%;
+  --border: 214 32% 91%;
+  --ring: 222 47% 11%;
+  --radius: 0.5rem;
+}

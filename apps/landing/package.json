@@ -1,0 +1,30 @@
+{
+  "name": "@sagas/landing",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsx scripts/build.ts",
+    "preview": "tsx scripts/preview.ts",
+    "copy-hash": "tsx scripts/copy-hash.ts",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@sagas/eslint-config": "workspace:*",
+    "@sagas/prettier-config": "workspace:*",
+    "@sagas/tailwind-config": "workspace:*",
+    "@sagas/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "postcss": "^8.5.1",
+    "prettier": "catalog:",
+    "tailwindcss": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "prettier": "@sagas/prettier-config"
+}
