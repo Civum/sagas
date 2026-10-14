@@ -363,10 +363,11 @@ a network hop and a new way to fail and gains nothing. Server components import
 
 ## Deploying it
 
-This is yours to own, through a proposal. `.github/workflows/ci.yml` already
-runs typecheck, lint and tests on every pull request. Build on it, and add a
-deploy on merge. Where it runs is the platform workstream's recommendation, with
-what it costs, and the sponsor signs up for whatever is approved. A preview for
+This is yours to own. `.github/workflows/ci.yml` already runs typecheck, lint
+and tests on every pull request. Build on it, and add a deploy on merge. The
+landing page runs on Cloudflare Workers, on the free plan. Where the full app
+runs is a later proposal from the platform workstream, with what it costs, and
+the sponsor signs up for whatever is approved. A preview for
 each pull request comes later, by proposal. See `apps/web/STATEMENT-OF-WORK.md`,
 and `apps/web/README.md` for more.
 
