@@ -14,4 +14,8 @@ conflict on a later pull.
 ## YYYY-MM-DD
 
 - What works now, in a sentence a visitor would understand. (#pull request number, who)
+
+## 2026-10-14
+
+- Draft landing-page copy and wireframe are ready for sponsor review. (Michael)
 ```
