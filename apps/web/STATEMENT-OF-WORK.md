@@ -56,6 +56,49 @@ day.
 issue by 4pm the day before. That gives the sponsor time to prepare. Anything
 raised later gets a written answer in the issue that week.
 
+**The sponsor doesn't watch the fork and gets no alerts from it.** Anything that
+needs him goes in the questions issue, mentioning him by his GitHub username so
+he gets a notification: a decision, an approval, or running out of work.
+Everything else he sees at the specification meeting.
+
+**Pull requests.** Every change goes through a pull request, and a teammate
+reviews it. Once a teammate has approved it and the checks pass, merge it
+without waiting for the sponsor. He looks at what lands and asks for a revert if
+something needs to come back out. For this team, that replaces the review before
+each check-in described in `docs/GIT.md` and `docs/WORKING-TOGETHER.md`. Squash feature pull requests. Merge a pull
+request that syncs from upstream with a merge commit (`docs/GIT.md` says why).
+
+**What goes upstream.** Feature code stays in the fork. Only changes to
+`packages/contracts`, `packages/fixtures` and corrections to the shared docs go
+upstream, as a pull request.
+
+**The changelog.** Keep this layer's changelog in `apps/web/CHANGELOG.md`. Add a
+line whenever something works that someone could see. Leave the `CHANGELOG.md`
+at the root of the repository alone. That one records the shared contract and
+the shared docs, and upstream changes it, so editing it means a conflict on a
+later pull.
+
+**Demos.** Anything in the changelog since the last specification meeting is
+what gets shown, running.
+
+**Updates.** The product owner sends the sponsor a short email every Thursday:
+what's done, what's next, and anything stuck. Informal is fine.
+
+**When you finish or get blocked,** take the next item in your workstream from
+"The backlog behind sprint one" below. Write the issue yourself with the
+template under "Template for a new story" in `BACKLOG.md`, and mention the sponsor in
+the questions issue so he can check it. If your workstream is empty, take
+something from another one or from "Anyone", and say so in the issue. Waiting
+quietly costs the team a week.
+
+**When the docs and the contract disagree,** build against the contract in
+`packages/contracts`. That's what exists today. Post the mismatch in the
+questions issue so the sponsor can fix whichever one is wrong.
+
+**Before anything real exists,** build and test in the local setup against the
+fixture data. The hosted database is for when a feature needs to save
+something.
+
 ## The limits
 
 1. **The model's rules.** No score or ranking is shown to anyone, and no count
@@ -101,7 +144,9 @@ design tokens, and it works on a phone.
 - The page model (`PAGE-MODEL.md`) and the definitions (`DEFINITIONS.md`).
 - A hosted database, set up in its own project, with access for the people who
   need it.
-- The domain, bought from the platform workstream's shortlist.
+- The domain, `sagasproject.org`, and its settings in Cloudflare.
+- The Cloudflare account the landing page deploys to, and a deploy token for
+  the pipeline.
 - Sign-ups for any hosting the sponsor approves.
 - Answers in the standing questions issue, at least weekly.
 - Real material when it exists, starting with public-record facts.
@@ -125,7 +170,8 @@ Two or three issues per workstream. They are written out in `BACKLOG.md`, under
 
 - **Platform.** The pipeline on GitHub Actions, building on the checks that
   already run in `.github/workflows/ci.yml`. A hosting and domain proposal, with
-  costs. The landing page, built and deployed.
+  costs (done: see "Deploying it" in `README.md`). The landing page, built and
+  deployed.
 - **Data.** The read model against local PostGIS, seeded from the corner shop. A
   seed script that loads the fixtures into any Postgres database. A written list
   of what the page needs from the data. The data model (earlier story A5) starts
