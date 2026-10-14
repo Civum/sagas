@@ -1,0 +1,70 @@
+# Deploys the landing page (apps/landing), but only after CI has passed on main.
+#
+# WHY IT WAITS FOR CI
+# ci.yml (upstream's file, left unedited so contract syncs never conflict)
+# typechecks, lints, runs the acceptance criteria and tests. This workflow
+# starts when that run finishes, and deploys only if it succeeded, so a commit
+# that fails CI is never published.
+#
+# SWITCHED OFF UNTIL P3
+# Nothing deploys until three things are true: P2's hosting proposal is
+# approved, the sponsor has approved the page copy (De2), and the repository
+# variable LANDING_DEPLOY_ENABLED is set to 'true'.
+# The host's token goes in as a secret. The sponsor creates the host account;
+# nobody on the team signs up for anything.
+#
+# NOTE: workflow_run only fires from the copy of this file on the default
+# branch, so it does nothing on a feature branch.
+#
+# P3 TODO: After selecting the host, assess deployment costs and limits.
+# workflow_run has no paths filter, so unrelated main changes also trigger it.
+# If filtering is needed, compare against the last successfully deployed
+# commit and include landing files, shared build dependencies, lockfiles,
+# and deployment configuration. Always allow the first deployment.
+# Disable any host-side automatic publishing that bypasses this switch.
+
+name: Deploy landing
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+# One deploy runs at a time; an active deploy is not cancelled.
+# By default, only one additional run can remain pending.
+concurrency:
+  group: deploy-landing
+  cancel-in-progress: false
+
+jobs:
+  # Publishes the landing page for the commit that just passed CI on main.
+  deploy:
+    if: >-
+      github.repository == 'byui-cse397/2026.3FallCSE397PCP_sagasCustomer' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository &&
+      github.event.workflow_run.conclusion == 'success' &&
+      vars.LANDING_DEPLOY_ENABLED == 'true'
+    # Conditions, in order: only in our fork; only for merges to main, never
+    # pull requests; only commits from this repository; only when CI passed;
+    # only once the team has switched it on.
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the commit that passed CI
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+
+      # Replace this step once P2 selects the host and P3 defines
+      # the landing build command and output directory.
+      # Add only the permissions/credentials the approved host needs.
+      - name: Deployment implementation pending
+        run: |
+          echo "::error::Implement the approved landing build and deployment before enabling."
+          exit 1
