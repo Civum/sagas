@@ -23,5 +23,30 @@ export function DetailDisputes({ claim }: { claim: ClaimState }) {
   const contested = claim.detailStatuses.filter((e) => e.disputes.length > 0);
   if (contested.length === 0) return null;
 
-  return <div>TODO: {contested.length} contested detail(s), readings with their support</div>;
+  return (
+    <aside className="space-y-3 rounded border border-amber-200 bg-amber-50/50 p-3" aria-label="Disputed details">
+      {contested.map(({ detail, disputes, competingValues }) => (
+        <section key={detail.id} className="space-y-2">
+          <h3 className="text-sm font-semibold">Different readings of {detail.kind}</h3>
+          <p className="text-sm">The claim says “{detail.excerpt}”. Other readings and reasons remain attached:</p>
+          <ul className="space-y-2 text-sm">
+            {competingValues.map((reading) => (
+              <li key={reading.value} className="border-l-2 border-amber-300 pl-3">
+                <p className="font-medium">{reading.value}</p>
+                <p className="text-neutral-600">Given by {reading.contributorIds.join(', ')}</p>
+              </li>
+            ))}
+          </ul>
+          <ul className="space-y-2 text-sm">
+            {disputes.map((dispute) => (
+              <li key={dispute.id} className="border-l-2 border-neutral-300 pl-3">
+                <p>{dispute.reasoning}</p>
+                {dispute.proposedValue && <p className="text-neutral-600">Proposed reading: {dispute.proposedValue}</p>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </aside>
+  );
 }
