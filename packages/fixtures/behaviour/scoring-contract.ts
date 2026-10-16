@@ -1,4 +1,9 @@
 /**
+ * Being retired. The rules the intelligence layer's scorer answers to are in
+ * `../scoring/rules.ts`, and they read the graph instead of a list of counts.
+ * This file stays only to check the placeholder in `src/weight.ts`, and several
+ * of its rules no longer match the model.
+ *
  * The rules any scoring implementation has to obey.
  *
  * `src/weight.ts` is a placeholder and it gets deleted. This file is what

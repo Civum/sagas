@@ -103,7 +103,7 @@ depends on it.
 
 - `apps/capture-api`, `apps/capture-web`, which is how contributions arrive
 - `apps/graph-api`, the scoring and claim graph work
-- `packages/fixtures/behaviour/`, scoring rules for a different layer
+- `packages/fixtures/behaviour/` and `packages/fixtures/scoring/`, scoring rules for a different layer
 - The object storage and ffmpeg sections of `SETUP.md`
 
 ## What to install first

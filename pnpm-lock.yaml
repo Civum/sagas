@@ -149,6 +149,12 @@ importers:
       '@sagas/fixtures':
         specifier: workspace:*
         version: link:../../packages/fixtures
+      express:
+        specifier: ^5.1.0
+        version: 5.2.1
+      zod:
+        specifier: 'catalog:'
+        version: 3.25.76
     devDependencies:
       '@sagas/eslint-config':
         specifier: workspace:*
@@ -159,6 +165,9 @@ importers:
       '@sagas/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
+      '@types/express':
+        specifier: ^5.0.0
+        version: 5.0.6
       '@types/node':
         specifier: 'catalog:'
         version: 22.20.1
@@ -168,6 +177,9 @@ importers:
       prettier:
         specifier: 'catalog:'
         version: 3.9.6
+      tsx:
+        specifier: 'catalog:'
+        version: 4.23.12
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -297,6 +309,9 @@ importers:
       '@sagas/contracts':
         specifier: workspace:*
         version: link:../contracts
+      zod:
+        specifier: 'catalog:'
+        version: 3.25.76
     devDependencies:
       '@sagas/eslint-config':
         specifier: workspace:*

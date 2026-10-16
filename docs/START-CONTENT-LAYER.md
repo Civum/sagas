@@ -45,7 +45,7 @@ These belong to other teams and nothing you build depends on them.
 
 - `apps/web`, `apps/ui-api`, `packages/read-model`, the reading experience
 - `apps/graph-api`, the scoring and claim-graph work
-- `packages/fixtures/behaviour/`, scoring rules for a different team
+- `packages/fixtures/behaviour/` and `packages/fixtures/scoring/`, scoring rules for a different team
 - Anything about corroboration, weights, or trust scores
 
 If a document starts talking about claim graphs, you're in the wrong section.

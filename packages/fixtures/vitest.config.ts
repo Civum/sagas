@@ -4,7 +4,8 @@ import { defineConfig } from 'vitest/config';
 //
 //   test/         invariants over the reducer and the derived states
 //   acceptance/   the fixture data really has the shapes it claims to
-//   behaviour/    the rules any scoring implementation has to obey
+//   behaviour/    the old count-based scoring rules, being replaced
+//   scoring/      the graph the scorer reads, and the builder for its cases
 //
 // A new folder of tests that nobody added here is a folder of tests that
 // silently never runs, and CI will still be green.
@@ -14,6 +15,7 @@ export default defineConfig({
       'test/**/*.test.ts',
       'acceptance/**/*.test.ts',
       'behaviour/**/*.test.ts',
+      'scoring/**/*.test.ts',
     ],
   },
 });
