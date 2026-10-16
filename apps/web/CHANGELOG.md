@@ -17,5 +17,6 @@ conflict on a later pull.
 
 ## 2026-10-14
 
-- Draft landing-page copy and wireframe are ready for sponsor review. (Michael)
+- Landing-page and map/discovery wireframes define the first reading-product screens, including the sparse-record state. (Michael)
+- Initial semantic color, spacing, radius, and focus tokens are available to web components. (Michael)
 ```

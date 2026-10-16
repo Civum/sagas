@@ -27,7 +27,7 @@ import type { Site } from '@sagas/contracts';
 export function MapUnavailable({ sites }: { sites: Site[] }) {
   if (sites.length === 0) {
     return (
-      <p className="text-sm text-neutral-600">
+      <p className="text-sm text-muted">
         No places in the archive yet.
       </p>
     );
@@ -35,7 +35,7 @@ export function MapUnavailable({ sites }: { sites: Site[] }) {
 
   return (
     <nav aria-label="Places in the archive">
-      <ul className="divide-y divide-neutral-200">
+      <ul className="divide-y divide-line">
         {sites.map((site) => (
           <li key={site.id} className="py-3">
             <Link
@@ -45,7 +45,7 @@ export function MapUnavailable({ sites }: { sites: Site[] }) {
               <span className="text-sm font-medium text-neutral-900 group-hover:underline">
                 {site.name}
               </span>
-              <span className="mt-0.5 block text-xs text-neutral-600">
+              <span className="mt-0.5 block text-xs text-muted">
                 {site.address}, {site.city}
               </span>
               {/*
@@ -54,7 +54,7 @@ export function MapUnavailable({ sites }: { sites: Site[] }) {
                 formal name.
               */}
               {site.aka.length > 0 && (
-                <span className="mt-0.5 block text-xs text-neutral-500">
+                  <span className="mt-0.5 block text-xs text-muted/80">
                   also called {site.aka.slice(0, 3).join(', ')}
                 </span>
               )}

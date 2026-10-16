@@ -91,13 +91,13 @@ export function IntegrityBadge({ integrity }: { integrity: IntegrityScore }) {
   return (
     <div className="max-w-sm">
       <div className="flex items-baseline justify-between gap-3">
-        <span className="text-sm font-medium text-neutral-800">{band.label}</span>
+        <span className="text-sm font-medium text-ink">{band.label}</span>
         {/*
           The number is secondary and deliberately quiet. A big score encourages
           people to treat it as a target, and it is a description of the record
           rather than a rating of anyone's contribution.
         */}
-        <span className="text-xs tabular-nums text-neutral-500">{integrity.overall}/100</span>
+        <span className="text-xs tabular-nums text-muted">{integrity.overall}/100</span>
       </div>
 
       {/*
@@ -109,38 +109,38 @@ export function IntegrityBadge({ integrity }: { integrity: IntegrityScore }) {
       <div
         role="img"
         aria-label={`${band.label}, ${integrity.overall} out of 100`}
-        className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-neutral-200"
+        className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-subtle"
       >
         <div
-          className="h-full rounded-full bg-neutral-500"
+          className="h-full rounded-full bg-accent"
           style={{ width: `${band.fill * 100}%` }}
         />
       </div>
 
-      <p className="mt-1.5 text-xs text-neutral-600">{band.invitation}</p>
+      <p className="mt-1.5 text-xs text-muted">{band.invitation}</p>
 
       {/*
         The counts behind the score. A single number gets argued about on its
         own terms, and the parts are what somebody can actually do something
         about, so both are shown.
       */}
-      <dl className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-neutral-500">
+      <dl className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
         <div className="flex gap-1">
           <dt>claims</dt>
-          <dd className="tabular-nums text-neutral-700">{integrity.totalClaims}</dd>
+          <dd className="tabular-nums text-ink">{integrity.totalClaims}</dd>
         </div>
         <div className="flex gap-1">
           <dt>contributors</dt>
-          <dd className="tabular-nums text-neutral-700">{integrity.independentContributors}</dd>
+          <dd className="tabular-nums text-ink">{integrity.independentContributors}</dd>
         </div>
         <div className="flex gap-1">
           <dt>dated</dt>
-          <dd className="tabular-nums text-neutral-700">{integrity.datedClaims}</dd>
+          <dd className="tabular-nums text-ink">{integrity.datedClaims}</dd>
         </div>
         {integrity.awaitingTranslation > 0 && (
           <div className="flex gap-1">
             <dt>awaiting translation</dt>
-            <dd className="tabular-nums text-neutral-700">{integrity.awaitingTranslation}</dd>
+            <dd className="tabular-nums text-ink">{integrity.awaitingTranslation}</dd>
           </div>
         )}
       </dl>

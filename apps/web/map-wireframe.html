@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sagas map and discovery wireframe</title>
+    <style>
+      :root { --bg:#eef0f2; --paper:#fff; --ink:#20242a; --muted:#606a75; --line:#b9c0c8; --box:#e1e5e9; --pin:#2f5fa8; --note:#fff8dc; --noteline:#d8c77a; --sans:Arial,Helvetica,sans-serif; --serif:Georgia,'Times New Roman',serif; }
+      * { box-sizing:border-box; }
+      body { margin:0; padding:24px 16px 48px; background:var(--bg); color:var(--ink); font:15px/1.55 var(--sans); }
+      .wrap { display:grid; gap:20px; max-width:1180px; margin:0 auto; }
+      h1,h2,h3,p { margin-top:0; }
+      h1 { margin-bottom:.35rem; font-size:1.5rem; line-height:1.2; }
+      .intro { max-width:76ch; margin-bottom:0; color:var(--muted); }
+      .cols { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(260px,.75fr); gap:20px; align-items:start; }
+      .page { display:grid; gap:0; min-width:0; overflow:hidden; border:1px solid var(--line); border-radius:8px; background:var(--paper); }
+      .region { position:relative; display:grid; gap:12px; padding:22px; border-bottom:1px dashed var(--line); }
+      .region:last-child { border-bottom:0; }
+      .pin-number { position:absolute; top:12px; left:12px; width:22px; height:22px; border-radius:50%; background:var(--ink); color:var(--paper); font-size:.75rem; line-height:22px; text-align:center; }
+      .label { color:var(--muted); font-size:.7rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+      .search { display:grid; gap:6px; }
+      .search-box { height:42px; padding:0 12px; border:1px solid var(--line); border-radius:6px; background:var(--paper); color:var(--muted); line-height:42px; }
+      .workspace { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(230px,.8fr); gap:14px; }
+      .map { position:relative; min-height:410px; overflow:hidden; border:1px solid var(--line); background:repeating-linear-gradient(35deg,var(--box),var(--box) 24px,var(--paper) 24px,var(--paper) 48px); }
+      .map::before,.map::after { position:absolute; content:''; background:var(--line); }
+      .map::before { top:45%; left:-5%; width:110%; height:1px; transform:rotate(-18deg); }
+      .map::after { top:-5%; left:48%; width:1px; height:110%; transform:rotate(22deg); }
+      .map-caption { position:absolute; right:12px; bottom:10px; color:var(--muted); font-size:.75rem; }
+      .marker { position:absolute; z-index:1; width:24px; height:24px; border:3px solid var(--paper); border-radius:50% 50% 50% 0; background:var(--pin); box-shadow:0 1px 3px #20242a55; transform:rotate(-45deg); }
+      .marker::after { position:absolute; top:6px; left:6px; width:6px; height:6px; border-radius:50%; background:var(--paper); content:''; }
+      .marker.one { top:24%; left:28%; } .marker.two { top:56%; left:62%; } .marker.three { top:70%; left:34%; }
+      .list { display:grid; align-content:start; border:1px solid var(--line); }
+      .list h3 { margin:0; padding:12px; border-bottom:1px solid var(--line); font:500 1.25rem var(--serif); }
+      .site { display:grid; gap:2px; padding:13px 12px; border-bottom:1px solid var(--line); }
+      .site:last-child { border-bottom:0; }
+      .site strong { font:500 1rem var(--serif); } .site span { color:var(--muted); font-size:.78rem; }
+      .thin { display:grid; gap:8px; padding:14px; background:var(--box); }
+      .thin strong { font:500 1.15rem var(--serif); }
+      aside { display:grid; gap:12px; min-width:0; }
+      .note { display:grid; gap:4px; padding:12px 14px; border:1px solid var(--noteline); border-radius:6px; background:var(--note); font-size:.9rem; }
+      .note h3 { display:flex; gap:8px; align-items:center; margin:0; font-size:.92rem; }
+      .note .pin-number { position:static; flex:0 0 auto; } .note p { margin:0; }
+      .draft { padding:7px 22px; background:var(--box); color:var(--muted); font-size:.72rem; text-align:center; text-transform:uppercase; letter-spacing:.08em; }
+      @media (max-width:860px) { .cols,.workspace { grid-template-columns:1fr; } .map { min-height:300px; } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>Sagas map and discovery wireframe</h1>
+        <p class="intro">A grey-box layout for finding places. It shows the relationship between search, the geographic overview, and the complete accessible list. It does not choose final map styling or search behavior.</p>
+      </header>
+      <div class="cols">
+        <main class="page" aria-label="Map and discovery wireframe">
+          <div class="draft">Review wireframe — fixture places are invented</div>
+          <section class="region">
+            <span class="pin-number">1</span><div class="label">Find a place</div>
+            <div class="search"><strong>Search by place name or address</strong><div class="search-box" role="textbox" aria-label="Search by place name or address">Search…</div></div>
+          </section>
+          <section class="region">
+            <span class="pin-number">2</span><div class="label">Explore the archive</div>
+            <div class="workspace">
+              <div class="map" aria-label="Map showing three invented fixture places"><span class="marker one" aria-label="Place marker"></span><span class="marker two" aria-label="Place marker"></span><span class="marker three" aria-label="Place marker"></span><span class="map-caption">Map area · pins are not rankings</span></div>
+              <div class="list" aria-label="Places in the current map area"><h3>Places here</h3><div class="site"><strong>Corner shop</strong><span>Boise · Thin record</span><span>Open the place page →</span></div><div class="site"><strong>Hays 1116</strong><span>Boise · Growing record</span><span>Open the place page →</span></div><div class="site"><strong>Gaskell's lunch counter</strong><span>Boise · Thin record</span><span>Open the place page →</span></div></div>
+            </div>
+          </section>
+          <section class="region thin"><span class="pin-number">3</span><div class="label">When the record is small</div><strong>A place with one contributor still belongs on the map.</strong><p>Call it a thin record and explain what would make it richer. Do not make it look empty, failed, or less worthy of visiting.</p></section>
+        </main>
+        <aside aria-label="Wireframe annotations">
+          <div class="note"><h3><span class="pin-number">1</span>Search and orientation</h3><p>The search field is visible before the map. Later search can filter names and addresses, but the layout does not depend on a particular provider.</p></div>
+          <div class="note"><h3><span class="pin-number">2</span>Map and list together</h3><p>The map helps someone orient themselves. The list contains the same places in words, so the experience works with no Mapbox token, for keyboard users, and for screen readers.</p></div>
+          <div class="note"><h3><span class="pin-number">3</span>Sparse records</h3><p>A thin record is a real state of the archive. The interface invites more context without grading a contributor or implying that a place is unimportant.</p></div>
+          <div class="note"><h3>Out of scope for this wireframe</h3><p>Final pin art, address autocomplete, map-area loading, site creation, ranking, score display, and public deployment.</p></div>
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>

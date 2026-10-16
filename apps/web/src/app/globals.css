@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* First experience-layer design tokens. These are semantic foundations, not
+   the final visual identity. */
+:root {
+  --color-ink: 32 36 42;
+  --color-muted: 96 106 117;
+  --color-subtle: 238 240 242;
+  --color-surface: 255 255 255;
+  --color-line: 185 192 200;
+  --color-accent: 47 95 168;
+  --color-focus: 47 95 168;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --space-page: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --space-page: 2rem;
+  }
+}
