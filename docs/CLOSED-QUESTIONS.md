@@ -13,11 +13,10 @@ without raising it causes trouble.
 
 ## `affirmation` duplicates a passover tier
 
-This is resolved and not yet implemented. It has to be made in the same change
-as "A dispute should be a claim", because both move the fixture counts that
+This is resolved and not yet implemented. It moves the fixture counts that
 `packages/fixtures/behaviour/scoring-contract.ts` asserts, and that file is what
-the intelligence layer's first task runs against. So neither change happens
-until a scorer passes against that file.
+the intelligence layer's first task runs against, so it waits until a scorer
+passes against that file.
 
 An affirmation and a passover are the same thing. An affirmation has an id, a
 claim id, a contributor id and a timestamp. A passover has all of that plus a
@@ -49,9 +48,9 @@ that scoring contract.
 
 ## A dispute should be a claim
 
-This is resolved and not yet implemented. It is made in the same change as the
-`affirmation` and `passover` merge, once a scorer passes against the scoring
-contract.
+This is resolved and not yet built. It's planned for the next contract release,
+ahead of the `affirmation` and `passover` merge, which still waits for a scorer
+to pass against the scoring contract. Design for disputes as claims now.
 
 Right now the two ways of responding to a claim are shaped differently.
 `claim_disputed` produces an edge that carries reasoning and an optional
@@ -141,7 +140,8 @@ right unit?". Whether vouching says anything about independence is still open.
 
 Decided on 27 September and done in contract 2.0.0. "Element" and "detail" were
 two words for one idea, so "element" is gone. A detail is one piece of what a
-claim asserts, and disputes and extensions both target one. `claimElement` is
+claim asserts, and a dispute targets one. Extensions are meant to as well, but
+that isn't in the contract yet (see "Extensions target a detail"). `claimElement` is
 `claimDetail`, `claim.elements` is `claim.details`, `elementStatuses` is
 `detailStatuses`, and `targetElementId` is `targetDetailId`.
 
@@ -167,7 +167,8 @@ has a claim with one independent record.
 
 ## A record's score is a citation count
 
-Decided on 27 September. A record's only score is how many claims rely on it.
+Decided on 27 September, with no contract change: it's a scoring rule. A
+record's only score is how many claims rely on it.
 It never feeds back into claim weight, because a loop where a record's score
 lifts the claims that cite it would reward itself.
 
