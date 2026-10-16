@@ -15,50 +15,13 @@ narrative page should look like right now.
 - Working out whether two claims in different languages are about the same
   thing
 
-## Read the rules before the code
+## Building the scorer
 
-There is a placeholder scorer in `packages/fixtures/src/weight.ts`. It is
-throwaway arithmetic that exists so claims have an order to render in. Do not
-read it as a baseline to beat or a shape to preserve. You delete it.
-
-What survives it is `@sagas/fixtures/behaviour`, a suite of rules any scoring
-implementation has to obey, whatever it is built from.
-
-```ts
-import { runScoringRules } from '@sagas/fixtures/behaviour';
-import { myScorer } from '../src/my-scorer';
-
-runScoringRules('my scorer', myScorer);
-```
-
-`pnpm rules` runs it.
-
-They are there to catch scorers that rank by how many people showed up, bury
-anything anyone argued with, or get the sign on disputes wrong. Each of those
-is a way this archive could go quietly wrong while ordinary unit tests stayed
-green.
-
-Look at what the scorer is given and, more importantly, what it is not. There is
-no author in the input: no name, no id, no standing, no join date. What it gets
-instead are facts about what was contributed, such as how many independent
-records back a claim. The system knows who is speaking. The scorer does not,
-and cannot use it as a credential. That is enforced by the missing field
-rather than by a test.
-
-If you think a rule is wrong, and some of them may be, open a pull request
-against it with your reasoning rather than editing it in your fork. Every team
-is held to the same list, and a rule only some teams follow is not a rule.
-
-**Ten passing rules is not a sound algorithm.** Every rule looks at one claim's
-own numbers and checks the single number your scorer returns, and none of them
-know what an edge is. Whether support travels along extensions, whether a cycle
-can let a claim corroborate itself, and whether two records share a source are
-all untested. They are listed at the top of `scoring-contract.ts`.
-
-That gap is deliberate. Writing those tests means fixing what a propagation
-algorithm looks like, and that is your design decision rather than ours. Bring
-your model to a check-in when you have one and we will write the graph rules
-together.
+`docs/PHASE-2-INTELLIGENCE-LAYER.md` is the guide for this phase: the rules
+your scorer answers to, how to run them and the server, how to add an
+endpoint, and the model. In short: `src/scorer.ts` is yours to write,
+`src/scorer.test.ts` runs the rules from `@sagas/fixtures/scoring` against it,
+and `src/index.ts` serves `POST /score`.
 
 ## What you are given to work with
 
@@ -88,6 +51,10 @@ shapes.
 
 ## Where to start
 
+For the scorer, start with `docs/PHASE-2-INTELLIGENCE-LAYER.md`; you don't need
+the database or Docker yet. When you do, from `apps/graph-api`, with Docker
+running:
+
 ```bash
 pnpm db:up && pnpm db:verify
 ```
@@ -104,7 +71,12 @@ Then read, in order:
 
 ## Seeing what your changes do
 
-Change the scorer, run `pnpm fixtures:build`, then `git diff` on
+`pnpm fixtures:build` uses the placeholder in `packages/fixtures/src/weight.ts`,
+not your scorer, so it shows how the fixtures move rather than how your scorer
+scores. To see your scorer, run its tests or send a graph to `POST /score`.
+The rest of this section describes the placeholder.
+
+Change the placeholder, run `pnpm fixtures:build`, then `git diff` on
 `packages/fixtures/states/`. Every claim in the archive that moved shows up in
 the diff: which one now leads the article, how integrity shifted, whether the
 only untranslated claim just got buried.
@@ -172,31 +144,3 @@ than a file.
 This project keeps them apart because they are three different problems, and
 because it means no team can be blocked by another team's migration. What has
 to line up is the contract between them, never the tables.
-
-## Your first week
-
-`src/scorer.test.ts` holds an empty `Scorer` whose methods throw `not
-implemented`, with the ten rules from `packages/fixtures/behaviour` running
-against it. Every rule fails until you fill it in.
-
-```bash
-pnpm --filter @sagas/graph-api test
-```
-
-Fill in `weight` and `confidence` until nothing fails. Read the rules first,
-because they are the closest thing to a specification you will get and each
-failure names what it thinks you got wrong.
-
-There is no database work in this. That starts in October.
-
-## Making it a real app
-
-There is a placeholder in `src/index.ts` and no server framework, because that
-is not a September question: your first month has no HTTP in it. Decide it at a
-check-in in October. The content layer is on Express 5 and copying that is a
-perfectly reasonable answer. To turn this into a server:
-
-1. Add whatever you are using to `dependencies`
-2. Add a `dev` and a `start` script so `pnpm dev` picks it up
-3. Add a `test` script so the automated checks run it
-4. `pnpm install` from the repo root
