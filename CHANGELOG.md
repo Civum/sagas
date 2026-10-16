@@ -41,6 +41,37 @@ it. This is the most useful field in the entry.
 
 ---
 
+## 2026-10-15 — scoring rules on the graph, and a server for the intelligence layer
+
+**Affects:** intelligence layer · content and experience layers (nothing to do)
+
+**What:** `packages/fixtures/scoring` is new. The scorer now reads the graph
+for one place (records, claims with their details, the edges people drew
+between claims, passovers, profiles) and returns a score for every claim and
+every detail, with the terms each score is made of. `rules.ts` holds the rules
+a scorer answers to, written mostly as comparisons between graphs rather than fixed
+scores, with open questions as placeholders that carry their context. A focus
+summary at the end of each run shows which areas of the rules are thin.
+`apps/graph-api` gets a scorer stub, a rewritten test file, and a working `POST /score`
+endpoint with an example graph. `docs/PHASE-2-INTELLIGENCE-LAYER.md` is new: the
+guide for the build phase, with the model in one place. The count-based rules in
+`packages/fixtures/behaviour` are being retired; several no longer match the
+model.
+
+**Why:** A list of counts can't say which detail a dispute landed on, whether
+two claims came from the same record, or who brought what, and those are most
+of what scoring is about. The old rules also called agreement "support" in
+places. The graph shape uses two decisions not yet in the contract: a dispute
+is a claim, and an extension targets a detail.
+
+**You need to:**
+- *intelligence layer* — pull, read `docs/PHASE-2-INTELLIGENCE-LAYER.md`, then
+  start in `apps/graph-api/src/scorer.ts`. Delete the `.skip` in
+  `src/scorer.test.ts` once `similarity` exists.
+- *content layer, experience layer* — nothing.
+
+---
+
 ## 2026-10-11 — how the experience layer works, and where it deploys
 
 **Affects:** experience layer · all layers (one line in the Git guide)

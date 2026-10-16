@@ -7,7 +7,10 @@
     ".": "./src/index.ts",
     "./states/*": "./states/*",
     "./behaviour": "./behaviour/index.ts",
-    "./acceptance": "./acceptance/index.ts"
+    "./acceptance": "./acceptance/index.ts",
+    "./scoring": "./scoring/index.ts",
+    "./scoring/focus-reporter": "./scoring/focus-reporter.ts",
+    "./scoring/rules": "./scoring/rules.ts"
   },
   "scripts": {
     "build:states": "tsx scripts/build-states.ts",
@@ -20,7 +23,8 @@
     "acceptance": "vitest run acceptance"
   },
   "dependencies": {
-    "@sagas/contracts": "workspace:*"
+    "@sagas/contracts": "workspace:*",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@sagas/tsconfig": "workspace:*",
