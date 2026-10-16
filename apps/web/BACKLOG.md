@@ -32,7 +32,7 @@ The first sprint under `STATEMENT-OF-WORK.md`, two or three issues per
 workstream. It replaces epic A as the first sprint. Epic A's stories are still
 below, and the table "Where the earlier stories went" says where each one went.
 
-### P1 · The pipeline on GitHub Actions
+### P1 · The pipeline on GitHub Actions (Ema)
 
 **Workstream:** Platform. **Status:** Ready
 
@@ -40,6 +40,7 @@ below, and the table "Where the earlier stories went" says where each one went.
 fail, and are ready to deploy from.
 
 **Done when:**
+
 - `.github/workflows/ci.yml` (typecheck, lint, acceptance criteria, tests) runs
   on every pull request in the fork, and a failure blocks the merge.
 - The team's own workflow files say in comments what each job is for.
@@ -52,7 +53,7 @@ hosting. Both come later, by proposal.
 **Read first.** "Turn on the upstream watch" in `docs/START-EXPERIENCE-LAYER.md`,
 which covers switching Actions on in a fork.
 
-### P2 · Hosting and domain proposal
+### P2 · Hosting and domain proposal (Ema)
 
 **Workstream:** Platform. **Status:** Done. The landing page runs on Cloudflare
 Workers, on the free plan, at `sagasproject.org`. See "Deploying it" in
@@ -62,6 +63,7 @@ Workers, on the free plan, at `sagasproject.org`. See "Deploying it" in
 full app run, and what the domain is.
 
 **Done when:** a short written proposal covering:
+
 - At least three hosting options with free tiers, compared on what this project
   needs: a static page now, then a Next.js app, a small API and a Postgres
   database. Say what each costs per month and where its free tier ends.
@@ -71,7 +73,7 @@ full app run, and what the domain is.
 **Not in this story.** Signing up for anything. The sponsor signs up once the
 proposal is approved.
 
-### P3 · The landing page
+### P3 · The landing page (Ema, Canon)
 
 **Workstream:** Platform, with the copy from Design (De2). **Status:** Ready to
 build. P2 is approved. Deploying waits for the copy to be approved.
@@ -79,6 +81,7 @@ build. P2 is approved. Deploying waits for the copy to be approved.
 **Goal.** A small public page for Sagas, deployed by the team's own pipeline.
 
 **Done when:**
+
 - A small static app in the fork (for example `apps/landing`) builds, and
   merging to the main branch deploys it.
 - The copy is the one the sponsor approved (De2), and nobody outside the team
@@ -95,6 +98,7 @@ build. P2 is approved. Deploying waits for the copy to be approved.
 and nothing that calls it has to change.
 
 **Done when:**
+
 - The local database (`pnpm db:up` in `apps/ui-api`) holds the corner shop, and
   `listSites()` and `getSiteState()` read from it.
 - `/dev` looks the same as before.
@@ -170,6 +174,7 @@ your fork. Start from `PAGE-MODEL.md` before then.
 **Goal.** The site page from `PAGE-MODEL.md`, built in the app.
 
 **Done when:**
+
 - The site's sections render with their headings and passages, from
   `sections` and `compositions` (contract 2.1.0).
 - A site with no sections shows its records on their own, without looking
@@ -185,6 +190,7 @@ your fork. Start from `PAGE-MODEL.md` before then.
 **Goal.** Selecting a phrase in a passage shows the claims it rests on.
 
 **Done when:**
+
 - Selecting a phrase shows the claims named by its span, ordered by weight,
   with extensions under the claim they add to.
 - When the span names details, the detail's words are highlighted in the claim.
@@ -200,13 +206,14 @@ your fork. Start from `PAGE-MODEL.md` before then.
 including t0 with no sections. It is a tool for building and checking, so it can
 live on `/dev`.
 
-### De1 · Wireframes for the landing page and the map
+### De1 · Wireframes for the landing page and the map (Michael)
 
 **Workstream:** Design. **Status:** Ready
 
 **Goal.** The other main screens, built on the page model.
 
 **Done when:**
+
 - Wireframes, sketched or in a design tool, for the landing page and the map
   with search, each with a short note on what a person sees when there is
   almost nothing at a place.
@@ -216,7 +223,7 @@ live on `/dev`.
 **Read first.** `PAGE-MODEL.md`, and "Design direction" in
 `STATEMENT-OF-WORK.md`.
 
-### De2 · Landing page copy
+### De2 · Landing page copy (Michael)
 
 **Workstream:** Design. **Status:** Ready
 
@@ -225,7 +232,7 @@ live on `/dev`.
 **Done when:** a draft goes to the sponsor in the questions issue. It names no
 organisation and marks anything invented.
 
-### De3 · What is missing and what would be nice
+### De3 · What is missing and what would be nice (Michael)
 
 **Workstream:** Design. **Status:** Ready
 
@@ -235,15 +242,15 @@ organisation and marks anything invented.
 
 ### Where the earlier stories went
 
-| Old story | Where it went |
-|---|---|
-| A1 component library | Built as the page and the map need parts. The tokens are in De1 |
-| A2 front-end test setup | Later, as component tests and an accessibility check in the pipeline (see the statement of work) |
-| A3 Storybook investigation | Later. See "The backlog behind sprint one" in `STATEMENT-OF-WORK.md` |
-| A4 mockups | De1, now that the site page has a page model |
-| A5 entity relationship model | Da1. Keep what has been done |
-| B1, B3 | M1 |
-| C0 | Da1 and Da2 |
+| Old story                    | Where it went                                                                                    |
+| ---------------------------- | ------------------------------------------------------------------------------------------------ |
+| A1 component library         | Built as the page and the map need parts. The tokens are in De1                                  |
+| A2 front-end test setup      | Later, as component tests and an accessibility check in the pipeline (see the statement of work) |
+| A3 Storybook investigation   | Later. See "The backlog behind sprint one" in `STATEMENT-OF-WORK.md`                             |
+| A4 mockups                   | De1, now that the site page has a page model                                                     |
+| A5 entity relationship model | Da1. Keep what has been done                                                                     |
+| B1, B3                       | M1                                                                                               |
+| C0                           | Da1 and Da2                                                                                      |
 
 ### Template for a new story
 
@@ -280,6 +287,7 @@ everything after this be built by several people at once.
 same page from the same parts.
 
 **Done when:**
+
 - `src/components/ui` holds the generic pieces the first views need: at least
   text styles, a button, a card or panel, a tag or label, a tooltip, and a
   dialog.
@@ -308,6 +316,7 @@ or not. Decide as a team and write down why.
 the components are tested.
 
 **Done when:**
+
 - The Vitest setup in `apps/web` is extended so a test can render a React
   component and query what it shows. Testing Library is the usual choice. Pick
   it or something else and say why.
@@ -334,6 +343,7 @@ depends on it. `/dev` already does part of its job.
 
 **Done when:** a short write-up, in the pull request or a markdown file,
 answering:
+
 - What it takes to run Storybook in this repository: Next 15, Tailwind, a pnpm
   workspace. What had to be installed or configured.
 - Whether a Mapbox map can render inside it, and what that needs.
@@ -353,6 +363,7 @@ good end point. If it is not, the write-up alone is a complete result.
 **Goal.** Agree what the first screens look like before building them.
 
 **Done when:** mockups, sketched or in a design tool, for:
+
 - The map with a search bar, and what happens when you pick a result (see B2).
 - A site page at `t0` (one contributor, nothing corroborated) and at `t3`
   (several source records with claims, a dispute, a translation).
@@ -373,6 +384,7 @@ good end point. If it is not, the write-up alone is a complete result.
 **Goal.** Decide what your database holds, shaped for drawing a map and a page.
 
 **Done when:**
+
 - A diagram of the entities a page needs (sites, sections, source and
   evidence records, claims and their details, disputes, extensions, renderings,
   contributors) and how they relate.
@@ -403,6 +415,7 @@ components.
 **Goal.** Replace the TODO in `src/features/map/MapView.tsx` with a real map.
 
 **Done when:**
+
 - With `NEXT_PUBLIC_MAPBOX_TOKEN` set, the map renders every site from
   `listSites()` as a pin, centred on the sites.
 - With no token, `MapUnavailable` still renders the list. Both paths work.
@@ -421,6 +434,7 @@ commits one.
 **Goal.** Somebody types an address or a place name and the map goes there.
 
 **Done when:**
+
 - A search field on the map suggests matches as you type.
 - Choosing one moves the map there and drops a pin.
 - The fixture sites in view stay visible as pins after the search, so a site
@@ -441,6 +455,7 @@ is not part of this layer's work.
 **Goal.** Somebody who cannot use the map loses nothing.
 
 **Done when:**
+
 - A list view shows every site the map shows, and it is reachable whether or not
   a Mapbox token is set. `MapUnavailable` is where it starts.
 - A search field filters the list by site name, other names (`aka`) and address.
@@ -481,6 +496,7 @@ record.
 **Goal.** The source record and the claims made from it, readable in order.
 
 **Done when:**
+
 - A component takes a source record and its claims and renders them, using A1's
   components.
 - Each claim shows who made it and when.
@@ -494,6 +510,7 @@ record.
 at that detail and the rest of the claim reads as undisputed.
 
 **Done when:**
+
 - `src/features/article/DetailDisputes.tsx` shows every reading of the disputed
   detail, each with its reasoning and who gave it.
 - The claim's own reading stays in place in the sentence, and the competing
