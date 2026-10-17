@@ -41,6 +41,33 @@ it. This is the most useful field in the entry.
 
 ---
 
+## 2026-10-18 — a phase 2 guide and API guidelines for the content layer
+
+**Affects:** content layer · experience and intelligence layers (nothing to do)
+
+**What:** `docs/PHASE-2-CONTENT-LAYER.md` is new: running the layer,
+migrations, adding an endpoint, the record as it stands after 2.2.0, uploads,
+and what's expected this phase. `packages/fixtures/capture/rules.ts` holds
+guidelines for the content layer's API, written as tests that run against the
+API over HTTP: records in and out, a 404, and the 400s, plus placeholders for
+uploads, storage and media with hints about the libraries this project
+expects. `apps/capture-api/src/capture.test.ts` runs them when
+`CAPTURE_API_URL` is set. The worked `POST /records` now validates with
+`newSourceRecord`, makes the id on the server, and sends back a record in the
+contract's shape rather than the raw database row. The start guide and the
+app README no longer give claim writing to this layer.
+
+**Why:** The content layer is moving from text records to photos and
+recordings, and the guidance was spread across the README, the start guide
+and several emails.
+
+**You need to:**
+- *content layer* — pull, read the guide, and run the guidelines against your
+  API.
+- *experience layer, intelligence layer* — nothing.
+
+---
+
 ## v2.2.0 — 2026-10-18
 
 **Affects:** content layer · experience layer and intelligence layer (nothing to do yet)

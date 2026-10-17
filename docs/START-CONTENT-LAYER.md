@@ -6,6 +6,10 @@ and you can ignore it. This page is the short version.
 **Treat this as the syllabus for the semester.** Read it through once, then come
 back to it. You are not expected to hold it in your head.
 
+**You're now in phase 2, foundation.** For this phase, start with
+`docs/PHASE-2-CONTENT-LAYER.md`: running your layer, migrations, the record as
+it stands, the guidelines for your API, and what's expected next.
+
 ## What you're building
 
 People contribute records of places. A record might be a recording, a
@@ -50,12 +54,9 @@ These belong to other teams and nothing you build depends on them.
 
 If a document starts talking about claim graphs, you're in the wrong section.
 
-Records and media are yours, and so is claim intake: the screens and endpoints
-where somebody writes a claim about a record, or disputes or extends part of
-somebody else's claim. What
-happens to a claim after that is shared. The intelligence layer models and
-scores claims, and the experience layer renders them and composes them into a
-page.
+Records and media are yours, and later the transcripts and translations
+attached to them. Writing claims, disputes and extensions has moved to the
+intelligence layer, and the experience layer shows them on a page.
 
 ## What to install first
 

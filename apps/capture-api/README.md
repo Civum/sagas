@@ -60,8 +60,8 @@ decide which languages matter.
 - The queue of records waiting for somebody to add context or write a transcript
 - Submitting translations and transcripts, with more than one allowed to coexist
 - Reporting content, with reasoning attached, and a queue for reviewing reports
-- Claim intake: the endpoints where somebody writes a claim, a dispute or an
-  extension about a record
+
+Writing claims, disputes and extensions has moved to the intelligence layer.
 
 ## Where to start
 
