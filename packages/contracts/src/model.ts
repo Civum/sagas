@@ -369,16 +369,14 @@ export type MediaRef = z.infer<typeof mediaRef>;
 /**
  * An artifact somebody contributed, and the place it belongs to.
  *
- * A record is a bundle, not a file type. What arrives is whatever the person
- * had: a voice recording, a photograph with a sentence about it, a page they
- * typed up, a scan of a letter, or several of those at once. One record holds
- * all of it.
+ * One record is one artifact: a photograph, a recording, a video, a document,
+ * or a piece of typed text. A photograph and a recording describing it are two
+ * records, even when they arrive together.
  *
- * That is why there is no `kind` field here. A contribution made of a
- * photograph, a two-minute audio description of that photograph, and a written
- * note is an ordinary thing for somebody to hand over, and a single kind would
- * have to lie about it. Each file carries its own kind in `media`. The record is
- * the bundle they arrived in.
+ * `media` is a list because one artifact can arrive in several files: the five
+ * pages of a scanned letter, say. Every file in a record's `media` is the same
+ * kind. Files of different kinds are different artifacts, so they belong to
+ * different records.
  *
  * The three shapes that turn up most:
  *
@@ -402,42 +400,68 @@ export type MediaRef = z.infer<typeof mediaRef>;
  * in every file that imported both. The word in conversation and in the docs is
  * still "record".
  */
-export const sourceRecord = z
-  .object({
-    id: z.string(),
-    siteId: z.string(),
-    contributorId: z.string(),
-    /**
-     * What somebody says about what they are handing over. "This is my
-     * grandmother outside the boarding house." Often the only text a record
-     * ever gets.
-     */
-    note: z.string().optional(),
-    /** The record itself, when the record is writing. */
-    text: z.string().optional(),
-    /** The language of `note` and `text`, when there is any. */
-    language: languageCode.optional(),
-    /** When the thing itself was made, as far as anyone knows. */
-    capturedAt: z.string().optional(),
-    capturedLocation: capturedLocation.optional(),
-    submission: submissionState,
-    /** What has arrived so far. A record can exist before its files finish uploading. */
-    media: z.array(mediaRef),
-    createdAt: z.string(),
-  })
-  .refine((r) => r.media.length > 0 || Boolean(r.text?.trim()), {
-    message: 'A record needs media or text. A note on its own is a caption with nothing to caption.',
-  })
+const sourceRecordFields = z.object({
+  id: z.string(),
+  siteId: z.string(),
+  contributorId: z.string(),
   /**
-   * An image cannot say what it is. A recording and a video carry their own
-   * account of themselves and a written record is text by definition, but a
-   * photograph with nothing attached is an artifact rather than a contribution.
-   * Somebody has to say what it shows, and that is what `note` is for.
+   * What somebody says about what they are handing over. "This is my
+   * grandmother outside the boarding house." Often the only text a record
+   * ever gets.
    */
-  .refine((r) => !r.media.some((m) => m.kind === 'image') || Boolean(r.note?.trim()), {
-    message: 'An image record needs a note saying what it shows.',
-  });
+  note: z.string().optional(),
+  /** The record itself, when the record is writing. */
+  text: z.string().optional(),
+  /** The language of `note` and `text`, when there is any. */
+  language: languageCode.optional(),
+  /** When the thing itself was made, as far as anyone knows. */
+  capturedAt: z.string().optional(),
+  capturedLocation: capturedLocation.optional(),
+  submission: submissionState,
+  /** What has arrived so far. A record can exist before its files finish uploading. */
+  media: z.array(mediaRef),
+  createdAt: z.string(),
+});
+
+type RecordFields = Omit<z.infer<typeof sourceRecordFields>, 'id'>;
+
+/*
+ * The rules every record follows, whether it is arriving or stored.
+ *
+ * An image cannot say what it is. A recording and a video carry their own
+ * account of themselves and a written record is text by definition, but a
+ * photograph with nothing attached is an artifact rather than a contribution.
+ * Somebody has to say what it shows, and that is what `note` is for.
+ */
+const hasContent = (r: RecordFields) => r.media.length > 0 || Boolean(r.text?.trim());
+const hasContentMessage = {
+  message: 'A record needs media or text. A note on its own is a caption with nothing to caption.',
+};
+const oneKind = (r: RecordFields) => new Set(r.media.map((m) => m.kind)).size <= 1;
+const oneKindMessage = {
+  message:
+    'One record is one artifact, so every file in its media is the same kind. Files of different kinds are different records.',
+};
+const imageHasNote = (r: RecordFields) => !r.media.some((m) => m.kind === 'image') || Boolean(r.note?.trim());
+const imageHasNoteMessage = { message: 'An image record needs a note saying what it shows.' };
+
+export const sourceRecord = sourceRecordFields
+  .refine(hasContent, hasContentMessage)
+  .refine(oneKind, oneKindMessage)
+  .refine(imageHasNote, imageHasNoteMessage);
 export type SourceRecord = z.infer<typeof sourceRecord>;
+
+/**
+ * A record as it arrives, before it is stored: the same, without the `id`.
+ * Whoever stores the record decides its id. A database can generate one, and
+ * a client that sends its own would collide with that.
+ */
+export const newSourceRecord = sourceRecordFields
+  .omit({ id: true })
+  .refine(hasContent, hasContentMessage)
+  .refine(oneKind, oneKindMessage)
+  .refine(imageHasNote, imageHasNoteMessage);
+export type NewSourceRecord = z.infer<typeof newSourceRecord>;
 
 /**
  * What somebody wrote down from a recording.

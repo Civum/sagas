@@ -41,6 +41,31 @@ it. This is the most useful field in the entry.
 
 ---
 
+## v2.2.0 — 2026-10-18
+
+**Affects:** content layer · experience layer and intelligence layer (nothing to do yet)
+
+**What:** One record is one artifact. `media` stays a list, for the parts of
+one artifact such as the pages of a scanned letter, and every file in it must
+be the same kind. A photograph and a recording describing it are two records.
+The comment on `sourceRecord` that called a record a bundle is rewritten.
+`newSourceRecord` is new: a record as it arrives, without an `id`, so whoever
+stores it can generate the id.
+
+**Why:** The content layer's schema already modelled one record per artifact,
+which turned out to be the model; the contract still described a bundle. And
+the contract required the client to send an id while a database that
+generates ids refuses one from outside, so every version of a record upload
+hit one of the two.
+
+**You need to:**
+- *content layer* — validate incoming records with `newSourceRecord` rather
+  than `sourceRecord`, and let your database generate the id. Records with
+  files of different kinds now fail validation.
+- *experience layer, intelligence layer* — nothing. No fixture changed.
+
+---
+
 ## 2026-10-15 — scoring rules on the graph, and a server for the intelligence layer
 
 **Affects:** intelligence layer · content and experience layers (nothing to do)
