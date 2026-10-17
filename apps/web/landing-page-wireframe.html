@@ -299,9 +299,9 @@
       <header class="top">
         <h1>Sagas landing page wireframe</h1>
         <p>
-          A grey-box layout for review before implementation. It shows the
-          information hierarchy, responsive regions, and copy boundaries. It
-          does not choose final type, colour, illustration, or wording.
+          A grey-box layout for review before implementation. It explains why
+          Sagas exists, where the project stands, and how the idea works. It
+          does not choose final type, colour, or illustration.
         </p>
       </header>
 
@@ -315,60 +315,89 @@
           <section class="region nav">
             <span class="pin">1</span>
             <div class="wordmark">Sagas</div>
-            <div class="nav-link" aria-label="One future navigation link"></div>
+            <a class="nav-link" href="#how-it-works" aria-label="Go to how it works">How it works</a>
           </section>
 
           <section class="region hero">
             <span class="pin">2</span>
             <div>
-              <div class="eyebrow">A reading product for places</div>
+              <div class="eyebrow">Stories kept with places</div>
               <h2>Every place has more than one story.</h2>
               <p class="hero-copy">
-                A short introduction to reading what people remember about a
-                place, and checking the claims behind it.
+                Buildings outlast the people who remember them. Sagas keeps
+                those stories with the places, like a digital plaque, so
+                someone who comes looking later can still find them.
               </p>
-              <div class="button" aria-label="Primary call to action"></div>
+              <a class="button" href="#why-sagas">Why Sagas exists</a>
             </div>
-            <div class="illustration" aria-label="Illustrative example — invented for this draft">
-              Illustrative example<br />— invented for this draft
+            <div class="illustration" aria-label="Corner shop, an illustrative example invented for this draft">
+              <strong>Corner shop</strong><br />
+              Illustrative worked example<br />- invented for this draft
             </div>
           </section>
 
-          <section class="region">
+          <section class="region" id="why-sagas">
             <span class="pin">3</span>
+            <div class="label">Why Sagas exists</div>
+            <h2 class="section-title">When people move on, stories can disappear with them.</h2>
+            <p class="hero-copy">
+              Sagas keeps the memories connected to a place, so a person who
+              comes looking later can still find them. Every story stays
+              visible with the records and sources that help someone understand
+              where it came from.
+            </p>
+          </section>
+
+          <section class="region" id="how-it-works">
+            <span class="pin">4</span>
             <div class="label">How it works</div>
-            <h2 class="section-title">Read the account. Then check what it rests on.</h2>
+            <h2 class="section-title">Read the story. Then see what stays visible beside it.</h2>
             <div class="steps">
               <div class="step">
                 <div class="label">01</div>
                 <strong>Start with a place</strong>
-                <span>Find somewhere and begin with what is known.</span>
+                <span>Find somewhere and begin with what is already known.</span>
               </div>
               <div class="step">
                 <div class="label">02</div>
                 <strong>Read the story</strong>
-                <span>See what people have said, with context.</span>
+                <span>See what people have remembered, with its context.</span>
               </div>
               <div class="step">
                 <div class="label">03</div>
                 <strong>Look closer</strong>
-                <span>Follow a phrase back to records and claims.</span>
+                <span>Follow a phrase back to records and sources.</span>
               </div>
             </div>
           </section>
 
           <section class="region principle">
-            <span class="pin">4</span>
+            <span class="pin">5</span>
             <div class="label">The principle</div>
             <p>
-              Nothing is quietly settled. Different accounts stay visible, and
-              every claim has a way back to its source.
+              Different stories stay visible. Each one leads back to the
+              records and sources behind it.
+            </p>
+          </section>
+
+          <section class="region">
+            <span class="pin">6</span>
+            <div class="label">Where Sagas stands</div>
+            <h2 class="section-title">This is an early project, and the site is not open yet.</h2>
+            <p class="hero-copy">
+              Sagas is being built by student teams at Idaho universities. We
+              are sharing the idea and the work in progress while we learn from
+              the people who remember these places.
+            </p>
+            <p class="hero-copy">
+              Questions or thoughts? Write to
+              <a href="mailto:info@civum.io">info@civum.io</a>.
             </p>
           </section>
 
           <footer class="region footer">
             <strong>Sagas</strong>
-            <span>Project status or future entry point</span>
+            <span>Early project - not open yet</span>
           </footer>
         </main>
 
@@ -376,39 +405,40 @@
           <div class="note">
             <h3><span class="pin">1</span>Identity and orientation</h3>
             <p>
-              The wordmark establishes the product without naming an
-              organisation. Navigation stays intentionally small until there is
-              an approved destination to link to.
+              The wordmark establishes the project without naming an
+              organisation. Navigation stays intentionally small and points to
+              the explanation on this page.
             </p>
           </div>
           <div class="note">
             <h3><span class="pin">2</span>Hero and first action</h3>
             <p>
               The headline states the central idea. Supporting copy explains
-              the product without promising a feature that does not exist.
-              Any illustration or example must be marked invented.
+              why Sagas exists in language a neighbour or archivist can use.
+              The corner shop is a worked example and is marked invented.
             </p>
           </div>
           <div class="note">
-            <h3><span class="pin">3</span>Product explanation</h3>
+            <h3><span class="pin">3</span>How the idea works</h3>
             <p>
-              Three steps make the reading journey understandable before the
-              full product is available. This section should remain useful
-              without a map, sign-up form, or API.
+              Three steps make the idea understandable before the site is
+              available. This section should remain useful without a map,
+              sign-up form, scores, or counts.
             </p>
           </div>
           <div class="note">
             <h3><span class="pin">4</span>Trust principle</h3>
             <p>
-              Disagreement stays visible and claims remain attributable. The
-              final wording needs sponsor approval before deployment.
+              Different stories stay visible and lead back to their sources.
+              The final wording needs sponsor approval before deployment.
             </p>
           </div>
           <div class="note">
             <h3>Out of scope for this version</h3>
             <p>
-              No organisation name, real testimony, mailing list, analytics,
-              changelog, authentication, or public deployment configuration.
+              No organisation name, real testimony, scores, counts, mailing
+              list, analytics, changelog, authentication, or implication that
+              the site is open for use.
             </p>
           </div>
         </aside>
@@ -416,3 +446,4 @@
     </div>
   </body>
 </html>
+
