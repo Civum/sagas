@@ -67,7 +67,6 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -151,7 +150,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 0,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -251,7 +250,6 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -335,7 +333,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 0,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -430,18 +428,10 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [
-          {
-            "id": "aff-ha-priya",
-            "claimId": "cl-hays-shoes",
-            "contributorId": "c-priya",
-            "createdAt": "2026-06-17T12:40:00Z"
-          }
-        ],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
-          "sounds_right": 0,
+          "sounds_right": 1,
           "dont_know": 0,
           "dont_care": 0
         },
@@ -528,7 +518,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 0,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -543,7 +533,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 1,
+        "soundsRightGiven": 1,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -643,18 +633,10 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [
-          {
-            "id": "aff-ha-priya",
-            "claimId": "cl-hays-shoes",
-            "contributorId": "c-priya",
-            "createdAt": "2026-06-17T12:40:00Z"
-          }
-        ],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
-          "sounds_right": 0,
+          "sounds_right": 1,
           "dont_know": 0,
           "dont_care": 0
         },
@@ -741,7 +723,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 0,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -756,7 +738,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 1,
+        "soundsRightGiven": 1,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0

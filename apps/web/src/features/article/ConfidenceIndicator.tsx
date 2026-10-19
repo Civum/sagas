@@ -78,7 +78,7 @@ export function ConfidenceIndicator({ claim }: { claim: ClaimState }) {
     );
   }
 
-  const summary = supportSummary(claim.independentRecordCount, claim.affirmations.length);
+  const summary = supportSummary(claim.independentRecordCount, claim.passover.sounds_right);
 
   return (
     <p className="flex flex-wrap items-baseline gap-x-2 text-xs">

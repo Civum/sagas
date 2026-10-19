@@ -126,8 +126,9 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'cs-007', at: '2026-02-10T15:05:00Z', actorId: 'c-lena',
-    kind: 'claim_affirmed',
-    affirmationId: 'aff-cs-lena',
+    kind: 'passover_recorded',
+    passoverId: 'aff-cs-lena',
+    passoverKind: 'sounds_right',
     claimId: 'cl-cs-shop',
   },
 

@@ -88,8 +88,9 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ha-006', at: '2026-06-17T12:40:00Z', actorId: 'c-priya',
-    kind: 'claim_affirmed',
-    affirmationId: 'aff-ha-priya',
+    kind: 'passover_recorded',
+    passoverId: 'aff-ha-priya',
+    passoverKind: 'sounds_right',
     claimId: 'cl-hays-shoes',
   },
 ];

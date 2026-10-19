@@ -74,38 +74,12 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [
-        {
-          "id": "af-001",
-          "claimId": "cl-fronton",
-          "contributorId": "c-joseba",
-          "createdAt": "2026-02-14T19:44:00Z"
-        },
-        {
-          "id": "af-003",
-          "claimId": "cl-fronton",
-          "contributorId": "c-ana",
-          "createdAt": "2026-02-20T15:21:00Z"
-        },
-        {
-          "id": "af-004",
-          "claimId": "cl-fronton",
-          "contributorId": "c-robert",
-          "createdAt": "2026-04-11T20:55:00Z"
-        },
-        {
-          "id": "af-005",
-          "claimId": "cl-fronton",
-          "contributorId": "c-maite",
-          "createdAt": "2026-04-19T15:10:00Z"
-        }
-      ],
       "independentRecordCount": 1,
       "extensions": [
         "cl-fronton-floor"
       ],
       "passover": {
-        "sounds_right": 1,
+        "sounds_right": 5,
         "dont_know": 0,
         "dont_care": 0
       },
@@ -168,7 +142,7 @@
           ]
         }
       ],
-      "weight": 7.25,
+      "weight": 7.5,
       "confidence": "corroborated"
     },
     {
@@ -230,21 +204,13 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [
-        {
-          "id": "af-002",
-          "claimId": "cl-boarding",
-          "contributorId": "c-ana",
-          "createdAt": "2026-02-20T15:20:00Z"
-        }
-      ],
       "independentRecordCount": 2,
       "extensions": [
         "cl-boarding-kitchen",
         "cl-register"
       ],
       "passover": {
-        "sounds_right": 2,
+        "sounds_right": 3,
         "dont_know": 0,
         "dont_care": 0
       },
@@ -369,7 +335,7 @@
           ]
         }
       ],
-      "weight": 5.5,
+      "weight": 6,
       "confidence": "contested"
     },
     {
@@ -464,7 +430,6 @@
       ],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -618,7 +583,6 @@
       ],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -760,18 +724,10 @@
         }
       ],
       "translationDisputes": [],
-      "affirmations": [
-        {
-          "id": "af-006",
-          "claimId": "cl-domingo",
-          "contributorId": "c-joseba",
-          "createdAt": "2026-04-25T23:41:00Z"
-        }
-      ],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
-        "sounds_right": 0,
+        "sounds_right": 1,
         "dont_know": 0,
         "dont_care": 0
       },
@@ -840,7 +796,6 @@
       ],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -934,7 +889,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -1008,7 +962,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -1082,7 +1035,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -1156,7 +1108,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -1235,7 +1186,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -1500,7 +1450,7 @@
       "claimsDisputed": 2,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -1515,7 +1465,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 2,
+      "soundsRightGiven": 3,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -1530,7 +1480,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 1,
       "disputesRaisedWithAlternative": 1,
-      "affirmationsGiven": 2,
+      "soundsRightGiven": 2,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -1538,14 +1488,14 @@
     {
       "contributorId": "c-domingo",
       "firstContributionAt": "2026-03-02T22:25:00Z",
-      "lastContributionAt": "2026-03-02T22:31:00Z",
+      "lastContributionAt": "2026-03-11T17:52:00Z",
       "recordsSubmitted": 1,
       "claimsAuthored": 1,
       "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 1,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -1560,7 +1510,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 1,
       "disputesRaisedWithAlternative": 1,
-      "affirmationsGiven": 1,
+      "soundsRightGiven": 1,
       "translationsContributed": 0,
       "transcriptsContributed": 1,
       "flagsRaised": 0
@@ -1568,14 +1518,14 @@
     {
       "contributorId": "c-robert",
       "firstContributionAt": "2026-04-11T20:40:00Z",
-      "lastContributionAt": "2026-05-09T14:08:00Z",
+      "lastContributionAt": "2026-05-09T14:30:00Z",
       "recordsSubmitted": 0,
       "claimsAuthored": 2,
       "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 2,
       "disputesRaisedWithAlternative": 2,
-      "affirmationsGiven": 1,
+      "soundsRightGiven": 1,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -1583,14 +1533,14 @@
     {
       "contributorId": "c-kepa",
       "firstContributionAt": "2026-04-18T16:33:00Z",
-      "lastContributionAt": "2026-04-18T16:33:00Z",
+      "lastContributionAt": "2026-05-14T19:02:00Z",
       "recordsSubmitted": 0,
       "claimsAuthored": 0,
       "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 1,
       "translationsContributed": 1,
       "transcriptsContributed": 0,
       "flagsRaised": 0

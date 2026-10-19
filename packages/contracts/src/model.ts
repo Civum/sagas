@@ -127,9 +127,10 @@ export type SourceType = z.infer<typeof sourceType>;
  *   dont_know     outside what this person can judge
  *   dont_care     not what this person is here for
  *
- * These tune what gets shown to whom. They do not change the graph, and they
- * are not votes. A claim covered in `dont_know` isn't doubted, it just hasn't
- * reached anyone able to speak to it.
+ * These tune what gets shown to whom. They don't create edges, and they are
+ * not votes. `sounds_right` is agreement, and adds a negligible amount of
+ * weight. A claim covered in `dont_know` isn't doubted, it just hasn't reached
+ * anyone able to speak to it.
  */
 export const passoverKind = z.enum(['sounds_right', 'dont_know', 'dont_care']);
 export type PassoverKind = z.infer<typeof passoverKind>;
@@ -693,21 +694,15 @@ export type Edge = z.infer<typeof edge>;
 /* ================================================================== */
 
 /**
- * Someone agreeing with a claim. It adds no new node and no new source.
+ * A reader's low-effort reaction. It adds no new node and no new source.
  *
- * Agreement is not evidence, so an affirmation never
- * counts as independent support. It is a soft signal: it matters most for what
- * gets suggested to whom, and only a little for a claim's weight.
+ * "Sounds right" is what used to be a separate affirmation object; it was the
+ * same act stored twice. Agreement is not evidence, so it never counts as
+ * independent support. It adds a negligible amount of weight, enough that
+ * claims with nothing else going for them still come out in an order, and
+ * well below every other input. Its main use is routing: what gets suggested
+ * to whom.
  */
-export const affirmation = z.object({
-  id: z.string(),
-  claimId: z.string(),
-  contributorId: z.string(),
-  createdAt: z.string(),
-});
-export type Affirmation = z.infer<typeof affirmation>;
-
-/** A reader's low-effort reaction. Feeds routing, not the graph. */
 export const passover = z.object({
   id: z.string(),
   claimId: z.string(),
@@ -772,7 +767,6 @@ export const claimState = z.object({
   evidenceRecords: z.array(sourceRecord),
   translations: z.array(translation),
   translationDisputes: z.array(translationDispute),
-  affirmations: z.array(affirmation),
   /**
    * Distinct records, other than this claim's own, that other contributors have
    * brought to back it (today: the evidence on extensions of it).
@@ -780,7 +774,7 @@ export const claimState = z.object({
    * A stand-in. Corroboration counts independent records, not people, and this
    * counts records because a record is the one thing the graph can see. How
    * independence is really worked out is the intelligence layer's design work.
-   * Affirmations never count here.
+   * Agreement ("sounds right") never counts here.
    */
   independentRecordCount: z.number(),
   extensions: z.array(z.string()),
@@ -840,7 +834,8 @@ export const contributorStanding = z.object({
   disputesRaised: z.number(),
   /** Of those, the ones that proposed a different value instead of only objecting. */
   disputesRaisedWithAlternative: z.number(),
-  affirmationsGiven: z.number(),
+  /** "Sounds right" passovers they left on other people's claims. */
+  soundsRightGiven: z.number(),
   translationsContributed: z.number(),
   transcriptsContributed: z.number(),
   flagsRaised: z.number(),
@@ -978,7 +973,6 @@ export const schemas = {
   disputeEdge,
   extensionEdge,
   edge,
-  affirmation,
   passover,
   translation,
   translationDispute,

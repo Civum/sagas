@@ -155,8 +155,9 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-009', at: '2026-02-14T19:44:00Z', actorId: 'c-joseba',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-001',
+    kind: 'passover_recorded',
+    passoverId: 'af-001',
+    passoverKind: 'sounds_right',
     claimId: 'cl-fronton',
   },
 
@@ -223,15 +224,17 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-013', at: '2026-02-20T15:20:00Z', actorId: 'c-ana',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-002',
+    kind: 'passover_recorded',
+    passoverId: 'af-002',
+    passoverKind: 'sounds_right',
     claimId: 'cl-boarding',
   },
 
   {
     id: 'ev-014', at: '2026-02-20T15:21:00Z', actorId: 'c-ana',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-003',
+    kind: 'passover_recorded',
+    passoverId: 'af-003',
+    passoverKind: 'sounds_right',
     claimId: 'cl-fronton',
   },
 
@@ -480,8 +483,9 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-032', at: '2026-04-11T20:55:00Z', actorId: 'c-robert',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-004',
+    kind: 'passover_recorded',
+    passoverId: 'af-004',
+    passoverKind: 'sounds_right',
     claimId: 'cl-fronton',
   },
 
@@ -506,15 +510,17 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-035', at: '2026-04-19T15:10:00Z', actorId: 'c-maite',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-005',
+    kind: 'passover_recorded',
+    passoverId: 'af-005',
+    passoverKind: 'sounds_right',
     claimId: 'cl-fronton',
   },
 
   {
     id: 'ev-036', at: '2026-04-25T23:41:00Z', actorId: 'c-joseba',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-006',
+    kind: 'passover_recorded',
+    passoverId: 'af-006',
+    passoverKind: 'sounds_right',
     claimId: 'cl-domingo',
   },
 
@@ -601,8 +607,9 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-045', at: '2026-06-08T15:30:00Z', actorId: 'c-domingo',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-007',
+    kind: 'passover_recorded',
+    passoverId: 'af-007',
+    passoverKind: 'sounds_right',
     claimId: 'cl-fronton-floor',
   },
 
@@ -636,15 +643,17 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-048', at: '2026-06-15T18:20:00Z', actorId: 'c-itxaso',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-008',
+    kind: 'passover_recorded',
+    passoverId: 'af-008',
+    passoverKind: 'sounds_right',
     claimId: 'cl-fronton',
   },
 
   {
     id: 'ev-049', at: '2026-06-15T18:31:00Z', actorId: 'c-itxaso',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-009',
+    kind: 'passover_recorded',
+    passoverId: 'af-009',
+    passoverKind: 'sounds_right',
     claimId: 'cl-domingo',
   },
 
@@ -691,15 +700,17 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-052', at: '2026-06-22T16:20:00Z', actorId: 'c-robert',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-010',
+    kind: 'passover_recorded',
+    passoverId: 'af-010',
+    passoverKind: 'sounds_right',
     claimId: 'cl-prelot-both',
   },
 
   {
     id: 'ev-053', at: '2026-06-22T16:44:00Z', actorId: 'c-marisol',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-011',
+    kind: 'passover_recorded',
+    passoverId: 'af-011',
+    passoverKind: 'sounds_right',
     claimId: 'cl-prelot-both',
   },
 
@@ -774,15 +785,17 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-059', at: '2026-07-09T14:50:00Z', actorId: 'c-maite',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-012',
+    kind: 'passover_recorded',
+    passoverId: 'af-012',
+    passoverKind: 'sounds_right',
     claimId: 'cl-afterhours',
   },
 
   {
     id: 'ev-060', at: '2026-07-09T15:02:00Z', actorId: 'c-joseba',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-013',
+    kind: 'passover_recorded',
+    passoverId: 'af-013',
+    passoverKind: 'sounds_right',
     claimId: 'cl-afterhours',
   },
 

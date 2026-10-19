@@ -104,12 +104,6 @@ export interface ClaimDisputed extends BaseEvent {
   proposedValue?: string;
 }
 
-export interface ClaimAffirmed extends BaseEvent {
-  kind: 'claim_affirmed';
-  affirmationId: string;
-  claimId: ClaimId;
-}
-
 export interface PassoverRecorded extends BaseEvent {
   kind: 'passover_recorded';
   passoverId: string;
@@ -216,7 +210,6 @@ export type ContributionEvent =
   | ClaimSubmitted
   | ClaimExtended
   | ClaimDisputed
-  | ClaimAffirmed
   | PassoverRecorded
   | TranslationSubmitted
   | TranslationDisputed

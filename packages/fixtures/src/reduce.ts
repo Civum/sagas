@@ -9,7 +9,7 @@
 
 import type { ContributionEvent } from './events';
 import type {
-  Affirmation, Claim, ClaimState, Contributor, DisputeEdge, DetailStatus,
+  Claim, ClaimState, Contributor, DisputeEdge, DetailStatus,
   ContributorStanding, EventId, ExtensionEdge, Flag, GraphState, IntegrityScore,
   MediaRef, Passover, PassoverKind, Site, SourceRecord,
   Transcript, Translation, TranslationDispute,
@@ -23,7 +23,6 @@ interface Accumulator {
   claims: Map<string, Claim>;
   disputes: DisputeEdge[];
   extensions: ExtensionEdge[];
-  affirmations: Affirmation[];
   passovers: Passover[];
   translations: Translation[];
   translationDisputes: TranslationDispute[];
@@ -36,7 +35,7 @@ interface Accumulator {
 function empty(): Accumulator {
   return {
     contributors: new Map(), claims: new Map(), disputes: [], extensions: [],
-    affirmations: [], passovers: [], translations: [],
+    passovers: [], translations: [],
     translationDisputes: [], records: new Map(), transcripts: [], flags: [],
     applied: [],
   };
@@ -116,13 +115,6 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
       });
       return;
     }
-
-    case 'claim_affirmed':
-      acc.affirmations.push({
-        id: ev.affirmationId, claimId: ev.claimId,
-        contributorId: ev.actorId, createdAt: ev.at,
-      });
-      return;
 
     case 'passover_recorded':
       acc.passovers.push({
@@ -234,7 +226,6 @@ function buildClaimState(
       `Claim ${claim.id} is attributed to ${claim.contributorId}, who was never registered.`,
     );
   }
-  const affirmations = acc.affirmations.filter((a) => a.claimId === claim.id);
   const disputes = acc.disputes.filter((d) => d.targetClaimId === claim.id);
   const extensionEdges = acc.extensions.filter((e) => e.parentClaimId === claim.id);
   const extensions = extensionEdges.map((e) => e.childClaimId);
@@ -292,7 +283,7 @@ function buildClaimState(
   const weight = computeWeight({
     sourceType: claim.sourceType,
     independentRecordCount,
-    affirmationCount: affirmations.length,
+    affirmationCount: passover.sounds_right,
     extensionCount: extensions.length,
     disputeCount: disputes.length,
     sourceTypeDiversity,
@@ -300,7 +291,7 @@ function buildClaimState(
   });
 
   return {
-    claim, contributor, sourceRecord, evidenceRecords, translations, translationDisputes, affirmations,
+    claim, contributor, sourceRecord, evidenceRecords, translations, translationDisputes,
     independentRecordCount, extensions, passover, detailStatuses,
     weight,
     confidence: classifyConfidence({
@@ -329,7 +320,7 @@ function buildStandings(claimStates: ClaimState[], acc: Accumulator): Contributo
       ...theirClaims.map((cs) => cs.claim.createdAt),
       ...[...acc.records.values()].filter((r) => r.contributorId === c.id).map((r) => r.createdAt),
       ...theirDisputes.map((d) => d.createdAt),
-      ...acc.affirmations.filter((a) => a.contributorId === c.id).map((a) => a.createdAt),
+      ...acc.passovers.filter((p) => p.contributorId === c.id).map((p) => p.createdAt),
       ...acc.translations.filter((t) => t.contributorId === c.id).map((t) => t.createdAt),
       ...acc.transcripts.filter((t) => t.contributorId === c.id).map((t) => t.createdAt),
       ...acc.flags.filter((f) => f.contributorId === c.id).map((f) => f.createdAt),
@@ -347,7 +338,7 @@ function buildStandings(claimStates: ClaimState[], acc: Accumulator): Contributo
       ).length,
       disputesRaised: theirDisputes.length,
       disputesRaisedWithAlternative: theirDisputes.filter((d) => d.proposedValue).length,
-      affirmationsGiven: acc.affirmations.filter((a) => a.contributorId === c.id).length,
+      soundsRightGiven: acc.passovers.filter((p) => p.contributorId === c.id && p.kind === 'sounds_right').length,
       translationsContributed: acc.translations.filter((t) => t.contributorId === c.id).length,
       transcriptsContributed: acc.transcripts.filter((t) => t.contributorId === c.id).length,
       flagsRaised: acc.flags.filter((f) => f.contributorId === c.id).length,

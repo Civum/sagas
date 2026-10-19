@@ -75,7 +75,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [
         "cl-mother-worked"
@@ -106,7 +105,7 @@
           ]
         }
       ],
-      "weight": 5.25,
+      "weight": 5.5,
       "confidence": "single_source"
     },
     {
@@ -170,24 +169,10 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [
-        {
-          "id": "aff-gk-ray",
-          "claimId": "cl-closed-1979",
-          "contributorId": "c-raymond",
-          "createdAt": "2026-03-11T14:09:00Z"
-        },
-        {
-          "id": "aff-gk-priya",
-          "claimId": "cl-closed-1979",
-          "contributorId": "c-priya",
-          "createdAt": "2026-04-14T16:52:00Z"
-        }
-      ],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
-        "sounds_right": 0,
+        "sounds_right": 2,
         "dont_know": 0,
         "dont_care": 0
       },
@@ -290,7 +275,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -407,7 +391,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -415,14 +399,14 @@
     {
       "contributorId": "c-raymond",
       "firstContributionAt": "2026-03-11T14:09:00Z",
-      "lastContributionAt": "2026-03-11T14:09:00Z",
+      "lastContributionAt": "2026-04-21T09:05:00Z",
       "recordsSubmitted": 0,
       "claimsAuthored": 0,
       "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 1,
+      "soundsRightGiven": 2,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -437,7 +421,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 1,
+      "soundsRightGiven": 1,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0

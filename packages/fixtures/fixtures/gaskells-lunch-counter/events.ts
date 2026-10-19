@@ -113,8 +113,9 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'gk-006', at: '2026-03-11T14:09:00Z', actorId: 'c-raymond',
-    kind: 'claim_affirmed',
-    affirmationId: 'aff-gk-ray',
+    kind: 'passover_recorded',
+    passoverId: 'aff-gk-ray',
+    passoverKind: 'sounds_right',
     claimId: 'cl-closed-1979',
   },
 
@@ -183,8 +184,9 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'gk-011', at: '2026-04-14T16:52:00Z', actorId: 'c-priya',
-    kind: 'claim_affirmed',
-    affirmationId: 'aff-gk-priya',
+    kind: 'passover_recorded',
+    passoverId: 'aff-gk-priya',
+    passoverKind: 'sounds_right',
     claimId: 'cl-closed-1979',
   },
 

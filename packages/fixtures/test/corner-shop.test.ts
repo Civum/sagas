@@ -35,7 +35,7 @@ test('the person who claims is not the person who handed the record over', () =>
 
 test('agreement adds no independent record', () => {
   const shop = claim('t1', 'cl-cs-shop');
-  expect(shop.affirmations).toHaveLength(1);
+  expect(shop.passover.sounds_right).toBe(1);
   expect(shop.independentRecordCount).toBe(0);
   expect(shop.confidence).toBe('single_source');
 });

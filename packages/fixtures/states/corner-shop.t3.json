@@ -86,20 +86,12 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [
-        {
-          "id": "aff-cs-lena",
-          "claimId": "cl-cs-shop",
-          "contributorId": "c-lena",
-          "createdAt": "2026-02-10T15:05:00Z"
-        }
-      ],
       "independentRecordCount": 1,
       "extensions": [
         "cl-cs-uncle"
       ],
       "passover": {
-        "sounds_right": 0,
+        "sounds_right": 1,
         "dont_know": 0,
         "dont_care": 0
       },
@@ -250,7 +242,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -343,7 +334,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -475,7 +465,6 @@
       ],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -504,7 +493,7 @@
           ]
         }
       ],
-      "weight": 2,
+      "weight": 2.25,
       "confidence": "single_source"
     }
   ],
@@ -657,7 +646,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -665,14 +654,14 @@
     {
       "contributorId": "c-ray",
       "firstContributionAt": "2026-02-03T19:31:00Z",
-      "lastContributionAt": "2026-02-03T19:31:00Z",
+      "lastContributionAt": "2026-06-15T13:05:00Z",
       "recordsSubmitted": 0,
       "claimsAuthored": 1,
       "claimsCorroborated": 1,
       "claimsDisputed": 1,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 1,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -680,14 +669,14 @@
     {
       "contributorId": "c-lena",
       "firstContributionAt": "2026-02-10T15:05:00Z",
-      "lastContributionAt": "2026-02-10T15:05:00Z",
+      "lastContributionAt": "2026-06-15T13:02:00Z",
       "recordsSubmitted": 0,
       "claimsAuthored": 0,
       "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 1,
+      "soundsRightGiven": 1,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -702,7 +691,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 1,
       "disputesRaisedWithAlternative": 1,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -717,7 +706,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -732,7 +721,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
