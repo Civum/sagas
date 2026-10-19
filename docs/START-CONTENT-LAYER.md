@@ -210,8 +210,8 @@ different TypeScript from the one the build uses.
 1. `apps/capture-api/README.md`. Start with "This semester", which has the scope.
 2. `apps/capture-web/README.md`, shorter, covering the browser side.
 3. `packages/contracts/src/model.ts`. Read the **records and media** section
-   first. The **claims** and **edges** sections matter once you build claim
-   intake, and you can skip the rest.
+   first, and you can skip the rest. Claims and edges are written by the
+   intelligence layer.
 4. `packages/fixtures/fixtures/example-site/events.ts`, nine example records.
    This project treats them as the spec: code that handles all nine handles every case the fixtures know about.
 

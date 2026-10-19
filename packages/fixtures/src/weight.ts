@@ -15,10 +15,10 @@
  *   branches it reconciles up. So a claim's weight moves in both directions
  *   over time rather than only accumulating.
  *
- *   Affirmations and passovers (`sounds_right`, `dont_know`, `dont_care`) are
- *   the soft signals and matter most for what gets suggested to whom. Here an
- *   affirmation adds only a small, capped nudge, and it never counts as
- *   independent support.
+ *   Passovers (`sounds_right`, `dont_know`, `dont_care`) are the soft signals
+ *   and matter most for what gets suggested to whom. Here agreement, a
+ *   `sounds_right` passover, adds only a small, capped nudge, and it never
+ *   counts as independent support.
  */
 
 export const WEIGHT_MODEL_VERSION = 'fixture-placeholder-v1';
@@ -38,7 +38,7 @@ export interface WeightInputs {
   sourceType: SourceType;
   /** Distinct records other contributors brought to back this claim. See `claimState` in the contract. */
   independentRecordCount: number;
-  /** Raw affirmation headcount, used only for a small diminishing bonus. */
+  /** How many `sounds_right` passovers the claim has, used only for a small diminishing bonus. */
   affirmationCount: number;
   extensionCount: number;
   /** Disputes against any detail of this claim. */

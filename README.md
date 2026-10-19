@@ -70,8 +70,9 @@ change the shape of that graph:
 - **Dispute.** "I disagree with this specific detail, because." Disputes
   target a *detail* of a claim (a date, a place, a person). The rest of the
   claim stands, so a record can say "three disputes target the date; the location is
-  undisputed." Disputes without reasoning are rejected.
-- **Extension.** "I have more context." A new claim that adds to another without contradicting it. If it brings a new record, that record is attached as evidence. Extensions are meant to target a detail the way disputes do, and that is decided but not built yet (see `docs/CLOSED-QUESTIONS.md`).
+  undisputed." A dispute is a claim of its own, so it can carry evidence too.
+  Disputes without reasoning are rejected.
+- **Extension.** "I have more context." A new claim that adds to another without contradicting it. If it brings a new record, that record is attached as evidence. Like a dispute, an extension targets a detail, or the whole claim when it is about all of it.
 
 A third response costs the reader nothing and creates no claim. A **passover**
 is what somebody does on the way past: it says this sounds right, or that they

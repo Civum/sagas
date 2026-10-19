@@ -30,13 +30,13 @@ request with your reasoning and bring it to a check-in.
 
 **Now:** `disputeEdge` and `extensionEdge` in
 `packages/contracts/src/model.ts` each declare their own `id`,
-`contributorId`, and `createdAt`. So do `affirmation` and `passover`.
+`contributorId`, and `createdAt`. So does `passover`.
 
 **Why:** so the whole model reads top to bottom without following an
 inheritance chain, and because it was written to the requirements rather than
 to the pattern behind them.
 
-**The problem:** four places to change when the shared part changes, and nothing
+**The problem:** three places to change when the shared part changes, and nothing
 stops them drifting. It also hides something true, which is that every one of
 these is a person doing something to something at a time.
 
@@ -99,9 +99,8 @@ that one first.
 These change the shape of the model, which means they affect more than one team.
 Raise them before building.
 
-Two questions from this part have since been settled, and their reasoning moved
-to [`CLOSED-QUESTIONS.md`](./CLOSED-QUESTIONS.md). Neither is built yet, so read
-them before you build against `affirmation` or `disputeEdge`.
+Two questions from this part have since been decided, and their reasoning moved
+to [`CLOSED-QUESTIONS.md`](./CLOSED-QUESTIONS.md).
 
 ## What does an interface do with "sometime in the fifties, probably"?
 
@@ -301,7 +300,7 @@ so that I have thought of has a failure mode worse than the problem it solves.
 **What you have to work with.** `contributorStanding` in the contract records
 what each person has done. Records submitted, claims written, claims that
 somebody else backed with a record of their own, claims somebody disputed, disputes raised, how many of
-those disputes proposed an alternative instead of only objecting, affirmations,
+those disputes proposed an alternative instead of only objecting, "sounds right" passovers given,
 translations, transcripts, flags, and when they were first and last active.
 These are counts. There is no score, and that is deliberate.
 

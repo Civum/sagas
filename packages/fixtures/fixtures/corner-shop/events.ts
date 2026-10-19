@@ -20,7 +20,11 @@
  *   - Evidence. The extension at t2 brings its own record (an audio clip),
  *     which is attached as evidence while the conversation's source stays the
  *     photograph.
- *   - Agreement that is not a source. The affirmation at t1 adds no source.
+ *   - Agreement that is not a source. The "sounds right" at t1 adds no source.
+ *   - An extension landing on one detail. "Mr. Ferris was my uncle" adds to
+ *     the owner detail (t2).
+ *   - A dispute as a claim of its own, in the same conversation as the claim
+ *     it disputes (t2).
  *   - Two unrelated branches asserting the same detail (t3). A second person,
  *     with a different photograph in a different conversation, also names
  *     Mr. Ferris as the owner. Nothing links the two yet. Matching them is an
@@ -30,11 +34,10 @@
  *
  *   - The question prompts the contributor would attach to the photograph
  *     ("does anyone know the year?"). They are a proposal, not in the contract.
- *   - The extension targeting the "Mr. Ferris" detail. Extensions target a
- *     detail as of 27 September, but `extensionEdge` has no field for it yet.
- *   - The dispute carrying the directory scan as evidence. A dispute is still
- *     an edge, not a claim, so it cannot hold evidence records. The scan is
- *     submitted as a record at the site, and the dispute's reasoning cites it.
+ *   - The dispute carrying the directory scan as evidence. Since 2.3.0 a
+ *     dispute is a claim and could hold it, but this log hasn't been changed
+ *     to attach it. The scan is a record at the site, and the dispute's
+ *     reasoning cites it.
  *
  * Authored as an append-only log. States are derived, never authored. See
  * ../../src/reduce.ts.

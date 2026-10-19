@@ -80,10 +80,10 @@ so the place and the owner's name stay undisputed. It carries reasoning, which a
 dispute always has to. The directory scan is an **evidence record**, attached to
 the dispute to back it up.
 
-Event: `claim_disputed`. A dispute is going to become a claim with a dispute
-edge. That is decided and not built yet, so today a dispute is an edge only and
-cannot hold an evidence record. In the fixture, the scan is submitted as a
-record at the site and the dispute's reasoning cites it.
+Event: `claim_disputed`. A dispute is a claim of its own, with a dispute edge
+pointing from it to the detail it disagrees with, so it can hold an evidence
+record. The fixture doesn't attach the scan that way yet. There, the scan is
+submitted as a record at the site and the dispute's reasoning cites it.
 
 ## 4. A fourth person adds to another detail
 
@@ -93,8 +93,8 @@ A fourth contributor records a short audio clip: "Mr. Ferris was my uncle. He ra
 that shop until the sixties."
 
 That is an **extension**. It adds to the "Mr. Ferris" detail without contradicting
-anything. Extensions pointing at a detail is decided and not built yet: today an
-extension points at the whole claim. The new information lives in the extension's own record, the audio
+anything. An extension names the detail it adds to, and leaves that empty when
+it's about the whole claim. The new information lives in the extension's own record, the audio
 clip, which is its evidence. The conversation's source record is still the
 photograph.
 
