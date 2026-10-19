@@ -48,10 +48,6 @@
             "excerpt": "the owner, Mr. Ferris"
           }
         ],
-        "topics": [
-          "the shop",
-          "the owner"
-        ],
         "sourceType": "firsthand",
         "createdAt": "2026-02-03T19:31:00Z",
         "awaitingTranslation": false
@@ -114,6 +110,7 @@
             "excerpt": "the corner of Fourth and Main"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "Fourth and Main",
@@ -132,6 +129,7 @@
             "excerpt": "around 1950"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "c. 1950",
@@ -150,6 +148,7 @@
             "excerpt": "the owner, Mr. Ferris"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "Ferris",

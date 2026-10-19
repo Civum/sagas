@@ -43,10 +43,6 @@
             "excerpt": "on the corner of 9th and Bannock"
           }
         ],
-        "topics": [
-          "closing",
-          "the menu"
-        ],
         "sourceType": "family_oral",
         "createdAt": "2026-02-03T18:44:00Z",
         "awaitingTranslation": false
@@ -102,6 +98,7 @@
             "excerpt": "it closed in 1979"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "1979",
@@ -120,6 +117,7 @@
             "excerpt": "on the corner of 9th and Bannock"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "9th and Bannock",

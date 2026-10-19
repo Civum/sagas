@@ -96,7 +96,6 @@ export const events: ContributionEvent[] = [
       { id: 'el-gk-year', kind: 'date', value: '1979', excerpt: 'it closed in 1979' },
       { id: 'el-gk-place', kind: 'place', value: '9th and Bannock', excerpt: 'on the corner of 9th and Bannock' },
     ],
-    topics: ['closing', 'the menu'],
     sourceType: 'family_oral',
   },
 
@@ -137,7 +136,6 @@ export const events: ContributionEvent[] = [
     details: [
       { id: 'el-gk-hours', kind: 'quantity', value: '05:00 to 14:00', excerpt: 'five in the morning until two in the afternoon' },
     ],
-    topics: ['the menu', 'who ate there'],
     sourceType: 'documentary',
   },
 
@@ -153,7 +151,6 @@ export const events: ContributionEvent[] = [
     details: [
       { id: 'el-gk-person', kind: 'person', value: 'Dolores Whitcomb\'s mother', excerpt: 'my mother was one of them' },
     ],
-    topics: ['who ate there'],
     sourceType: 'family_oral',
   },
 

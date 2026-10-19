@@ -37,10 +37,10 @@
  *   SHARED · Signals              low-effort reactions
  *   CALCULATED                    what a consumer actually receives
  *
- * Most of this is shared on purpose. Claims belong to all three layers: the
- * content layer takes them in, the intelligence layer models and scores them,
- * and the experience layer renders them and composes them into a page.
- * Only the records section belongs mostly to one team.
+ * Most of this is shared on purpose. The content layer takes in records. The
+ * intelligence layer takes in claims, disputes and extensions, scores them,
+ * and composes sections and passages from them. The experience layer shows
+ * all of it. Only the records section belongs mostly to one team.
  *
  * If you are on the content layer, start at CONTENT LAYER · Records.
  * If you are on the intelligence layer, start at CALCULATED, then Claims.
@@ -521,9 +521,9 @@ export type Flag = z.infer<typeof flag>;
 /* ================================================================== */
 /* SHARED · Claims                                                     */
 /*                                                                     */
-/* A claim is somebody's reading of a record. The content layer takes   */
-/* claims in, the intelligence layer models them, and the experience    */
-/* layer renders and composes them. All three own this section.         */
+/* A claim is somebody's reading of a record. The intelligence layer    */
+/* takes claims in, models and scores them, and composes them into      */
+/* sections. The experience layer shows them. All three read this.     */
 /* ================================================================== */
 
 /**
@@ -560,7 +560,6 @@ export const claim = z.object({
    */
   sourceLanguageText: z.string().optional(),
   details: z.array(claimDetail),
-  topics: z.array(z.string()),
   sourceType,
   createdAt: z.string(),
   /**
@@ -661,6 +660,12 @@ export const extensionEdge = z.object({
   type: z.literal('extension'),
   parentClaimId: z.string(),
   childClaimId: z.string(),
+  /**
+   * Which part it adds to, the way a dispute names the detail it disagrees
+   * with. Empty when the extension is about the whole claim ("my family ran it
+   * until the war").
+   */
+  targetDetailId: z.string().optional(),
   contributorId: z.string(),
   createdAt: z.string(),
 });
@@ -716,6 +721,8 @@ export type Passover = z.infer<typeof passover>;
 export const detailStatus = z.object({
   detail: claimDetail,
   disputes: z.array(disputeEdge),
+  /** Extensions that add to this detail. Extensions about the whole claim aren't listed here. */
+  extensions: z.array(extensionEdge),
   /**
    * Every value anyone has asserted for this detail, in the order they arrived,
    * the claim's own first. Ordering by strength is the intelligence layer's.
@@ -783,11 +790,11 @@ export type ClaimState = z.infer<typeof claimState>;
  * What one contributor has actually done here.
  *
  * Every field is a count of something that happened. There is no score in this
- * shape and there must not be one. Working out what any of it means, whether a
- * long record of corroborated claims should count for more than a short one,
- * whether somebody who disputes constantly is careful or difficult, whether any
- * of it should touch a claim's weight at all, is the intelligence layer's
- * deliverable and the hardest open question in the project.
+ * shape and there must not be one. Behaviour does count toward a claim's score:
+ * what a profile has done is a behaviour term, and who they are never is. What
+ * any of these counts means, whether a long record of corroborated claims
+ * should count for more than a short one, whether somebody who disputes
+ * constantly is careful or difficult, is the intelligence layer's design work.
  *
  * This shape is the raw material. An algorithm can only use what the model
  * writes down, so the job here is to record behaviour faithfully and judge

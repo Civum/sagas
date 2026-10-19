@@ -89,7 +89,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-boarding-e-place', kind: 'place', value: '620 W Grove St', excerpt: 'The Anduiza building on Grove Street' },
       { id: 'cl-boarding-e-person', kind: 'person', value: 'great-grandmother, cook', excerpt: 'My great-grandmother cooked there' },
     ],
-    topics: ['boarding house', 'sheepherding', 'women\'s work', 'immigration'],
     sourceType: 'family_oral',
   },
 
@@ -109,7 +108,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-fronton-e-use', kind: 'event', value: 'handball court / fronton', excerpt: 'a handball court' },
       { id: 'cl-fronton-e-season', kind: 'event', value: 'winter use', excerpt: 'played in the winter' },
     ],
-    topics: ['pilota', 'fronton', 'recreation', 'sheepherding'],
     sourceType: 'family_oral',
   },
 
@@ -138,7 +136,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-prelot-e-use', kind: 'event', value: 'livery stable', excerpt: 'a livery stable on that lot' },
       { id: 'cl-prelot-e-seq', kind: 'date', value: 'before boarding house', excerpt: 'Before the boarding house' },
     ],
-    topics: ['prior use', 'lot history'],
     sourceType: 'family_oral',
   },
 
@@ -214,7 +211,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-fronton-floor-e-mat', kind: 'event', value: 'wood floor', excerpt: 'The floor was wood' },
       { id: 'cl-fronton-floor-e-detail', kind: 'place', value: 'dead spot near left wall', excerpt: 'a dead spot near the left wall' },
     ],
-    topics: ['pilota', 'fronton', 'recreation'],
     sourceType: 'firsthand',
   },
 
@@ -266,7 +262,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-boarding-kitchen-e-op', kind: 'event', value: 'two meal sittings', excerpt: 'the kitchen ran two sittings' },
       { id: 'cl-boarding-kitchen-e-rel', kind: 'attribution', value: 'same lineage as cl-boarding', excerpt: 'Marisol and I are cousins' },
     ],
-    topics: ['boarding house', 'women\'s work', 'daily life'],
     sourceType: 'family_oral',
   },
 
@@ -322,7 +317,6 @@ export const events: ContributionEvent[] = [
       'Guretzat gure etxea zen, ez ostatu bat.',
     text: '', // no rendering exists yet
     details: [],
-    topics: ['boarding house', 'pilota', 'family'],
     sourceType: 'family_oral',
   },
 
@@ -423,7 +417,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-register-e-doc', kind: 'attribution', value: 'boarding register, museum holding', excerpt: 'We hold a boarding register' },
       { id: 'cl-register-e-limit', kind: 'attribution', value: 'register omits staff', excerpt: 'The register does not name kitchen staff' },
     ],
-    topics: ['boarding house', 'documentary record'],
     sourceType: 'institutional',
   },
 
@@ -630,7 +623,6 @@ export const events: ContributionEvent[] = [
     details: [
       { id: 'cl-fronton-deadspot-e-cause', kind: 'event', value: 'patched drain', excerpt: 'where a drain had been patched over' },
     ],
-    topics: ['pilota', 'fronton', 'building fabric'],
     sourceType: 'family_oral',
   },
 
@@ -686,7 +678,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-prelot-both-e-use', kind: 'event', value: 'smithy and stabling coexisting', excerpt: 'a smithy on the corner of this lot and stabling behind it' },
       { id: 'cl-prelot-both-e-doc', kind: 'attribution', value: 'Sanborn fire insurance map', excerpt: 'A Sanborn sheet' },
     ],
-    topics: ['prior use', 'lot history', 'documentary record'],
     sourceType: 'documentary',
   },
 
@@ -769,7 +760,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-afterhours-e-origin', kind: 'place', value: 'the Center', excerpt: 'walking over from the Center' },
       { id: 'cl-afterhours-e-date', kind: 'date', value: '1960s', excerpt: 'The men who came in the sixties' },
     ],
-    topics: ['pilota', 'community', 'recreation'],
     sourceType: 'community_oral',
   },
 

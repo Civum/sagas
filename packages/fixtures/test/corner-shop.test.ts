@@ -56,6 +56,14 @@ test('an extension keeps the conversation source and brings its own record as ev
   expect(claim('t2', 'cl-cs-shop').independentRecordCount).toBe(1);
 });
 
+test('an extension lands on the detail it adds to', () => {
+  const shop = claim('t2', 'cl-cs-shop');
+  const owner = shop.detailStatuses.find((d) => d.detail.id === 'dt-cs-owner');
+  expect(owner?.extensions.map((e) => e.childClaimId)).toEqual(['cl-cs-uncle']);
+  const year = shop.detailStatuses.find((d) => d.detail.id === 'dt-cs-year');
+  expect(year?.extensions).toEqual([]);
+});
+
 test('two unrelated conversations assert the same detail, and nothing links them yet', () => {
   const shop = claim('t3', 'cl-cs-shop');
   const sign = claim('t3', 'cl-cs-sign');

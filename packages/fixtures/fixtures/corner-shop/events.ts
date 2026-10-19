@@ -114,7 +114,6 @@ export const events: ContributionEvent[] = [
       { id: 'dt-cs-year', kind: 'date', value: 'c. 1950', excerpt: 'around 1950' },
       { id: 'dt-cs-owner', kind: 'person', value: 'Ferris', excerpt: 'the owner, Mr. Ferris' },
     ],
-    topics: ['the shop', 'the owner'],
     sourceType: 'firsthand',
   },
 
@@ -206,13 +205,14 @@ export const events: ContributionEvent[] = [
     sourceRecordId: 'rec-cs-photo',
     evidenceRecordIds: ['rec-cs-audio'],
     parentClaimId: 'cl-cs-shop',
+    // It adds to who the owner was, so it targets that detail.
+    targetDetailId: 'dt-cs-owner',
     siteId: SITE,
     text: 'Mr. Ferris was my uncle. He ran that shop until the sixties.',
     sourceLanguage: 'en',
     details: [
       { id: 'dt-cs-uncle-until', kind: 'date', value: '1960s', excerpt: 'until the sixties' },
     ],
-    topics: ['the owner'],
     sourceType: 'family_oral',
   },
 
@@ -261,7 +261,6 @@ export const events: ContributionEvent[] = [
       { id: 'dt-cs-sign-owner', kind: 'person', value: 'Ferris', excerpt: 'FERRIS GROCERY' },
       { id: 'dt-cs-sign-trade', kind: 'event', value: 'grocery', excerpt: 'GROCERY' },
     ],
-    topics: ['the owner', 'the sign'],
     sourceType: 'documentary',
   },
 

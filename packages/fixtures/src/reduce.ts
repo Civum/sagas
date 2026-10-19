@@ -69,7 +69,7 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
         sourceRecordId: ev.sourceRecordId, evidenceRecordIds: ev.evidenceRecordIds ?? [],
         text: ev.text, sourceLanguage: ev.sourceLanguage,
         sourceLanguageText: ev.sourceLanguageText, details: ev.details,
-        topics: ev.topics, sourceType: ev.sourceType,
+        sourceType: ev.sourceType,
         createdAt: ev.at, awaitingTranslation: ev.awaitingTranslation ?? false,
       });
       return;
@@ -80,13 +80,14 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
         sourceRecordId: ev.sourceRecordId, evidenceRecordIds: ev.evidenceRecordIds ?? [],
         text: ev.text, sourceLanguage: ev.sourceLanguage,
         sourceLanguageText: ev.sourceLanguageText, details: ev.details,
-        topics: ev.topics, sourceType: ev.sourceType,
+        sourceType: ev.sourceType,
         createdAt: ev.at, parentClaimId: ev.parentClaimId,
         awaitingTranslation: false,
       });
       acc.extensions.push({
         id: `ext-${ev.id}`, type: 'extension', parentClaimId: ev.parentClaimId,
-        childClaimId: ev.claimId, contributorId: ev.actorId, createdAt: ev.at,
+        childClaimId: ev.claimId, targetDetailId: ev.targetDetailId,
+        contributorId: ev.actorId, createdAt: ev.at,
       });
       return;
 
@@ -218,7 +219,8 @@ function buildClaimState(
   }
   const affirmations = acc.affirmations.filter((a) => a.claimId === claim.id);
   const disputes = acc.disputes.filter((d) => d.targetClaimId === claim.id);
-  const extensions = acc.extensions.filter((e) => e.parentClaimId === claim.id).map((e) => e.childClaimId);
+  const extensionEdges = acc.extensions.filter((e) => e.parentClaimId === claim.id);
+  const extensions = extensionEdges.map((e) => e.childClaimId);
   const translations = acc.translations.filter((t) => t.claimId === claim.id);
   const translationIds = new Set(translations.map((t) => t.id));
   const translationDisputes = acc.translationDisputes.filter((d) => translationIds.has(d.translationId));
@@ -261,7 +263,8 @@ function buildClaimState(
       // dispute, and ordering by headcount would turn readings into a vote.
       // Nothing is marked accepted and nothing is hidden.
       ;
-    return { detail, disputes: detailDisputes, competingValues };
+    const detailExtensions = extensionEdges.filter((e) => e.targetDetailId === detail.id);
+    return { detail, disputes: detailDisputes, extensions: detailExtensions, competingValues };
   });
 
   const extensionClaims = extensions

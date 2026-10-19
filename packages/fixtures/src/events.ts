@@ -58,7 +58,6 @@ export interface ClaimSubmitted extends BaseEvent {
   /** True when submitted in a language other than English with no rendering yet. */
   awaitingTranslation?: boolean;
   details: ClaimDetail[];
-  topics: string[];
   sourceType: SourceType;
 }
 
@@ -69,12 +68,13 @@ export interface ClaimExtended extends BaseEvent {
   sourceRecordId: RecordId;
   evidenceRecordIds?: RecordId[];
   parentClaimId: ClaimId;
+  /** The detail of the parent it adds to. Omitted when it's about the whole claim. */
+  targetDetailId?: DetailId;
   siteId: SiteId;
   text: string;
   sourceLanguage: LanguageCode;
   sourceLanguageText?: string;
   details: ClaimDetail[];
-  topics: string[];
   sourceType: SourceType;
 }
 

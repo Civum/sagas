@@ -42,9 +42,6 @@
             "excerpt": "this stretch"
           }
         ],
-        "topics": [
-          "the bench"
-        ],
         "sourceType": "family_oral",
         "createdAt": "2026-05-19T15:34:00Z",
         "awaitingTranslation": false
@@ -100,6 +97,7 @@
             "excerpt": "My grandmother"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "Margarethe Hoefer",
@@ -118,6 +116,7 @@
             "excerpt": "this stretch"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "Greenbelt near the Americana bridge",

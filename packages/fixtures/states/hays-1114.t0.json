@@ -42,9 +42,6 @@
             "excerpt": "from the late fifties"
           }
         ],
-        "topics": [
-          "the shop"
-        ],
         "sourceType": "community_oral",
         "createdAt": "2026-04-02T17:22:00Z",
         "awaitingTranslation": false
@@ -86,6 +83,7 @@
             "excerpt": "The shoe repair at 1114"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "shoe repair",
@@ -104,6 +102,7 @@
             "excerpt": "from the late fifties"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "late 1950s",

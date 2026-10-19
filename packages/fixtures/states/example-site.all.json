@@ -57,12 +57,6 @@
               "excerpt": "My great-grandmother cooked there"
             }
           ],
-          "topics": [
-            "boarding house",
-            "sheepherding",
-            "women's work",
-            "immigration"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:22:00Z",
           "awaitingTranslation": false
@@ -104,6 +98,7 @@
               "excerpt": "She started in 1922"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1922",
@@ -122,6 +117,7 @@
               "excerpt": "took in Basque sheepherders"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "boarding house for sheepherders",
@@ -140,6 +136,7 @@
               "excerpt": "The Anduiza building on Grove Street"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "620 W Grove St",
@@ -158,6 +155,7 @@
               "excerpt": "My great-grandmother cooked there"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "great-grandmother, cook",
@@ -201,12 +199,6 @@
               "excerpt": "played in the winter"
             }
           ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation",
-            "sheepherding"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:41:00Z",
           "awaitingTranslation": false
@@ -248,6 +240,7 @@
               "excerpt": "built into the back of the building"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "rear of building",
@@ -266,6 +259,7 @@
               "excerpt": "a handball court"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "handball court / fronton",
@@ -284,6 +278,7 @@
               "excerpt": "played in the winter"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "winter use",
@@ -320,10 +315,6 @@
               "value": "before boarding house",
               "excerpt": "Before the boarding house"
             }
-          ],
-          "topics": [
-            "prior use",
-            "lot history"
           ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-09T02:15:00Z",
@@ -366,6 +357,7 @@
               "excerpt": "a livery stable on that lot"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "livery stable",
@@ -384,6 +376,7 @@
               "excerpt": "Before the boarding house"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "before boarding house",
@@ -531,12 +524,6 @@
               "excerpt": "played in the winter"
             }
           ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation",
-            "sheepherding"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:41:00Z",
           "awaitingTranslation": false
@@ -593,6 +580,7 @@
               "excerpt": "built into the back of the building"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "rear of building",
@@ -611,6 +599,7 @@
               "excerpt": "a handball court"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "handball court / fronton",
@@ -629,6 +618,7 @@
               "excerpt": "played in the winter"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "winter use",
@@ -677,12 +667,6 @@
               "value": "great-grandmother, cook",
               "excerpt": "My great-grandmother cooked there"
             }
-          ],
-          "topics": [
-            "boarding house",
-            "sheepherding",
-            "women's work",
-            "immigration"
           ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:22:00Z",
@@ -734,6 +718,7 @@
               "excerpt": "She started in 1922"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1922",
@@ -752,6 +737,7 @@
               "excerpt": "took in Basque sheepherders"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "boarding house for sheepherders",
@@ -770,6 +756,7 @@
               "excerpt": "The Anduiza building on Grove Street"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "620 W Grove St",
@@ -788,6 +775,7 @@
               "excerpt": "My great-grandmother cooked there"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "great-grandmother, cook",
@@ -832,11 +820,6 @@
               "value": "dead spot near left wall",
               "excerpt": "a dead spot near the left wall"
             }
-          ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation"
           ],
           "sourceType": "firsthand",
           "createdAt": "2026-02-14T20:01:00Z",
@@ -916,6 +899,7 @@
               "excerpt": "this would be 1963, 1964"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1963-1964",
@@ -934,6 +918,7 @@
               "excerpt": "The floor was wood"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "wood floor",
@@ -952,6 +937,7 @@
               "excerpt": "a dead spot near the left wall"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "dead spot near left wall",
@@ -988,10 +974,6 @@
               "value": "before boarding house",
               "excerpt": "Before the boarding house"
             }
-          ],
-          "topics": [
-            "prior use",
-            "lot history"
           ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-09T02:15:00Z",
@@ -1034,6 +1016,7 @@
               "excerpt": "a livery stable on that lot"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "livery stable",
@@ -1052,6 +1035,7 @@
               "excerpt": "Before the boarding house"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "before boarding house",
@@ -1090,11 +1074,6 @@
               "value": "same lineage as cl-boarding",
               "excerpt": "Marisol and I are cousins"
             }
-          ],
-          "topics": [
-            "boarding house",
-            "women's work",
-            "daily life"
           ],
           "sourceType": "family_oral",
           "createdAt": "2026-02-20T15:39:00Z",
@@ -1149,6 +1128,7 @@
               "excerpt": "the kitchen ran two sittings"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "two meal sittings",
@@ -1167,6 +1147,7 @@
               "excerpt": "Marisol and I are cousins"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "same lineage as cl-boarding",
@@ -1192,11 +1173,6 @@
           "sourceLanguage": "eu",
           "sourceLanguageText": "Gure aitona hemen bizi izan zen. Neguan pilotan jokatzen zuten atzeko aldean. Guretzat gure etxea zen, ez ostatu bat.",
           "details": [],
-          "topics": [
-            "boarding house",
-            "pilota",
-            "family"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-03-02T22:31:00Z",
           "awaitingTranslation": true
@@ -1570,12 +1546,6 @@
               "excerpt": "played in the winter"
             }
           ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation",
-            "sheepherding"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:41:00Z",
           "awaitingTranslation": false
@@ -1644,6 +1614,7 @@
               "excerpt": "built into the back of the building"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "rear of building",
@@ -1662,6 +1633,7 @@
               "excerpt": "a handball court"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "handball court / fronton",
@@ -1680,6 +1652,7 @@
               "excerpt": "played in the winter"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "winter use",
@@ -1728,12 +1701,6 @@
               "value": "great-grandmother, cook",
               "excerpt": "My great-grandmother cooked there"
             }
-          ],
-          "topics": [
-            "boarding house",
-            "sheepherding",
-            "women's work",
-            "immigration"
           ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:22:00Z",
@@ -1817,6 +1784,7 @@
                 "createdAt": "2026-05-09T14:08:00Z"
               }
             ],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1922",
@@ -1844,6 +1812,7 @@
               "excerpt": "took in Basque sheepherders"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "boarding house for sheepherders",
@@ -1862,6 +1831,7 @@
               "excerpt": "The Anduiza building on Grove Street"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "620 W Grove St",
@@ -1880,6 +1850,7 @@
               "excerpt": "My great-grandmother cooked there"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "great-grandmother, cook",
@@ -1924,11 +1895,6 @@
               "value": "dead spot near left wall",
               "excerpt": "a dead spot near the left wall"
             }
-          ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation"
           ],
           "sourceType": "firsthand",
           "createdAt": "2026-02-14T20:01:00Z",
@@ -2008,6 +1974,7 @@
               "excerpt": "this would be 1963, 1964"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1963-1964",
@@ -2026,6 +1993,7 @@
               "excerpt": "The floor was wood"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "wood floor",
@@ -2044,6 +2012,7 @@
               "excerpt": "a dead spot near the left wall"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "dead spot near left wall",
@@ -2088,10 +2057,6 @@
               "value": "register omits staff",
               "excerpt": "The register does not name kitchen staff"
             }
-          ],
-          "topics": [
-            "boarding house",
-            "documentary record"
           ],
           "sourceType": "institutional",
           "createdAt": "2026-04-06T14:35:00Z",
@@ -2163,6 +2128,7 @@
               "excerpt": "The earliest entries in our copy are from 1914"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1914",
@@ -2181,6 +2147,7 @@
               "excerpt": "We hold a boarding register"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "boarding register, museum holding",
@@ -2199,6 +2166,7 @@
               "excerpt": "The register does not name kitchen staff"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "register omits staff",
@@ -2224,11 +2192,6 @@
           "sourceLanguage": "eu",
           "sourceLanguageText": "Gure aitona hemen bizi izan zen. Neguan pilotan jokatzen zuten atzeko aldean. Guretzat gure etxea zen, ez ostatu bat.",
           "details": [],
-          "topics": [
-            "boarding house",
-            "pilota",
-            "family"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-03-02T22:31:00Z",
           "awaitingTranslation": false
@@ -2334,11 +2297,6 @@
               "excerpt": "Marisol and I are cousins"
             }
           ],
-          "topics": [
-            "boarding house",
-            "women's work",
-            "daily life"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-02-20T15:39:00Z",
           "parentClaimId": "cl-boarding",
@@ -2392,6 +2350,7 @@
               "excerpt": "the kitchen ran two sittings"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "two meal sittings",
@@ -2410,6 +2369,7 @@
               "excerpt": "Marisol and I are cousins"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "same lineage as cl-boarding",
@@ -2446,10 +2406,6 @@
               "value": "before boarding house",
               "excerpt": "Before the boarding house"
             }
-          ],
-          "topics": [
-            "prior use",
-            "lot history"
           ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-09T02:15:00Z",
@@ -2503,6 +2459,7 @@
                 "createdAt": "2026-04-11T20:40:00Z"
               }
             ],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "livery stable",
@@ -2528,6 +2485,7 @@
               "excerpt": "Before the boarding house"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "before boarding house",
@@ -2973,11 +2931,6 @@
               "excerpt": "a dead spot near the left wall"
             }
           ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation"
-          ],
           "sourceType": "firsthand",
           "createdAt": "2026-02-14T20:01:00Z",
           "parentClaimId": "cl-fronton",
@@ -3066,6 +3019,7 @@
               "excerpt": "this would be 1963, 1964"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1963-1964",
@@ -3084,6 +3038,7 @@
               "excerpt": "The floor was wood"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "wood floor",
@@ -3102,6 +3057,7 @@
               "excerpt": "a dead spot near the left wall"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "dead spot near left wall",
@@ -3144,12 +3100,6 @@
               "value": "winter use",
               "excerpt": "played in the winter"
             }
-          ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation",
-            "sheepherding"
           ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:41:00Z",
@@ -3225,6 +3175,7 @@
               "excerpt": "built into the back of the building"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "rear of building",
@@ -3243,6 +3194,7 @@
               "excerpt": "a handball court"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "handball court / fronton",
@@ -3261,6 +3213,7 @@
               "excerpt": "played in the winter"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "winter use",
@@ -3309,12 +3262,6 @@
               "value": "great-grandmother, cook",
               "excerpt": "My great-grandmother cooked there"
             }
-          ],
-          "topics": [
-            "boarding house",
-            "sheepherding",
-            "women's work",
-            "immigration"
           ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:22:00Z",
@@ -3398,6 +3345,7 @@
                 "createdAt": "2026-05-09T14:08:00Z"
               }
             ],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1922",
@@ -3425,6 +3373,7 @@
               "excerpt": "took in Basque sheepherders"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "boarding house for sheepherders",
@@ -3443,6 +3392,7 @@
               "excerpt": "The Anduiza building on Grove Street"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "620 W Grove St",
@@ -3461,6 +3411,7 @@
               "excerpt": "My great-grandmother cooked there"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "great-grandmother, cook",
@@ -3497,10 +3448,6 @@
               "value": "before boarding house",
               "excerpt": "Before the boarding house"
             }
-          ],
-          "topics": [
-            "prior use",
-            "lot history"
           ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-09T02:15:00Z",
@@ -3556,6 +3503,7 @@
                 "createdAt": "2026-04-11T20:40:00Z"
               }
             ],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "livery stable",
@@ -3581,6 +3529,7 @@
               "excerpt": "Before the boarding house"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "before boarding house",
@@ -3619,11 +3568,6 @@
               "value": "Sanborn fire insurance map",
               "excerpt": "A Sanborn sheet"
             }
-          ],
-          "topics": [
-            "prior use",
-            "lot history",
-            "documentary record"
           ],
           "sourceType": "documentary",
           "createdAt": "2026-06-22T16:12:00Z",
@@ -3707,6 +3651,7 @@
               "excerpt": "a smithy on the corner of this lot and stabling behind it"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "smithy and stabling coexisting",
@@ -3725,6 +3670,7 @@
               "excerpt": "A Sanborn sheet"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "Sanborn fire insurance map",
@@ -3769,10 +3715,6 @@
               "value": "register omits staff",
               "excerpt": "The register does not name kitchen staff"
             }
-          ],
-          "topics": [
-            "boarding house",
-            "documentary record"
           ],
           "sourceType": "institutional",
           "createdAt": "2026-04-06T14:35:00Z",
@@ -3844,6 +3786,7 @@
               "excerpt": "The earliest entries in our copy are from 1914"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1914",
@@ -3862,6 +3805,7 @@
               "excerpt": "We hold a boarding register"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "boarding register, museum holding",
@@ -3880,6 +3824,7 @@
               "excerpt": "The register does not name kitchen staff"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "register omits staff",
@@ -3905,11 +3850,6 @@
           "sourceLanguage": "eu",
           "sourceLanguageText": "Gure aitona hemen bizi izan zen. Neguan pilotan jokatzen zuten atzeko aldean. Guretzat gure etxea zen, ez ostatu bat.",
           "details": [],
-          "topics": [
-            "boarding house",
-            "pilota",
-            "family"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-03-02T22:31:00Z",
           "awaitingTranslation": false
@@ -4037,11 +3977,6 @@
               "excerpt": "The men who came in the sixties"
             }
           ],
-          "topics": [
-            "pilota",
-            "community",
-            "recreation"
-          ],
           "sourceType": "community_oral",
           "createdAt": "2026-07-02T19:30:00Z",
           "parentClaimId": "cl-fronton-floor",
@@ -4121,6 +4056,7 @@
               "excerpt": "walking over from the Center"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "the Center",
@@ -4139,6 +4075,7 @@
               "excerpt": "The men who came in the sixties"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1960s",
@@ -4177,11 +4114,6 @@
               "value": "same lineage as cl-boarding",
               "excerpt": "Marisol and I are cousins"
             }
-          ],
-          "topics": [
-            "boarding house",
-            "women's work",
-            "daily life"
           ],
           "sourceType": "family_oral",
           "createdAt": "2026-02-20T15:39:00Z",
@@ -4236,6 +4168,7 @@
               "excerpt": "the kitchen ran two sittings"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "two meal sittings",
@@ -4254,6 +4187,7 @@
               "excerpt": "Marisol and I are cousins"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "same lineage as cl-boarding",
@@ -4286,11 +4220,6 @@
               "value": "patched drain",
               "excerpt": "where a drain had been patched over"
             }
-          ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "building fabric"
           ],
           "sourceType": "family_oral",
           "createdAt": "2026-06-08T15:44:00Z",
@@ -4345,6 +4274,7 @@
               "excerpt": "where a drain had been patched over"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "patched drain",

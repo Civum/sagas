@@ -37,10 +37,6 @@
             "excerpt": "five in the morning until two in the afternoon"
           }
         ],
-        "topics": [
-          "the menu",
-          "who ate there"
-        ],
         "sourceType": "documentary",
         "createdAt": "2026-03-18T20:47:00Z",
         "awaitingTranslation": false
@@ -98,6 +94,7 @@
             "excerpt": "five in the morning until two in the afternoon"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "05:00 to 14:00",
@@ -134,10 +131,6 @@
             "value": "9th and Bannock",
             "excerpt": "on the corner of 9th and Bannock"
           }
-        ],
-        "topics": [
-          "closing",
-          "the menu"
         ],
         "sourceType": "family_oral",
         "createdAt": "2026-02-03T18:44:00Z",
@@ -201,6 +194,7 @@
             "excerpt": "it closed in 1979"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "1979",
@@ -219,6 +213,7 @@
             "excerpt": "on the corner of 9th and Bannock"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "9th and Bannock",
@@ -249,9 +244,6 @@
             "value": "Dolores Whitcomb's mother",
             "excerpt": "my mother was one of them"
           }
-        ],
-        "topics": [
-          "who ate there"
         ],
         "sourceType": "family_oral",
         "createdAt": "2026-03-22T11:15:00Z",
@@ -309,6 +301,7 @@
             "excerpt": "my mother was one of them"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "Dolores Whitcomb's mother",

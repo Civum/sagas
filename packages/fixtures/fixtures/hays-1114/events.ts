@@ -72,7 +72,6 @@ export const events: ContributionEvent[] = [
       { id: 'el-ha-trade', kind: 'event', value: 'shoe repair', excerpt: 'The shoe repair at 1114' },
       { id: 'el-ha-from', kind: 'date', value: 'late 1950s', excerpt: 'from the late fifties' },
     ],
-    topics: ['the shop'],
     sourceType: 'community_oral',
   },
 
