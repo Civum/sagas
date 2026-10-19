@@ -58,7 +58,6 @@ export interface ClaimSubmitted extends BaseEvent {
   /** True when submitted in a language other than English with no rendering yet. */
   awaitingTranslation?: boolean;
   details: ClaimDetail[];
-  topics: string[];
   sourceType: SourceType;
 }
 
@@ -69,28 +68,40 @@ export interface ClaimExtended extends BaseEvent {
   sourceRecordId: RecordId;
   evidenceRecordIds?: RecordId[];
   parentClaimId: ClaimId;
+  /** The detail of the parent it adds to. Omitted when it's about the whole claim. */
+  targetDetailId?: DetailId;
   siteId: SiteId;
   text: string;
   sourceLanguage: LanguageCode;
   sourceLanguageText?: string;
   details: ClaimDetail[];
-  topics: string[];
   sourceType: SourceType;
 }
 
+/**
+ * Somebody disputes one detail of a claim. A dispute is a claim of its own, so
+ * this makes a claim and the edge that points it at the detail. What the claim
+ * says, its details and its source record default from the dispute itself and
+ * the claim it targets, so a fixture only spells them out when they differ.
+ */
 export interface ClaimDisputed extends BaseEvent {
   kind: 'claim_disputed';
   edgeId: string;
+  /** The dispute's own claim. */
+  claimId: ClaimId;
+  /** Defaults to the disputed claim's source record: the same conversation. */
+  sourceRecordId?: RecordId;
+  evidenceRecordIds?: RecordId[];
+  /** Defaults to the reasoning. */
+  text?: string;
+  /** Defaults to one detail holding the proposed value, when there is one. */
+  details?: ClaimDetail[];
+  /** Defaults to the disputed claim's. */
+  sourceType?: SourceType;
   targetClaimId: ClaimId;
   targetDetailId: DetailId;
   reasoning: string;
   proposedValue?: string;
-}
-
-export interface ClaimAffirmed extends BaseEvent {
-  kind: 'claim_affirmed';
-  affirmationId: string;
-  claimId: ClaimId;
 }
 
 export interface PassoverRecorded extends BaseEvent {
@@ -199,7 +210,6 @@ export type ContributionEvent =
   | ClaimSubmitted
   | ClaimExtended
   | ClaimDisputed
-  | ClaimAffirmed
   | PassoverRecorded
   | TranslationSubmitted
   | TranslationDisputed

@@ -37,10 +37,10 @@
  *   SHARED · Signals              low-effort reactions
  *   CALCULATED                    what a consumer actually receives
  *
- * Most of this is shared on purpose. Claims belong to all three layers: the
- * content layer takes them in, the intelligence layer models and scores them,
- * and the experience layer renders them and composes them into a page.
- * Only the records section belongs mostly to one team.
+ * Most of this is shared on purpose. The content layer takes in records. The
+ * intelligence layer takes in claims, disputes and extensions, scores them,
+ * and composes sections and passages from them. The experience layer shows
+ * all of it. Only the records section belongs mostly to one team.
  *
  * If you are on the content layer, start at CONTENT LAYER · Records.
  * If you are on the intelligence layer, start at CALCULATED, then Claims.
@@ -127,9 +127,10 @@ export type SourceType = z.infer<typeof sourceType>;
  *   dont_know     outside what this person can judge
  *   dont_care     not what this person is here for
  *
- * These tune what gets shown to whom. They do not change the graph, and they
- * are not votes. A claim covered in `dont_know` isn't doubted, it just hasn't
- * reached anyone able to speak to it.
+ * These tune what gets shown to whom. They don't create edges, and they are
+ * not votes. `sounds_right` is agreement, and adds a negligible amount of
+ * weight. A claim covered in `dont_know` isn't doubted, it just hasn't reached
+ * anyone able to speak to it.
  */
 export const passoverKind = z.enum(['sounds_right', 'dont_know', 'dont_care']);
 export type PassoverKind = z.infer<typeof passoverKind>;
@@ -369,16 +370,14 @@ export type MediaRef = z.infer<typeof mediaRef>;
 /**
  * An artifact somebody contributed, and the place it belongs to.
  *
- * A record is a bundle, not a file type. What arrives is whatever the person
- * had: a voice recording, a photograph with a sentence about it, a page they
- * typed up, a scan of a letter, or several of those at once. One record holds
- * all of it.
+ * One record is one artifact: a photograph, a recording, a video, a document,
+ * or a piece of typed text. A photograph and a recording describing it are two
+ * records, even when they arrive together.
  *
- * That is why there is no `kind` field here. A contribution made of a
- * photograph, a two-minute audio description of that photograph, and a written
- * note is an ordinary thing for somebody to hand over, and a single kind would
- * have to lie about it. Each file carries its own kind in `media`. The record is
- * the bundle they arrived in.
+ * `media` is a list because one artifact can arrive in several files: the five
+ * pages of a scanned letter, say. Every file in a record's `media` is the same
+ * kind. Files of different kinds are different artifacts, so they belong to
+ * different records.
  *
  * The three shapes that turn up most:
  *
@@ -402,42 +401,68 @@ export type MediaRef = z.infer<typeof mediaRef>;
  * in every file that imported both. The word in conversation and in the docs is
  * still "record".
  */
-export const sourceRecord = z
-  .object({
-    id: z.string(),
-    siteId: z.string(),
-    contributorId: z.string(),
-    /**
-     * What somebody says about what they are handing over. "This is my
-     * grandmother outside the boarding house." Often the only text a record
-     * ever gets.
-     */
-    note: z.string().optional(),
-    /** The record itself, when the record is writing. */
-    text: z.string().optional(),
-    /** The language of `note` and `text`, when there is any. */
-    language: languageCode.optional(),
-    /** When the thing itself was made, as far as anyone knows. */
-    capturedAt: z.string().optional(),
-    capturedLocation: capturedLocation.optional(),
-    submission: submissionState,
-    /** What has arrived so far. A record can exist before its files finish uploading. */
-    media: z.array(mediaRef),
-    createdAt: z.string(),
-  })
-  .refine((r) => r.media.length > 0 || Boolean(r.text?.trim()), {
-    message: 'A record needs media or text. A note on its own is a caption with nothing to caption.',
-  })
+const sourceRecordFields = z.object({
+  id: z.string(),
+  siteId: z.string(),
+  contributorId: z.string(),
   /**
-   * An image cannot say what it is. A recording and a video carry their own
-   * account of themselves and a written record is text by definition, but a
-   * photograph with nothing attached is an artifact rather than a contribution.
-   * Somebody has to say what it shows, and that is what `note` is for.
+   * What somebody says about what they are handing over. "This is my
+   * grandmother outside the boarding house." Often the only text a record
+   * ever gets.
    */
-  .refine((r) => !r.media.some((m) => m.kind === 'image') || Boolean(r.note?.trim()), {
-    message: 'An image record needs a note saying what it shows.',
-  });
+  note: z.string().optional(),
+  /** The record itself, when the record is writing. */
+  text: z.string().optional(),
+  /** The language of `note` and `text`, when there is any. */
+  language: languageCode.optional(),
+  /** When the thing itself was made, as far as anyone knows. */
+  capturedAt: z.string().optional(),
+  capturedLocation: capturedLocation.optional(),
+  submission: submissionState,
+  /** What has arrived so far. A record can exist before its files finish uploading. */
+  media: z.array(mediaRef),
+  createdAt: z.string(),
+});
+
+type RecordFields = Omit<z.infer<typeof sourceRecordFields>, 'id'>;
+
+/*
+ * The rules every record follows, whether it is arriving or stored.
+ *
+ * An image cannot say what it is. A recording and a video carry their own
+ * account of themselves and a written record is text by definition, but a
+ * photograph with nothing attached is an artifact rather than a contribution.
+ * Somebody has to say what it shows, and that is what `note` is for.
+ */
+const hasContent = (r: RecordFields) => r.media.length > 0 || Boolean(r.text?.trim());
+const hasContentMessage = {
+  message: 'A record needs media or text. A note on its own is a caption with nothing to caption.',
+};
+const oneKind = (r: RecordFields) => new Set(r.media.map((m) => m.kind)).size <= 1;
+const oneKindMessage = {
+  message:
+    'One record is one artifact, so every file in its media is the same kind. Files of different kinds are different records.',
+};
+const imageHasNote = (r: RecordFields) => !r.media.some((m) => m.kind === 'image') || Boolean(r.note?.trim());
+const imageHasNoteMessage = { message: 'An image record needs a note saying what it shows.' };
+
+export const sourceRecord = sourceRecordFields
+  .refine(hasContent, hasContentMessage)
+  .refine(oneKind, oneKindMessage)
+  .refine(imageHasNote, imageHasNoteMessage);
 export type SourceRecord = z.infer<typeof sourceRecord>;
+
+/**
+ * A record as it arrives, before it is stored: the same, without the `id`.
+ * Whoever stores the record decides its id. A database can generate one, and
+ * a client that sends its own would collide with that.
+ */
+export const newSourceRecord = sourceRecordFields
+  .omit({ id: true })
+  .refine(hasContent, hasContentMessage)
+  .refine(oneKind, oneKindMessage)
+  .refine(imageHasNote, imageHasNoteMessage);
+export type NewSourceRecord = z.infer<typeof newSourceRecord>;
 
 /**
  * What somebody wrote down from a recording.
@@ -497,9 +522,9 @@ export type Flag = z.infer<typeof flag>;
 /* ================================================================== */
 /* SHARED · Claims                                                     */
 /*                                                                     */
-/* A claim is somebody's reading of a record. The content layer takes   */
-/* claims in, the intelligence layer models them, and the experience    */
-/* layer renders and composes them. All three own this section.         */
+/* A claim is somebody's reading of a record. The intelligence layer    */
+/* takes claims in, models and scores them, and composes them into      */
+/* sections. The experience layer shows them. All three read this.     */
 /* ================================================================== */
 
 /**
@@ -536,7 +561,6 @@ export const claim = z.object({
    */
   sourceLanguageText: z.string().optional(),
   details: z.array(claimDetail),
-  topics: z.array(z.string()),
   sourceType,
   createdAt: z.string(),
   /**
@@ -566,6 +590,12 @@ export const claim = z.object({
   evidenceRecordIds: z.array(z.string()),
   /** Set when this was added as context on another claim. */
   parentClaimId: z.string().optional(),
+  /**
+   * Set when this claim disputes a detail of another claim. A convenience copy
+   * so a claim list can tell disputes apart without a join. The dispute edge is
+   * the real record of what it targets.
+   */
+  disputedClaimId: z.string().optional(),
   /**
    * True when a claim is in the archive and readable in its original language
    * at the site it belongs to, but nobody has rendered it into English yet.
@@ -612,19 +642,32 @@ export type TranslationDispute = z.infer<typeof translationDispute>;
 /* These are the graph.                                                 */
 /* ================================================================== */
 
-/** Someone disagreeing with one specific part of a claim. */
+/**
+ * Someone disagreeing with one specific part of a claim.
+ *
+ * A dispute is a claim of its own, connected by this edge. The claim holds what
+ * the person asserts instead, with its own details, source record and evidence,
+ * so it can be corroborated, extended or disputed like any other claim. The
+ * edge holds what it targets and why.
+ */
 export const disputeEdge = z.object({
   id: z.string(),
   type: z.literal('dispute'),
+  /** The dispute's own claim. */
+  fromClaimId: z.string(),
   targetClaimId: z.string(),
   /** Which part. Disagreement always lands on a detail, never a whole claim. */
   targetDetailId: z.string(),
   /**
    * Why. Required, and checked here rather than left to the interface, because
-   * it's a property of the record. "This is wrong" cannot be filed.
+   * a dispute without a reason isn't a dispute. "This is wrong" cannot be filed.
    */
   reasoning: z.string().min(1),
-  /** What they say instead, if they say anything. */
+  /**
+   * What they say instead, if they say anything. A convenience copy of the
+   * value the dispute's claim asserts, so competing readings can be listed
+   * from the edge. The dispute's claim and its details are the real record.
+   */
   proposedValue: z.string().optional(),
   contributorId: z.string(),
   createdAt: z.string(),
@@ -637,6 +680,12 @@ export const extensionEdge = z.object({
   type: z.literal('extension'),
   parentClaimId: z.string(),
   childClaimId: z.string(),
+  /**
+   * Which part it adds to, the way a dispute names the detail it disagrees
+   * with. Empty when the extension is about the whole claim ("my family ran it
+   * until the war").
+   */
+  targetDetailId: z.string().optional(),
   contributorId: z.string(),
   createdAt: z.string(),
 });
@@ -653,21 +702,15 @@ export type Edge = z.infer<typeof edge>;
 /* ================================================================== */
 
 /**
- * Someone agreeing with a claim. It adds no new node and no new source.
+ * A reader's low-effort reaction. It adds no new node and no new source.
  *
- * Agreement is not evidence, so an affirmation never
- * counts as independent support. It is a soft signal: it matters most for what
- * gets suggested to whom, and only a little for a claim's weight.
+ * "Sounds right" is what used to be a separate affirmation object; it was the
+ * same act stored twice. Agreement is not evidence, so it never counts as
+ * independent support. It adds a negligible amount of weight, enough that
+ * claims with nothing else going for them still come out in an order, and
+ * well below every other input. Its main use is routing: what gets suggested
+ * to whom.
  */
-export const affirmation = z.object({
-  id: z.string(),
-  claimId: z.string(),
-  contributorId: z.string(),
-  createdAt: z.string(),
-});
-export type Affirmation = z.infer<typeof affirmation>;
-
-/** A reader's low-effort reaction. Feeds routing, not the graph. */
 export const passover = z.object({
   id: z.string(),
   claimId: z.string(),
@@ -692,6 +735,8 @@ export type Passover = z.infer<typeof passover>;
 export const detailStatus = z.object({
   detail: claimDetail,
   disputes: z.array(disputeEdge),
+  /** Extensions that add to this detail. Extensions about the whole claim aren't listed here. */
+  extensions: z.array(extensionEdge),
   /**
    * Every value anyone has asserted for this detail, in the order they arrived,
    * the claim's own first. Ordering by strength is the intelligence layer's.
@@ -730,7 +775,6 @@ export const claimState = z.object({
   evidenceRecords: z.array(sourceRecord),
   translations: z.array(translation),
   translationDisputes: z.array(translationDispute),
-  affirmations: z.array(affirmation),
   /**
    * Distinct records, other than this claim's own, that other contributors have
    * brought to back it (today: the evidence on extensions of it).
@@ -738,7 +782,7 @@ export const claimState = z.object({
    * A stand-in. Corroboration counts independent records, not people, and this
    * counts records because a record is the one thing the graph can see. How
    * independence is really worked out is the intelligence layer's design work.
-   * Affirmations never count here.
+   * Agreement ("sounds right") never counts here.
    */
   independentRecordCount: z.number(),
   extensions: z.array(z.string()),
@@ -759,11 +803,12 @@ export type ClaimState = z.infer<typeof claimState>;
  * What one contributor has actually done here.
  *
  * Every field is a count of something that happened. There is no score in this
- * shape and there must not be one. Working out what any of it means, whether a
- * long record of corroborated claims should count for more than a short one,
- * whether somebody who disputes constantly is careful or difficult, whether any
- * of it should touch a claim's weight at all, is the intelligence layer's
- * deliverable and the hardest open question in the project.
+ * shape and there must not be one. Behaviour is meant to count toward a claim's
+ * score: what a profile has done is a behaviour term, and who they are never
+ * is. The scorer doesn't read it yet. What
+ * any of these counts means, whether a long record of corroborated claims
+ * should count for more than a short one, whether somebody who disputes
+ * constantly is careful or difficult, is the intelligence layer's design work.
  *
  * This shape is the raw material. An algorithm can only use what the model
  * writes down, so the job here is to record behaviour faithfully and judge
@@ -798,7 +843,8 @@ export const contributorStanding = z.object({
   disputesRaised: z.number(),
   /** Of those, the ones that proposed a different value instead of only objecting. */
   disputesRaisedWithAlternative: z.number(),
-  affirmationsGiven: z.number(),
+  /** "Sounds right" passovers they left. */
+  soundsRightGiven: z.number(),
   translationsContributed: z.number(),
   transcriptsContributed: z.number(),
   flagsRaised: z.number(),
@@ -936,7 +982,6 @@ export const schemas = {
   disputeEdge,
   extensionEdge,
   edge,
-  affirmation,
   passover,
   translation,
   translationDispute,

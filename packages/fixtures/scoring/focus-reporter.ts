@@ -23,7 +23,7 @@ interface Area {
   skipped: number;
 }
 
-const RULES_PREFIX = "scoring rules: ";
+const RULES_PREFIXES = ["scoring rules: ", "capture rules: "];
 
 /** The area is the block directly under "scoring rules: ...". */
 function areaOf(test: TestCase): string | null {
@@ -33,7 +33,7 @@ function areaOf(test: TestCase): string | null {
     names.unshift(parent.name);
     parent = parent.parent;
   }
-  const top = names.findIndex((n) => n.startsWith(RULES_PREFIX));
+  const top = names.findIndex((n) => RULES_PREFIXES.some((p) => n.startsWith(p)));
   if (top < 0) return null;
   return names[top + 1] ?? null;
 }
@@ -76,7 +76,7 @@ export default class FocusReporter implements Reporter {
       const parts = [`${a.running} running`, `${a.open} open`];
       if (a.failed) parts.push(`${a.failed} failing`);
       if (a.skipped) parts.push(`${a.skipped} skipped`);
-      return `  ${label(a).padEnd(9)} ${name.padEnd(28)} ${parts.join(", ")}`;
+      return `  ${label(a).padEnd(9)} ${name.padEnd(30)} ${parts.join(", ")}`;
     });
     const allSkipped =
       rows.every(([, a]) => a.running === 0) &&
@@ -84,7 +84,7 @@ export default class FocusReporter implements Reporter {
     console.log(["", "Focus areas, weakest first:", ...lines].join("\n"));
     if (allSkipped) {
       console.log(
-        "  Every rule was skipped. Remove the .skip in your test file to run them against your scorer.",
+        "  Every rule was skipped. The test file says what it is waiting for: a scorer to exist, or a running API.",
       );
     }
     console.log("");

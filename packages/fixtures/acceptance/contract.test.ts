@@ -87,7 +87,7 @@ describe('acceptance criteria point at data that exhibits them', () => {
 
   it('the affirmation-without-independence case really has that shape', () => {
     const shop = loadSiteState('corner-shop', 't1').claims.find((c) => c.claim.id === 'cl-cs-shop');
-    expect(shop?.affirmations.length).toBeGreaterThan(0);
+    expect(shop?.passover.sounds_right).toBeGreaterThan(0);
     expect(shop?.independentRecordCount).toBe(0);
     expect(shop?.confidence).toBe('single_source');
   });
@@ -124,7 +124,7 @@ describe('acceptance criteria point at data that exhibits them', () => {
       'contributorId', 'firstContributionAt', 'lastContributionAt',
       'recordsSubmitted', 'claimsAuthored', 'claimsCorroborated',
       'claimsDisputed', 'disputesRaised', 'disputesRaisedWithAlternative',
-      'affirmationsGiven', 'translationsContributed', 'transcriptsContributed',
+      'soundsRightGiven', 'translationsContributed', 'transcriptsContributed',
       'flagsRaised',
     ]);
     for (const state of states) {

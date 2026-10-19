@@ -31,7 +31,7 @@ algorithm can possibly be good at.
 
 - `claims` — each with its author, its source record and any evidence records, translations,
   disputes per detail, competing readings kept side by side,
-  affirmations, passover signals, and a placeholder weight.
+  passover signals ("sounds right" is agreement), and a placeholder weight.
 - `records` — what people actually handed over, with media, processing state,
   and where each one says it was made and how that location was determined.
 - `transcripts` — what somebody wrote down from a recording, attributed, with

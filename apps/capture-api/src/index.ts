@@ -15,7 +15,6 @@
  *   curl -X POST http://localhost:3001/records \
  *     -H 'content-type: application/json' \
  *     -d '{
- *       "id": "rec-100",
  *       "siteId": "site-001",
  *       "contributorId": "guest-abc",
  *       "text": "My great-grandmother cooked in the boarding house kitchen.",
@@ -25,8 +24,9 @@
  *       "createdAt": "2026-09-07T12:00:00Z"
  *     }'
  */
+import { randomUUID } from 'node:crypto';
 import express from 'express';
-import { sourceRecord } from '@sagas/contracts';
+import { newSourceRecord } from '@sagas/contracts';
 import { pool } from './db';
 
 const app = express();
@@ -43,7 +43,8 @@ app.get('/health', (_req, res) => {
  *
  * Three steps, and they are the three steps in every endpoint you will write.
  *
- * 1. Validate against the contract. `safeParse` returns a result rather than
+ * 1. Validate against the contract. `newSourceRecord` is a record as it
+ *    arrives, without an id. `safeParse` returns a result rather than
  *    throwing, so the failure path is ordinary code. Never trust a request body.
  * 2. Write it, using $1 $2 $3 placeholders. The values go to Postgres
  *    separately from the query text, so nothing a person typed is ever read as
@@ -51,21 +52,23 @@ app.get('/health', (_req, res) => {
  *    harmless. This is the one rule in this file that is not a preference.
  * 3. Return what was stored, with 201 because something was created.
  *
- * Note what this does not decide. The client is sending its own `id` and
- * `createdAt`, which a real system would probably generate here instead. That
- * is a genuine design question and it is yours.
+ * The server makes the id, because whoever stores a record decides its id.
+ * Here it's a random UUID made in code, which fits the `text` id column in
+ * 001_records.sql. Letting the database generate it instead is a fine choice
+ * too. The client still sends `createdAt`; whether the server should set that
+ * as well is a design question, and it's yours.
  */
 app.post('/records', async (req, res) => {
-  const parsed = sourceRecord.safeParse(req.body);
+  const parsed = newSourceRecord.safeParse(req.body);
 
   if (!parsed.success) {
     res.status(400).json({ error: parsed.error.flatten() });
     return;
   }
 
-  const record = parsed.data;
+  const record = { ...parsed.data, id: randomUUID() };
 
-  const { rows } = await pool.query(
+  const { rows } = await pool.query<Record<string, unknown>>(
     `insert into records
        (id, site_id, contributor_id, note, "text", language, captured_at, submission, created_at)
      values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
@@ -83,8 +86,33 @@ app.post('/records', async (req, res) => {
     ],
   );
 
-  res.status(201).json(rows[0] ?? null);
+  res.status(201).json(rows[0] ? toRecord(rows[0]) : null);
 });
+
+/**
+ * A database row back into the contract's shape.
+ *
+ * Postgres hands back `site_id`, nulls and dates as Date objects. The contract
+ * is the agreed shape of a record, so the API answers in it and the row is
+ * translated on the way out. `media` is empty because this endpoint
+ * only takes written records so far; when files arrive, they get read from
+ * their own table here.
+ */
+function toRecord(row: Record<string, unknown>) {
+  const date = (v: unknown) => (v instanceof Date ? v.toISOString() : (v as string | null) ?? undefined);
+  return {
+    id: row.id as string,
+    siteId: row.site_id as string,
+    contributorId: row.contributor_id as string,
+    note: (row.note as string | null) ?? undefined,
+    text: (row.text as string | null) ?? undefined,
+    language: (row.language as string | null) ?? undefined,
+    capturedAt: date(row.captured_at),
+    submission: row.submission as string,
+    media: [],
+    createdAt: date(row.created_at),
+  };
+}
 
 /**
  * Anything a handler throws lands here.
