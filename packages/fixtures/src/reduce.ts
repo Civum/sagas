@@ -91,14 +91,31 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
       });
       return;
 
-    case 'claim_disputed':
+    case 'claim_disputed': {
+      const target = acc.claims.get(ev.targetClaimId);
+      if (!target) throw new Error(`Dispute ${ev.edgeId} targets ${ev.targetClaimId}, which does not exist.`);
+      const targetDetail = target.details.find((d) => d.id === ev.targetDetailId);
+      if (!targetDetail) throw new Error(`Dispute ${ev.edgeId} targets detail ${ev.targetDetailId}, which ${ev.targetClaimId} does not have.`);
+      acc.claims.set(ev.claimId, {
+        id: ev.claimId, siteId: target.siteId, contributorId: ev.actorId,
+        sourceRecordId: ev.sourceRecordId ?? target.sourceRecordId,
+        evidenceRecordIds: ev.evidenceRecordIds ?? [],
+        text: ev.text ?? ev.reasoning, sourceLanguage: 'en',
+        details: ev.details ?? (ev.proposedValue
+          ? [{ id: `${ev.claimId}-value`, kind: targetDetail.kind, value: ev.proposedValue, excerpt: ev.proposedValue }]
+          : []),
+        sourceType: ev.sourceType ?? target.sourceType,
+        createdAt: ev.at, disputedClaimId: ev.targetClaimId,
+        awaitingTranslation: false,
+      });
       acc.disputes.push({
-        id: ev.edgeId, type: 'dispute', targetClaimId: ev.targetClaimId,
+        id: ev.edgeId, type: 'dispute', fromClaimId: ev.claimId, targetClaimId: ev.targetClaimId,
         targetDetailId: ev.targetDetailId, reasoning: ev.reasoning,
         proposedValue: ev.proposedValue, contributorId: ev.actorId,
         createdAt: ev.at,
       });
       return;
+    }
 
     case 'claim_affirmed':
       acc.affirmations.push({

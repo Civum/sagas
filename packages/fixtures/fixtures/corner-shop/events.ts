@@ -166,6 +166,8 @@ export const events: ContributionEvent[] = [
     id: 'cs-010', at: '2026-04-06T18:20:00Z', actorId: 'c-owen',
     kind: 'claim_disputed',
     edgeId: 'dsp-cs-year',
+    // A dispute is a claim of its own (contract 2.3.0).
+    claimId: 'cl-dsp-cs-year',
     targetClaimId: 'cl-cs-shop',
     targetDetailId: 'dt-cs-year',
     reasoning: "It can't be 1950. The awning in the photo went up in 1956. The directory page I uploaded shows the change.",

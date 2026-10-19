@@ -426,6 +426,8 @@ export const events: ContributionEvent[] = [
     id: 'ev-028', at: '2026-04-06T14:42:00Z', actorId: 'c-maite',
     kind: 'claim_disputed',
     edgeId: 'dis-001',
+    // A dispute is a claim of its own (contract 2.3.0).
+    claimId: 'cl-dis-001',
     targetClaimId: 'cl-boarding',
     targetDetailId: 'cl-boarding-e-date',
     reasoning:
@@ -466,6 +468,8 @@ export const events: ContributionEvent[] = [
     id: 'ev-031', at: '2026-04-11T20:40:00Z', actorId: 'c-robert',
     kind: 'claim_disputed',
     edgeId: 'dis-002',
+    // A dispute is a claim of its own (contract 2.3.0).
+    claimId: 'cl-dis-002',
     targetClaimId: 'cl-prelot',
     targetDetailId: 'cl-prelot-e-use',
     reasoning:
@@ -518,6 +522,8 @@ export const events: ContributionEvent[] = [
     id: 'ev-037', at: '2026-05-02T17:22:00Z', actorId: 'c-ana',
     kind: 'claim_disputed',
     edgeId: 'dis-003',
+    // A dispute is a claim of its own (contract 2.3.0).
+    claimId: 'cl-dis-003',
     targetClaimId: 'cl-boarding',
     targetDetailId: 'cl-boarding-e-date',
     reasoning:
@@ -531,6 +537,8 @@ export const events: ContributionEvent[] = [
     id: 'ev-038', at: '2026-05-09T14:08:00Z', actorId: 'c-robert',
     kind: 'claim_disputed',
     edgeId: 'dis-004',
+    // A dispute is a claim of its own (contract 2.3.0).
+    claimId: 'cl-dis-004',
     targetClaimId: 'cl-boarding',
     targetDetailId: 'cl-boarding-e-date',
     reasoning:

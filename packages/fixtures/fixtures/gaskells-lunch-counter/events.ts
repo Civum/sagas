@@ -233,6 +233,8 @@ export const events: ContributionEvent[] = [
     id: 'gk-015', at: '2026-06-02T13:51:00Z', actorId: 'c-arlen',
     kind: 'claim_disputed',
     edgeId: 'de-gk-year',
+    // A dispute is a claim of its own (contract 2.3.0).
+    claimId: 'cl-de-gk-year',
     targetClaimId: 'cl-closed-1979',
     targetDetailId: 'el-gk-year',
     reasoning: 'The 1981 city directory still lists the business at this address. A directory is compiled the year before it is printed, so the business was trading in 1980 at the latest. It did not close in 1979.',

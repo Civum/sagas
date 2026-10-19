@@ -199,6 +199,95 @@
     },
     {
       "claim": {
+        "id": "cl-de-gk-year",
+        "siteId": "site-gaskells",
+        "contributorId": "c-arlen",
+        "sourceRecordId": "rec-menu-photo",
+        "evidenceRecordIds": [],
+        "text": "The 1981 city directory still lists the business at this address. A directory is compiled the year before it is printed, so the business was trading in 1980 at the latest. It did not close in 1979.",
+        "sourceLanguage": "en",
+        "details": [
+          {
+            "id": "cl-de-gk-year-value",
+            "kind": "date",
+            "value": "1981",
+            "excerpt": "1981"
+          }
+        ],
+        "sourceType": "family_oral",
+        "createdAt": "2026-06-02T13:51:00Z",
+        "disputedClaimId": "cl-closed-1979",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-arlen",
+        "displayName": "Arlen Mbeki",
+        "institution": "Boise City Directory project",
+        "joinedAt": "2026-06-02T13:20:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "sourceRecord": {
+        "id": "rec-menu-photo",
+        "siteId": "site-gaskells",
+        "contributorId": "c-dolores",
+        "note": "A photograph of the paper menu, taken on the counter. The prices and the hours are legible. The date is not printed anywhere on it.",
+        "submission": "submitted",
+        "media": [
+          {
+            "id": "med-menu-photo",
+            "recordId": "rec-menu-photo",
+            "kind": "image",
+            "storageKey": "records/rec-menu-photo/menu.jpg",
+            "contentType": "image/jpeg",
+            "byteSize": 2180400,
+            "originalFilename": "menu.jpg",
+            "processing": "ready",
+            "width": 3024,
+            "height": 4032,
+            "derivatives": [],
+            "createdAt": "2026-02-03T18:41:00Z"
+          }
+        ],
+        "createdAt": "2026-02-03T18:41:00Z"
+      },
+      "evidenceRecords": [],
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [],
+      "independentRecordCount": 0,
+      "extensions": [],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "detailStatuses": [
+        {
+          "detail": {
+            "id": "cl-de-gk-year-value",
+            "kind": "date",
+            "value": "1981",
+            "excerpt": "1981"
+          },
+          "disputes": [],
+          "extensions": [],
+          "competingValues": [
+            {
+              "value": "1981",
+              "count": 1,
+              "contributorIds": [
+                "c-arlen"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 2,
+      "confidence": "single_source"
+    },
+    {
+      "claim": {
         "id": "cl-closed-1979",
         "siteId": "site-gaskells",
         "contributorId": "c-dolores",
@@ -291,6 +380,7 @@
             {
               "id": "de-gk-year",
               "type": "dispute",
+              "fromClaimId": "cl-de-gk-year",
               "targetClaimId": "cl-closed-1979",
               "targetDetailId": "el-gk-year",
               "reasoning": "The 1981 city directory still lists the business at this address. A directory is compiled the year before it is printed, so the business was trading in 1980 at the latest. It did not close in 1979.",
@@ -495,7 +585,7 @@
       "firstContributionAt": "2026-06-02T13:44:00Z",
       "lastContributionAt": "2026-06-02T13:51:00Z",
       "recordsSubmitted": 1,
-      "claimsAuthored": 0,
+      "claimsAuthored": 1,
       "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 1,
@@ -509,13 +599,13 @@
   "transcripts": [],
   "flags": [],
   "integrity": {
-    "totalClaims": 3,
-    "independentContributors": 2,
+    "totalClaims": 4,
+    "independentContributors": 3,
     "corroborationDepth": 0,
     "activeDisputes": 1,
-    "datedClaims": 1,
+    "datedClaims": 2,
     "awaitingTranslation": 0,
-    "overall": 25
+    "overall": 38
   },
   "sections": [],
   "compositions": [],

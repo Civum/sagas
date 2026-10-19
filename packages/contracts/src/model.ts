@@ -589,6 +589,8 @@ export const claim = z.object({
   evidenceRecordIds: z.array(z.string()),
   /** Set when this was added as context on another claim. */
   parentClaimId: z.string().optional(),
+  /** Set when this claim disputes a detail of another claim. The dispute edge says which. */
+  disputedClaimId: z.string().optional(),
   /**
    * True when a claim is in the archive and readable in its original language
    * at the site it belongs to, but nobody has rendered it into English yet.
@@ -635,16 +637,25 @@ export type TranslationDispute = z.infer<typeof translationDispute>;
 /* These are the graph.                                                 */
 /* ================================================================== */
 
-/** Someone disagreeing with one specific part of a claim. */
+/**
+ * Someone disagreeing with one specific part of a claim.
+ *
+ * A dispute is a claim of its own, connected by this edge. The claim holds what
+ * the person asserts instead, with its own details, source record and evidence,
+ * so it can be corroborated, extended or disputed like any other claim. The
+ * edge holds what it targets and why.
+ */
 export const disputeEdge = z.object({
   id: z.string(),
   type: z.literal('dispute'),
+  /** The dispute's own claim. */
+  fromClaimId: z.string(),
   targetClaimId: z.string(),
   /** Which part. Disagreement always lands on a detail, never a whole claim. */
   targetDetailId: z.string(),
   /**
    * Why. Required, and checked here rather than left to the interface, because
-   * it's a property of the record. "This is wrong" cannot be filed.
+   * a dispute without a reason isn't a dispute. "This is wrong" cannot be filed.
    */
   reasoning: z.string().min(1),
   /** What they say instead, if they say anything. */

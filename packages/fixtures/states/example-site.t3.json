@@ -438,6 +438,7 @@
             {
               "id": "dis-001",
               "type": "dispute",
+              "fromClaimId": "cl-dis-001",
               "targetClaimId": "cl-boarding",
               "targetDetailId": "cl-boarding-e-date",
               "reasoning": "The register in our holdings has entries from 1914. The 1922 date may be when this particular cook began rather than when the boarding operation started. Those are different claims and the account may be conflating them.",
@@ -448,6 +449,7 @@
             {
               "id": "dis-003",
               "type": "dispute",
+              "fromClaimId": "cl-dis-003",
               "targetClaimId": "cl-boarding",
               "targetDetailId": "cl-boarding-e-date",
               "reasoning": "Our family has always said 1922 and there is a photograph dated that year with her in the kitchen doorway. I am not disputing that the building took boarders earlier. I am saying 1922 is right for her.",
@@ -458,6 +460,7 @@
             {
               "id": "dis-004",
               "type": "dispute",
+              "fromClaimId": "cl-dis-004",
               "targetClaimId": "cl-boarding",
               "targetDetailId": "cl-boarding-e-date",
               "reasoning": "A 1916 newspaper notice advertises rooms at this address for herders. That predates 1922 by six years and is independent of the museum register.",
@@ -616,6 +619,7 @@
             {
               "id": "dis-002",
               "type": "dispute",
+              "fromClaimId": "cl-dis-002",
               "targetClaimId": "cl-prelot",
               "targetDetailId": "cl-prelot-e-use",
               "reasoning": "City directories for the 1890s list a blacksmith at this address, not a livery. I have not found a livery listed on this lot in any year I checked.",
@@ -1325,6 +1329,303 @@
     },
     {
       "claim": {
+        "id": "cl-dis-001",
+        "siteId": "site-anduiza",
+        "contributorId": "c-maite",
+        "sourceRecordId": "rec-001",
+        "evidenceRecordIds": [],
+        "text": "The register in our holdings has entries from 1914. The 1922 date may be when this particular cook began rather than when the boarding operation started. Those are different claims and the account may be conflating them.",
+        "sourceLanguage": "en",
+        "details": [
+          {
+            "id": "cl-dis-001-value",
+            "kind": "date",
+            "value": "1914",
+            "excerpt": "1914"
+          }
+        ],
+        "sourceType": "family_oral",
+        "createdAt": "2026-04-06T14:42:00Z",
+        "disputedClaimId": "cl-boarding",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-maite",
+        "displayName": "Maite Elorriaga",
+        "institution": "A local cultural center (invented)",
+        "joinedAt": "2026-04-06T14:00:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "sourceRecord": {
+        "id": "rec-001",
+        "siteId": "site-anduiza",
+        "contributorId": "c-marisol",
+        "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+        "language": "en",
+        "submission": "published",
+        "media": [],
+        "createdAt": "2026-01-08T16:20:00Z"
+      },
+      "evidenceRecords": [],
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [],
+      "independentRecordCount": 0,
+      "extensions": [],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "detailStatuses": [
+        {
+          "detail": {
+            "id": "cl-dis-001-value",
+            "kind": "date",
+            "value": "1914",
+            "excerpt": "1914"
+          },
+          "disputes": [],
+          "extensions": [],
+          "competingValues": [
+            {
+              "value": "1914",
+              "count": 1,
+              "contributorIds": [
+                "c-maite"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 2,
+      "confidence": "single_source"
+    },
+    {
+      "claim": {
+        "id": "cl-dis-002",
+        "siteId": "site-anduiza",
+        "contributorId": "c-robert",
+        "sourceRecordId": "rec-002",
+        "evidenceRecordIds": [],
+        "text": "City directories for the 1890s list a blacksmith at this address, not a livery. I have not found a livery listed on this lot in any year I checked.",
+        "sourceLanguage": "en",
+        "details": [
+          {
+            "id": "cl-dis-002-value",
+            "kind": "event",
+            "value": "blacksmith shop",
+            "excerpt": "blacksmith shop"
+          }
+        ],
+        "sourceType": "family_oral",
+        "createdAt": "2026-04-11T20:40:00Z",
+        "disputedClaimId": "cl-prelot",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-robert",
+        "displayName": "Robert Mendive",
+        "joinedAt": "2026-04-11T20:18:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "sourceRecord": {
+        "id": "rec-002",
+        "siteId": "site-anduiza",
+        "contributorId": "c-marisol",
+        "text": "Something else I remembered this evening, about what was on the lot before the building went up.",
+        "language": "en",
+        "submission": "published",
+        "media": [],
+        "createdAt": "2026-01-09T02:10:00Z"
+      },
+      "evidenceRecords": [],
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [],
+      "independentRecordCount": 0,
+      "extensions": [],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "detailStatuses": [
+        {
+          "detail": {
+            "id": "cl-dis-002-value",
+            "kind": "event",
+            "value": "blacksmith shop",
+            "excerpt": "blacksmith shop"
+          },
+          "disputes": [],
+          "extensions": [],
+          "competingValues": [
+            {
+              "value": "blacksmith shop",
+              "count": 1,
+              "contributorIds": [
+                "c-robert"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 2,
+      "confidence": "single_source"
+    },
+    {
+      "claim": {
+        "id": "cl-dis-003",
+        "siteId": "site-anduiza",
+        "contributorId": "c-ana",
+        "sourceRecordId": "rec-001",
+        "evidenceRecordIds": [],
+        "text": "Our family has always said 1922 and there is a photograph dated that year with her in the kitchen doorway. I am not disputing that the building took boarders earlier. I am saying 1922 is right for her.",
+        "sourceLanguage": "en",
+        "details": [
+          {
+            "id": "cl-dis-003-value",
+            "kind": "date",
+            "value": "1922",
+            "excerpt": "1922"
+          }
+        ],
+        "sourceType": "family_oral",
+        "createdAt": "2026-05-02T17:22:00Z",
+        "disputedClaimId": "cl-boarding",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-ana",
+        "displayName": "Ana Etxeberria-Woods",
+        "joinedAt": "2026-02-20T15:12:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "sourceRecord": {
+        "id": "rec-001",
+        "siteId": "site-anduiza",
+        "contributorId": "c-marisol",
+        "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+        "language": "en",
+        "submission": "published",
+        "media": [],
+        "createdAt": "2026-01-08T16:20:00Z"
+      },
+      "evidenceRecords": [],
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [],
+      "independentRecordCount": 0,
+      "extensions": [],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "detailStatuses": [
+        {
+          "detail": {
+            "id": "cl-dis-003-value",
+            "kind": "date",
+            "value": "1922",
+            "excerpt": "1922"
+          },
+          "disputes": [],
+          "extensions": [],
+          "competingValues": [
+            {
+              "value": "1922",
+              "count": 1,
+              "contributorIds": [
+                "c-ana"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 2,
+      "confidence": "single_source"
+    },
+    {
+      "claim": {
+        "id": "cl-dis-004",
+        "siteId": "site-anduiza",
+        "contributorId": "c-robert",
+        "sourceRecordId": "rec-001",
+        "evidenceRecordIds": [],
+        "text": "A 1916 newspaper notice advertises rooms at this address for herders. That predates 1922 by six years and is independent of the museum register.",
+        "sourceLanguage": "en",
+        "details": [
+          {
+            "id": "cl-dis-004-value",
+            "kind": "date",
+            "value": "1914",
+            "excerpt": "1914"
+          }
+        ],
+        "sourceType": "family_oral",
+        "createdAt": "2026-05-09T14:08:00Z",
+        "disputedClaimId": "cl-boarding",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-robert",
+        "displayName": "Robert Mendive",
+        "joinedAt": "2026-04-11T20:18:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "sourceRecord": {
+        "id": "rec-001",
+        "siteId": "site-anduiza",
+        "contributorId": "c-marisol",
+        "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+        "language": "en",
+        "submission": "published",
+        "media": [],
+        "createdAt": "2026-01-08T16:20:00Z"
+      },
+      "evidenceRecords": [],
+      "translations": [],
+      "translationDisputes": [],
+      "affirmations": [],
+      "independentRecordCount": 0,
+      "extensions": [],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "detailStatuses": [
+        {
+          "detail": {
+            "id": "cl-dis-004-value",
+            "kind": "date",
+            "value": "1914",
+            "excerpt": "1914"
+          },
+          "disputes": [],
+          "extensions": [],
+          "competingValues": [
+            {
+              "value": "1914",
+              "count": 1,
+              "contributorIds": [
+                "c-robert"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 2,
+      "confidence": "single_source"
+    },
+    {
+      "claim": {
         "id": "cl-fronton-deadspot",
         "siteId": "site-anduiza",
         "contributorId": "c-domingo",
@@ -1695,7 +1996,7 @@
       "firstContributionAt": "2026-02-20T15:20:00Z",
       "lastContributionAt": "2026-05-02T17:22:00Z",
       "recordsSubmitted": 1,
-      "claimsAuthored": 1,
+      "claimsAuthored": 2,
       "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 1,
@@ -1725,7 +2026,7 @@
       "firstContributionAt": "2026-04-06T14:30:00Z",
       "lastContributionAt": "2026-07-09T14:50:00Z",
       "recordsSubmitted": 2,
-      "claimsAuthored": 2,
+      "claimsAuthored": 3,
       "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 1,
@@ -1740,7 +2041,7 @@
       "firstContributionAt": "2026-04-11T20:40:00Z",
       "lastContributionAt": "2026-06-26T18:12:00Z",
       "recordsSubmitted": 0,
-      "claimsAuthored": 0,
+      "claimsAuthored": 2,
       "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 2,
@@ -1804,13 +2105,13 @@
     }
   ],
   "integrity": {
-    "totalClaims": 10,
-    "independentContributors": 6,
-    "corroborationDepth": 0.4,
+    "totalClaims": 14,
+    "independentContributors": 7,
+    "corroborationDepth": 0.2857142857142857,
     "activeDisputes": 5,
-    "datedClaims": 5,
+    "datedClaims": 8,
     "awaitingTranslation": 0,
-    "overall": 96
+    "overall": 100
   },
   "sections": [],
   "compositions": [],
