@@ -590,7 +590,11 @@ export const claim = z.object({
   evidenceRecordIds: z.array(z.string()),
   /** Set when this was added as context on another claim. */
   parentClaimId: z.string().optional(),
-  /** Set when this claim disputes a detail of another claim. The dispute edge says which. */
+  /**
+   * Set when this claim disputes a detail of another claim. A convenience copy
+   * so a claim list can tell disputes apart without a join. The dispute edge is
+   * the real record of what it targets.
+   */
   disputedClaimId: z.string().optional(),
   /**
    * True when a claim is in the archive and readable in its original language
@@ -659,7 +663,11 @@ export const disputeEdge = z.object({
    * a dispute without a reason isn't a dispute. "This is wrong" cannot be filed.
    */
   reasoning: z.string().min(1),
-  /** What they say instead, if they say anything. */
+  /**
+   * What they say instead, if they say anything. A convenience copy of the
+   * value the dispute's claim asserts, so competing readings can be listed
+   * from the edge. The dispute's claim and its details are the real record.
+   */
   proposedValue: z.string().optional(),
   contributorId: z.string(),
   createdAt: z.string(),
@@ -795,8 +803,9 @@ export type ClaimState = z.infer<typeof claimState>;
  * What one contributor has actually done here.
  *
  * Every field is a count of something that happened. There is no score in this
- * shape and there must not be one. Behaviour does count toward a claim's score:
- * what a profile has done is a behaviour term, and who they are never is. What
+ * shape and there must not be one. Behaviour is meant to count toward a claim's
+ * score: what a profile has done is a behaviour term, and who they are never
+ * is. The scorer doesn't read it yet. What
  * any of these counts means, whether a long record of corroborated claims
  * should count for more than a short one, whether somebody who disputes
  * constantly is careful or difficult, is the intelligence layer's design work.
@@ -834,7 +843,7 @@ export const contributorStanding = z.object({
   disputesRaised: z.number(),
   /** Of those, the ones that proposed a different value instead of only objecting. */
   disputesRaisedWithAlternative: z.number(),
-  /** "Sounds right" passovers they left on other people's claims. */
+  /** "Sounds right" passovers they left. */
   soundsRightGiven: z.number(),
   translationsContributed: z.number(),
   transcriptsContributed: z.number(),

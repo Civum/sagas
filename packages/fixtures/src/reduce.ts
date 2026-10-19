@@ -311,7 +311,11 @@ function buildClaimState(
  */
 function buildStandings(claimStates: ClaimState[], acc: Accumulator): ContributorStanding[] {
   return [...acc.contributors.values()].map((c) => {
-    const theirClaims = claimStates.filter((cs) => cs.claim.contributorId === c.id);
+    // Dispute claims are counted under disputesRaised, so they're left out here
+    // to avoid counting the same act twice.
+    const theirClaims = claimStates.filter(
+      (cs) => cs.claim.contributorId === c.id && !cs.claim.disputedClaimId,
+    );
     const theirDisputes = acc.disputes.filter((d) => d.contributorId === c.id);
 
     // Every timestamped thing this person did, so tenure is measured from

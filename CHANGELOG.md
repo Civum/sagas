@@ -59,16 +59,28 @@ it. This is the most useful field in the entry.
   and `contributorStanding.affirmationsGiven` is now `soundsRightGiven`.
 
 The fixtures are rebuilt: every dispute in them now has a claim, and the
-corner shop's extension by the owner's nephew targets the owner detail.
+corner shop's "Mr. Ferris was my uncle" extension targets the owner detail.
+Two numbers move as a result. Weights shift slightly where a claim already had
+"sounds right" passovers, since those now count as agreement. And a profile's
+`lastContributionAt` now counts every passover it left, of any kind.
+Dispute claims are counted in `disputesRaised`, never in `claimsAuthored`.
 
-**Why:** All four were decided weeks ago and never reached the contract, so
-anyone designing a schema now would have built the old shapes.
+**Why:** All four were decided between 27 September and 16 October and never
+reached the contract, so anyone designing a schema now would have built the
+old shapes.
 
 **You need to:**
-- *experience layer* — dispute claims now appear among a site's claims; use
-  `disputedClaimId` to show them with the claim they dispute. Replace
-  `affirmations` with `passover.sounds_right`. Drop anything that reads
-  `topics`.
+- *experience layer* — for your schema: a dispute is a row in claims (with
+  `disputedClaimId` set) plus a dispute edge pointing from it
+  (`fromClaimId`), and the edge is the real record of what it targets;
+  `targetDetailId` on extensions is a nullable column; there is no
+  affirmations table, agreement is a `sounds_right` passover; the profile
+  field is now `soundsRightGiven`; claims have no `topics`. In the app: dispute
+  claims are now in `state.claims`, so leave out the ones with
+  `disputedClaimId` from top-level lists (`apps/web/src/app/page.tsx` and
+  `features/article/ArticleView.tsx` do this upstream) and show them under the
+  detail they dispute; replace `affirmations` with `passover.sounds_right`;
+  each `detailStatus` now has `extensions` as well as `disputes`.
 - *intelligence layer* — nothing in `apps/graph-api` changes; the scoring
   graph in `packages/fixtures/scoring` already had these shapes.
 - *content layer* — nothing.
