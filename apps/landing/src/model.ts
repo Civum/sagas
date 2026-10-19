@@ -12,7 +12,7 @@ export const PLACEHOLDER_MARK = '[Draft:';
  * material"). Labels are always visible text, never colour or hover alone.
  */
 export const INVENTED_LABELS = {
-  illustration: 'Illustrative worked example - invented for this draft',
+  illustration: 'Illustrative example, invented',
   passage: 'Invented sample passage - not a real story',
   contributor: 'Invented contributor - not a real person',
 } as const;

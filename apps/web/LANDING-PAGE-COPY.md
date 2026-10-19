@@ -48,7 +48,7 @@ The link scrolls to the explanation section on this page.
 
 **Worked example**
 
-> Corner shop - illustrative worked example - invented for this draft
+> Corner shop - Illustrative example, invented
 
 The corner shop is the invented worked example used throughout the project. It
 must be labelled beside any illustration, passage, person, or place that could
@@ -131,8 +131,7 @@ testimony must be marked beside that content. Labels must be visible text; do
 not rely on colour, italics, icons, hover text, tooltips, or the page-level
 banner alone.
 
-- **Illustrative worked example - invented for this draft** for the corner shop
-  or any sample place.
+- **Illustrative example, invented** for the corner shop or any sample place.
 - **Invented sample passage - not a real story** for a fabricated quotation or
   passage.
 - **Invented contributor - not a real person** for a fabricated contributor.

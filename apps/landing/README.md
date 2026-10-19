@@ -83,7 +83,7 @@ alone re-run these tests instead of reusing an old result.
 - **A draft looks like a draft:** visible banner, and `noindex` so search engines
   skip it.
 - **Invented material is labelled** in visible text, with the labels from the
-  copy document ("Illustrative worked example - invented for this draft", and
+  copy document ("Illustrative example, invented", and
   so on). The corner shop caption carries its name and that label.
 - **On-page links point at sections that exist.**
 - **Accessibility basics:** `lang`, one `h1`, no skipped heading levels, a skip
