@@ -41,7 +41,7 @@ it. This is the most useful field in the entry.
 
 ---
 
-## v2.3.0 — 2026-10-25
+## v2.3.0 — 2026-10-19
 
 **Affects:** experience layer · intelligence layer · content layer (nothing to do)
 
