@@ -182,6 +182,9 @@ the reasons `apps/ui-api` is a separate app.
 Nothing about the local setup changes for any of this. `pnpm dev:web` is the
 same either way.
 
+**How the landing page deploy works,** step by step, including how to switch it
+on once the copy is approved: "Deploying" in `apps/landing/README.md`.
+
 ## Things you might add
 
 None of these are required, and whether to add them is your call.

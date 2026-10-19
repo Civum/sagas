@@ -11,9 +11,10 @@ const copy: PageCopy = {
     eyebrow: 'Eyebrow',
     headline: 'Headline',
     supporting: 'Supporting',
-    action: { label: 'Act', href: '#how' },
-    illustration: { invented: 'illustration' },
+    action: { label: 'Act', href: '#why' },
+    illustration: { name: 'Example', invented: 'illustration' },
   },
+  why: { id: 'why', label: 'Why', heading: 'Why heading', text: 'Why text' },
   how: {
     id: 'how',
     label: 'Label',
@@ -25,6 +26,13 @@ const copy: PageCopy = {
     ],
   },
   principle: { id: 'principle', label: 'Principle', statement: 'Statement' },
+  stands: {
+    id: 'stands',
+    label: 'Stands',
+    heading: 'Stands heading',
+    text: 'Stands text',
+    contact: { lead: 'Write to', email: 'someone@example.org' },
+  },
   footer: { wordmark: 'W', status: 'Status' },
 };
 
@@ -82,6 +90,12 @@ describe('renderPage', () => {
     expect(renderPage({ status: 'draft', copy })).toContain('Draft banner');
   });
 
+  it('links the contact address with mailto, inside a sentence', () => {
+    expect(html).toMatch(
+      /Write to <a href="mailto:someone@example\.org"[^>]*>someone@example\.org<\/a>\./,
+    );
+  });
+
   it('sends no JavaScript', () => {
     expect(html).not.toMatch(/<script\b/i);
   });
@@ -89,7 +103,10 @@ describe('renderPage', () => {
   it('escapes copy so it cannot inject markup', () => {
     const hostile = renderPage({
       ...approved,
-      copy: { ...copy, footer: { wordmark: 'W', status: '<script>alert(1)</script>' } },
+      copy: {
+        ...copy,
+        footer: { wordmark: 'W', status: '<script>alert(1)</script>' },
+      },
     });
     expect(hostile).not.toContain('<script>alert(1)</script>');
     expect(hostile).toContain('&lt;script&gt;');

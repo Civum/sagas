@@ -6,42 +6,51 @@ import type { LandingContent } from './model';
 //
 // Two pieces are Platform additions, not in the copy document, and go to the
 // sponsor for review along with it: `meta.description` (the text shown in link
-// previews and search results) and the "Skip to content" link in render.ts.
+// previews and search results) and the "Skip to content" link (FIXED_TEXT in model.ts).
 //
 // Status stays 'draft' until the sponsor approves the copy. Then set
 // `status: 'approved'` with the approval's link and date, and the copy's
 // fingerprint from `pnpm --filter @sagas/landing copy-hash`. The tests refuse
 // an approved page whose words changed after approval.
 //
-// Rules (statement of work, "The limits"): no organisation is named, and
-// anything invented carries a visible label.
+// Rules (statement of work, "The limits"): no organisation is named, except
+// the sponsor's contact address he asked for, and anything invented carries a
+// visible label.
 
 export const content: LandingContent = {
   status: 'draft',
   copy: {
     meta: {
       title: 'Sagas',
+      // Platform addition, not yet in the copy document: reuses the hero's
+      // supporting line until Design or the sponsor chooses other words.
       description:
-        'Every place has more than one story. Sagas helps people read what is remembered about a place — and see the records, voices, and disagreements that make up the story.',
+        'Buildings outlast the people who remember them. Sagas keeps those stories with the places, like a digital plaque, so someone who comes looking later can still find them.',
     },
     draftBanner:
-      'Draft — examples on this page are invented and the copy is not approved for public release.',
+      'Draft - examples on this page are invented and the copy is not approved for public release.',
     nav: {
       wordmark: 'Sagas',
-      link: { label: 'Explore the idea', href: '#how' },
+      link: { label: 'How it works', href: '#how' },
     },
     hero: {
-      eyebrow: 'A reading product for places',
+      eyebrow: 'Stories kept with places',
       headline: 'Every place has more than one story.',
       supporting:
-        'Sagas helps people read what is remembered about a place — and see the records, voices, and disagreements that make up the story.',
-      action: { label: 'Explore the idea', href: '#how' },
-      illustration: { invented: 'illustration' },
+        'Buildings outlast the people who remember them. Sagas keeps those stories with the places, like a digital plaque, so someone who comes looking later can still find them.',
+      action: { label: 'Why Sagas exists', href: '#why' },
+      illustration: { name: 'Corner shop', invented: 'illustration' },
+    },
+    why: {
+      id: 'why',
+      label: 'Why Sagas exists',
+      heading: 'When people move on, stories can disappear with them.',
+      text: 'Sagas keeps the memories connected to a place, so a person who comes looking later can still find them. Every story stays visible with the records and sources that help someone understand where it came from.',
     },
     how: {
       id: 'how',
       label: 'How it works',
-      heading: 'Read the account. Then check what it rests on.',
+      heading: 'Read the story. Then see what stays visible beside it.',
       steps: [
         {
           title: 'Start with a place',
@@ -49,11 +58,11 @@ export const content: LandingContent = {
         },
         {
           title: 'Read the story',
-          text: 'See what people have said, with each passage connected to the claims beneath it.',
+          text: 'See what people have remembered, with its context.',
         },
         {
           title: 'Look closer',
-          text: 'Follow a phrase back to its records, contributors, and disagreements.',
+          text: 'Follow a phrase back to records and sources.',
         },
       ],
     },
@@ -61,8 +70,21 @@ export const content: LandingContent = {
       id: 'principle',
       label: 'The principle',
       statement:
-        'Nothing is quietly settled. Different accounts stay visible, and every claim has a way back to its source.',
+        'Different stories stay visible. Each one leads back to the records and sources behind it.',
     },
-    footer: { wordmark: 'Sagas', status: 'A reading product for places.' },
+    stands: {
+      id: 'stands',
+      label: 'Where Sagas stands',
+      heading: 'This is an early project, and the site is not open yet.',
+      text: 'Sagas is being built by student teams at Idaho universities. We are sharing the idea and the work in progress while we learn from the people who remember these places.',
+      // The sponsor's address, at his request (brief in the questions issue,
+      // #11). It is the one organisation name the page may show; see
+      // content.test.ts.
+      contact: {
+        lead: 'Questions or thoughts? Write to',
+        email: 'info@civum.io',
+      },
+    },
+    footer: { wordmark: 'Sagas', status: 'Early project - not open yet' },
   },
 };
