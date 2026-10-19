@@ -24,7 +24,8 @@
     "tailwindcss": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "wrangler": "^4.151.1"
   },
   "prettier": "@sagas/prettier-config"
 }

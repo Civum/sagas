@@ -2,26 +2,41 @@
 #
 # WHY IT WAITS FOR CI
 # ci.yml (upstream's file, left unedited so contract syncs never conflict)
-# typechecks, lints, runs the acceptance criteria and tests. This workflow
-# starts when that run finishes, and deploys only if it succeeded, so a commit
-# that fails CI is never published.
+# typechecks, lints, runs the acceptance criteria and tests, including a test
+# that runs the landing page build. This workflow starts when that run
+# finishes, and deploys only if it succeeded, so a commit that fails CI is
+# never published.
 #
-# SWITCHED OFF UNTIL P3
-# Nothing deploys until three things are true: P2's hosting proposal is
-# approved, the sponsor has approved the page copy (De2), and the repository
-# variable LANDING_DEPLOY_ENABLED is set to 'true'.
-# The host's token goes in as a secret. The sponsor creates the host account;
-# nobody on the team signs up for anything.
+# OFF UNTIL THE COPY IS APPROVED
+# While the repository variable LANDING_DEPLOY_ENABLED is not 'true', every
+# merge to main runs the pipeline as a dry run: build, then
+# `wrangler deploy --dry-run`, which validates the config and the build output
+# without contacting Cloudflare. It needs no token, so it does not prove the
+# token's permissions or the domain setup; the first real deploy does that.
+# Setting the variable to 'true' switches to the real deploy, which also
+# refuses unless the copy is approved and unchanged.
+#
+# EVERY MERGE, NOT ONLY LANDING CHANGES
+# There is no "did this merge touch the landing page?" filter. ci.yml cancels an
+# older run on main when a newer merge arrives, so a filter that looked only at
+# the newest merge could skip landing changes whose own run was cancelled.
+# Building and publishing the same static files again is cheap and harmless.
+#
+# ONLY THE NEWEST COMMIT PUBLISHES
+# Re-running an old CI run would start this workflow for an old commit. The
+# job checks that the commit is still the tip of main and stops if it isn't,
+# so an older revision can never replace a newer one.
+#
+# The real deploy needs one repository secret, CLOUDFLARE_API_TOKEN: a token
+# from the sponsor that can only edit Workers. The account ID and Worker name
+# are in apps/landing/wrangler.jsonc. The sponsor owns the account; nobody on
+# the team signs up for anything. Cloudflare's own Git publishing stays off, so
+# only this pipeline decides what goes live.
+#
+# TO GO LIVE, ROLL BACK, VERIFY: "Deploying" in apps/landing/README.md.
 #
 # NOTE: workflow_run only fires from the copy of this file on the default
 # branch, so it does nothing on a feature branch.
-#
-# P3 TODO: After selecting the host, assess deployment costs and limits.
-# workflow_run has no paths filter, so unrelated main changes also trigger it.
-# If filtering is needed, compare against the last successfully deployed
-# commit and include landing files, shared build dependencies, lockfiles,
-# and deployment configuration. Always allow the first deployment.
-# Disable any host-side automatic publishing that bypasses this switch.
 
 name: Deploy landing
 
@@ -34,11 +49,19 @@ on:
 permissions:
   contents: read
 
-# One deploy runs at a time; an active deploy is not cancelled.
-# By default, only one additional run can remain pending.
+# One deploy at a time; a newer merge waits instead of cutting a deploy short.
+# queue: max keeps every waiting run (up to 100, first in, first out). The
+# default keeps only one and cancels it when another arrives, so a re-run of an
+# old CI run could cancel the newest commit's waiting deploy; the old run would
+# then skip at the freshness check and the newest would never publish.
 concurrency:
   group: deploy-landing
   cancel-in-progress: false
+  queue: max
+
+env:
+  TURBO_TELEMETRY_DISABLED: 1
+  WRANGLER_SEND_METRICS: false
 
 jobs:
   # Publishes the landing page for the commit that just passed CI on main.
@@ -47,24 +70,60 @@ jobs:
       github.repository == 'byui-cse397/2026.3FallCSE397PCP_sagasCustomer' &&
       github.event.workflow_run.event == 'push' &&
       github.event.workflow_run.head_repository.full_name == github.repository &&
-      github.event.workflow_run.conclusion == 'success' &&
-      vars.LANDING_DEPLOY_ENABLED == 'true'
+      github.event.workflow_run.conclusion == 'success'
     # Conditions, in order: only in our fork; only for merges to main, never
-    # pull requests; only commits from this repository; only when CI passed;
-    # only once the team has switched it on.
+    # pull requests; only commits from this repository; only when CI passed.
     runs-on: ubuntu-latest
 
     steps:
+      # A re-run of an old CI run lands here with an old commit. Publish only
+      # if this commit is still the tip of main; otherwise a newer merge has
+      # its own run, and this one stops without touching the site.
+      - name: Is this still the newest commit on main?
+        id: fresh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          tip=$(gh api "repos/${GITHUB_REPOSITORY}/commits/main" --jq .sha)
+          if [ "$tip" = "$HEAD_SHA" ]; then
+            echo "newest=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "newest=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::$HEAD_SHA is no longer the tip of main ($tip). Skipping; the newer commit publishes."
+          fi
+
       - name: Check out the commit that passed CI
+        if: steps.fresh.outputs.newest == 'true'
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
           persist-credentials: false
 
-      # Replace this step once P2 selects the host and P3 defines
-      # the landing build command and output directory.
-      # Add only the permissions/credentials the approved host needs.
-      - name: Deployment implementation pending
-        run: |
-          echo "::error::Implement the approved landing build and deployment before enabling."
-          exit 1
+      # Same Node, pnpm and install steps that ci.yml uses.
+      - if: steps.fresh.outputs.newest == 'true'
+        uses: ./tooling/github/setup
+
+      - name: Build the landing page
+        if: steps.fresh.outputs.newest == 'true'
+        # The real deploy uses --release, which refuses unless the copy is
+        # approved and unchanged since approval. The dry run builds the draft.
+        run: >-
+          pnpm --filter @sagas/landing build
+          ${{ vars.LANDING_DEPLOY_ENABLED == 'true' && '--release' || '' }}
+
+      # Deploys are off: validate the config and build output without
+      # contacting Cloudflare. Needs no token.
+      - name: Dry run (deploys are switched off)
+        if: steps.fresh.outputs.newest == 'true' && vars.LANDING_DEPLOY_ENABLED != 'true'
+        working-directory: apps/landing
+        run: pnpm exec wrangler deploy --dry-run
+
+      # Wrangler is a devDependency of apps/landing, pinned by the lockfile,
+      # and reads the token from this variable. Only this step sees the token.
+      - name: Deploy to Cloudflare Workers
+        if: steps.fresh.outputs.newest == 'true' && vars.LANDING_DEPLOY_ENABLED == 'true'
+        working-directory: apps/landing
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: pnpm exec wrangler deploy

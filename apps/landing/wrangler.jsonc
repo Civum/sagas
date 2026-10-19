@@ -1,0 +1,15 @@
+// Cloudflare Workers config for the landing page (P3).
+// Serves dist/ as static assets on the sponsor's account. There is no Worker
+// script, so no code runs on requests.
+//
+// No routes: the sponsor connected sagasproject.org to this Worker in the
+// dashboard, so the deploy token only ever needs to edit Workers.
+// The account ID is not a secret (sponsor, 12 Oct 2026).
+{
+  "name": "sagas-landing",
+  "account_id": "5e302dc6f0aa3537025b0e20b28ca23f",
+  "compatibility_date": "2026-10-13",
+  "assets": {
+    "directory": "./dist"
+  }
+}
