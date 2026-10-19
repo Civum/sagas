@@ -56,12 +56,6 @@
             "excerpt": "My great-grandmother cooked there"
           }
         ],
-        "topics": [
-          "boarding house",
-          "sheepherding",
-          "women's work",
-          "immigration"
-        ],
         "sourceType": "family_oral",
         "createdAt": "2026-01-08T16:22:00Z",
         "awaitingTranslation": false
@@ -86,7 +80,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -103,6 +96,7 @@
             "excerpt": "She started in 1922"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "1922",
@@ -121,6 +115,7 @@
             "excerpt": "took in Basque sheepherders"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "boarding house for sheepherders",
@@ -139,6 +134,7 @@
             "excerpt": "The Anduiza building on Grove Street"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "620 W Grove St",
@@ -157,6 +153,7 @@
             "excerpt": "My great-grandmother cooked there"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "great-grandmother, cook",
@@ -200,12 +197,6 @@
             "excerpt": "played in the winter"
           }
         ],
-        "topics": [
-          "pilota",
-          "fronton",
-          "recreation",
-          "sheepherding"
-        ],
         "sourceType": "family_oral",
         "createdAt": "2026-01-08T16:41:00Z",
         "awaitingTranslation": false
@@ -230,7 +221,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -247,6 +237,7 @@
             "excerpt": "built into the back of the building"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "rear of building",
@@ -265,6 +256,7 @@
             "excerpt": "a handball court"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "handball court / fronton",
@@ -283,6 +275,7 @@
             "excerpt": "played in the winter"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "winter use",
@@ -320,10 +313,6 @@
             "excerpt": "Before the boarding house"
           }
         ],
-        "topics": [
-          "prior use",
-          "lot history"
-        ],
         "sourceType": "family_oral",
         "createdAt": "2026-01-09T02:15:00Z",
         "awaitingTranslation": false
@@ -348,7 +337,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -365,6 +353,7 @@
             "excerpt": "a livery stable on that lot"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "livery stable",
@@ -383,6 +372,7 @@
             "excerpt": "Before the boarding house"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "before boarding house",
@@ -440,7 +430,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0

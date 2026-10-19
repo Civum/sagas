@@ -43,10 +43,6 @@
               "excerpt": "a doorway through to the shop next door"
             }
           ],
-          "topics": [
-            "the shop",
-            "the doorway"
-          ],
           "sourceType": "community_oral",
           "createdAt": "2026-04-09T10:36:00Z",
           "awaitingTranslation": false
@@ -71,7 +67,6 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -88,6 +83,7 @@
               "excerpt": "There was a bakery at 1116"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "bakery",
@@ -106,6 +102,7 @@
               "excerpt": "a doorway through to the shop next door"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "doorway through the party wall",
@@ -153,7 +150,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 0,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -229,10 +226,6 @@
               "excerpt": "a doorway through to the shop next door"
             }
           ],
-          "topics": [
-            "the shop",
-            "the doorway"
-          ],
           "sourceType": "community_oral",
           "createdAt": "2026-04-09T10:36:00Z",
           "awaitingTranslation": false
@@ -257,7 +250,6 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -274,6 +266,7 @@
               "excerpt": "There was a bakery at 1116"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "bakery",
@@ -292,6 +285,7 @@
               "excerpt": "a doorway through to the shop next door"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "doorway through the party wall",
@@ -339,7 +333,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 0,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -410,10 +404,6 @@
               "excerpt": "a doorway through to the shop next door"
             }
           ],
-          "topics": [
-            "the shop",
-            "the doorway"
-          ],
           "sourceType": "community_oral",
           "createdAt": "2026-04-09T10:36:00Z",
           "awaitingTranslation": false
@@ -438,7 +428,6 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -455,6 +444,7 @@
               "excerpt": "There was a bakery at 1116"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "bakery",
@@ -473,6 +463,7 @@
               "excerpt": "a doorway through to the shop next door"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "doorway through the party wall",
@@ -520,7 +511,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 0,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -591,10 +582,6 @@
               "excerpt": "a doorway through to the shop next door"
             }
           ],
-          "topics": [
-            "the shop",
-            "the doorway"
-          ],
           "sourceType": "community_oral",
           "createdAt": "2026-04-09T10:36:00Z",
           "awaitingTranslation": false
@@ -619,7 +606,6 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -636,6 +622,7 @@
               "excerpt": "There was a bakery at 1116"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "bakery",
@@ -654,6 +641,7 @@
               "excerpt": "a doorway through to the shop next door"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "doorway through the party wall",
@@ -708,20 +696,22 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 0,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
       },
       {
         "contributorId": "c-tomas",
+        "firstContributionAt": "2026-07-08T18:22:00Z",
+        "lastContributionAt": "2026-07-08T18:22:00Z",
         "recordsSubmitted": 0,
         "claimsAuthored": 0,
         "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 0,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0

@@ -74,8 +74,8 @@ Each state deliberately exercises something:
 
 - **t0** — everything single-source and low weight. A sparse site must look
   sparse on the map. It must never look empty.
-- **t1** — the author's cousin affirms `cl-boarding` and then extends it with a
-  record of her own. The affirmation adds no source. The record does, so the
+- **t1** — the author's cousin says `cl-boarding` sounds right and then extends
+  it with a record of her own. Her agreement adds no source. The record does, so the
   claim reads `corroborated`, even though the two cousins may have heard one
   telling. The stand-in cannot see that, and working out independence is the
   intelligence layer's open design work. A claim submitted in Euskara also
@@ -129,7 +129,7 @@ independently bringing a record about the same building is real corroboration
 and it counts for far more.
 
 The model counts independent records. It never counts heads. Agreeing is not bringing a
-source, so an affirmation count on its own must never be presented as support.
+source, so a count of agreement on its own must never be presented as support.
 Five people saying "sounds right" is one source with five reactions to it.
 
 ### Disagreement lands on one detail
@@ -219,7 +219,7 @@ any of them is a useful pull request.
 - A claim long enough to break a reading layout
 - A place with exactly one claim and no contributors beyond its author
 - Two places close enough together to collide as map markers
-- A claim whose only affirmations come from people who joined the same day
+- A claim whose only "sounds right" passovers come from people who joined the same day
 - Two transcripts of the same recording that disagree about what was said
 - The same file uploaded by two people, so the checksums collide and it is one
   source rather than two
@@ -271,7 +271,7 @@ weight disagrees with the stored one, which means the states need regenerating.
 
 The point is the inputs. A weight on its own tells you nothing about whether
 your scoring is defensible. `cl-boarding` at t3 scoring 5.50 means nothing until
-you see what went into it: its affirmations, its independent records, and three
+you see what went into it: its "sounds right" passovers, its independent records, and three
 disputes on its date.
 
 ## Boundaries

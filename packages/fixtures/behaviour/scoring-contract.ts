@@ -259,7 +259,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
         input: {
           sourceType: c.claim.sourceType,
           independentRecordCount: c.independentRecordCount,
-          affirmationCount: c.affirmations.length,
+          affirmationCount: c.passover.sounds_right,
           extensionCount: c.extensions.length,
           disputeCount: c.detailStatuses.reduce((n, e) => n + e.disputes.length, 0),
           sourceTypeDiversity: 1,

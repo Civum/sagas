@@ -37,10 +37,6 @@
             "excerpt": "five in the morning until two in the afternoon"
           }
         ],
-        "topics": [
-          "the menu",
-          "who ate there"
-        ],
         "sourceType": "documentary",
         "createdAt": "2026-03-18T20:47:00Z",
         "awaitingTranslation": false
@@ -79,7 +75,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [
         "cl-mother-worked"
@@ -98,6 +93,7 @@
             "excerpt": "five in the morning until two in the afternoon"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "05:00 to 14:00",
@@ -134,10 +130,6 @@
             "value": "9th and Bannock",
             "excerpt": "on the corner of 9th and Bannock"
           }
-        ],
-        "topics": [
-          "closing",
-          "the menu"
         ],
         "sourceType": "family_oral",
         "createdAt": "2026-02-03T18:44:00Z",
@@ -177,18 +169,10 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [
-        {
-          "id": "aff-gk-ray",
-          "claimId": "cl-closed-1979",
-          "contributorId": "c-raymond",
-          "createdAt": "2026-03-11T14:09:00Z"
-        }
-      ],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
-        "sounds_right": 0,
+        "sounds_right": 1,
         "dont_know": 0,
         "dont_care": 0
       },
@@ -201,6 +185,7 @@
             "excerpt": "it closed in 1979"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "1979",
@@ -219,6 +204,7 @@
             "excerpt": "on the corner of 9th and Bannock"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "9th and Bannock",
@@ -249,9 +235,6 @@
             "value": "Dolores Whitcomb's mother",
             "excerpt": "my mother was one of them"
           }
-        ],
-        "topics": [
-          "who ate there"
         ],
         "sourceType": "family_oral",
         "createdAt": "2026-03-22T11:15:00Z",
@@ -292,7 +275,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -309,6 +291,7 @@
             "excerpt": "my mother was one of them"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "Dolores Whitcomb's mother",
@@ -384,7 +367,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -399,7 +382,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 1,
+      "soundsRightGiven": 1,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -414,7 +397,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0

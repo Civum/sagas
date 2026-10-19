@@ -230,20 +230,15 @@ when they write a claim, and they become the edges of the graph:
 - **Every claim names its source record,** the record it was read out of, and
   can attach other records as evidence.
 
-So the scorer reads edges before it reads words. The shared contract still
-stores a dispute as an edge without a claim of its own, and still has
-extensions point at a whole claim. Both change in a later contract release.
-The graph in `packages/fixtures/scoring` already has the new shape, so build
-against that.
+So the scorer reads edges before it reads words. The shared contract and the
+graph in `packages/fixtures/scoring` both store them this way.
 
 ### Details aren't keywords
 
 A detail is a part of a claim someone can point at: a date, a place, a person,
 an event, a quantity, an attribution. It exists so people can disagree about
 the year without disagreeing about the building. Don't extract keywords from
-claim text to stand in for details. `topics` on a claim in the contract is a
-leftover the model has moved away from, and it's due to be removed in a later
-contract release, so don't build on it either.
+claim text to stand in for details.
 
 ### Where text matching belongs
 
@@ -402,18 +397,13 @@ evidence.
 
 ### Decided, and coming to the shared contract
 
-These are decided. Some are already in the graph your scorer reads; the
-shared contract catches up in later releases. Build toward them.
+These are decided and not in the contract yet. Build toward them.
 
-- **A dispute is a claim** with its own text, details and source record. In
-  your graph already.
-- **Extensions target a detail.** In your graph already.
 - **Resolution is its own kind of edge,** beside dispute and extension: a
   claim that reconciles a disagreement, with weight like any other claim, and
   more than one allowed. What it points at is still open (below), so it isn't
   in your graph yet.
 - **Weight lives on details,** as well as on whole claims.
-- **`topics` is removed** from claims.
 - **Evidence records, transcriptions and translations become one kind of
   supporting record,** scored by how they're used rather than by whether
   anyone vouches for them.

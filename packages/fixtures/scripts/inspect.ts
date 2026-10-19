@@ -37,7 +37,7 @@ function inputsFor(c: ClaimState) {
   return {
     sourceType: c.claim.sourceType,
     independentRecordCount: c.independentRecordCount,
-    affirmationCount: c.affirmations.length,
+    affirmationCount: c.passover.sounds_right,
     extensionCount: c.extensions.length,
     disputeCount: c.detailStatuses.reduce((n, e) => n + e.disputes.length, 0),
     sourceTypeDiversity: new Set([c.claim.sourceType, ...extensionTypes]).size,

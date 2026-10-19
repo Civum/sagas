@@ -57,12 +57,6 @@
               "excerpt": "My great-grandmother cooked there"
             }
           ],
-          "topics": [
-            "boarding house",
-            "sheepherding",
-            "women's work",
-            "immigration"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:22:00Z",
           "awaitingTranslation": false
@@ -87,7 +81,6 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -104,6 +97,7 @@
               "excerpt": "She started in 1922"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1922",
@@ -122,6 +116,7 @@
               "excerpt": "took in Basque sheepherders"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "boarding house for sheepherders",
@@ -140,6 +135,7 @@
               "excerpt": "The Anduiza building on Grove Street"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "620 W Grove St",
@@ -158,6 +154,7 @@
               "excerpt": "My great-grandmother cooked there"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "great-grandmother, cook",
@@ -201,12 +198,6 @@
               "excerpt": "played in the winter"
             }
           ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation",
-            "sheepherding"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:41:00Z",
           "awaitingTranslation": false
@@ -231,7 +222,6 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -248,6 +238,7 @@
               "excerpt": "built into the back of the building"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "rear of building",
@@ -266,6 +257,7 @@
               "excerpt": "a handball court"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "handball court / fronton",
@@ -284,6 +276,7 @@
               "excerpt": "played in the winter"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "winter use",
@@ -321,10 +314,6 @@
               "excerpt": "Before the boarding house"
             }
           ],
-          "topics": [
-            "prior use",
-            "lot history"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-09T02:15:00Z",
           "awaitingTranslation": false
@@ -349,7 +338,6 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -366,6 +354,7 @@
               "excerpt": "a livery stable on that lot"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "livery stable",
@@ -384,6 +373,7 @@
               "excerpt": "Before the boarding house"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "before boarding house",
@@ -441,7 +431,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 0,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -531,12 +521,6 @@
               "excerpt": "played in the winter"
             }
           ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation",
-            "sheepherding"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:41:00Z",
           "awaitingTranslation": false
@@ -561,26 +545,12 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [
-          {
-            "id": "af-001",
-            "claimId": "cl-fronton",
-            "contributorId": "c-joseba",
-            "createdAt": "2026-02-14T19:44:00Z"
-          },
-          {
-            "id": "af-003",
-            "claimId": "cl-fronton",
-            "contributorId": "c-ana",
-            "createdAt": "2026-02-20T15:21:00Z"
-          }
-        ],
         "independentRecordCount": 1,
         "extensions": [
           "cl-fronton-floor"
         ],
         "passover": {
-          "sounds_right": 1,
+          "sounds_right": 3,
           "dont_know": 0,
           "dont_care": 0
         },
@@ -593,6 +563,7 @@
               "excerpt": "built into the back of the building"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "rear of building",
@@ -611,6 +582,7 @@
               "excerpt": "a handball court"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "handball court / fronton",
@@ -629,6 +601,7 @@
               "excerpt": "played in the winter"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "winter use",
@@ -640,7 +613,7 @@
             ]
           }
         ],
-        "weight": 6.75,
+        "weight": 7,
         "confidence": "corroborated"
       },
       {
@@ -678,12 +651,6 @@
               "excerpt": "My great-grandmother cooked there"
             }
           ],
-          "topics": [
-            "boarding house",
-            "sheepherding",
-            "women's work",
-            "immigration"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:22:00Z",
           "awaitingTranslation": false
@@ -708,20 +675,12 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [
-          {
-            "id": "af-002",
-            "claimId": "cl-boarding",
-            "contributorId": "c-ana",
-            "createdAt": "2026-02-20T15:20:00Z"
-          }
-        ],
         "independentRecordCount": 1,
         "extensions": [
           "cl-boarding-kitchen"
         ],
         "passover": {
-          "sounds_right": 1,
+          "sounds_right": 2,
           "dont_know": 0,
           "dont_care": 0
         },
@@ -734,6 +693,7 @@
               "excerpt": "She started in 1922"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1922",
@@ -752,6 +712,7 @@
               "excerpt": "took in Basque sheepherders"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "boarding house for sheepherders",
@@ -770,6 +731,7 @@
               "excerpt": "The Anduiza building on Grove Street"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "620 W Grove St",
@@ -788,6 +750,7 @@
               "excerpt": "My great-grandmother cooked there"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "great-grandmother, cook",
@@ -799,7 +762,7 @@
             ]
           }
         ],
-        "weight": 5,
+        "weight": 5.25,
         "confidence": "corroborated"
       },
       {
@@ -832,11 +795,6 @@
               "value": "dead spot near left wall",
               "excerpt": "a dead spot near the left wall"
             }
-          ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation"
           ],
           "sourceType": "firsthand",
           "createdAt": "2026-02-14T20:01:00Z",
@@ -899,7 +857,6 @@
         ],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -916,6 +873,7 @@
               "excerpt": "this would be 1963, 1964"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1963-1964",
@@ -934,6 +892,7 @@
               "excerpt": "The floor was wood"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "wood floor",
@@ -952,6 +911,7 @@
               "excerpt": "a dead spot near the left wall"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "dead spot near left wall",
@@ -989,10 +949,6 @@
               "excerpt": "Before the boarding house"
             }
           ],
-          "topics": [
-            "prior use",
-            "lot history"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-09T02:15:00Z",
           "awaitingTranslation": false
@@ -1017,7 +973,6 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -1034,6 +989,7 @@
               "excerpt": "a livery stable on that lot"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "livery stable",
@@ -1052,6 +1008,7 @@
               "excerpt": "Before the boarding house"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "before boarding house",
@@ -1091,11 +1048,6 @@
               "excerpt": "Marisol and I are cousins"
             }
           ],
-          "topics": [
-            "boarding house",
-            "women's work",
-            "daily life"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-02-20T15:39:00Z",
           "parentClaimId": "cl-boarding",
@@ -1132,7 +1084,6 @@
         ],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -1149,6 +1100,7 @@
               "excerpt": "the kitchen ran two sittings"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "two meal sittings",
@@ -1167,6 +1119,7 @@
               "excerpt": "Marisol and I are cousins"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "same lineage as cl-boarding",
@@ -1192,11 +1145,6 @@
           "sourceLanguage": "eu",
           "sourceLanguageText": "Gure aitona hemen bizi izan zen. Neguan pilotan jokatzen zuten atzeko aldean. Guretzat gure etxea zen, ez ostatu bat.",
           "details": [],
-          "topics": [
-            "boarding house",
-            "pilota",
-            "family"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-03-02T22:31:00Z",
           "awaitingTranslation": true
@@ -1249,7 +1197,6 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -1408,7 +1355,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 0,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -1416,14 +1363,14 @@
       {
         "contributorId": "c-joseba",
         "firstContributionAt": "2026-02-14T19:44:00Z",
-        "lastContributionAt": "2026-02-14T20:01:00Z",
+        "lastContributionAt": "2026-03-05T18:03:00Z",
         "recordsSubmitted": 1,
         "claimsAuthored": 1,
         "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 1,
+        "soundsRightGiven": 2,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -1431,14 +1378,14 @@
       {
         "contributorId": "c-ana",
         "firstContributionAt": "2026-02-20T15:20:00Z",
-        "lastContributionAt": "2026-02-20T15:39:00Z",
+        "lastContributionAt": "2026-03-11T17:45:00Z",
         "recordsSubmitted": 1,
         "claimsAuthored": 1,
         "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 2,
+        "soundsRightGiven": 2,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -1446,14 +1393,14 @@
       {
         "contributorId": "c-domingo",
         "firstContributionAt": "2026-03-02T22:25:00Z",
-        "lastContributionAt": "2026-03-02T22:31:00Z",
+        "lastContributionAt": "2026-03-11T17:52:00Z",
         "recordsSubmitted": 1,
         "claimsAuthored": 1,
         "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 1,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -1570,12 +1517,6 @@
               "excerpt": "played in the winter"
             }
           ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation",
-            "sheepherding"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:41:00Z",
           "awaitingTranslation": false
@@ -1600,38 +1541,12 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [
-          {
-            "id": "af-001",
-            "claimId": "cl-fronton",
-            "contributorId": "c-joseba",
-            "createdAt": "2026-02-14T19:44:00Z"
-          },
-          {
-            "id": "af-003",
-            "claimId": "cl-fronton",
-            "contributorId": "c-ana",
-            "createdAt": "2026-02-20T15:21:00Z"
-          },
-          {
-            "id": "af-004",
-            "claimId": "cl-fronton",
-            "contributorId": "c-robert",
-            "createdAt": "2026-04-11T20:55:00Z"
-          },
-          {
-            "id": "af-005",
-            "claimId": "cl-fronton",
-            "contributorId": "c-maite",
-            "createdAt": "2026-04-19T15:10:00Z"
-          }
-        ],
         "independentRecordCount": 1,
         "extensions": [
           "cl-fronton-floor"
         ],
         "passover": {
-          "sounds_right": 1,
+          "sounds_right": 5,
           "dont_know": 0,
           "dont_care": 0
         },
@@ -1644,6 +1559,7 @@
               "excerpt": "built into the back of the building"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "rear of building",
@@ -1662,6 +1578,7 @@
               "excerpt": "a handball court"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "handball court / fronton",
@@ -1680,6 +1597,7 @@
               "excerpt": "played in the winter"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "winter use",
@@ -1691,7 +1609,7 @@
             ]
           }
         ],
-        "weight": 7.25,
+        "weight": 7.5,
         "confidence": "corroborated"
       },
       {
@@ -1729,12 +1647,6 @@
               "excerpt": "My great-grandmother cooked there"
             }
           ],
-          "topics": [
-            "boarding house",
-            "sheepherding",
-            "women's work",
-            "immigration"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:22:00Z",
           "awaitingTranslation": false
@@ -1759,21 +1671,13 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [
-          {
-            "id": "af-002",
-            "claimId": "cl-boarding",
-            "contributorId": "c-ana",
-            "createdAt": "2026-02-20T15:20:00Z"
-          }
-        ],
         "independentRecordCount": 2,
         "extensions": [
           "cl-boarding-kitchen",
           "cl-register"
         ],
         "passover": {
-          "sounds_right": 2,
+          "sounds_right": 3,
           "dont_know": 0,
           "dont_care": 0
         },
@@ -1789,6 +1693,7 @@
               {
                 "id": "dis-001",
                 "type": "dispute",
+                "fromClaimId": "cl-dis-001",
                 "targetClaimId": "cl-boarding",
                 "targetDetailId": "cl-boarding-e-date",
                 "reasoning": "The register in our holdings has entries from 1914. The 1922 date may be when this particular cook began rather than when the boarding operation started. Those are different claims and the account may be conflating them.",
@@ -1799,6 +1704,7 @@
               {
                 "id": "dis-003",
                 "type": "dispute",
+                "fromClaimId": "cl-dis-003",
                 "targetClaimId": "cl-boarding",
                 "targetDetailId": "cl-boarding-e-date",
                 "reasoning": "Our family has always said 1922 and there is a photograph dated that year with her in the kitchen doorway. I am not disputing that the building took boarders earlier. I am saying 1922 is right for her.",
@@ -1809,6 +1715,7 @@
               {
                 "id": "dis-004",
                 "type": "dispute",
+                "fromClaimId": "cl-dis-004",
                 "targetClaimId": "cl-boarding",
                 "targetDetailId": "cl-boarding-e-date",
                 "reasoning": "A 1916 newspaper notice advertises rooms at this address for herders. That predates 1922 by six years and is independent of the museum register.",
@@ -1817,6 +1724,7 @@
                 "createdAt": "2026-05-09T14:08:00Z"
               }
             ],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1922",
@@ -1844,6 +1752,7 @@
               "excerpt": "took in Basque sheepherders"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "boarding house for sheepherders",
@@ -1862,6 +1771,7 @@
               "excerpt": "The Anduiza building on Grove Street"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "620 W Grove St",
@@ -1880,6 +1790,7 @@
               "excerpt": "My great-grandmother cooked there"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "great-grandmother, cook",
@@ -1891,7 +1802,7 @@
             ]
           }
         ],
-        "weight": 5.5,
+        "weight": 6,
         "confidence": "contested"
       },
       {
@@ -1924,11 +1835,6 @@
               "value": "dead spot near left wall",
               "excerpt": "a dead spot near the left wall"
             }
-          ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation"
           ],
           "sourceType": "firsthand",
           "createdAt": "2026-02-14T20:01:00Z",
@@ -1991,7 +1897,6 @@
         ],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -2008,6 +1913,7 @@
               "excerpt": "this would be 1963, 1964"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1963-1964",
@@ -2026,6 +1932,7 @@
               "excerpt": "The floor was wood"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "wood floor",
@@ -2044,6 +1951,7 @@
               "excerpt": "a dead spot near the left wall"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "dead spot near left wall",
@@ -2088,10 +1996,6 @@
               "value": "register omits staff",
               "excerpt": "The register does not name kitchen staff"
             }
-          ],
-          "topics": [
-            "boarding house",
-            "documentary record"
           ],
           "sourceType": "institutional",
           "createdAt": "2026-04-06T14:35:00Z",
@@ -2146,7 +2050,6 @@
         ],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -2163,6 +2066,7 @@
               "excerpt": "The earliest entries in our copy are from 1914"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1914",
@@ -2181,6 +2085,7 @@
               "excerpt": "We hold a boarding register"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "boarding register, museum holding",
@@ -2199,6 +2104,7 @@
               "excerpt": "The register does not name kitchen staff"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "register omits staff",
@@ -2224,11 +2130,6 @@
           "sourceLanguage": "eu",
           "sourceLanguageText": "Gure aitona hemen bizi izan zen. Neguan pilotan jokatzen zuten atzeko aldean. Guretzat gure etxea zen, ez ostatu bat.",
           "details": [],
-          "topics": [
-            "boarding house",
-            "pilota",
-            "family"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-03-02T22:31:00Z",
           "awaitingTranslation": false
@@ -2290,18 +2191,10 @@
           }
         ],
         "translationDisputes": [],
-        "affirmations": [
-          {
-            "id": "af-006",
-            "claimId": "cl-domingo",
-            "contributorId": "c-joseba",
-            "createdAt": "2026-04-25T23:41:00Z"
-          }
-        ],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
-          "sounds_right": 0,
+          "sounds_right": 1,
           "dont_know": 0,
           "dont_care": 0
         },
@@ -2333,11 +2226,6 @@
               "value": "same lineage as cl-boarding",
               "excerpt": "Marisol and I are cousins"
             }
-          ],
-          "topics": [
-            "boarding house",
-            "women's work",
-            "daily life"
           ],
           "sourceType": "family_oral",
           "createdAt": "2026-02-20T15:39:00Z",
@@ -2375,7 +2263,6 @@
         ],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -2392,6 +2279,7 @@
               "excerpt": "the kitchen ran two sittings"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "two meal sittings",
@@ -2410,12 +2298,306 @@
               "excerpt": "Marisol and I are cousins"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "same lineage as cl-boarding",
                 "count": 1,
                 "contributorIds": [
                   "c-ana"
+                ]
+              }
+            ]
+          }
+        ],
+        "weight": 2,
+        "confidence": "single_source"
+      },
+      {
+        "claim": {
+          "id": "cl-dis-001",
+          "siteId": "site-anduiza",
+          "contributorId": "c-maite",
+          "sourceRecordId": "rec-001",
+          "evidenceRecordIds": [],
+          "text": "The register in our holdings has entries from 1914. The 1922 date may be when this particular cook began rather than when the boarding operation started. Those are different claims and the account may be conflating them.",
+          "sourceLanguage": "en",
+          "details": [
+            {
+              "id": "cl-dis-001-value",
+              "kind": "date",
+              "value": "1914",
+              "excerpt": "1914"
+            }
+          ],
+          "sourceType": "family_oral",
+          "createdAt": "2026-04-06T14:42:00Z",
+          "disputedClaimId": "cl-boarding",
+          "awaitingTranslation": false
+        },
+        "contributor": {
+          "id": "c-maite",
+          "displayName": "Maite Elorriaga",
+          "institution": "A local cultural center (invented)",
+          "joinedAt": "2026-04-06T14:00:00Z",
+          "fictional": true,
+          "verification": "guest"
+        },
+        "sourceRecord": {
+          "id": "rec-001",
+          "siteId": "site-anduiza",
+          "contributorId": "c-marisol",
+          "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+          "language": "en",
+          "submission": "published",
+          "media": [],
+          "createdAt": "2026-01-08T16:20:00Z"
+        },
+        "evidenceRecords": [],
+        "translations": [],
+        "translationDisputes": [],
+        "independentRecordCount": 0,
+        "extensions": [],
+        "passover": {
+          "sounds_right": 0,
+          "dont_know": 0,
+          "dont_care": 0
+        },
+        "detailStatuses": [
+          {
+            "detail": {
+              "id": "cl-dis-001-value",
+              "kind": "date",
+              "value": "1914",
+              "excerpt": "1914"
+            },
+            "disputes": [],
+            "extensions": [],
+            "competingValues": [
+              {
+                "value": "1914",
+                "count": 1,
+                "contributorIds": [
+                  "c-maite"
+                ]
+              }
+            ]
+          }
+        ],
+        "weight": 2,
+        "confidence": "single_source"
+      },
+      {
+        "claim": {
+          "id": "cl-dis-002",
+          "siteId": "site-anduiza",
+          "contributorId": "c-robert",
+          "sourceRecordId": "rec-002",
+          "evidenceRecordIds": [],
+          "text": "City directories for the 1890s list a blacksmith at this address, not a livery. I have not found a livery listed on this lot in any year I checked.",
+          "sourceLanguage": "en",
+          "details": [
+            {
+              "id": "cl-dis-002-value",
+              "kind": "event",
+              "value": "blacksmith shop",
+              "excerpt": "blacksmith shop"
+            }
+          ],
+          "sourceType": "family_oral",
+          "createdAt": "2026-04-11T20:40:00Z",
+          "disputedClaimId": "cl-prelot",
+          "awaitingTranslation": false
+        },
+        "contributor": {
+          "id": "c-robert",
+          "displayName": "Robert Mendive",
+          "joinedAt": "2026-04-11T20:18:00Z",
+          "fictional": true,
+          "verification": "guest"
+        },
+        "sourceRecord": {
+          "id": "rec-002",
+          "siteId": "site-anduiza",
+          "contributorId": "c-marisol",
+          "text": "Something else I remembered this evening, about what was on the lot before the building went up.",
+          "language": "en",
+          "submission": "published",
+          "media": [],
+          "createdAt": "2026-01-09T02:10:00Z"
+        },
+        "evidenceRecords": [],
+        "translations": [],
+        "translationDisputes": [],
+        "independentRecordCount": 0,
+        "extensions": [],
+        "passover": {
+          "sounds_right": 0,
+          "dont_know": 0,
+          "dont_care": 0
+        },
+        "detailStatuses": [
+          {
+            "detail": {
+              "id": "cl-dis-002-value",
+              "kind": "event",
+              "value": "blacksmith shop",
+              "excerpt": "blacksmith shop"
+            },
+            "disputes": [],
+            "extensions": [],
+            "competingValues": [
+              {
+                "value": "blacksmith shop",
+                "count": 1,
+                "contributorIds": [
+                  "c-robert"
+                ]
+              }
+            ]
+          }
+        ],
+        "weight": 2,
+        "confidence": "single_source"
+      },
+      {
+        "claim": {
+          "id": "cl-dis-003",
+          "siteId": "site-anduiza",
+          "contributorId": "c-ana",
+          "sourceRecordId": "rec-001",
+          "evidenceRecordIds": [],
+          "text": "Our family has always said 1922 and there is a photograph dated that year with her in the kitchen doorway. I am not disputing that the building took boarders earlier. I am saying 1922 is right for her.",
+          "sourceLanguage": "en",
+          "details": [
+            {
+              "id": "cl-dis-003-value",
+              "kind": "date",
+              "value": "1922",
+              "excerpt": "1922"
+            }
+          ],
+          "sourceType": "family_oral",
+          "createdAt": "2026-05-02T17:22:00Z",
+          "disputedClaimId": "cl-boarding",
+          "awaitingTranslation": false
+        },
+        "contributor": {
+          "id": "c-ana",
+          "displayName": "Ana Etxeberria-Woods",
+          "joinedAt": "2026-02-20T15:12:00Z",
+          "fictional": true,
+          "verification": "guest"
+        },
+        "sourceRecord": {
+          "id": "rec-001",
+          "siteId": "site-anduiza",
+          "contributorId": "c-marisol",
+          "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+          "language": "en",
+          "submission": "published",
+          "media": [],
+          "createdAt": "2026-01-08T16:20:00Z"
+        },
+        "evidenceRecords": [],
+        "translations": [],
+        "translationDisputes": [],
+        "independentRecordCount": 0,
+        "extensions": [],
+        "passover": {
+          "sounds_right": 0,
+          "dont_know": 0,
+          "dont_care": 0
+        },
+        "detailStatuses": [
+          {
+            "detail": {
+              "id": "cl-dis-003-value",
+              "kind": "date",
+              "value": "1922",
+              "excerpt": "1922"
+            },
+            "disputes": [],
+            "extensions": [],
+            "competingValues": [
+              {
+                "value": "1922",
+                "count": 1,
+                "contributorIds": [
+                  "c-ana"
+                ]
+              }
+            ]
+          }
+        ],
+        "weight": 2,
+        "confidence": "single_source"
+      },
+      {
+        "claim": {
+          "id": "cl-dis-004",
+          "siteId": "site-anduiza",
+          "contributorId": "c-robert",
+          "sourceRecordId": "rec-001",
+          "evidenceRecordIds": [],
+          "text": "A 1916 newspaper notice advertises rooms at this address for herders. That predates 1922 by six years and is independent of the museum register.",
+          "sourceLanguage": "en",
+          "details": [
+            {
+              "id": "cl-dis-004-value",
+              "kind": "date",
+              "value": "1914",
+              "excerpt": "1914"
+            }
+          ],
+          "sourceType": "family_oral",
+          "createdAt": "2026-05-09T14:08:00Z",
+          "disputedClaimId": "cl-boarding",
+          "awaitingTranslation": false
+        },
+        "contributor": {
+          "id": "c-robert",
+          "displayName": "Robert Mendive",
+          "joinedAt": "2026-04-11T20:18:00Z",
+          "fictional": true,
+          "verification": "guest"
+        },
+        "sourceRecord": {
+          "id": "rec-001",
+          "siteId": "site-anduiza",
+          "contributorId": "c-marisol",
+          "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+          "language": "en",
+          "submission": "published",
+          "media": [],
+          "createdAt": "2026-01-08T16:20:00Z"
+        },
+        "evidenceRecords": [],
+        "translations": [],
+        "translationDisputes": [],
+        "independentRecordCount": 0,
+        "extensions": [],
+        "passover": {
+          "sounds_right": 0,
+          "dont_know": 0,
+          "dont_care": 0
+        },
+        "detailStatuses": [
+          {
+            "detail": {
+              "id": "cl-dis-004-value",
+              "kind": "date",
+              "value": "1914",
+              "excerpt": "1914"
+            },
+            "disputes": [],
+            "extensions": [],
+            "competingValues": [
+              {
+                "value": "1914",
+                "count": 1,
+                "contributorIds": [
+                  "c-robert"
                 ]
               }
             ]
@@ -2447,10 +2629,6 @@
               "excerpt": "Before the boarding house"
             }
           ],
-          "topics": [
-            "prior use",
-            "lot history"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-09T02:15:00Z",
           "awaitingTranslation": false
@@ -2475,7 +2653,6 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -2495,6 +2672,7 @@
               {
                 "id": "dis-002",
                 "type": "dispute",
+                "fromClaimId": "cl-dis-002",
                 "targetClaimId": "cl-prelot",
                 "targetDetailId": "cl-prelot-e-use",
                 "reasoning": "City directories for the 1890s list a blacksmith at this address, not a livery. I have not found a livery listed on this lot in any year I checked.",
@@ -2503,6 +2681,7 @@
                 "createdAt": "2026-04-11T20:40:00Z"
               }
             ],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "livery stable",
@@ -2528,6 +2707,7 @@
               "excerpt": "Before the boarding house"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "before boarding house",
@@ -2737,7 +2917,7 @@
         "claimsDisputed": 2,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 0,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -2752,7 +2932,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 2,
+        "soundsRightGiven": 3,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -2767,7 +2947,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 1,
         "disputesRaisedWithAlternative": 1,
-        "affirmationsGiven": 2,
+        "soundsRightGiven": 2,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -2775,14 +2955,14 @@
       {
         "contributorId": "c-domingo",
         "firstContributionAt": "2026-03-02T22:25:00Z",
-        "lastContributionAt": "2026-03-02T22:31:00Z",
+        "lastContributionAt": "2026-03-11T17:52:00Z",
         "recordsSubmitted": 1,
         "claimsAuthored": 1,
         "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 1,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -2797,7 +2977,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 1,
         "disputesRaisedWithAlternative": 1,
-        "affirmationsGiven": 1,
+        "soundsRightGiven": 1,
         "translationsContributed": 0,
         "transcriptsContributed": 1,
         "flagsRaised": 0
@@ -2805,14 +2985,14 @@
       {
         "contributorId": "c-robert",
         "firstContributionAt": "2026-04-11T20:40:00Z",
-        "lastContributionAt": "2026-05-09T14:08:00Z",
+        "lastContributionAt": "2026-05-09T14:30:00Z",
         "recordsSubmitted": 0,
         "claimsAuthored": 0,
         "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 2,
         "disputesRaisedWithAlternative": 2,
-        "affirmationsGiven": 1,
+        "soundsRightGiven": 1,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -2820,14 +3000,14 @@
       {
         "contributorId": "c-kepa",
         "firstContributionAt": "2026-04-18T16:33:00Z",
-        "lastContributionAt": "2026-04-18T16:33:00Z",
+        "lastContributionAt": "2026-05-14T19:02:00Z",
         "recordsSubmitted": 0,
         "claimsAuthored": 0,
         "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 1,
         "translationsContributed": 1,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -2846,13 +3026,13 @@
     ],
     "flags": [],
     "integrity": {
-      "totalClaims": 7,
-      "independentContributors": 5,
-      "corroborationDepth": 0.2857142857142857,
+      "totalClaims": 11,
+      "independentContributors": 6,
+      "corroborationDepth": 0.18181818181818182,
       "activeDisputes": 4,
-      "datedClaims": 4,
+      "datedClaims": 7,
       "awaitingTranslation": 0,
-      "overall": 74
+      "overall": 98
     },
     "sections": [],
     "compositions": [],
@@ -2973,11 +3153,6 @@
               "excerpt": "a dead spot near the left wall"
             }
           ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation"
-          ],
           "sourceType": "firsthand",
           "createdAt": "2026-02-14T20:01:00Z",
           "parentClaimId": "cl-fronton",
@@ -3039,21 +3214,13 @@
         ],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [
-          {
-            "id": "af-007",
-            "claimId": "cl-fronton-floor",
-            "contributorId": "c-domingo",
-            "createdAt": "2026-06-08T15:30:00Z"
-          }
-        ],
         "independentRecordCount": 2,
         "extensions": [
           "cl-fronton-deadspot",
           "cl-afterhours"
         ],
         "passover": {
-          "sounds_right": 0,
+          "sounds_right": 1,
           "dont_know": 1,
           "dont_care": 0
         },
@@ -3066,6 +3233,7 @@
               "excerpt": "this would be 1963, 1964"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1963-1964",
@@ -3084,6 +3252,7 @@
               "excerpt": "The floor was wood"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "wood floor",
@@ -3102,6 +3271,7 @@
               "excerpt": "a dead spot near the left wall"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "dead spot near left wall",
@@ -3145,12 +3315,6 @@
               "excerpt": "played in the winter"
             }
           ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "recreation",
-            "sheepherding"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:41:00Z",
           "awaitingTranslation": false
@@ -3175,44 +3339,12 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [
-          {
-            "id": "af-001",
-            "claimId": "cl-fronton",
-            "contributorId": "c-joseba",
-            "createdAt": "2026-02-14T19:44:00Z"
-          },
-          {
-            "id": "af-003",
-            "claimId": "cl-fronton",
-            "contributorId": "c-ana",
-            "createdAt": "2026-02-20T15:21:00Z"
-          },
-          {
-            "id": "af-004",
-            "claimId": "cl-fronton",
-            "contributorId": "c-robert",
-            "createdAt": "2026-04-11T20:55:00Z"
-          },
-          {
-            "id": "af-005",
-            "claimId": "cl-fronton",
-            "contributorId": "c-maite",
-            "createdAt": "2026-04-19T15:10:00Z"
-          },
-          {
-            "id": "af-008",
-            "claimId": "cl-fronton",
-            "contributorId": "c-itxaso",
-            "createdAt": "2026-06-15T18:20:00Z"
-          }
-        ],
         "independentRecordCount": 1,
         "extensions": [
           "cl-fronton-floor"
         ],
         "passover": {
-          "sounds_right": 1,
+          "sounds_right": 6,
           "dont_know": 0,
           "dont_care": 0
         },
@@ -3225,6 +3357,7 @@
               "excerpt": "built into the back of the building"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "rear of building",
@@ -3243,6 +3376,7 @@
               "excerpt": "a handball court"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "handball court / fronton",
@@ -3261,6 +3395,7 @@
               "excerpt": "played in the winter"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "winter use",
@@ -3272,7 +3407,7 @@
             ]
           }
         ],
-        "weight": 7.5,
+        "weight": 7.75,
         "confidence": "corroborated"
       },
       {
@@ -3310,12 +3445,6 @@
               "excerpt": "My great-grandmother cooked there"
             }
           ],
-          "topics": [
-            "boarding house",
-            "sheepherding",
-            "women's work",
-            "immigration"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-08T16:22:00Z",
           "awaitingTranslation": false
@@ -3340,21 +3469,13 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [
-          {
-            "id": "af-002",
-            "claimId": "cl-boarding",
-            "contributorId": "c-ana",
-            "createdAt": "2026-02-20T15:20:00Z"
-          }
-        ],
         "independentRecordCount": 2,
         "extensions": [
           "cl-boarding-kitchen",
           "cl-register"
         ],
         "passover": {
-          "sounds_right": 2,
+          "sounds_right": 3,
           "dont_know": 0,
           "dont_care": 0
         },
@@ -3370,6 +3491,7 @@
               {
                 "id": "dis-001",
                 "type": "dispute",
+                "fromClaimId": "cl-dis-001",
                 "targetClaimId": "cl-boarding",
                 "targetDetailId": "cl-boarding-e-date",
                 "reasoning": "The register in our holdings has entries from 1914. The 1922 date may be when this particular cook began rather than when the boarding operation started. Those are different claims and the account may be conflating them.",
@@ -3380,6 +3502,7 @@
               {
                 "id": "dis-003",
                 "type": "dispute",
+                "fromClaimId": "cl-dis-003",
                 "targetClaimId": "cl-boarding",
                 "targetDetailId": "cl-boarding-e-date",
                 "reasoning": "Our family has always said 1922 and there is a photograph dated that year with her in the kitchen doorway. I am not disputing that the building took boarders earlier. I am saying 1922 is right for her.",
@@ -3390,6 +3513,7 @@
               {
                 "id": "dis-004",
                 "type": "dispute",
+                "fromClaimId": "cl-dis-004",
                 "targetClaimId": "cl-boarding",
                 "targetDetailId": "cl-boarding-e-date",
                 "reasoning": "A 1916 newspaper notice advertises rooms at this address for herders. That predates 1922 by six years and is independent of the museum register.",
@@ -3398,6 +3522,7 @@
                 "createdAt": "2026-05-09T14:08:00Z"
               }
             ],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1922",
@@ -3425,6 +3550,7 @@
               "excerpt": "took in Basque sheepherders"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "boarding house for sheepherders",
@@ -3443,6 +3569,7 @@
               "excerpt": "The Anduiza building on Grove Street"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "620 W Grove St",
@@ -3461,6 +3588,7 @@
               "excerpt": "My great-grandmother cooked there"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "great-grandmother, cook",
@@ -3472,7 +3600,7 @@
             ]
           }
         ],
-        "weight": 5.5,
+        "weight": 6,
         "confidence": "contested"
       },
       {
@@ -3498,10 +3626,6 @@
               "excerpt": "Before the boarding house"
             }
           ],
-          "topics": [
-            "prior use",
-            "lot history"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-01-09T02:15:00Z",
           "awaitingTranslation": false
@@ -3526,7 +3650,6 @@
         "evidenceRecords": [],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 1,
         "extensions": [
           "cl-prelot-both"
@@ -3548,6 +3671,7 @@
               {
                 "id": "dis-002",
                 "type": "dispute",
+                "fromClaimId": "cl-dis-002",
                 "targetClaimId": "cl-prelot",
                 "targetDetailId": "cl-prelot-e-use",
                 "reasoning": "City directories for the 1890s list a blacksmith at this address, not a livery. I have not found a livery listed on this lot in any year I checked.",
@@ -3556,6 +3680,7 @@
                 "createdAt": "2026-04-11T20:40:00Z"
               }
             ],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "livery stable",
@@ -3581,6 +3706,7 @@
               "excerpt": "Before the boarding house"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "before boarding house",
@@ -3619,11 +3745,6 @@
               "value": "Sanborn fire insurance map",
               "excerpt": "A Sanborn sheet"
             }
-          ],
-          "topics": [
-            "prior use",
-            "lot history",
-            "documentary record"
           ],
           "sourceType": "documentary",
           "createdAt": "2026-06-22T16:12:00Z",
@@ -3677,24 +3798,10 @@
         ],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [
-          {
-            "id": "af-010",
-            "claimId": "cl-prelot-both",
-            "contributorId": "c-robert",
-            "createdAt": "2026-06-22T16:20:00Z"
-          },
-          {
-            "id": "af-011",
-            "claimId": "cl-prelot-both",
-            "contributorId": "c-marisol",
-            "createdAt": "2026-06-22T16:44:00Z"
-          }
-        ],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
-          "sounds_right": 0,
+          "sounds_right": 2,
           "dont_know": 1,
           "dont_care": 0
         },
@@ -3707,6 +3814,7 @@
               "excerpt": "a smithy on the corner of this lot and stabling behind it"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "smithy and stabling coexisting",
@@ -3725,6 +3833,7 @@
               "excerpt": "A Sanborn sheet"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "Sanborn fire insurance map",
@@ -3769,10 +3878,6 @@
               "value": "register omits staff",
               "excerpt": "The register does not name kitchen staff"
             }
-          ],
-          "topics": [
-            "boarding house",
-            "documentary record"
           ],
           "sourceType": "institutional",
           "createdAt": "2026-04-06T14:35:00Z",
@@ -3827,7 +3932,6 @@
         ],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -3844,6 +3948,7 @@
               "excerpt": "The earliest entries in our copy are from 1914"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1914",
@@ -3862,6 +3967,7 @@
               "excerpt": "We hold a boarding register"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "boarding register, museum holding",
@@ -3880,6 +3986,7 @@
               "excerpt": "The register does not name kitchen staff"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "register omits staff",
@@ -3891,7 +3998,7 @@
             ]
           }
         ],
-        "weight": 3,
+        "weight": 3.25,
         "confidence": "single_source"
       },
       {
@@ -3905,11 +4012,6 @@
           "sourceLanguage": "eu",
           "sourceLanguageText": "Gure aitona hemen bizi izan zen. Neguan pilotan jokatzen zuten atzeko aldean. Guretzat gure etxea zen, ez ostatu bat.",
           "details": [],
-          "topics": [
-            "boarding house",
-            "pilota",
-            "family"
-          ],
           "sourceType": "family_oral",
           "createdAt": "2026-03-02T22:31:00Z",
           "awaitingTranslation": false
@@ -3987,24 +4089,10 @@
             "createdAt": "2026-06-03T21:56:00Z"
           }
         ],
-        "affirmations": [
-          {
-            "id": "af-006",
-            "claimId": "cl-domingo",
-            "contributorId": "c-joseba",
-            "createdAt": "2026-04-25T23:41:00Z"
-          },
-          {
-            "id": "af-009",
-            "claimId": "cl-domingo",
-            "contributorId": "c-itxaso",
-            "createdAt": "2026-06-15T18:31:00Z"
-          }
-        ],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
-          "sounds_right": 0,
+          "sounds_right": 2,
           "dont_know": 1,
           "dont_care": 0
         },
@@ -4036,11 +4124,6 @@
               "value": "1960s",
               "excerpt": "The men who came in the sixties"
             }
-          ],
-          "topics": [
-            "pilota",
-            "community",
-            "recreation"
           ],
           "sourceType": "community_oral",
           "createdAt": "2026-07-02T19:30:00Z",
@@ -4091,24 +4174,10 @@
         ],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [
-          {
-            "id": "af-012",
-            "claimId": "cl-afterhours",
-            "contributorId": "c-maite",
-            "createdAt": "2026-07-09T14:50:00Z"
-          },
-          {
-            "id": "af-013",
-            "claimId": "cl-afterhours",
-            "contributorId": "c-joseba",
-            "createdAt": "2026-07-09T15:02:00Z"
-          }
-        ],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
-          "sounds_right": 0,
+          "sounds_right": 2,
           "dont_know": 0,
           "dont_care": 0
         },
@@ -4121,6 +4190,7 @@
               "excerpt": "walking over from the Center"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "the Center",
@@ -4139,6 +4209,7 @@
               "excerpt": "The men who came in the sixties"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "1960s",
@@ -4151,121 +4222,6 @@
           }
         ],
         "weight": 2.5,
-        "confidence": "single_source"
-      },
-      {
-        "claim": {
-          "id": "cl-boarding-kitchen",
-          "siteId": "site-anduiza",
-          "contributorId": "c-ana",
-          "sourceRecordId": "rec-001",
-          "evidenceRecordIds": [
-            "rec-004"
-          ],
-          "text": "Marisol and I are cousins and this is the same great-grandmother. What I have that she may not is that the kitchen ran two sittings, because the herders came in at different hours depending on whether they were going out or coming back. My grandmother described washing up twice.",
-          "sourceLanguage": "en",
-          "details": [
-            {
-              "id": "cl-boarding-kitchen-e-op",
-              "kind": "event",
-              "value": "two meal sittings",
-              "excerpt": "the kitchen ran two sittings"
-            },
-            {
-              "id": "cl-boarding-kitchen-e-rel",
-              "kind": "attribution",
-              "value": "same lineage as cl-boarding",
-              "excerpt": "Marisol and I are cousins"
-            }
-          ],
-          "topics": [
-            "boarding house",
-            "women's work",
-            "daily life"
-          ],
-          "sourceType": "family_oral",
-          "createdAt": "2026-02-20T15:39:00Z",
-          "parentClaimId": "cl-boarding",
-          "awaitingTranslation": false
-        },
-        "contributor": {
-          "id": "c-ana",
-          "displayName": "Ana Etxeberria-Woods",
-          "joinedAt": "2026-02-20T15:12:00Z",
-          "fictional": true,
-          "verification": "guest"
-        },
-        "sourceRecord": {
-          "id": "rec-001",
-          "siteId": "site-anduiza",
-          "contributorId": "c-marisol",
-          "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
-          "language": "en",
-          "submission": "published",
-          "media": [],
-          "createdAt": "2026-01-08T16:20:00Z"
-        },
-        "evidenceRecords": [
-          {
-            "id": "rec-004",
-            "siteId": "site-anduiza",
-            "contributorId": "c-ana",
-            "text": "Adding to what my cousin Marisol wrote about the kitchen.",
-            "language": "en",
-            "submission": "published",
-            "media": [],
-            "createdAt": "2026-02-20T15:36:00Z"
-          }
-        ],
-        "translations": [],
-        "translationDisputes": [],
-        "affirmations": [],
-        "independentRecordCount": 0,
-        "extensions": [],
-        "passover": {
-          "sounds_right": 0,
-          "dont_know": 0,
-          "dont_care": 0
-        },
-        "detailStatuses": [
-          {
-            "detail": {
-              "id": "cl-boarding-kitchen-e-op",
-              "kind": "event",
-              "value": "two meal sittings",
-              "excerpt": "the kitchen ran two sittings"
-            },
-            "disputes": [],
-            "competingValues": [
-              {
-                "value": "two meal sittings",
-                "count": 1,
-                "contributorIds": [
-                  "c-ana"
-                ]
-              }
-            ]
-          },
-          {
-            "detail": {
-              "id": "cl-boarding-kitchen-e-rel",
-              "kind": "attribution",
-              "value": "same lineage as cl-boarding",
-              "excerpt": "Marisol and I are cousins"
-            },
-            "disputes": [],
-            "competingValues": [
-              {
-                "value": "same lineage as cl-boarding",
-                "count": 1,
-                "contributorIds": [
-                  "c-ana"
-                ]
-              }
-            ]
-          }
-        ],
-        "weight": 2,
         "confidence": "single_source"
       },
       {
@@ -4286,11 +4242,6 @@
               "value": "patched drain",
               "excerpt": "where a drain had been patched over"
             }
-          ],
-          "topics": [
-            "pilota",
-            "fronton",
-            "building fabric"
           ],
           "sourceType": "family_oral",
           "createdAt": "2026-06-08T15:44:00Z",
@@ -4328,7 +4279,6 @@
         ],
         "translations": [],
         "translationDisputes": [],
-        "affirmations": [],
         "independentRecordCount": 0,
         "extensions": [],
         "passover": {
@@ -4345,12 +4295,417 @@
               "excerpt": "where a drain had been patched over"
             },
             "disputes": [],
+            "extensions": [],
             "competingValues": [
               {
                 "value": "patched drain",
                 "count": 1,
                 "contributorIds": [
                   "c-domingo"
+                ]
+              }
+            ]
+          }
+        ],
+        "weight": 2.25,
+        "confidence": "single_source"
+      },
+      {
+        "claim": {
+          "id": "cl-boarding-kitchen",
+          "siteId": "site-anduiza",
+          "contributorId": "c-ana",
+          "sourceRecordId": "rec-001",
+          "evidenceRecordIds": [
+            "rec-004"
+          ],
+          "text": "Marisol and I are cousins and this is the same great-grandmother. What I have that she may not is that the kitchen ran two sittings, because the herders came in at different hours depending on whether they were going out or coming back. My grandmother described washing up twice.",
+          "sourceLanguage": "en",
+          "details": [
+            {
+              "id": "cl-boarding-kitchen-e-op",
+              "kind": "event",
+              "value": "two meal sittings",
+              "excerpt": "the kitchen ran two sittings"
+            },
+            {
+              "id": "cl-boarding-kitchen-e-rel",
+              "kind": "attribution",
+              "value": "same lineage as cl-boarding",
+              "excerpt": "Marisol and I are cousins"
+            }
+          ],
+          "sourceType": "family_oral",
+          "createdAt": "2026-02-20T15:39:00Z",
+          "parentClaimId": "cl-boarding",
+          "awaitingTranslation": false
+        },
+        "contributor": {
+          "id": "c-ana",
+          "displayName": "Ana Etxeberria-Woods",
+          "joinedAt": "2026-02-20T15:12:00Z",
+          "fictional": true,
+          "verification": "guest"
+        },
+        "sourceRecord": {
+          "id": "rec-001",
+          "siteId": "site-anduiza",
+          "contributorId": "c-marisol",
+          "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+          "language": "en",
+          "submission": "published",
+          "media": [],
+          "createdAt": "2026-01-08T16:20:00Z"
+        },
+        "evidenceRecords": [
+          {
+            "id": "rec-004",
+            "siteId": "site-anduiza",
+            "contributorId": "c-ana",
+            "text": "Adding to what my cousin Marisol wrote about the kitchen.",
+            "language": "en",
+            "submission": "published",
+            "media": [],
+            "createdAt": "2026-02-20T15:36:00Z"
+          }
+        ],
+        "translations": [],
+        "translationDisputes": [],
+        "independentRecordCount": 0,
+        "extensions": [],
+        "passover": {
+          "sounds_right": 0,
+          "dont_know": 0,
+          "dont_care": 0
+        },
+        "detailStatuses": [
+          {
+            "detail": {
+              "id": "cl-boarding-kitchen-e-op",
+              "kind": "event",
+              "value": "two meal sittings",
+              "excerpt": "the kitchen ran two sittings"
+            },
+            "disputes": [],
+            "extensions": [],
+            "competingValues": [
+              {
+                "value": "two meal sittings",
+                "count": 1,
+                "contributorIds": [
+                  "c-ana"
+                ]
+              }
+            ]
+          },
+          {
+            "detail": {
+              "id": "cl-boarding-kitchen-e-rel",
+              "kind": "attribution",
+              "value": "same lineage as cl-boarding",
+              "excerpt": "Marisol and I are cousins"
+            },
+            "disputes": [],
+            "extensions": [],
+            "competingValues": [
+              {
+                "value": "same lineage as cl-boarding",
+                "count": 1,
+                "contributorIds": [
+                  "c-ana"
+                ]
+              }
+            ]
+          }
+        ],
+        "weight": 2,
+        "confidence": "single_source"
+      },
+      {
+        "claim": {
+          "id": "cl-dis-001",
+          "siteId": "site-anduiza",
+          "contributorId": "c-maite",
+          "sourceRecordId": "rec-001",
+          "evidenceRecordIds": [],
+          "text": "The register in our holdings has entries from 1914. The 1922 date may be when this particular cook began rather than when the boarding operation started. Those are different claims and the account may be conflating them.",
+          "sourceLanguage": "en",
+          "details": [
+            {
+              "id": "cl-dis-001-value",
+              "kind": "date",
+              "value": "1914",
+              "excerpt": "1914"
+            }
+          ],
+          "sourceType": "family_oral",
+          "createdAt": "2026-04-06T14:42:00Z",
+          "disputedClaimId": "cl-boarding",
+          "awaitingTranslation": false
+        },
+        "contributor": {
+          "id": "c-maite",
+          "displayName": "Maite Elorriaga",
+          "institution": "A local cultural center (invented)",
+          "joinedAt": "2026-04-06T14:00:00Z",
+          "fictional": true,
+          "verification": "guest"
+        },
+        "sourceRecord": {
+          "id": "rec-001",
+          "siteId": "site-anduiza",
+          "contributorId": "c-marisol",
+          "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+          "language": "en",
+          "submission": "published",
+          "media": [],
+          "createdAt": "2026-01-08T16:20:00Z"
+        },
+        "evidenceRecords": [],
+        "translations": [],
+        "translationDisputes": [],
+        "independentRecordCount": 0,
+        "extensions": [],
+        "passover": {
+          "sounds_right": 0,
+          "dont_know": 0,
+          "dont_care": 0
+        },
+        "detailStatuses": [
+          {
+            "detail": {
+              "id": "cl-dis-001-value",
+              "kind": "date",
+              "value": "1914",
+              "excerpt": "1914"
+            },
+            "disputes": [],
+            "extensions": [],
+            "competingValues": [
+              {
+                "value": "1914",
+                "count": 1,
+                "contributorIds": [
+                  "c-maite"
+                ]
+              }
+            ]
+          }
+        ],
+        "weight": 2,
+        "confidence": "single_source"
+      },
+      {
+        "claim": {
+          "id": "cl-dis-002",
+          "siteId": "site-anduiza",
+          "contributorId": "c-robert",
+          "sourceRecordId": "rec-002",
+          "evidenceRecordIds": [],
+          "text": "City directories for the 1890s list a blacksmith at this address, not a livery. I have not found a livery listed on this lot in any year I checked.",
+          "sourceLanguage": "en",
+          "details": [
+            {
+              "id": "cl-dis-002-value",
+              "kind": "event",
+              "value": "blacksmith shop",
+              "excerpt": "blacksmith shop"
+            }
+          ],
+          "sourceType": "family_oral",
+          "createdAt": "2026-04-11T20:40:00Z",
+          "disputedClaimId": "cl-prelot",
+          "awaitingTranslation": false
+        },
+        "contributor": {
+          "id": "c-robert",
+          "displayName": "Robert Mendive",
+          "joinedAt": "2026-04-11T20:18:00Z",
+          "fictional": true,
+          "verification": "guest"
+        },
+        "sourceRecord": {
+          "id": "rec-002",
+          "siteId": "site-anduiza",
+          "contributorId": "c-marisol",
+          "text": "Something else I remembered this evening, about what was on the lot before the building went up.",
+          "language": "en",
+          "submission": "published",
+          "media": [],
+          "createdAt": "2026-01-09T02:10:00Z"
+        },
+        "evidenceRecords": [],
+        "translations": [],
+        "translationDisputes": [],
+        "independentRecordCount": 0,
+        "extensions": [],
+        "passover": {
+          "sounds_right": 0,
+          "dont_know": 0,
+          "dont_care": 0
+        },
+        "detailStatuses": [
+          {
+            "detail": {
+              "id": "cl-dis-002-value",
+              "kind": "event",
+              "value": "blacksmith shop",
+              "excerpt": "blacksmith shop"
+            },
+            "disputes": [],
+            "extensions": [],
+            "competingValues": [
+              {
+                "value": "blacksmith shop",
+                "count": 1,
+                "contributorIds": [
+                  "c-robert"
+                ]
+              }
+            ]
+          }
+        ],
+        "weight": 2,
+        "confidence": "single_source"
+      },
+      {
+        "claim": {
+          "id": "cl-dis-003",
+          "siteId": "site-anduiza",
+          "contributorId": "c-ana",
+          "sourceRecordId": "rec-001",
+          "evidenceRecordIds": [],
+          "text": "Our family has always said 1922 and there is a photograph dated that year with her in the kitchen doorway. I am not disputing that the building took boarders earlier. I am saying 1922 is right for her.",
+          "sourceLanguage": "en",
+          "details": [
+            {
+              "id": "cl-dis-003-value",
+              "kind": "date",
+              "value": "1922",
+              "excerpt": "1922"
+            }
+          ],
+          "sourceType": "family_oral",
+          "createdAt": "2026-05-02T17:22:00Z",
+          "disputedClaimId": "cl-boarding",
+          "awaitingTranslation": false
+        },
+        "contributor": {
+          "id": "c-ana",
+          "displayName": "Ana Etxeberria-Woods",
+          "joinedAt": "2026-02-20T15:12:00Z",
+          "fictional": true,
+          "verification": "guest"
+        },
+        "sourceRecord": {
+          "id": "rec-001",
+          "siteId": "site-anduiza",
+          "contributorId": "c-marisol",
+          "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+          "language": "en",
+          "submission": "published",
+          "media": [],
+          "createdAt": "2026-01-08T16:20:00Z"
+        },
+        "evidenceRecords": [],
+        "translations": [],
+        "translationDisputes": [],
+        "independentRecordCount": 0,
+        "extensions": [],
+        "passover": {
+          "sounds_right": 0,
+          "dont_know": 0,
+          "dont_care": 0
+        },
+        "detailStatuses": [
+          {
+            "detail": {
+              "id": "cl-dis-003-value",
+              "kind": "date",
+              "value": "1922",
+              "excerpt": "1922"
+            },
+            "disputes": [],
+            "extensions": [],
+            "competingValues": [
+              {
+                "value": "1922",
+                "count": 1,
+                "contributorIds": [
+                  "c-ana"
+                ]
+              }
+            ]
+          }
+        ],
+        "weight": 2,
+        "confidence": "single_source"
+      },
+      {
+        "claim": {
+          "id": "cl-dis-004",
+          "siteId": "site-anduiza",
+          "contributorId": "c-robert",
+          "sourceRecordId": "rec-001",
+          "evidenceRecordIds": [],
+          "text": "A 1916 newspaper notice advertises rooms at this address for herders. That predates 1922 by six years and is independent of the museum register.",
+          "sourceLanguage": "en",
+          "details": [
+            {
+              "id": "cl-dis-004-value",
+              "kind": "date",
+              "value": "1914",
+              "excerpt": "1914"
+            }
+          ],
+          "sourceType": "family_oral",
+          "createdAt": "2026-05-09T14:08:00Z",
+          "disputedClaimId": "cl-boarding",
+          "awaitingTranslation": false
+        },
+        "contributor": {
+          "id": "c-robert",
+          "displayName": "Robert Mendive",
+          "joinedAt": "2026-04-11T20:18:00Z",
+          "fictional": true,
+          "verification": "guest"
+        },
+        "sourceRecord": {
+          "id": "rec-001",
+          "siteId": "site-anduiza",
+          "contributorId": "c-marisol",
+          "text": "I want to put down what I know about the Anduiza building on Grove Street, from my great-grandmother and from my mother after her. Two things really: the boarding side of it, and the fronton at the back.",
+          "language": "en",
+          "submission": "published",
+          "media": [],
+          "createdAt": "2026-01-08T16:20:00Z"
+        },
+        "evidenceRecords": [],
+        "translations": [],
+        "translationDisputes": [],
+        "independentRecordCount": 0,
+        "extensions": [],
+        "passover": {
+          "sounds_right": 0,
+          "dont_know": 0,
+          "dont_care": 0
+        },
+        "detailStatuses": [
+          {
+            "detail": {
+              "id": "cl-dis-004-value",
+              "kind": "date",
+              "value": "1914",
+              "excerpt": "1914"
+            },
+            "disputes": [],
+            "extensions": [],
+            "competingValues": [
+              {
+                "value": "1914",
+                "count": 1,
+                "contributorIds": [
+                  "c-robert"
                 ]
               }
             ]
@@ -4612,14 +4967,14 @@
       {
         "contributorId": "c-marisol",
         "firstContributionAt": "2026-01-08T16:20:00Z",
-        "lastContributionAt": "2026-06-22T16:44:00Z",
+        "lastContributionAt": "2026-07-14T20:16:00Z",
         "recordsSubmitted": 2,
         "claimsAuthored": 3,
         "claimsCorroborated": 3,
         "claimsDisputed": 2,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 1,
+        "soundsRightGiven": 2,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -4634,7 +4989,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 3,
+        "soundsRightGiven": 4,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -4649,7 +5004,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 1,
         "disputesRaisedWithAlternative": 1,
-        "affirmationsGiven": 2,
+        "soundsRightGiven": 2,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -4657,14 +5012,14 @@
       {
         "contributorId": "c-domingo",
         "firstContributionAt": "2026-03-02T22:25:00Z",
-        "lastContributionAt": "2026-06-08T15:44:00Z",
+        "lastContributionAt": "2026-07-14T20:14:00Z",
         "recordsSubmitted": 2,
         "claimsAuthored": 2,
         "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 1,
+        "soundsRightGiven": 2,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -4679,7 +5034,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 1,
         "disputesRaisedWithAlternative": 1,
-        "affirmationsGiven": 2,
+        "soundsRightGiven": 2,
         "translationsContributed": 0,
         "transcriptsContributed": 1,
         "flagsRaised": 0
@@ -4687,14 +5042,14 @@
       {
         "contributorId": "c-robert",
         "firstContributionAt": "2026-04-11T20:40:00Z",
-        "lastContributionAt": "2026-06-26T18:12:00Z",
+        "lastContributionAt": "2026-07-21T18:40:00Z",
         "recordsSubmitted": 0,
         "claimsAuthored": 0,
         "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 2,
         "disputesRaisedWithAlternative": 2,
-        "affirmationsGiven": 2,
+        "soundsRightGiven": 2,
         "translationsContributed": 0,
         "transcriptsContributed": 0,
         "flagsRaised": 1
@@ -4709,7 +5064,7 @@
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 0,
+        "soundsRightGiven": 1,
         "translationsContributed": 1,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -4717,14 +5072,14 @@
       {
         "contributorId": "c-itxaso",
         "firstContributionAt": "2026-06-03T21:48:00Z",
-        "lastContributionAt": "2026-06-15T18:31:00Z",
+        "lastContributionAt": "2026-07-14T20:11:00Z",
         "recordsSubmitted": 0,
         "claimsAuthored": 0,
         "claimsCorroborated": 0,
         "claimsDisputed": 0,
         "disputesRaised": 0,
         "disputesRaisedWithAlternative": 0,
-        "affirmationsGiven": 2,
+        "soundsRightGiven": 3,
         "translationsContributed": 1,
         "transcriptsContributed": 0,
         "flagsRaised": 0
@@ -4753,13 +5108,13 @@
       }
     ],
     "integrity": {
-      "totalClaims": 10,
-      "independentContributors": 6,
-      "corroborationDepth": 0.4,
+      "totalClaims": 14,
+      "independentContributors": 7,
+      "corroborationDepth": 0.2857142857142857,
       "activeDisputes": 5,
-      "datedClaims": 5,
+      "datedClaims": 8,
       "awaitingTranslation": 0,
-      "overall": 96
+      "overall": 100
     },
     "sections": [],
     "compositions": [],

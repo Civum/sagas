@@ -28,7 +28,7 @@ test('nothing is ever removed: claim counts are monotonic', () => {
 test('agreement is never independent support', () => {
   // Two people said "sounds right" and nobody brought a record of their own.
   const afterhours = find(t3, 'cl-afterhours');
-  expect2eq(afterhours.affirmations.length, 2, 'the affirmations are recorded');
+  expect2eq(afterhours.passover.sounds_right, 2, 'the "sounds right" passovers are recorded');
   expect2eq(afterhours.independentRecordCount, 0, 'but they add no source');
   expect2eq(afterhours.confidence, 'single_source');
 });

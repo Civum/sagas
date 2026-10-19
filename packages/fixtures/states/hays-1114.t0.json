@@ -42,9 +42,6 @@
             "excerpt": "from the late fifties"
           }
         ],
-        "topics": [
-          "the shop"
-        ],
         "sourceType": "community_oral",
         "createdAt": "2026-04-02T17:22:00Z",
         "awaitingTranslation": false
@@ -69,7 +66,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -86,6 +82,7 @@
             "excerpt": "The shoe repair at 1114"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "shoe repair",
@@ -104,6 +101,7 @@
             "excerpt": "from the late fifties"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "late 1950s",
@@ -151,7 +149,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0

@@ -89,7 +89,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-boarding-e-place', kind: 'place', value: '620 W Grove St', excerpt: 'The Anduiza building on Grove Street' },
       { id: 'cl-boarding-e-person', kind: 'person', value: 'great-grandmother, cook', excerpt: 'My great-grandmother cooked there' },
     ],
-    topics: ['boarding house', 'sheepherding', 'women\'s work', 'immigration'],
     sourceType: 'family_oral',
   },
 
@@ -109,7 +108,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-fronton-e-use', kind: 'event', value: 'handball court / fronton', excerpt: 'a handball court' },
       { id: 'cl-fronton-e-season', kind: 'event', value: 'winter use', excerpt: 'played in the winter' },
     ],
-    topics: ['pilota', 'fronton', 'recreation', 'sheepherding'],
     sourceType: 'family_oral',
   },
 
@@ -138,7 +136,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-prelot-e-use', kind: 'event', value: 'livery stable', excerpt: 'a livery stable on that lot' },
       { id: 'cl-prelot-e-seq', kind: 'date', value: 'before boarding house', excerpt: 'Before the boarding house' },
     ],
-    topics: ['prior use', 'lot history'],
     sourceType: 'family_oral',
   },
 
@@ -158,8 +155,9 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-009', at: '2026-02-14T19:44:00Z', actorId: 'c-joseba',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-001',
+    kind: 'passover_recorded',
+    passoverId: 'af-001',
+    passoverKind: 'sounds_right',
     claimId: 'cl-fronton',
   },
 
@@ -214,7 +212,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-fronton-floor-e-mat', kind: 'event', value: 'wood floor', excerpt: 'The floor was wood' },
       { id: 'cl-fronton-floor-e-detail', kind: 'place', value: 'dead spot near left wall', excerpt: 'a dead spot near the left wall' },
     ],
-    topics: ['pilota', 'fronton', 'recreation'],
     sourceType: 'firsthand',
   },
 
@@ -227,15 +224,17 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-013', at: '2026-02-20T15:20:00Z', actorId: 'c-ana',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-002',
+    kind: 'passover_recorded',
+    passoverId: 'af-002',
+    passoverKind: 'sounds_right',
     claimId: 'cl-boarding',
   },
 
   {
     id: 'ev-014', at: '2026-02-20T15:21:00Z', actorId: 'c-ana',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-003',
+    kind: 'passover_recorded',
+    passoverId: 'af-003',
+    passoverKind: 'sounds_right',
     claimId: 'cl-fronton',
   },
 
@@ -266,7 +265,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-boarding-kitchen-e-op', kind: 'event', value: 'two meal sittings', excerpt: 'the kitchen ran two sittings' },
       { id: 'cl-boarding-kitchen-e-rel', kind: 'attribution', value: 'same lineage as cl-boarding', excerpt: 'Marisol and I are cousins' },
     ],
-    topics: ['boarding house', 'women\'s work', 'daily life'],
     sourceType: 'family_oral',
   },
 
@@ -322,7 +320,6 @@ export const events: ContributionEvent[] = [
       'Guretzat gure etxea zen, ez ostatu bat.',
     text: '', // no rendering exists yet
     details: [],
-    topics: ['boarding house', 'pilota', 'family'],
     sourceType: 'family_oral',
   },
 
@@ -423,7 +420,6 @@ export const events: ContributionEvent[] = [
       { id: 'cl-register-e-doc', kind: 'attribution', value: 'boarding register, museum holding', excerpt: 'We hold a boarding register' },
       { id: 'cl-register-e-limit', kind: 'attribution', value: 'register omits staff', excerpt: 'The register does not name kitchen staff' },
     ],
-    topics: ['boarding house', 'documentary record'],
     sourceType: 'institutional',
   },
 
@@ -433,6 +429,8 @@ export const events: ContributionEvent[] = [
     id: 'ev-028', at: '2026-04-06T14:42:00Z', actorId: 'c-maite',
     kind: 'claim_disputed',
     edgeId: 'dis-001',
+    // A dispute is a claim of its own (contract 2.3.0).
+    claimId: 'cl-dis-001',
     targetClaimId: 'cl-boarding',
     targetDetailId: 'cl-boarding-e-date',
     reasoning:
@@ -473,6 +471,8 @@ export const events: ContributionEvent[] = [
     id: 'ev-031', at: '2026-04-11T20:40:00Z', actorId: 'c-robert',
     kind: 'claim_disputed',
     edgeId: 'dis-002',
+    // A dispute is a claim of its own (contract 2.3.0).
+    claimId: 'cl-dis-002',
     targetClaimId: 'cl-prelot',
     targetDetailId: 'cl-prelot-e-use',
     reasoning:
@@ -483,8 +483,9 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-032', at: '2026-04-11T20:55:00Z', actorId: 'c-robert',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-004',
+    kind: 'passover_recorded',
+    passoverId: 'af-004',
+    passoverKind: 'sounds_right',
     claimId: 'cl-fronton',
   },
 
@@ -509,15 +510,17 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-035', at: '2026-04-19T15:10:00Z', actorId: 'c-maite',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-005',
+    kind: 'passover_recorded',
+    passoverId: 'af-005',
+    passoverKind: 'sounds_right',
     claimId: 'cl-fronton',
   },
 
   {
     id: 'ev-036', at: '2026-04-25T23:41:00Z', actorId: 'c-joseba',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-006',
+    kind: 'passover_recorded',
+    passoverId: 'af-006',
+    passoverKind: 'sounds_right',
     claimId: 'cl-domingo',
   },
 
@@ -525,6 +528,8 @@ export const events: ContributionEvent[] = [
     id: 'ev-037', at: '2026-05-02T17:22:00Z', actorId: 'c-ana',
     kind: 'claim_disputed',
     edgeId: 'dis-003',
+    // A dispute is a claim of its own (contract 2.3.0).
+    claimId: 'cl-dis-003',
     targetClaimId: 'cl-boarding',
     targetDetailId: 'cl-boarding-e-date',
     reasoning:
@@ -538,6 +543,8 @@ export const events: ContributionEvent[] = [
     id: 'ev-038', at: '2026-05-09T14:08:00Z', actorId: 'c-robert',
     kind: 'claim_disputed',
     edgeId: 'dis-004',
+    // A dispute is a claim of its own (contract 2.3.0).
+    claimId: 'cl-dis-004',
     targetClaimId: 'cl-boarding',
     targetDetailId: 'cl-boarding-e-date',
     reasoning:
@@ -600,8 +607,9 @@ export const events: ContributionEvent[] = [
 
   {
     id: 'ev-045', at: '2026-06-08T15:30:00Z', actorId: 'c-domingo',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-007',
+    kind: 'passover_recorded',
+    passoverId: 'af-007',
+    passoverKind: 'sounds_right',
     claimId: 'cl-fronton-floor',
   },
 
@@ -630,21 +638,22 @@ export const events: ContributionEvent[] = [
     details: [
       { id: 'cl-fronton-deadspot-e-cause', kind: 'event', value: 'patched drain', excerpt: 'where a drain had been patched over' },
     ],
-    topics: ['pilota', 'fronton', 'building fabric'],
     sourceType: 'family_oral',
   },
 
   {
     id: 'ev-048', at: '2026-06-15T18:20:00Z', actorId: 'c-itxaso',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-008',
+    kind: 'passover_recorded',
+    passoverId: 'af-008',
+    passoverKind: 'sounds_right',
     claimId: 'cl-fronton',
   },
 
   {
     id: 'ev-049', at: '2026-06-15T18:31:00Z', actorId: 'c-itxaso',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-009',
+    kind: 'passover_recorded',
+    passoverId: 'af-009',
+    passoverKind: 'sounds_right',
     claimId: 'cl-domingo',
   },
 
@@ -686,21 +695,22 @@ export const events: ContributionEvent[] = [
       { id: 'cl-prelot-both-e-use', kind: 'event', value: 'smithy and stabling coexisting', excerpt: 'a smithy on the corner of this lot and stabling behind it' },
       { id: 'cl-prelot-both-e-doc', kind: 'attribution', value: 'Sanborn fire insurance map', excerpt: 'A Sanborn sheet' },
     ],
-    topics: ['prior use', 'lot history', 'documentary record'],
     sourceType: 'documentary',
   },
 
   {
     id: 'ev-052', at: '2026-06-22T16:20:00Z', actorId: 'c-robert',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-010',
+    kind: 'passover_recorded',
+    passoverId: 'af-010',
+    passoverKind: 'sounds_right',
     claimId: 'cl-prelot-both',
   },
 
   {
     id: 'ev-053', at: '2026-06-22T16:44:00Z', actorId: 'c-marisol',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-011',
+    kind: 'passover_recorded',
+    passoverId: 'af-011',
+    passoverKind: 'sounds_right',
     claimId: 'cl-prelot-both',
   },
 
@@ -769,22 +779,23 @@ export const events: ContributionEvent[] = [
       { id: 'cl-afterhours-e-origin', kind: 'place', value: 'the Center', excerpt: 'walking over from the Center' },
       { id: 'cl-afterhours-e-date', kind: 'date', value: '1960s', excerpt: 'The men who came in the sixties' },
     ],
-    topics: ['pilota', 'community', 'recreation'],
     sourceType: 'community_oral',
   },
 
 
   {
     id: 'ev-059', at: '2026-07-09T14:50:00Z', actorId: 'c-maite',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-012',
+    kind: 'passover_recorded',
+    passoverId: 'af-012',
+    passoverKind: 'sounds_right',
     claimId: 'cl-afterhours',
   },
 
   {
     id: 'ev-060', at: '2026-07-09T15:02:00Z', actorId: 'c-joseba',
-    kind: 'claim_affirmed',
-    affirmationId: 'af-013',
+    kind: 'passover_recorded',
+    passoverId: 'af-013',
+    passoverKind: 'sounds_right',
     claimId: 'cl-afterhours',
   },
 

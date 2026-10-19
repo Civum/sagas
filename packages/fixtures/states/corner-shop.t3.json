@@ -48,10 +48,6 @@
             "excerpt": "the owner, Mr. Ferris"
           }
         ],
-        "topics": [
-          "the shop",
-          "the owner"
-        ],
         "sourceType": "firsthand",
         "createdAt": "2026-02-03T19:31:00Z",
         "awaitingTranslation": false
@@ -90,20 +86,12 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [
-        {
-          "id": "aff-cs-lena",
-          "claimId": "cl-cs-shop",
-          "contributorId": "c-lena",
-          "createdAt": "2026-02-10T15:05:00Z"
-        }
-      ],
       "independentRecordCount": 1,
       "extensions": [
         "cl-cs-uncle"
       ],
       "passover": {
-        "sounds_right": 0,
+        "sounds_right": 1,
         "dont_know": 0,
         "dont_care": 0
       },
@@ -116,6 +104,7 @@
             "excerpt": "the corner of Fourth and Main"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "Fourth and Main",
@@ -137,6 +126,7 @@
             {
               "id": "dsp-cs-year",
               "type": "dispute",
+              "fromClaimId": "cl-dsp-cs-year",
               "targetClaimId": "cl-cs-shop",
               "targetDetailId": "dt-cs-year",
               "reasoning": "It can't be 1950. The awning in the photo went up in 1956. The directory page I uploaded shows the change.",
@@ -145,6 +135,7 @@
               "createdAt": "2026-04-06T18:20:00Z"
             }
           ],
+          "extensions": [],
           "competingValues": [
             {
               "value": "c. 1950",
@@ -170,6 +161,17 @@
             "excerpt": "the owner, Mr. Ferris"
           },
           "disputes": [],
+          "extensions": [
+            {
+              "id": "ext-cs-013",
+              "type": "extension",
+              "parentClaimId": "cl-cs-shop",
+              "childClaimId": "cl-cs-uncle",
+              "targetDetailId": "dt-cs-owner",
+              "contributorId": "c-mae",
+              "createdAt": "2026-04-19T20:51:00Z"
+            }
+          ],
           "competingValues": [
             {
               "value": "Ferris",
@@ -183,6 +185,93 @@
       ],
       "weight": 6.25,
       "confidence": "contested"
+    },
+    {
+      "claim": {
+        "id": "cl-dsp-cs-year",
+        "siteId": "site-corner-shop",
+        "contributorId": "c-owen",
+        "sourceRecordId": "rec-cs-photo",
+        "evidenceRecordIds": [],
+        "text": "It can't be 1950. The awning in the photo went up in 1956. The directory page I uploaded shows the change.",
+        "sourceLanguage": "en",
+        "details": [
+          {
+            "id": "cl-dsp-cs-year-value",
+            "kind": "date",
+            "value": "1956 or later",
+            "excerpt": "1956 or later"
+          }
+        ],
+        "sourceType": "firsthand",
+        "createdAt": "2026-04-06T18:20:00Z",
+        "disputedClaimId": "cl-cs-shop",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-owen",
+        "displayName": "Owen Pike",
+        "joinedAt": "2026-04-06T18:00:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "sourceRecord": {
+        "id": "rec-cs-photo",
+        "siteId": "site-corner-shop",
+        "contributorId": "c-june",
+        "note": "My grandmother's shop, I think. I don't know when this was taken.",
+        "submission": "submitted",
+        "media": [
+          {
+            "id": "med-cs-photo",
+            "recordId": "rec-cs-photo",
+            "kind": "image",
+            "storageKey": "records/rec-cs-photo/shopfront.jpg",
+            "contentType": "image/jpeg",
+            "byteSize": 1912004,
+            "originalFilename": "shopfront.jpg",
+            "processing": "ready",
+            "width": 2400,
+            "height": 1600,
+            "derivatives": [],
+            "createdAt": "2026-01-12T17:14:00Z"
+          }
+        ],
+        "createdAt": "2026-01-12T17:14:00Z"
+      },
+      "evidenceRecords": [],
+      "translations": [],
+      "translationDisputes": [],
+      "independentRecordCount": 0,
+      "extensions": [],
+      "passover": {
+        "sounds_right": 0,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "detailStatuses": [
+        {
+          "detail": {
+            "id": "cl-dsp-cs-year-value",
+            "kind": "date",
+            "value": "1956 or later",
+            "excerpt": "1956 or later"
+          },
+          "disputes": [],
+          "extensions": [],
+          "competingValues": [
+            {
+              "value": "1956 or later",
+              "count": 1,
+              "contributorIds": [
+                "c-owen"
+              ]
+            }
+          ]
+        }
+      ],
+      "weight": 3,
+      "confidence": "single_source"
     },
     {
       "claim": {
@@ -206,10 +295,6 @@
             "value": "grocery",
             "excerpt": "GROCERY"
           }
-        ],
-        "topics": [
-          "the owner",
-          "the sign"
         ],
         "sourceType": "documentary",
         "createdAt": "2026-06-08T16:26:00Z",
@@ -249,7 +334,6 @@
       "evidenceRecords": [],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -266,6 +350,7 @@
             "excerpt": "FERRIS GROCERY"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "Ferris",
@@ -284,6 +369,7 @@
             "excerpt": "GROCERY"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "grocery",
@@ -316,9 +402,6 @@
             "value": "1960s",
             "excerpt": "until the sixties"
           }
-        ],
-        "topics": [
-          "the owner"
         ],
         "sourceType": "family_oral",
         "createdAt": "2026-04-19T20:51:00Z",
@@ -382,7 +465,6 @@
       ],
       "translations": [],
       "translationDisputes": [],
-      "affirmations": [],
       "independentRecordCount": 0,
       "extensions": [],
       "passover": {
@@ -399,6 +481,7 @@
             "excerpt": "until the sixties"
           },
           "disputes": [],
+          "extensions": [],
           "competingValues": [
             {
               "value": "1960s",
@@ -410,7 +493,7 @@
           ]
         }
       ],
-      "weight": 2,
+      "weight": 2.25,
       "confidence": "single_source"
     }
   ],
@@ -563,7 +646,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -571,14 +654,14 @@
     {
       "contributorId": "c-ray",
       "firstContributionAt": "2026-02-03T19:31:00Z",
-      "lastContributionAt": "2026-02-03T19:31:00Z",
+      "lastContributionAt": "2026-06-15T13:05:00Z",
       "recordsSubmitted": 0,
       "claimsAuthored": 1,
       "claimsCorroborated": 1,
       "claimsDisputed": 1,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 1,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -586,14 +669,14 @@
     {
       "contributorId": "c-lena",
       "firstContributionAt": "2026-02-10T15:05:00Z",
-      "lastContributionAt": "2026-02-10T15:05:00Z",
+      "lastContributionAt": "2026-06-15T13:02:00Z",
       "recordsSubmitted": 0,
       "claimsAuthored": 0,
       "claimsCorroborated": 0,
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 1,
+      "soundsRightGiven": 1,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -608,7 +691,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 1,
       "disputesRaisedWithAlternative": 1,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -623,7 +706,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -638,7 +721,7 @@
       "claimsDisputed": 0,
       "disputesRaised": 0,
       "disputesRaisedWithAlternative": 0,
-      "affirmationsGiven": 0,
+      "soundsRightGiven": 0,
       "translationsContributed": 0,
       "transcriptsContributed": 0,
       "flagsRaised": 0
@@ -647,13 +730,13 @@
   "transcripts": [],
   "flags": [],
   "integrity": {
-    "totalClaims": 3,
-    "independentContributors": 3,
-    "corroborationDepth": 0.3333333333333333,
+    "totalClaims": 4,
+    "independentContributors": 4,
+    "corroborationDepth": 0.25,
     "activeDisputes": 1,
-    "datedClaims": 2,
+    "datedClaims": 3,
     "awaitingTranslation": 0,
-    "overall": 43
+    "overall": 54
   },
   "sections": [
     {

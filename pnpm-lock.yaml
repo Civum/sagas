@@ -82,6 +82,9 @@ importers:
       '@sagas/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
+      '@sagas/fixtures':
+        specifier: workspace:*
+        version: link:../../packages/fixtures
       '@sagas/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
@@ -109,6 +112,9 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.7(@types/node@22.20.1)(jiti@1.21.7)(tsx@4.23.12)
 
   apps/capture-web:
     dependencies:
