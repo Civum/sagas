@@ -16,6 +16,10 @@ conflict on a later pull.
 - What works now, in a sentence a visitor would understand. (#pull request number, who)
 ```
 
+## 2026-10-19
+
+- The landing page is live at sagasproject.org, with the copy the sponsor approved. (#25, Ema)
+
 ## 2026-10-16
 
 - The landing page shows the revised copy as a draft: why Sagas exists before how it works, where the project stands, a way to get in touch, and the corner shop marked as an invented example. (#22, Ema)
