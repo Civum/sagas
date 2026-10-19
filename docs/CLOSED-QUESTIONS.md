@@ -13,10 +13,8 @@ without raising it causes trouble.
 
 ## `affirmation` duplicates a passover tier
 
-This is resolved and not yet implemented. It moves the fixture counts that
-`packages/fixtures/behaviour/scoring-contract.ts` asserts, and that file is what
-the intelligence layer's first task runs against, so it waits until a scorer
-passes against that file.
+Done in contract 2.3.0. The `affirmation` object is gone, and agreement is a
+`sounds_right` passover. A profile's count of them is `soundsRightGiven`.
 
 An affirmation and a passover are the same thing. An affirmation has an id, a
 claim id, a contributor id and a timestamp. A passover has all of that plus a
@@ -48,9 +46,9 @@ that scoring contract.
 
 ## A dispute should be a claim
 
-This is resolved and not yet built. It's planned for the next contract release,
-ahead of the `affirmation` and `passover` merge, which still waits for a scorer
-to pass against the scoring contract. Design for disputes as claims now.
+Done in contract 2.3.0. A dispute has its own claim, in the same conversation
+as the claim it disputes, and the dispute edge points from that claim
+(`fromClaimId`) to the detail it targets. The claim carries `disputedClaimId`.
 
 Right now the two ways of responding to a claim are shaped differently.
 `claim_disputed` produces an edge that carries reasoning and an optional
@@ -92,7 +90,8 @@ same time. It is the same idea applied to a different target, and Part 1 of
 
 ## Extensions target a detail
 
-Decided on 27 September, and not built yet. An extension points at a detail of the claim
+Decided on 27 September and done in contract 2.3.0 (`extensionEdge.targetDetailId`,
+and each detail lists its extensions). An extension points at a detail of the claim
 it adds to, the same way a dispute does, with a fallback to the whole claim for
 an extension that is about all of it ("my family ran it until the war"). The new
 information an extension brings lives in its own record, which is attached as
@@ -140,8 +139,7 @@ right unit?". Whether vouching says anything about independence is still open.
 
 Decided on 27 September and done in contract 2.0.0. "Element" and "detail" were
 two words for one idea, so "element" is gone. A detail is one piece of what a
-claim asserts, and a dispute targets one. Extensions are meant to as well, but
-that isn't in the contract yet (see "Extensions target a detail"). `claimElement` is
+claim asserts, and disputes and extensions both target one. `claimElement` is
 `claimDetail`, `claim.elements` is `claim.details`, `elementStatuses` is
 `detailStatuses`, and `targetElementId` is `targetDetailId`.
 

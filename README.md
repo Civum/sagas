@@ -75,7 +75,7 @@ change the shape of that graph:
 
 A third response costs the reader nothing and creates no claim. A **passover**
 is what somebody does on the way past: it says this sounds right, or that they
-cannot judge it, or that it is not what they came for. Agreeing is one of those three, and it adds a little weight. The other two add no weight and only affect what gets suggested to whom. None of the three is a vote. Folding agreement into passovers is decided and not built yet: today the contract still has a separate `affirmation`, and only that reaches the scorer.
+cannot judge it, or that it is not what they came for. Agreeing is one of those three, and it adds a little weight. The other two add no weight and only affect what gets suggested to whom. None of the three is a vote.
 
 Weight moves with the edges. An extension pushes a claim up, a dispute pushes it
 down, and a resolution would lift both branches it reconciles, so a claim's

@@ -41,6 +41,40 @@ it. This is the most useful field in the entry.
 
 ---
 
+## v2.3.0 — 2026-10-25
+
+**Affects:** experience layer · intelligence layer · content layer (nothing to do)
+
+**What:** Four corrections so the contract matches the decided model.
+- A dispute is a claim. Each dispute has its own claim, in the same
+  conversation as the claim it disputes. `disputeEdge.fromClaimId` points from
+  that claim, and the claim carries `disputedClaimId`. The reasoning and the
+  proposed value stay on the edge.
+- Extensions target a detail. `extensionEdge.targetDetailId` names the detail
+  an extension adds to, or is empty when it's about the whole claim. Each
+  `detailStatus` now lists `extensions` beside `disputes`.
+- `topics` is gone from claims.
+- `affirmation` is gone. Agreement is a `sounds_right` passover, so
+  `claimState.affirmations` is gone too (use `claimState.passover.sounds_right`)
+  and `contributorStanding.affirmationsGiven` is now `soundsRightGiven`.
+
+The fixtures are rebuilt: every dispute in them now has a claim, and the
+corner shop's extension by the owner's nephew targets the owner detail.
+
+**Why:** All four were decided weeks ago and never reached the contract, so
+anyone designing a schema now would have built the old shapes.
+
+**You need to:**
+- *experience layer* — dispute claims now appear among a site's claims; use
+  `disputedClaimId` to show them with the claim they dispute. Replace
+  `affirmations` with `passover.sounds_right`. Drop anything that reads
+  `topics`.
+- *intelligence layer* — nothing in `apps/graph-api` changes; the scoring
+  graph in `packages/fixtures/scoring` already had these shapes.
+- *content layer* — nothing.
+
+---
+
 ## 2026-10-18 — a phase 2 guide and API guidelines for the content layer
 
 **Affects:** content layer · experience and intelligence layers (nothing to do)

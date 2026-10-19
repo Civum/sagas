@@ -326,9 +326,9 @@ contributions built on those counts is fine. Ranking people by them, sorting
 them into tiers, or putting one number beside what somebody said about their own
 family is not.
 
-The most important idea in the finished `ConfidenceIndicator` is that an
-affirmation is not corroboration. Five people saying "sounds right" is not five
-independent records. This project treats presenting an affirmation count as
+The most important idea in the finished `ConfidenceIndicator` is that
+agreement is not corroboration. Five people saying "sounds right" is not five
+independent records. This project treats presenting a count of agreement as
 support as wrong, and it is an easy mistake to make by accident.
 
 ## The database
