@@ -4,7 +4,7 @@ A small public page for Sagas (backlog story **P3**). Static HTML and one CSS
 file, with no JavaScript sent to the browser.
 
 **Status: draft.** The page follows the Design wireframe
-(`LANDING-PAGE-WIREFRAME.md`) and uses the draft copy from
+(`landing-page-wireframe.html`) and uses the draft copy from
 `LANDING-PAGE-COPY.md` (story De2). The copy is not approved, a banner says so,
 and nothing is published: until the sponsor approves the copy, each merge runs
 the deploy as a dry run (see "Deploying" below).
@@ -42,17 +42,49 @@ request, and a new kind of section needs layout work too.
 4. Platform sets `status: 'approved'` and records the approval's link, its
    date, and the copy's fingerprint (`pnpm --filter @sagas/landing copy-hash`).
 
-If any word changes after that, the fingerprint no longer matches: the tests
-fail and a release build refuses to run until the new wording is approved.
+The fingerprint covers every word a visitor can see or hear: the copy, the
+invented-material label shown beside the corner shop (`INVENTED_LABELS` in
+`src/model.ts`), and the few words the layout adds, like "Skip to content"
+(`FIXED_TEXT` in `src/model.ts`). If any of them changes after approval, the
+fingerprint no longer matches: the tests fail and a release build refuses to
+run until the new wording is approved.
+
+Step 2 is a copy, not a live link: the page never reads the copy document. So
+the tests compare the two **field by field**: each piece of text in
+`content.ts` against the matching field in the copy document's "Draft page"
+section (for example `nav.link.label` against "Navigation link"), ignoring
+capitals and punctuation. CI fails, naming the field, if:
+
+- a field differs between the two, including two fields swapped;
+- the copy document gains a field the page doesn't use;
+- a field the page uses disappears from the copy document.
+
+The pairing lives in `fieldMap` in `src/copy-doc.ts`, which also lists the few
+visible words that are deliberately not in the copy document, such as the
+link-preview sentence. If Design restructures the document, update that map in
+the same pull request. `turbo.json` here makes a change to the copy document
+alone re-run these tests instead of reusing an old result.
 
 ## What the tests check
 
-- **No known organisation is named.** This is a safety net for slips, not a
-  consent check. For this release the rule is simply to name none.
+- **No known organisation is named,** except the sponsor's contact address
+  (`info@civum.io`), which he asked for in the questions issue (#11). Only that
+  exact address is allowed. This is a safety net for slips, not a consent check.
+- **The words the sponsor asked us to avoid don't appear:** "account",
+  "settled" and "reading product".
+- **The page and the copy document match, field by field** (see "How copy gets
+  onto the page"). The comparison itself is tested on a small fixed document,
+  so those tests don't depend on today's wording.
+- **Every field reaches its part of the page,** for both a draft and an
+  approved page, down to each step's own list item, so a layout change can't
+  silently drop, move or swap text.
+- **Why comes before how:** the "Why Sagas exists" section sits above "How it
+  works", as the sponsor's brief asks.
 - **A draft looks like a draft:** visible banner, and `noindex` so search engines
   skip it.
 - **Invented material is labelled** in visible text, with the labels from the
-  copy document ("Illustrative example — invented for this draft", and so on).
+  copy document ("Illustrative worked example - invented for this draft", and
+  so on). The corner shop caption carries its name and that label.
 - **On-page links point at sections that exist.**
 - **Accessibility basics:** `lang`, one `h1`, no skipped heading levels, a skip
   link, and WCAG 2.1 AA contrast for every text colour on its background. The

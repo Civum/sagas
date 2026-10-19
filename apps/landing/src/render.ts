@@ -1,8 +1,8 @@
-import type { Action, LandingContent, PageCopy } from './model';
-import { INVENTED_LABELS } from './model';
+import type { Action, LandingContent, PageCopy, TextSection } from './model';
+import { FIXED_TEXT, INVENTED_LABELS } from './model';
 
 // Turns the content into one static HTML page, following the Design wireframe
-// (LANDING-PAGE-WIREFRAME.md). No JavaScript is sent to the browser.
+// (landing-page-wireframe.html). No JavaScript is sent to the browser.
 //
 // Layout notes from the wireframe: headings in a serif, body in a sans-serif;
 // the hero and the steps stack into one column below 560px.
@@ -52,7 +52,7 @@ const ILLUSTRATION_SVG = `<svg viewBox="0 0 240 180" aria-hidden="true" focusabl
 function header(copy: PageCopy): string {
   return `<header class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 pt-6 sm:px-6">
   <p class="font-serif text-xl font-semibold">${e(copy.nav.wordmark)}</p>
-  <nav aria-label="Main">
+  <nav aria-label="${e(FIXED_TEXT.navLabel)}">
     ${link(copy.nav.link, 'rounded-full border border-border px-4 py-1.5 text-sm font-medium hover:bg-muted')}
   </nav>
 </header>`;
@@ -69,9 +69,33 @@ function hero(copy: PageCopy): string {
   </div>
   <figure class="rounded-lg border border-border bg-muted p-6">
     ${ILLUSTRATION_SVG}
-    <figcaption data-invented="${h.illustration.invented}" class="mt-4 text-center text-sm text-muted-foreground">${e(INVENTED_LABELS[h.illustration.invented])}</figcaption>
+    <figcaption data-invented="${h.illustration.invented}" class="mt-4 text-center text-sm text-muted-foreground"><strong class="block font-semibold text-foreground">${e(h.illustration.name)}</strong>${e(INVENTED_LABELS[h.illustration.invented])}</figcaption>
   </figure>
 </section>`;
+}
+
+/** A label, a heading and a paragraph; `extra` goes after the paragraph. */
+function textSection(s: TextSection, extra = ''): string {
+  const id = e(s.id);
+  return `<section id="${id}" aria-labelledby="${id}-h" class="border-t border-border py-14">
+  <p class="${LABEL}">${e(s.label)}</p>
+  <h2 id="${id}-h" class="mt-3 max-w-[25ch] font-serif text-3xl font-medium leading-snug">${e(s.heading)}</h2>
+  <p class="mt-5 max-w-[60ch] text-lg leading-relaxed text-muted-foreground">${e(s.text)}</p>${extra}
+</section>`;
+}
+
+function why(copy: PageCopy): string {
+  return textSection(copy.why);
+}
+
+function stands(copy: PageCopy): string {
+  const { lead, email } = copy.stands.contact;
+  const mail = `<a href="mailto:${e(email)}" class="font-medium text-foreground underline underline-offset-4 ${FOCUS}">${e(email)}</a>`;
+  return textSection(
+    copy.stands,
+    `
+  <p class="mt-4 text-lg text-muted-foreground">${e(lead)} ${mail}.</p>`,
+  );
 }
 
 function how(copy: PageCopy): string {
@@ -127,13 +151,15 @@ export function renderPage(content: LandingContent): string {
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body class="bg-background font-sans text-foreground antialiased">
-  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-10 focus:rounded focus:bg-background focus:px-3 focus:py-2 ${FOCUS}">Skip to content</a>
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-10 focus:rounded focus:bg-background focus:px-3 focus:py-2 ${FOCUS}">${e(FIXED_TEXT.skipLink)}</a>
   ${isDraft ? `<div role="note" data-draft-banner class="bg-accent px-4 py-2.5 text-center text-sm font-semibold text-accent-foreground">${e(copy.draftBanner)}</div>` : ''}
   ${header(copy)}
   <main id="main" class="mx-auto max-w-5xl px-4 sm:px-6">
     ${hero(copy)}
+    ${why(copy)}
     ${how(copy)}
     ${principle(copy)}
+    ${stands(copy)}
   </main>
   ${footer(copy)}
 </body>

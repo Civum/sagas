@@ -18,6 +18,7 @@ conflict on a later pull.
 
 ## 2026-10-16
 
+- The landing page shows the revised copy as a draft: why Sagas exists before how it works, where the project stands, a way to get in touch, and the corner shop marked as an invented example. (#22, Ema)
 - Every merge now builds the landing page and runs a Cloudflare dry run automatically, without publishing anything, so the page can go live as soon as the copy is approved. (#19, Ema)
 
 ## 2026-10-14
