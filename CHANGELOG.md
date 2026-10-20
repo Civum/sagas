@@ -41,6 +41,26 @@ it. This is the most useful field in the entry.
 
 ---
 
+## 2026-10-19 — a first task in the intelligence layer's guide
+
+**Affects:** intelligence layer · experience and content layers (nothing to do)
+
+**What:** `docs/PHASE-2-INTELLIGENCE-LAYER.md` has a step 0 before the list of
+subproblems. Each person builds the corner shop as a scoring graph with the
+builder in `packages/fixtures/scoring`, deciding for each step what the record
+is, who handed it over, and what each claim points at. The first milestone
+now names the eight tests a thin frame has to pass.
+
+**Why:** The scoring graph shows a record only as an id, a kind, a contributor
+and a time, so working in it alone never shows what a record is or how claims
+attach to one. The corner shop shows both.
+
+**You need to:**
+- *intelligence layer* — do step 0 before taking a subproblem.
+- *experience layer, content layer* — nothing.
+
+---
+
 ## v2.3.0 — 2026-10-19
 
 **Affects:** experience layer · intelligence layer · content layer (nothing to do)

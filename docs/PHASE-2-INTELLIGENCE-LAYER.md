@@ -24,10 +24,31 @@ turn it into your own structures, keep your own tables, or work out extra
 things from it before you score. The rules only fix what goes in and what
 comes out. What happens in between is your design.
 
-The first milestone is an initial build: `similarity` working, and a first
-`score` that runs on the example graph. I'll send the date by email. Expect
+The first milestone is a thin frame: `similarity` working, and a first
+`score` that runs on the example graph. In the rules, that's the three tests
+under "what comes back" and the five under "similarity between details". The
+rest can fail for now. I'll send the date by email. Expect
 the first week to go mostly to getting set up and finding your way around,
 which is normal for a first build.
+
+### Step 0: build the corner shop as a graph
+
+Before anyone takes a subproblem, each of you should build the corner shop as
+a scoring graph. The corner shop is the worked example in
+`docs/HOW-THE-LAYERS-FIT.md`, and its event log is
+`packages/fixtures/fixtures/corner-shop/events.ts`. The comment at the top of
+that file lists what each moment in it shows.
+
+Write it with the builder in `packages/fixtures/scoring/build.ts`, in a test
+file of your own. For each step you'll have to decide what the record is, who
+handed it over, which claim was read from it, and what each claim points at.
+A photograph that arrives with nothing claimed, the person who reads it, the
+dispute about the year and the extension that adds to the owner are all in
+there.
+
+It's done when the graph builds and you can explain every line of it. Nothing
+scores it yet. Keep it, because it's the first test case you'll have written
+yourselves.
 
 ### Scoring is bigger than it looks
 
