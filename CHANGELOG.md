@@ -56,7 +56,8 @@ and a time, so working in it alone never shows what a record is or how claims
 attach to one. The corner shop shows both.
 
 **You need to:**
-- *intelligence layer* — do step 0 before taking a subproblem.
+- *intelligence layer* — nothing required. Step 0 is optional, for anyone
+  who wants a quick way into the model.
 - *experience layer, content layer* — nothing.
 
 ---

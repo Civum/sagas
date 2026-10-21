@@ -31,10 +31,11 @@ rest can fail for now. I'll send the date by email. Expect
 the first week to go mostly to getting set up and finding your way around,
 which is normal for a first build.
 
-### Step 0: build the corner shop as a graph
+### Step 0, optional: build the corner shop as a graph
 
-Before anyone takes a subproblem, each of you should build the corner shop as
-a scoring graph. The corner shop is the worked example in
+If the model still feels abstract, building the corner shop as a scoring
+graph is a quick way in. It isn't a deliverable, so skip it if you don't need
+it. The corner shop is the worked example in
 `docs/HOW-THE-LAYERS-FIT.md`, and its event log is
 `packages/fixtures/fixtures/corner-shop/events.ts`. The comment at the top of
 that file lists what each moment in it shows.
