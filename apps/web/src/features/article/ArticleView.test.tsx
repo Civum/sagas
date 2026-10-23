@@ -1,11 +1,11 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import type { GraphState } from '@sagas/contracts';
-import { getSiteState } from '@sagas/read-model';
+import { loadSiteState } from '@sagas/fixtures/acceptance';
 import { ArticleView } from './ArticleView';
 
 function renderArticle(stateId: 't0' | 't1' | 't2' | 't3', records?: GraphState['records']) {
-  const state = getSiteState('corner-shop', stateId);
+  const state = loadSiteState('corner-shop', stateId);
   return renderToStaticMarkup(
     <ArticleView state={records ? { ...state, records } : state} />,
   );

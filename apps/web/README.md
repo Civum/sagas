@@ -22,8 +22,13 @@ interface has to survive.
 ```bash
 pnpm install
 cp .env.example .env      # add your own Mapbox token, or don't. See below.
-pnpm dev:web
+pnpm --filter @sagas/ui-api db:up      # needs Docker Desktop running
+pnpm --filter @sagas/ui-api db:seed    # again after every upstream sync
+pnpm dev:web                           # restart it after every seed
 ```
+
+The web app reads from the Experience Postgres database during startup, so the
+database must be running and seeded before `pnpm dev:web`.
 
 Two routes exist:
 
@@ -51,16 +56,16 @@ const sites = listSites();                        // every place, for the map
 const state = getSiteState(sites[0].slug, 't3');  // 't0' | 't1' | 't2' | 't3'
 ```
 
-Today those functions read fixture JSON off disk.
+Those functions read the experience read model from Postgres, so the database
+has to be up and seeded before `pnpm dev:web` shows anything (see "Run it"
+above). Restart `pnpm dev:web` after every seed. How the data is loaded is in
+`packages/read-model/README.md`.
 
-**Your first infrastructure job is to put a database behind them.** Run Postgres
-locally, design a schema for reading, seed the fixture states into it, and make
-`packages/read-model` query it instead. That is real work and it belongs to whoever holds
-the back end and database roles: schema design, spatial indexing so "everything
+The database work that remains belongs to whoever holds the back end and
+database roles: a schema shaped for reading, spatial indexing so "everything
 within 2km of here" is fast enough to drive a map, and working out what is held
-in memory versus fetched per request.
-
-Do it early. `packages/read-model/README.md` says why.
+in memory versus fetched per request. `packages/read-model/README.md` has the
+details.
 
 It stays local. Nothing here talks to a server anyone else runs, and nothing
 deploys until you decide to.

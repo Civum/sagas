@@ -193,6 +193,8 @@ told through the watch above, and each decides when to pull it.
 
 ```bash
 pnpm install
+pnpm --filter @sagas/ui-api db:up
+pnpm --filter @sagas/ui-api db:seed
 pnpm dev:web
 ```
 
@@ -342,7 +344,7 @@ to match the other layers' schemas.
 cp .env.example .env      # then uncomment the sagas_read line
 
 cd apps/ui-api
-pnpm db:up && pnpm db:verify
+pnpm db:up && pnpm db:verify && pnpm db:seed
 ```
 
 That starts your layer's Postgres with PostGIS enabled, on port 5435. The other
