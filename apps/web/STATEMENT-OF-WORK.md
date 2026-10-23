@@ -81,11 +81,12 @@ later pull.
 **Demos.** Anything in the changelog since the last specification meeting is
 what gets shown, running.
 
-**Updates.** The product owner sends the sponsor a short email every Thursday:
-what's done, what's next, and anything stuck. Informal is fine.
+**Updates.** New stories go into the backlog on Thursday evenings. The product
+owner sends the sponsor a short update every Friday: what's done, what's next,
+who took which new story, and anything stuck. Informal is fine.
 
 **When you finish or get blocked,** take the next item in your workstream from
-"The backlog behind sprint one" below. Write the issue yourself with the
+"Sprint two" in `BACKLOG.md`, or "The backlog behind sprint one" below. Write the issue yourself with the
 template under "Template for a new story" in `BACKLOG.md`, and mention the sponsor in
 the questions issue so he can check it. If your workstream is empty, take
 something from another one or from "Anyone", and say so in the issue. Waiting
@@ -158,7 +159,7 @@ The product owner assigns these. Interface work is open to everyone.
 | Workstream | Owns |
 |---|---|
 | Platform | The pipeline, hosting, the domain and the landing page build |
-| Data | `packages/read-model`, `apps/ui-api`, the database, and what the page needs from the fixtures |
+| Data | `packages/read-model`, `apps/ui-api`, the database, what the page needs from the fixtures, and the state each screen keeps (see Da8) |
 | Map and discovery | The map, search, pins and the list view |
 | Narrative page | Turning claims into a readable page |
 | Design | Wireframes, style, the landing page copy, what is missing |
