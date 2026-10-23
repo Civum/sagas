@@ -168,15 +168,15 @@ working toward, used on the map and the list.
 
 ### N1 · The corner shop at t3 as a page
 
-**Workstream:** Narrative page. **Status:** Ready once contract 2.1.0 is in
-your fork. Start from `PAGE-MODEL.md` before then.
+**Workstream:** Narrative page. **Status:** Ready. Your fork already has the
+contract it needs.
 
 **Goal.** The site page from `PAGE-MODEL.md`, built in the app.
 
 **Done when:**
 
 - The site's sections render with their headings and passages, from
-  `sections` and `compositions` (contract 2.1.0).
+  `sections` and `compositions` in the contract.
 - A site with no sections shows its records on their own, without looking
   broken.
 - Both readings of the disputed date can be seen side by side.
