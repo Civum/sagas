@@ -41,6 +41,39 @@ it. This is the most useful field in the entry.
 
 ---
 
+## 2026-10-22 — new design questions: links, collections, relevance and disputes
+
+**Affects:** intelligence layer · content layer · experience layer (nothing to do)
+
+**What:** `docs/DESIGN-QUESTIONS.md` has two new questions, each with a
+placeholder test. "How does a link become evidence?" says a link to a web page
+is one kind of evidence, weighed by what's recorded about it and by
+independent people relying on it, never by its domain. Its shape and whether
+the page gets captured are open. The placeholder is in
+`packages/fixtures/scoring/rules.ts`. "What does a collection carry?" says the
+records one profile hands over together stay together, attributed to the
+profile and never to a named person. What else a collection carries is open.
+The placeholder is in `packages/fixtures/capture/rules.ts`. Neither is in the
+contract yet. Two more questions have placeholders in the scoring rules: "How
+do you tell whether a reply is about what it targets?", which explains why
+matching text doesn't work for relevance, and "Do all disagreements matter
+equally?". "Can someone take their record back?" now says what's decided:
+taking a record back means changing its privacy setting, and what happens to
+claims built on it stays open. None of these is in the contract yet.
+
+**Why:** An archivist told us provenance is what matters most when records
+are gathered from many places, and the intelligence layer's design asked how
+web sources should count.
+
+**You need to:**
+- *intelligence layer* — don't rank sources by domain. The link placeholder
+  says what to build toward once links have a shape.
+- *content layer* — nothing yet. Collections will reach the contract in a
+  later release.
+- *experience layer* — nothing.
+
+---
+
 ## 2026-10-19 — a first task in the intelligence layer's guide
 
 **Affects:** intelligence layer · experience and content layers (nothing to do)

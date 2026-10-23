@@ -172,5 +172,17 @@ export function runCaptureRules(name: string, base: string): void {
       // is yours to propose.
       it.todo("handles photos in the format iPhones save by default");
     });
+
+    describe("collections", () => {
+      // Prompted by: "What does a collection carry?" in
+      // docs/DESIGN-QUESTIONS.md. Decided: records one profile hands over
+      // together stay together as a collection, attributed to the profile
+      // and never to a named person. Not in the contract yet. Open: what a
+      // collection carries beyond that (who gathered the records, why they
+      // were kept), and whether a record can join one later.
+      it.todo(
+        "keeps the records one profile hands over together as one collection",
+      );
+    });
   });
 }

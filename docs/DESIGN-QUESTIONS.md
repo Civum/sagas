@@ -273,6 +273,53 @@ contract says so. A resolution is a claim. It carries weight like any other
 claim and it can be disputed like any other claim. Whether a resolution locks
 anything is open.
 
+## How does a link become evidence?
+
+A link to a web page can be a source. It's one kind of evidence, like a
+photo or a document. That part is decided, though the contract has no place
+for a link yet.
+
+How a link is weighed is decided too. Its strength comes from what's
+recorded about it (its kind, its date, where it came from) and from how
+people treat it over time: who relies on it, who disputes it, and whether
+independent contributors reuse it. Those signals go through the same
+independence rules as everything else, so fifteen links that nobody
+independent relies on add little. A domain ending like .gov or .com is weak
+metadata. It tells you who published a page and nothing about whether the
+page supports the claim, so a tier list of domains isn't how links are
+weighed.
+
+**The open part:** the shape, either a new record kind or a field on a
+record, and whether the page's content gets captured when a link is added. A
+captured copy would survive the page changing or disappearing, and it would
+let the content of the page count toward a score. Until a page is captured,
+one suggestion is to treat the link like a recording nobody has transcribed
+yet: it counts for what's known about it and nothing for what it says.
+Capturing would happen where records come in. What a site's terms of use
+allow you to store is also unknown.
+
+## What does a collection carry?
+
+An archivist told us that pooling records by place loses who collected them
+and why, and that provenance is what archives care about most. So records
+handed over together stay together.
+
+This part is decided, though it isn't in the contract yet. A collection is the set of records one
+profile hands over together, kept whole. A place page points at records and
+never takes them over, so a record keeps its collection wherever it's shown.
+A collection belongs to a profile, which can be a guest like `guest_25674`,
+and never to a named person. It records what a profile did and says nothing
+about who they are, the same line scoring draws.
+
+**The open part:** what else a collection carries. Who originally made or
+gathered the records, and why they were kept, are what an archivist wants.
+Those are statements the contributor makes. They aren't links to a profile.
+A grandmother's name is about a real person, so it would sit in the
+contributor's own words and fall under their choices about mentioning
+people. Whether those fields are required, optional, or something another
+person can add later is also open, and so is whether a record can join a
+collection after it arrives.
+
 # Part 3 — Open by design
 
 These are left open on purpose. They are not homework and they are not blocking
@@ -344,12 +391,23 @@ about *consent*. If a family contributes a record and decides years later they
 don't want it public, what happens? What happens to the interpretations and
 claims built on top of it?
 
+Part of this is decided, though it isn't in the contract yet. Every record
+carries its contributor's privacy choices, including whether it's public
+(yes, ask me later, or no), and those choices can change later. So taking a
+record back means changing its privacy setting, and the record isn't deleted.
+Deletion is something a person asks for under the terms.
+
+What's still open is what happens to everything built on a record once it
+stops being public: the claims read from it, the extensions that cite it as
+evidence, and the scores that leaned on it.
+
 You can see the hole in the code. `submissionState` runs from `draft` to
 `published` and has no exit, because adding one would have been answering this.
 `flag` has a `not_mine_to_share` reason, which is somebody raising exactly this
 problem, and nothing downstream knows what to do when that flag is upheld.
 
-I don't have an answer. It's the most likely thing to matter in practice.
+I don't have an answer to that part. It's the most likely thing to matter in
+practice.
 
 ## How to tell silence from doubt
 
@@ -675,6 +733,49 @@ Open:
 - Can a claim's text change after it is submitted?
 - If it can, what happens to the disputes, extensions and passovers aimed at
   the old version?
+
+## How do you tell whether a reply is about what it targets?
+
+A claim chooses what it targets, which keeps it attached to the right detail,
+but the target doesn't limit what the claim says. Someone can target a record
+and then write about their grandfather's farm. Weight already handles most of
+that: weight flows through details, so a claim that touches none of its
+target's details earns nothing, however long or charming it is.
+
+Checking relevance by matching text doesn't work, because the most relevant
+reply often shares no words with its target. "It opened in 1924" is the best
+possible answer to a detail that says 1948, and it doesn't contain 1948. One
+way to think about it is to split a detail into what it's about (the shop's
+opening), what kind of thing it states (a date), and its value (1948).
+Relevance is checked on the first two. The value then decides whether the
+reply agrees, disagrees or adds something.
+
+**Open:**
+- How a claim's content gets marked up (a date, a place, a mention of a
+  person, a site, a source or another claim), and which layer does it. If the
+  pieces are marked, relevance becomes matching how two claims are marked,
+  rather than matching their words.
+- Relevance is checked one link at a time, a reply against the detail it
+  targets. Whether support should weaken as it passes through more links in a
+  chain is open.
+- Where talk that isn't about any detail goes. One option is a conversation
+  layer around a record that carries no weight. That's the same open question
+  as whether a conversation becomes a named object.
+
+## Do all disagreements matter equally?
+
+A disagreement over whether a shop opened in 1948 or 1952 matters to a
+business historian and to almost nobody else. A disagreement over whether a
+family was forced out of a neighbourhood matters to everyone. If every
+dispute gets the same weight and the same space on a page, the small ones
+crowd out the ones that matter.
+
+How much a dispute matters looks like its own dimension, separate from how
+well supported it is. It also fits a rule already in the tests: one dispute
+shouldn't knock over a well-supported detail.
+
+**Open:** what decides how much a dispute matters, whether it changes
+scoring, display or only what gets suggested to whom, and who gets to say.
 
 ---
 

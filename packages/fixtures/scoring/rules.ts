@@ -331,6 +331,15 @@ export function runScoringRules(name: string, scorer: Scorer): void {
       it.todo(
         "a claim citing an untranscribed recording gets nothing from terms about what it says",
       );
+
+      // Prompted by: "How does a link become evidence?" in
+      // docs/DESIGN-QUESTIONS.md. Decided: a link's weight comes from its
+      // metadata and from independent people relying on it, never from its
+      // domain. Waits on the contract giving links a shape. Open: whether a
+      // page's content is captured, and what an uncaptured link counts for.
+      it.todo(
+        "weighs a link by its metadata and by independent people relying on it, never by its domain",
+      );
     });
 
     describe("independence", () => {
@@ -598,6 +607,22 @@ export function runScoringRules(name: string, scorer: Scorer): void {
       );
       it.todo(
         "lets support travel along extensions, and stops it going round a cycle",
+      );
+
+      // Prompted by: "How do you tell whether a reply is about what it
+      // targets?" in docs/DESIGN-QUESTIONS.md. Weight flows through details,
+      // so a reply that touches none of its target's details earns nothing.
+      // Open: how a claim's content is marked up, and whether support weakens
+      // as it passes through more links.
+      it.todo(
+        "gives nothing to a reply that touches none of the details it targets",
+      );
+
+      // Prompted by: "Do all disagreements matter equally?" in
+      // docs/DESIGN-QUESTIONS.md. Open: what decides how much a dispute
+      // matters, and whether that reaches scoring at all.
+      it.todo(
+        "lets a disagreement that matters more count differently from a minor one",
       );
     });
 
