@@ -277,7 +277,7 @@ Copy this into a new issue, or under an epic below.
 The landing page is live, so the next focus is the full app, starting with
 the map. Some of these stories come from a conversation the sponsor had with
 three archivists about the project. Nothing here is assigned. Pick owners as
-you finish your current work, and say in your Thursday update who took what.
+you finish your current work, and say in your Friday update who took what.
 There's more here than the team can finish in one sprint, on purpose, so
 nobody runs out.
 

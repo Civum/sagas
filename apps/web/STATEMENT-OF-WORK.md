@@ -81,10 +81,9 @@ later pull.
 **Demos.** Anything in the changelog since the last specification meeting is
 what gets shown, running.
 
-**Updates.** The product owner sends the sponsor a short email every Thursday:
-what's done, what's next, who took which story, and anything stuck. Informal
-is fine. New stories go into the backlog on Thursday evenings, after the
-sponsor has read it.
+**Updates.** New stories go into the backlog on Thursday evenings. The product
+owner sends the sponsor a short update every Friday: what's done, what's next,
+who took which new story, and anything stuck. Informal is fine.
 
 **When you finish or get blocked,** take the next item in your workstream from
 "Sprint two" in `BACKLOG.md`, or "The backlog behind sprint one" below. Write the issue yourself with the
