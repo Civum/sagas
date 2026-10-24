@@ -136,7 +136,7 @@ fixtures do not have yet.
 anything that should be shared is opened as a pull request upstream with the
 reason.
 
-### M1 · The map and the list
+### M1 · The map and the list(Sam)
 
 **Workstream:** Map and discovery. **Status:** Ready
 
@@ -713,7 +713,7 @@ from the shared contract.
 The map and the list. Concrete work that can start as soon as A1 has a few
 components.
 
-### B1 · Mapbox map with the fixture sites as pins
+### B1 · Mapbox map with the fixture sites as pins(Sam)
 
 **Status:** Ready
 
@@ -753,7 +753,7 @@ found and where you found it.
 **Not in this story.** Creating a new site from the dropped pin. Creating sites
 is not part of this layer's work.
 
-### B3 · The list view has everything the map has
+### B3 · The list view has everything the map has(Sam)
 
 **Status:** Ready
 

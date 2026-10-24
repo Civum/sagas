@@ -29,9 +29,8 @@ else consumes the archive later.
 They live in `packages/read-model`, which `apps/web` imports too, so there is
 one home for data access. Do not duplicate queries here.
 
-Today those functions read fixture JSON off disk. Putting a real database behind
-them is the first infrastructure job on this layer, and nothing that calls them
-changes when you do.
+Those functions read the read model from Postgres on port 5435. How it is
+loaded, and when to re-seed, is in `packages/read-model/README.md`.
 
 Read `docs/GIS.md` before writing the map query. "Everything within 2km" is not
 a subtraction problem, and a table scan on every pan will be the first thing that
@@ -42,6 +41,7 @@ makes the map feel slow.
 ```bash
 cd apps/ui-api
 pnpm db:up && pnpm db:verify
+pnpm db:seed
 ```
 
 Your read model runs on port 5435 in a container defined by this app's own

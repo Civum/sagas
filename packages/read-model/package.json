@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@sagas/contracts": "workspace:*",
+    "pg": "^8.23.0",
     "@sagas/fixtures": "workspace:*"
   },
   "devDependencies": {
@@ -20,6 +21,7 @@
     "@sagas/prettier-config": "workspace:*",
     "@sagas/eslint-config": "workspace:*",
     "@types/node": "catalog:",
+    "@types/pg": "^8.23.1",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
