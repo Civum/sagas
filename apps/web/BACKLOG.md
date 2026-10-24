@@ -127,7 +127,7 @@ anything.
 
 ### Da3 · What the page needs from the data
 
-**Workstream:** Data. **Status:** Ready
+**Workstream:** Data. **Status:** Replaced by Da8 in sprint two.
 
 **Goal.** A written list of what the map and the narrative page need that the
 fixtures do not have yet.
@@ -168,15 +168,15 @@ working toward, used on the map and the list.
 
 ### N1 · The corner shop at t3 as a page
 
-**Workstream:** Narrative page. **Status:** Ready once contract 2.1.0 is in
-your fork. Start from `PAGE-MODEL.md` before then.
+**Workstream:** Narrative page. **Status:** Ready. Your fork already has the
+contract it needs.
 
 **Goal.** The site page from `PAGE-MODEL.md`, built in the app.
 
 **Done when:**
 
 - The site's sections render with their headings and passages, from
-  `sections` and `compositions` (contract 2.1.0).
+  `sections` and `compositions` in the contract.
 - A site with no sections shows its records on their own, without looking
   broken.
 - Both readings of the disputed date can be seen side by side.
@@ -271,6 +271,311 @@ Copy this into a new issue, or under an epic below.
 
 **Read first.** <documents, if any>
 ```
+
+## Sprint two
+
+The landing page is live, so the next focus is the full app, starting with
+the map. Some of these stories come from a conversation the sponsor had with
+three archivists about the project. Nothing here is assigned. Pick owners as
+you finish your current work, and say in your Friday update who took what.
+There's more here than the team can finish in one sprint, on purpose, so
+nobody runs out.
+
+### P4 · Host the full app, free, and not on Vercel
+
+**Workstream:** Platform. **Status:** Ready
+
+**Goal.** The full app, `apps/web`, needs a home that's free while it's being
+built, low-cost and sustainable for an open source project after that, and
+not on Vercel. It's a challenge of the same kind as the landing page.
+
+The first thing to find out is whether Cloudflare can serve dynamic pages. It
+worked well for the landing page, which was static, and the full app isn't.
+
+**Done when** you've answered that question, and written a short comparison
+of three or four options, Cloudflare included: what each costs at today's
+traffic and at a hundred times that, what would make it stop being free, and
+which you'd pick and why. Deploying is P7's job once the sponsor agrees to a
+choice. The app uses Next.js, and moving away from it needs a one-page
+decision record, as the statement of work says.
+
+**Not in this story.** The landing page's own address. Any real record.
+Calling another team's API.
+
+### P5 · Keep the landing page in step with releases
+
+**Workstream:** Platform. **Status:** Later. Needs P7. Ongoing after that.
+
+**Goal.** Whenever a new version of the full app is published, the landing
+page says what's new, with the copy approved the same way as before.
+
+**Done when** the first published version after P7 shows on the landing page.
+
+### P6 · An address for the full app
+
+**Workstream:** Platform. **Status:** Ready to propose. Setting it up waits
+for P7.
+
+**Goal.** The full app needs its own address next to the landing page, such
+as a subdomain. Propose one, and say what it needs in DNS and from the hosting
+chosen in P4.
+
+**Done when** the sponsor has agreed the address and the app answers on it.
+The Cloudflare token can't change DNS, so ask in the questions issue for the
+DNS change.
+
+### P7 · Publish the full app, and decide on staging
+
+**Workstream:** Platform. **Status:** Later. Needs the sponsor's agreement on
+P4.
+
+**Goal.** Publish `apps/web` from the pipeline to a preview address that
+search engines skip, using fixture data only. Decide along the way whether the
+project needs a staging environment (a second copy for checking changes before
+they reach the preview), or whether publishing every merge to main is enough.
+The sponsor's lean is that main is enough if it works.
+
+**Done when** merges publish the app the way the decision says, the decision
+and its reason are in a one-page decision record, and the README says how to
+roll back. Publishing can run from GitHub Actions on every merge, or one
+person can manage releases for everyone. Either is fine.
+
+### Da8 · What each screen needs, from the people building it
+
+**Workstream:** Data. **Status:** Ready. Replaces Da3.
+
+**Goal.** The data workstream holds the data behind every screen the team
+builds: the state a screen keeps while someone uses it, and the storage
+behind it. So each map and narrative page story has a matching data story,
+done with whoever is building that screen. Da5 to Da7 are the first ones. This
+story starts it: sit with the people working on the components (De7), the map
+and the narrative page, and write down, for each screen, the data it shows and
+the state it keeps.
+
+How state is managed (hooks, providers, a store library or something else) is
+the data workstream's choice. Write down why in a one-page decision record.
+Shapes come from the contract's Zod types. Don't write your own copies of
+them.
+
+**Done when** the list is in the fork, each item names its screen, and
+anything the fixtures don't have is asked in the questions issue, with the
+reason.
+
+### Da5 · The map's data and state
+
+**Workstream:** Data. **Status:** Later. Needs Da1. Matches M1.
+
+**Goal.** One read-model call returns what a pin and a list item need, and the
+map's state (which site is selected, what area is in view) lives in one place
+that the map and the list both use.
+
+**Done when** M1 draws from it, and selecting a site in the list selects it on
+the map, and the other way round.
+
+### Da6 · The narrative page's data and state
+
+**Workstream:** Data. **Status:** Later. Needs Da1. Matches N1 and N4.
+
+**Goal.** One read-model call returns what a site's narrative page needs: its
+records with who brought them, the claims and their details, and where people
+disagree. The page's state (which phrase is open, which record is expanded)
+lives in one place. The narrative page workstream builds the interactions;
+this story holds the state they use.
+
+**Done when** the corner shop's narrative page renders from it.
+
+### Da7 · Moving between the map and a site
+
+**Workstream:** Data. **Status:** Later. Needs Da5 and Da6. Matches M4.
+
+**Goal.** Opening a site from the map and coming back keeps where the reader
+was: the same area in view and the same site selected. A link to a site works
+on its own too.
+
+**Done when** it works with the back button, and a shared link opens the
+right site.
+
+### Da4 · The hosted database, when the app needs one
+
+**Workstream:** Data, with Platform. **Status:** Later. Starts when the app
+needs it.
+
+**Goal.** Da1 puts the read model on a local database. When the published app
+needs a hosted one, connect it to the project's hosted Postgres, which exists
+but isn't connected to anything yet, and work out with whoever did P4 how the
+app reaches it.
+
+**Done when** the published preview reads from the hosted database, with
+fixture data loaded by Da2's script. Ask the sponsor for access when it's
+time.
+
+**Not in this story.** Any real record.
+
+### M4 · A pin opens its site
+
+**Workstream:** Map and discovery. **Status:** Later. Needs M1 and N1.
+
+**Goal.** M1, from sprint one, is the map story to start with. It works with
+your own free Mapbox token, as `SETUP.md` describes, and without one. After
+it, choosing a pin or a list item opens that site's narrative page, with a way
+back to the same spot on the map.
+
+**Done when** it works for every fixture site with a mouse, a keyboard and a
+phone.
+
+### M5 · The map on a phone
+
+**Workstream:** Map and discovery. **Status:** Later. Needs M1.
+
+**Goal.** The project expects many readers to arrive from a link on their
+phone. The map and the list work with a thumb: pins large enough to tap, and
+the list reachable without fighting the map.
+
+**Done when** someone who hasn't seen the app can find a named site on a phone
+without help.
+
+### N5 · How a narrative page reads the graph
+
+**Workstream:** Narrative page. **Status:** Ready
+
+**Goal.** How claims are weighed is still open, so this workstream designs how
+the page reads as well as building it, and N1 carries on against the stand-in
+data in the fixtures. This story is the design half: a short document, in your
+own words, on how a reader should experience the claim graph on a narrative
+page. Questions to answer or argue: how claims show which matters more without
+showing a score; how a chain of extensions reads; how a disagreement looks
+next to the detail it's about; how a record shows who brought it; and how a
+mention of a date, a place or a person inside a claim might work. Disagreeing
+with `PAGE-MODEL.md` is welcome.
+
+**Done when** the document is in the fork, the sponsor has read it, and
+anything that would change the shared model is raised in the questions issue.
+Where it touches an open question in `docs/DESIGN-QUESTIONS.md`, it links to
+it and treats it as open.
+
+**Not in this story.** Showing scores, counts or rankings to readers.
+
+### N4 · Show where a record came from
+
+**Workstream:** Narrative page. **Status:** Later. Needs N1, De7, and
+collections in the contract (see "What does a collection carry?" in
+`docs/DESIGN-QUESTIONS.md`).
+
+**Goal.** The archivists said where a record came from is what matters most
+to them. On a narrative page, each record shows the profile that handed it
+over and the collection it came in, with a link to the rest of that
+collection.
+
+**Done when** it works on the corner shop with fixture data.
+
+**Not in this story.** Anything about who a profile is.
+
+### De4 · Say where people go to have their story kept
+
+**Workstream:** Design. **Status:** Ready
+
+**Goal.** The archivists asked why anyone would use this instead of donating
+to an archive directly. The landing page answers that before a visitor has to
+ask: the project is built around places, it turns up people, records and
+leads, and someone who wants their material kept permanently is pointed to an
+archive and donates there. It also says that here a contributor can change
+their privacy settings, including taking something out of public view. That
+choice is decided but not in the contract yet, so the copy describes it as
+planned.
+
+**Done when** the passage is in the landing page copy document
+(`LANDING-PAGE-COPY.md`), the sponsor has approved it in the questions issue,
+and it's on the page.
+
+**Not in this story.** Naming any archive or organisation. A donation form or
+any way of sending material anywhere.
+
+### De5 · Say how stories are looked after
+
+**Workstream:** Design. **Status:** Ready
+
+**Goal.** One of the archivists' questions was how the project is moderated.
+The page says what the project has decided: memories are shown as memories,
+with their sources; when people disagree, every version stays visible with
+its own sources; and contributors choose what's public. None of that is built
+yet, so the copy describes how the project works. It doesn't present any of
+it as a live feature. Moderation isn't designed, so the copy promises nothing about it.
+
+**Done when** the passage is in the copy document, the sponsor has approved
+it, and it's on the page.
+
+**Not in this story.** Any claim about moderation, review or verification
+that the project hasn't decided. Scores, rankings or counts.
+
+### De6 · Say who runs the project
+
+**Workstream:** Design. **Status:** Ready
+
+**Goal.** The archivists' first questions weren't about the idea. They were
+about who is behind the project and what the sponsor's company is. The page
+answers that without anyone having to ask: who runs it, that it's free, and
+that nothing on it is sold.
+
+**Done when** the passage is in the copy document, the sponsor has approved
+it, and it's on the page. If the copy names the sponsor's company, the content
+test's allow-list gains that name on purpose, in the same pull request.
+
+**Not in this story.** Naming any university, course or person.
+
+### De7 · The components the map and a narrative page need
+
+**Workstream:** Design. **Status:** Ready
+
+**Goal.** Design the parts the next stories build from: a pin and a site in
+the list, a narrative page's header, a memory shown with its source, two
+versions of a detail shown side by side when people disagree, and a record
+shown with who brought it. Use the design tokens from De1, or start them if
+De1 hasn't yet.
+
+**Done when** each component has a design the team can build from, with its
+states (empty, loading, a long name, a disagreement), and the team has
+reviewed them. Anything the data can't support yet goes to the sponsor in the
+questions issue.
+
+**Not in this story.** Scores, rankings or counts.
+
+### De8 · Readable for an older reader
+
+**Workstream:** Design. **Status:** Ready
+
+**Goal.** The project expects many readers to be older and not technical.
+Check the landing page and the components from De7 against that reader: type
+size, contrast, how big things are to tap, and whether every label says what
+it does.
+
+**Done when** you've written down what you checked and changed, and one person
+from outside the team who is over sixty has tried the landing page while you
+watched.
+
+**Not in this story.** A full accessibility audit. The landing page's
+automated checks already cover the basics.
+
+### De9 · From the landing page to the full app
+
+**Workstream:** Design. **Status:** Later. Needs P6 and P7.
+
+**Goal.** Once the full app has a preview at its own address, the landing page
+has a way to get there, worded so nobody mistakes the preview for a finished
+app.
+
+**Done when** the link and its copy are approved by the sponsor and on the
+page.
+
+### De10 · Does the full app have a home page?
+
+**Workstream:** Design. **Status:** Ready
+
+**Goal.** Decide what someone sees first in the full app: a home page, or
+straight into the map. Say why, with the reader described in the landing page
+brief (in the questions issue) in mind.
+
+**Done when** the decision and the reason are in a one-page decision record,
+and the team has seen it.
 
 ---
 
