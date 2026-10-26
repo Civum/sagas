@@ -97,7 +97,7 @@ correct one.
 | Layer | Scope |
 |---|---|
 | **Experience** | The map and the reading experience: narrative page, component library, map, suggestion interface, and references (how a page shows what each claim rests on). Builds against the fixtures now, and later on the other layers' APIs, replacing their plain screens where polish matters. Heritage trails come later. Milestones and score dashboards are cut this semester. |
-| **Intelligence** | Claims and the graph they form: a plain screen for writing claims, scoring (weight and independence), sections and passages, exploration |
+| **Intelligence** | Claims and the graph they form: scoring (weight and independence), exploration, and later a plain screen for writing claims and the sections and passages a page shows |
 | **Content** | Records: media pipeline, record submission and the contributor's choices, transcription and translation by time window, moderation of records, and a plain screen for handing things over |
 | **Contracts & fixtures** | `packages/contracts`, `packages/fixtures`, maintained by the sponsor |
 

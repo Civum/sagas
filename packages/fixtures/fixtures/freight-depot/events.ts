@@ -8,7 +8,9 @@
  * and a collection of photographs handed over together.
  *
  * THIS CONTENT IS INVENTED. The depot, its address, every contributor and
- * every remembered event are made up to exercise the data model. It represents
+ * every remembered event are made up to exercise the data model. The
+ * coordinates are an approximate point downtown, chosen so the pin sits near
+ * the other fixture sites, and mark no real building. It represents
  * no real building, family or community. The French is simple sample text.
  *
  * Authored as an append-only log. States are derived, never authored. See

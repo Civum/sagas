@@ -62,24 +62,25 @@ it. This is the most useful field in the entry.
 - **A recording is published on submission.** `awaiting_transcript` is gone
   from `submissionState`.
 - **Scores take the scorer's shape.** `claimState.score` is a `claimScore`
-  (a score and its terms, for the claim and each detail), and each
+  (a score and the named parts it's made of, for the claim and each detail),
+  and each
   `detailStatus` has a `weight`. The fixtures fill them with an invented
   stand-in, `packages/fixtures/src/stand-in-score.ts`, which replaces
   `weight.ts`. `scoreTerm`, `detailScore` and `claimScore` now live in the
   contract, and `packages/fixtures/scoring` uses them.
 - **The old count-based scoring rules are gone** (`packages/fixtures/behaviour`
   and the `rules` script). The rules a scorer answers to are in
-  `packages/fixtures/scoring/rules.ts`, which gains two running rules: a claim's
-  relations count only once the window it cites is transcribed, and a translated
-  claim never scores lower than the same claim in English.
+  `packages/fixtures/scoring/rules.ts`, which gains two running rules: until the
+  window a claim cites is transcribed, the part of its score that comes from the
+  claim itself (its details and its relations to other claims) isn't counted;
+  and a translated claim never scores lower than the same claim in English.
 - **A new fixture, `freight-depot`,** replaces `example-site`. It carries the
   translation, rendering, transcript-by-window, link and collection cases, and
   stands for no real place or community. The corner shop's dispute now carries
   the directory page it cites as evidence.
 - **Open questions** each have a placeholder test, and `docs/DESIGN-QUESTIONS.md`
-  starts with a numbered index of every question and whose it is. Seven new
-  ones came in, including whether a passover can point at one detail, quarantine,
-  and requests.
+  starts with a numbered index of every question and whose it is. Eight
+  questions are new, numbered 30 to 37 in the index.
 
 **Why:** These shapes are about to be built against: record intake, the place
 page and the scorer. Some placeholder code also still showed an older approach
@@ -88,24 +89,38 @@ would cost more than changing them now.
 
 **You need to:**
 - *content layer* — store `choices` and `termsVersion` on every record and
-  refuse a record without them (the capture guidelines check both); accept a
-  record that is a `link` with no files; keep `collectionId`. The scaffold has
-  `apps/capture-api/migrations/010_record_choices.sql` and an updated worked
-  `POST /records` to compare against. Transcripts carry an optional `window`.
-  Your contributing screen shows `docs/TERMS.md` once per profile.
+  refuse a record without them; `packages/fixtures/capture/rules.ts` checks
+  both ("refuses a record without the contributor's choices, with a 400",
+  "refuses a record without the terms version, with a 400", and "keeps a
+  record's choices exactly as they were given"). Accept a record that
+  is a `link` with no files. Store and return `collectionId` when a record has
+  one. The scaffold has `apps/capture-api/migrations/010_record_choices.sql`
+  (run `pnpm --filter @sagas/capture-api migrate`) and an updated worked
+  `POST /records` to compare against. A recording is `published` on submission,
+  since `awaiting_transcript` is gone. Transcripts carry an optional `window`.
+  Your contributing screen shows the terms in `docs/TERMS.md` once per profile,
+  and again whenever the current version differs from the profile's
+  `termsAcceptedVersion`.
 - *experience layer* — order claims by `weight` as before; read
   `claimState.score` and each `detailStatus.weight` if you show which details a
   claim leans on (never as numbers to a reader). Records can be a `link` (no
   files), carry `choices`, and belong to a collection (`graphState.collections`).
   Claims may have a `sourceWindow`. `awaiting_transcript` no longer exists.
-  `freight-depot` replaces `example-site` in the fixtures, and the acceptance
-  cases moved with it. Your open-question placeholders are in
+  Every fixture record is public; a record whose `choices.public` isn't `yes`
+  isn't shown to readers. If your code or tests name `example-site` or one of
+  its ids (such as `cl-boarding`), point them at `freight-depot` (for example
+  `cl-fd-office`); the acceptance cases moved with it. Your open-question
+  placeholders are in
   `packages/fixtures/acceptance/open-questions.test.ts`.
 - *intelligence layer* — import the score shapes from `@sagas/contracts` if you
-  were using them from `packages/fixtures/scoring`; the names are the same. The
+  were using them from `packages/fixtures/scoring`. `detailScore` and
+  `claimScore` keep their names; `term` is `scoreTerm` in the contract
+  (`packages/fixtures/scoring` still exports `term` too). The
   graph's records can be `link`, records can list `transcribedWindows`, and
-  claims can have `sourceWindow` and `translated`. Two new rules run against
-  your scorer once you remove the `.skip`. `packages/fixtures/behaviour` is
+  claims can have `sourceWindow` and `translated`. When you remove the `.skip` in
+  `apps/graph-api/src/scorer.test.ts`, every rule runs, including two new ones;
+  the target for Wednesday is still the eight thin-frame tests in the guide.
+  `packages/fixtures/behaviour` is
   gone; if anything of yours imported it, switch to `packages/fixtures/scoring`.
 
 ---

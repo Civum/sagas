@@ -374,7 +374,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
       // Prompted by: "How does a link become evidence?" in
       // docs/DESIGN-QUESTIONS.md. Decided: a link's weight comes from its
       // metadata and from independent people relying on it, never from its
-      // domain. Waits on the contract giving links a shape. Open: whether a
+      // domain. Links are records in contract 2.4.0. Open: whether a
       // page's content is captured, and what an uncaptured link counts for.
       it.todo(
         "weighs a link by its metadata and by independent people relying on it, never by its domain",

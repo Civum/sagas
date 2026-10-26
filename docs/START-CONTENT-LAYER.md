@@ -213,7 +213,7 @@ different TypeScript from the one the build uses.
    first, and you can skip the rest. Claims and edges are written by the
    intelligence layer.
 4. `packages/fixtures/fixtures/freight-depot/events.ts`, eight example records.
-   This project treats them as the spec: code that handles all nine handles every case the fixtures know about.
+   This project treats them as the spec: code that handles all eight handles every case the fixtures know about.
 
 That's about an hour of reading. Everything else can wait until you need it.
 

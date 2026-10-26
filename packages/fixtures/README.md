@@ -84,9 +84,9 @@ Each state deliberately exercises something:
   years for the office were true (a reconciliation candidate), and the dispute
   still stands. A second photo joins the first in one collection. A 604MB video
   is still processing when the log ends, and an open report sits on the
-  recording saying a second voice on it never agreed. One contributor authors no
-  claims of their own and still does a lot: disputes, an objection to a
-  rendering, a report, and two "sounds right".
+  recording saying a second voice on it never agreed. One contributor writes no
+  claims except disputes and still does a lot: an objection to a rendering, a
+  report, and two "sounds right".
 
 Records run underneath all of it. Eight of them, deliberately unalike: written
 records with no files, two photographs handed over as one collection, a
@@ -260,10 +260,10 @@ pnpm inspect --state t1 cl-cs-shop               # the same claim earlier
 pnpm inspect --site freight-depot cl-fd-office   # a claim on another site
 ```
 
-It prints each claim's score as its terms, and each detail's score, in the
-shape the intelligence layer's scorer returns. The fixtures' scores come from
-an invented stand-in (`src/stand-in-score.ts`), so the numbers mean nothing.
-The terms show what a real score is made of.
+It prints each claim's score as the named parts it's made of, and each detail's
+score, in the shape the intelligence layer's scorer returns. The fixtures'
+scores come from an invented stand-in (`src/stand-in-score.ts`), so the numbers
+mean nothing. The parts show what a real score is made of.
 
 ## Boundaries
 

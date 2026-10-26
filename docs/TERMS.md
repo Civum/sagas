@@ -7,13 +7,6 @@ These are provisional terms for a small research pilot. They cover only the
 first few contributions. They will be replaced by reviewed terms before Sagas
 opens more widely, and you will be asked to agree to the new version.
 
-*For the teams:* this is the text a contributor agrees to. The contributing
-screen shows it, and every record stores the version it was made under
-(`termsVersion`, currently `provisional-0.1`). A profile stores the version it
-accepted (`termsAcceptedVersion`). The choices each record carries
-(`recordChoices` in the contract) are the ones described under "Your choices,
-record by record".
-
 ## Who runs Sagas
 
 Sagas is an open source project run by Civum, Inc. ("we"). It is a map of
@@ -38,7 +31,7 @@ takes over running it, permission to:
 - show your contribution alongside other people's claims about the same place;
 - let other people write claims about it, and transcribe or translate it, with
   their work credited to them;
-- analyse it to connect and order contributions on Sagas.
+- analyze it to connect and order contributions on Sagas.
 
 We will not sell your contributions or use them in other products, and we will
 not use them to train AI models. We will only send a contribution to an outside
@@ -50,10 +43,14 @@ Each thing you hand over keeps its own choices, and you can change them at any
 time:
 
 - whether the student teams building Sagas may see it and work with it;
-- whether it is public now, later (we'll ask you again), or never;
-- for a photo, what happens to the location it records: keep it, show only how
-  far it is from the place, or remove it. If you don't choose, we remove it;
-- whether it mentions other people, living or not.
+- whether it is public now, later (we'll ask you again before it's made
+  public), or never;
+- for a photo: a photo taken on a phone often records where it was taken. You
+  choose whether we keep that, show only how far it is from the place, or
+  remove it. If you don't choose, we remove it.
+
+You also tell us whether it mentions other people, living or not, so we can
+take care with it.
 
 ## What you confirm
 
@@ -79,9 +76,10 @@ clipping, may be kept with a note explaining its context.
 
 ## Taking something down
 
-You can take your own contribution out of public view at any time by changing
-its choices, or by emailing info@civum.io. You can also ask us to delete it, by
-emailing the same address.
+You can take your own contribution out of public view at any time by emailing
+info@civum.io, and once Sagas lets you change a record's choices yourself, you
+can do it there too. You can also ask us to delete it, by emailing the same
+address.
 
 Anyone can report a contribution they think breaks these terms, or that uses
 their own words, image or recording without permission, by emailing
@@ -90,8 +88,8 @@ info@civum.io. We may hide a reported contribution while we look at it.
 ## What we keep about you
 
 A profile is a way back to your own contributions. It doesn't need your name.
-We keep what you contribute, the choices you made for it, and when. We don't
-track you across other sites, and we don't sell anything about you.
+We keep what you contribute and the choices you made for it. We don't track you
+across other sites, and we don't sell anything about you.
 
 ## No guarantees
 

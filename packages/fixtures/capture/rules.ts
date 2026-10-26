@@ -124,6 +124,12 @@ export function runCaptureRules(name: string, base: string): void {
         expect(res.status).toBe(400);
       });
 
+      it("refuses a record without the terms version, with a 400", async () => {
+        const { termsVersion: _terms, ...body } = arriving();
+        const res = await post(base, body);
+        expect(res.status).toBe(400);
+      });
+
       it("keeps a record's choices exactly as they were given", async () => {
         const body = arriving();
         const stored = (await (await post(base, body)).json()) as {
@@ -220,7 +226,7 @@ export function runCaptureRules(name: string, base: string): void {
       // Prompted by: "What does a collection carry?" in
       // docs/DESIGN-QUESTIONS.md. Decided: records one profile hands over
       // together stay together as a collection, attributed to the profile
-      // and never to a named person. Not in the contract yet. Open: what a
+      // and never to a named person. In contract 2.4.0. Open: what a
       // collection carries beyond that (who gathered the records, why they
       // were kept), and whether a record can join one later.
       it.todo(

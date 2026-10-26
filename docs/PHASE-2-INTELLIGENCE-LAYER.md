@@ -24,11 +24,12 @@ turn it into your own structures, keep your own tables, or work out extra
 things from it before you score. The rules only fix what goes in and what
 comes out. What happens in between is your design.
 
-**Fixed, and yours.** A few things are fixed for every scorer, and the rest is
-your design. These are fixed:
+A few things are fixed for every scorer:
 
 - claims and details, and the graph of what each claim targets, are the input;
-- weight comes from evidence and independent support, never from volume;
+- weight comes mostly from evidence and independent support. Agreement adds
+  almost nothing and never counts as support, so a crowd can't outweigh one
+  independent record;
 - a disputed detail is never shown as settled;
 - a claim never scores lower for being translated, or for where its
   contributor lives;
@@ -37,13 +38,12 @@ your design. These are fixed:
 Everything else is yours: whether a conversation becomes its own thing, how
 similarity works, which behaviour counts and how much, the arithmetic of a
 score, and how special words like dates and places get noticed. If something on
-the fixed list looks wrong, say so in a meeting. A nod in passing doesn't change
-it.
+the fixed list looks wrong, say so in a meeting.
 
 The first milestone is a thin frame: `similarity` working, and a first
 `score` that runs on the example graph. In the rules, that's the three tests
 under "what comes back" and the five under "similarity between details". The
-rest can fail for now. I'll send the date by email. Expect
+rest can fail for now. The date is Wednesday 28 October. Expect
 the first week to go mostly to getting set up and finding your way around,
 which is normal for a first build.
 
@@ -433,9 +433,7 @@ evidence.
 
 ## Where the model is going
 
-### Decided, and coming to the shared contract
-
-Contract 2.4.0 added three things your scorer can use now:
+### Decided, and in contract 2.4.0
 
 - **Weight lives on details,** as well as on whole claims. Your result already
   scores each detail (`claimScore` is now the contract's own shape).
@@ -446,7 +444,9 @@ Contract 2.4.0 added three things your scorer can use now:
 - **Links are records.** A web page is evidence like any other record, weighed
   by independent people relying on it, never by its domain.
 
-These are decided and not in the contract yet. Build toward them.
+### Decided, and not in the contract yet
+
+Build toward these.
 
 - **Resolution is its own kind of edge,** beside dispute and extension: a
   claim that reconciles a disagreement, with weight like any other claim, and
@@ -477,8 +477,6 @@ named by their heading there.
   rules.
 - **Which behaviour shows competence:** what a profile's track record should
   be made of. Also a placeholder in the rules, with ideas to test.
-- **Which terms depend on what a record says,** so you know what an
-  untranscribed recording can't contribute.
 - **How passovers arrive.** Today they come in the graph with everything
   else. They're frequent and light, so they may fit better as a stream to
   their own endpoint that keeps running totals, with scoring reading the

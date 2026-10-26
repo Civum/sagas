@@ -143,7 +143,7 @@ pnpm inspect --site freight-depot cl-fd-office
 
 That is the whole setup for now. The test command runs the scoring rules
 against your scorer and prints a focus summary at the end. `pnpm inspect`
-prints one claim from the fixtures with its inputs beside its outputs.
+prints one claim from the fixtures with the named parts of its score.
 
 ## The database, when you need it
 

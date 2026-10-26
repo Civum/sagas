@@ -9,9 +9,10 @@ The three layers:
 - **The content layer** takes records in: what people hand over, their files,
   the transcripts and translations of them, and the contributor's choices for
   each one. It has a plain screen for handing things over.
-- **The intelligence layer** owns claims: a plain screen for writing them, the
-  graph they form, and the scoring that works out weight, independence and what
-  needs attention. It also composes the sections and passages a page shows.
+- **The intelligence layer** owns claims: the graph they form, and the scoring
+  that works out weight, independence and what needs attention. Later it adds a
+  plain screen for writing claims, and composes the sections and passages a page
+  shows.
 - **The experience layer** builds the map and the reading experience: what a
   reader sees, and what they are pointed at next. Later it replaces the plain
   screens where polish matters.
@@ -124,8 +125,8 @@ The intelligence layer's main focus is claims. From the graph it can see:
 - The owner detail has an extension from a different contributor.
 - The two `sounds_right` passovers are agreement. Agreement is never
   independent evidence.
-- If the audio clip's claim cited a stretch of a longer recording, the part of
-  its weight that depends on what it says would wait until that stretch had a
+- If the audio clip's claim cited a window of a longer recording, the part of
+  its score that comes from the claim itself would wait until that window had a
   transcript.
 - The photograph is the source record of the conversation, so both claims in it
   rely on it. The audio clip is evidence for one claim. A record's only score is
@@ -134,7 +135,7 @@ The intelligence layer's main focus is claims. From the graph it can see:
   doorway?", has an answer, and the other, the year, is in dispute.
 
 From that it works out a **score** for each claim and each detail, made of
-named terms, which decides the order on the page, and what needs attention,
+named parts, which decides the order on the page, and what needs attention,
 which decides what gets suggested. Neither is ever shown to a person as a
 number.
 

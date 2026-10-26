@@ -19,9 +19,10 @@ going to change.
 Parts 1 to 3 are sorted by how much conversation an answer needs. Part 4 holds
 questions that are not for this project to answer at all, and says why.
 
-**Every question, numbered, by team.**
+### Index of questions, with the team each belongs to
 
-The number is the question's place in this file. Each open question in parts 1
+The number is the question's place in this file, so it can change when a
+question is added or closed. Cite a question by its title, which doesn't. Each open question in parts 1
 to 3 has a placeholder test, in the rules of the team it belongs to, that names
 it: `packages/fixtures/scoring/rules.ts` for the intelligence layer,
 `packages/fixtures/capture/rules.ts` for the content layer, and
@@ -344,13 +345,12 @@ metadata. It tells you who published a page and nothing about whether the
 page supports the claim, so a tier list of domains isn't how links are
 weighed.
 
-**The open part:** the shape, either a new record kind or a field on a
-record, and whether the page's content gets captured when a link is added. A
-captured copy would survive the page changing or disappearing, and it would
-let the content of the page count toward a score. Until a page is captured,
-one suggestion is to treat the link like a recording nobody has transcribed
-yet: it counts for what's known about it and nothing for what it says.
-Capturing would happen where records come in. What a site's terms of use
+**The open part:** whether the page's content gets captured when a link is
+added. A captured copy would survive the page changing or disappearing, and it
+would let the content of the page count toward a score. Until a page is
+captured, one suggestion is to treat the link like a recording nobody has
+transcribed yet: it counts for what's known about it and nothing for what it
+says. Capturing would happen where records come in. What a site's terms of use
 allow you to store is also unknown.
 
 ## What does a collection carry?
@@ -822,10 +822,10 @@ Somebody who agrees with the first half of a claim and not the second has no
 way to say so: a "sounds right" covers the whole claim. Disputes and
 extensions already point at details, so passovers are the odd one out.
 
-One proposal: a passover on the whole claim covers every detail, and a reader
-can mark one detail differently ("sounds right, except this"), which overrides
-the whole-claim mark for that detail. Put the controls after the claim, so
-people read all of it before reacting.
+One proposal is that a passover on the whole claim would cover every detail,
+and a reader could mark one detail differently ("sounds right, except this"),
+overriding the whole-claim mark for that detail. The controls would sit after
+the claim, so people read all of it before reacting.
 
 **Open:** whether to do it, and whether a detail-level passover feeds weight on
 that detail or only routing.
@@ -836,11 +836,12 @@ A supporting record (evidence, a transcript, a translation) can stop holding
 up: questions about it go unanswered, the work it depended on fails, or a
 person reports it for breaking the terms.
 
-One proposal is a lock: no new references to the record, while existing links
-stay visible and marked as locked, and claims that relied on it lose that
-support with the trail kept. Two tracks stay separate. Quality could lock and
-unlock automatically. Breaking the terms goes through moderation, with a person
-deciding, and support from the crowd can't undo it. A locked record still exists
+One proposal is a lock: no new references to the record, while existing
+references would stay visible and marked as locked, and claims that relied on
+it would lose that support with the trail kept. The proposal keeps two tracks
+separate. Quality could lock and unlock automatically. Breaking the terms would
+go through moderation, with a person deciding, and support from the crowd
+couldn't undo it. A locked record still exists
 and stays visible, so "a record has no exit" still holds.
 
 **Open:** whether to have a lock at all, what the threshold would be, and how
@@ -848,11 +849,11 @@ the two tracks are kept apart so moderation never becomes a vote.
 
 ## How are machine-made drafts treated?
 
-A machine transcript or translation is a draft with a name on it. One proposal:
-machine output is a supporting record like any other, credited to a system
-profile that names the model and its version, so an error traces to a version,
-and a bad version can be marked down everywhere it produced output. A machine
-may propose; a person confirms.
+The proposal is that a machine transcript or translation would be a draft with
+a name on it: a supporting record like any other, credited to a system profile
+that names the model and its version. An error would trace to a version, and a
+bad version could be marked down everywhere it produced output. A machine would
+propose, and a person would confirm.
 
 **Open:** the shape of a system profile, and how marking down a version affects
 the claims that relied on its output.
@@ -862,8 +863,8 @@ the claims that relied on its output.
 People will ask for things: a question, a source, a better source, a
 transcription of one window, a translation, a check of a link. One proposal is
 a single request object with a type and a direction: inward (asking
-contributors to work on a claim or record) or outward (to someone outside the
-thread). A claim citing a window with no transcript would open a transcription
+contributors to work on a claim or record) or outward (to someone who isn't part
+of the conversation about that record). A claim citing a window with no transcript would open a transcription
 request for that window automatically.
 
 **Open:** the types, whether an open request should put the target's weight at
@@ -886,19 +887,19 @@ take before it becomes a quiet way of burying something.
 
 How much a record counts as evidence depends on what kind of record it is and
 on the claim it's attached to: a dated photograph backing a year counts for
-more than a typed paragraph backing the same year. The model says that weight
-sits on the link between a claim and its evidence, rather than on the record
-itself.
+more than a typed paragraph backing the same year. This project has decided
+that weight sits on the evidence edge (the connection between a claim and its
+evidence), rather than on the record itself.
 
-**Open:** whether that weight is stored on the link or worked out each time,
-and what the link records beyond the two ends.
+**Open:** whether that weight is stored on the edge or worked out each time,
+and what the edge records beyond the two ends.
 
 ## Can someone dispute that two records are independent?
 
 Independence counts records. Two records can look independent and not be: two
 cousins' recordings of the same story told once, or the same photograph scanned
-twice by two people. The model says anyone can dispute that two records
-are independent, with reasoning and evidence, like any other dispute.
+twice by two people. This project has decided that anyone can dispute that two
+records are independent, with reasoning and evidence, like any other dispute.
 
 **Open:** the shape of that dispute (today a dispute can only target a detail
 of a claim), and what an upheld one does to the claims counting both records.
