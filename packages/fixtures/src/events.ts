@@ -9,8 +9,9 @@
 import type {
   CapturedLocation, ClaimDetail, ContributorId, ClaimId, DetailId, EventId,
   FlagId, FlagReason, LanguageCode, MediaDerivative, MediaId, MediaKind,
-  PassoverKind, ProcessingState, RecordId, SiteId, SourceType, SubmissionState,
-  TranscriptId, TranscriptMethod, TranslationId,
+  LinkSource, PassoverKind, ProcessingState, RecordChoices, RecordId, SiteId,
+  SourceType, SubmissionState, TimeWindow, TranscriptId, TranscriptMethod,
+  TranslationId,
 } from '@sagas/contracts';
 
 /** Every contribution has an id, a time, and someone who made it. */
@@ -57,6 +58,8 @@ export interface ClaimSubmitted extends BaseEvent {
   sourceLanguageText?: string;
   /** True when submitted in a language other than English with no rendering yet. */
   awaitingTranslation?: boolean;
+  /** The part of a recording the claim comes from. */
+  sourceWindow?: TimeWindow;
   details: ClaimDetail[];
   sourceType: SourceType;
 }
@@ -74,6 +77,7 @@ export interface ClaimExtended extends BaseEvent {
   text: string;
   sourceLanguage: LanguageCode;
   sourceLanguageText?: string;
+  sourceWindow?: TimeWindow;
   details: ClaimDetail[];
   sourceType: SourceType;
 }
@@ -160,6 +164,15 @@ export interface RecordSubmitted extends BaseEvent {
   capturedAt?: string;
   capturedLocation?: CapturedLocation;
   media?: MediaDescriptor[];
+  /** Set when the record is a web page. */
+  link?: LinkSource;
+  /** The collection it was handed over in, and the contributor's note on it. */
+  collectionId?: string;
+  collectionNote?: string;
+  /** Defaults to the fixtures' invented choices: everything shared. */
+  choices?: RecordChoices;
+  /** Defaults to the fixtures' invented terms version. */
+  termsVersion?: string;
   /** Defaults to 'submitted'. */
   submission?: SubmissionState;
 }
@@ -192,6 +205,8 @@ export interface TranscriptSubmitted extends BaseEvent {
   language: LanguageCode;
   text: string;
   method: TranscriptMethod;
+  /** The part of the recording it covers. Omitted means all of it. */
+  window?: TimeWindow;
   submission?: SubmissionState;
 }
 

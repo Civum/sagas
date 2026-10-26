@@ -1,9 +1,10 @@
 /**
  * One record is one artifact (contract 2.2.0). These pin the rules a record
- * follows, and the shape a record has when it arrives without an id.
+ * follows, the shape a record has when it arrives without an id, and the
+ * choices and links added in 2.4.0.
  */
 import { describe, expect, it } from 'vitest';
-import { newSourceRecord, sourceRecord } from '@sagas/contracts';
+import { claim, collection, newSourceRecord, sourceRecord, timeWindow } from '@sagas/contracts';
 import type { MediaRef } from '@sagas/contracts';
 
 const written = {
@@ -13,6 +14,14 @@ const written = {
   text: 'My great-grandmother cooked in the boarding house kitchen.',
   submission: 'submitted' as const,
   media: [] as MediaRef[],
+  choices: {
+    rightToShare: true as const,
+    studentAccess: false,
+    public: 'later' as const,
+    location: 'remove' as const,
+    mentionsPeople: 'not_sure' as const,
+  },
+  termsVersion: 'provisional-0.1',
   createdAt: '2026-10-16T16:00:00Z',
 };
 
@@ -60,5 +69,54 @@ describe('a record as it arrives', () => {
   it('follows the same rules as a stored record', () => {
     const { id: _id, ...arriving } = written;
     expect(newSourceRecord.safeParse({ ...arriving, text: undefined }).success).toBe(false);
+  });
+});
+
+describe('choices and terms (2.4.0)', () => {
+  it('needs the contributor\'s choices and the terms version', () => {
+    const { choices: _c, ...noChoices } = written;
+    expect(sourceRecord.safeParse(noChoices).success).toBe(false);
+    const { termsVersion: _t, ...noTerms } = written;
+    expect(sourceRecord.safeParse(noTerms).success).toBe(false);
+  });
+
+  it('needs the right to share', () => {
+    const notTheirs = { ...written, choices: { ...written.choices, rightToShare: false } };
+    expect(sourceRecord.safeParse(notTheirs).success).toBe(false);
+  });
+});
+
+describe('a link is a record (2.4.0)', () => {
+  const page = { ...written, text: undefined, note: 'A newspaper notice.', link: { url: 'https://example.org/notice' } };
+
+  it('accepts a web page with no files', () => {
+    expect(sourceRecord.safeParse(page).success).toBe(true);
+  });
+
+  it('refuses a link with files, since a page is its own record', () => {
+    expect(sourceRecord.safeParse({ ...page, media: [file('p1', 'image')] }).success).toBe(false);
+  });
+
+  it('refuses an address that is not a URL', () => {
+    expect(sourceRecord.safeParse({ ...page, link: { url: 'not a url' } }).success).toBe(false);
+  });
+});
+
+describe('time windows and collections (2.4.0)', () => {
+  it('a window has to start before it ends', () => {
+    expect(timeWindow.safeParse({ start: 18, end: 70 }).success).toBe(true);
+    expect(timeWindow.safeParse({ start: 70, end: 18 }).success).toBe(false);
+  });
+
+  it('a claim can cite a window of its source', () => {
+    const shape = claim.shape.sourceWindow;
+    expect(shape.safeParse({ start: 2100, end: 2230 }).success).toBe(true);
+    expect(shape.safeParse(undefined).success).toBe(true);
+  });
+
+  it('a collection holds at least one record and belongs to a profile', () => {
+    const base = { id: 'col-1', contributorId: 'guest-abc', createdAt: '2026-10-16T16:00:00Z' };
+    expect(collection.safeParse({ ...base, recordIds: ['rec-1', 'rec-2'] }).success).toBe(true);
+    expect(collection.safeParse({ ...base, recordIds: [] }).success).toBe(false);
   });
 });

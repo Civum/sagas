@@ -24,7 +24,7 @@
  *   - An extension landing on one detail. "Mr. Ferris was my uncle" adds to
  *     the owner detail (t2).
  *   - A dispute as a claim of its own, in the same conversation as the claim
- *     it disputes (t2).
+ *     it disputes, carrying the directory page it cites as evidence (t2).
  *   - Two unrelated branches asserting the same detail (t3). A second person,
  *     with a different photograph in a different conversation, also names
  *     Mr. Ferris as the owner. Nothing links the two yet. Matching them is an
@@ -34,10 +34,6 @@
  *
  *   - The question prompts the contributor would attach to the photograph
  *     ("does anyone know the year?"). They are a proposal, not in the contract.
- *   - The dispute carrying the directory scan as evidence. Since 2.3.0 a
- *     dispute is a claim and could hold it, but this log hasn't been changed
- *     to attach it. The scan is a record at the site, and the dispute's
- *     reasoning cites it.
  *
  * Authored as an append-only log. States are derived, never authored. See
  * ../../src/reduce.ts.
@@ -170,8 +166,10 @@ export const events: ContributionEvent[] = [
     id: 'cs-010', at: '2026-04-06T18:20:00Z', actorId: 'c-owen',
     kind: 'claim_disputed',
     edgeId: 'dsp-cs-year',
-    // A dispute is a claim of its own (contract 2.3.0).
+    // A dispute is a claim of its own, so it can carry evidence like any claim:
+    // here, the directory page its reasoning cites.
     claimId: 'cl-dsp-cs-year',
+    evidenceRecordIds: ['rec-cs-directory'],
     targetClaimId: 'cl-cs-shop',
     targetDetailId: 'dt-cs-year',
     reasoning: "It can't be 1950. The awning in the photo went up in 1956. The directory page I uploaded shows the change.",

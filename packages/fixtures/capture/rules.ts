@@ -26,6 +26,16 @@ const arriving = () => ({
   language: "en",
   submission: "submitted",
   media: [],
+  // What the contributor chose for this record, and the terms it was made
+  // under (contract 2.4.0). Private unless they say otherwise.
+  choices: {
+    rightToShare: true,
+    studentAccess: false,
+    public: "later",
+    location: "remove",
+    mentionsPeople: "not_sure",
+  },
+  termsVersion: "provisional-0.1",
   createdAt: new Date().toISOString(),
 });
 
@@ -101,6 +111,39 @@ export function runCaptureRules(name: string, base: string): void {
           media: [file("image", "m1"), file("audio", "m2")],
         });
         expect(res.status).toBe(400);
+      });
+    });
+
+    describe("choices and links", () => {
+      // Prompted by: contract 2.4.0. Every record keeps what its contributor
+      // chose for it (who may see it, whether it's public, what happens to a
+      // photo's location) and the terms version it was made under.
+      it("refuses a record without the contributor's choices, with a 400", async () => {
+        const { choices: _choices, ...body } = arriving();
+        const res = await post(base, body);
+        expect(res.status).toBe(400);
+      });
+
+      it("keeps a record's choices exactly as they were given", async () => {
+        const body = arriving();
+        const stored = (await (await post(base, body)).json()) as {
+          choices?: unknown;
+          termsVersion?: string;
+        };
+        expect(stored.choices).toEqual(body.choices);
+        expect(stored.termsVersion).toBe(body.termsVersion);
+      });
+
+      // Prompted by: "How does a link become evidence?" in
+      // docs/DESIGN-QUESTIONS.md. A web page is a record of its own.
+      it("accepts a web page as a record with no files", async () => {
+        const res = await post(base, {
+          ...arriving(),
+          text: undefined,
+          note: "A newspaper notice about the place.",
+          link: { url: "https://example.org/notice" },
+        });
+        expect(res.status).toBe(201);
       });
     });
 
@@ -182,6 +225,14 @@ export function runCaptureRules(name: string, base: string): void {
       // were kept), and whether a record can join one later.
       it.todo(
         "keeps the records one profile hands over together as one collection",
+      );
+
+      // Prompted by: "How does someone reach a contributor without knowing
+      // who they are?" in docs/DESIGN-QUESTIONS.md. Profiles are anonymous
+      // first; identity is exchanged off the platform. Open: how a request
+      // reaches the contributor, and how it's kept from being misused.
+      it.todo(
+        "passes a request to reach a contributor without revealing who they are",
       );
     });
   });

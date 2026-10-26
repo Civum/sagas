@@ -325,12 +325,51 @@ export function runScoringRules(name: string, scorer: Scorer): void {
         "a photo or document as evidence counts for more than a typed paragraph",
       );
 
-      // Prompted by: the decision that an untranscribed recording contributes
-      // nothing to terms that depend on what it says. Which terms those are is
-      // yours to decide, so this waits for your design.
-      it.todo(
-        "a claim citing an untranscribed recording gets nothing from terms about what it says",
-      );
+      // Prompted by: "Recordings are cited and rendered by time window"
+      // (decided 25 October). Until the window a claim cites has a transcript,
+      // the part of its score that comes from the claim itself (its details and
+      // its relations to other claims) isn't counted. Evidence and behaviour
+      // still are.
+      it("counts a claim's relations only once the window it cites is transcribed", () => {
+        const withWindow = (transcribed: boolean) =>
+          graph()
+            .record("rec", {
+              by: "pA",
+              kind: "audio",
+              transcribedWindows: transcribed ? [{ start: 0, end: 120 }] : [],
+            })
+            .claim("A", {
+              by: "pA",
+              source: "rec",
+              window: { start: 18, end: 70 },
+              details: { year: "1931" },
+            })
+            .record("rB", { by: "pB" })
+            .claim("B", { by: "pB", source: "rB", details: { who: "the first clerk" } })
+            .extend("B", "A", "year")
+            .build();
+        expect(
+          claimScore(score(withWindow(false)), "A"),
+          "an extension counted before anyone could read what the claim says",
+        ).toBeLessThan(claimScore(score(withWindow(true)), "A"));
+      });
+
+      // Prompted by: "no lower score for language or distance" (sponsor, 19
+      // October). Many of the people this project is for moved away, or have
+      // family history in another language. There's no field for where a
+      // contributor lives, so distance can't lower a score; this checks
+      // translation.
+      it("never scores a translated claim lower than the same claim given in English", () => {
+        const g = (translated: boolean) =>
+          base()
+            .record("r2", { by: "p2" })
+            .claim("B", { by: "p2", source: "r2", details: { year: "1950" }, translated })
+            .extend("B", "A", "year")
+            .build();
+        expect(claimScore(score(g(true)), "B")).toBeGreaterThanOrEqual(
+          claimScore(score(g(false)), "B"),
+        );
+      });
 
       // Prompted by: "How does a link become evidence?" in
       // docs/DESIGN-QUESTIONS.md. Decided: a link's weight comes from its

@@ -9,12 +9,22 @@
 
 import type { ContributionEvent } from './events';
 import type {
-  Claim, ClaimState, Contributor, DisputeEdge, DetailStatus,
+  Claim, ClaimState, Collection, Contributor, DisputeEdge, DetailStatus,
   ContributorStanding, EventId, ExtensionEdge, Flag, GraphState, IntegrityScore,
-  MediaRef, Passover, PassoverKind, Site, SourceRecord,
+  MediaRef, Passover, PassoverKind, RecordChoices, Site, SourceRecord,
   Transcript, Translation, TranslationDispute,
 } from '@sagas/contracts';
-import { classifyConfidence, computeWeight } from './weight';
+import { classifyConfidence, standInScore } from './stand-in-score';
+
+/**
+ * Every fixture contributor and record is invented, so the fixtures default to
+ * the choices that let every screen show everything. Real records default the
+ * other way: private unless the contributor says yes.
+ */
+const FIXTURE_CHOICES: RecordChoices = {
+  rightToShare: true, studentAccess: true, public: 'yes', location: 'keep', mentionsPeople: 'not_sure',
+};
+const FIXTURE_TERMS_VERSION = 'fixture-terms-0.1';
 import type { SiteNarrative } from './narrative';
 
 interface Accumulator {
@@ -27,6 +37,7 @@ interface Accumulator {
   translations: Translation[];
   translationDisputes: TranslationDispute[];
   records: Map<string, SourceRecord>;
+  collections: Map<string, Collection>;
   transcripts: Transcript[];
   flags: Flag[];
   applied: EventId[];
@@ -36,7 +47,7 @@ function empty(): Accumulator {
   return {
     contributors: new Map(), claims: new Map(), disputes: [], extensions: [],
     passovers: [], translations: [],
-    translationDisputes: [], records: new Map(), transcripts: [], flags: [],
+    translationDisputes: [], records: new Map(), collections: new Map(), transcripts: [], flags: [],
     applied: [],
   };
 }
@@ -67,8 +78,8 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
         id: ev.claimId, siteId: ev.siteId, contributorId: ev.actorId,
         sourceRecordId: ev.sourceRecordId, evidenceRecordIds: ev.evidenceRecordIds ?? [],
         text: ev.text, sourceLanguage: ev.sourceLanguage,
-        sourceLanguageText: ev.sourceLanguageText, details: ev.details,
-        sourceType: ev.sourceType,
+        sourceLanguageText: ev.sourceLanguageText, sourceWindow: ev.sourceWindow,
+        details: ev.details, sourceType: ev.sourceType,
         createdAt: ev.at, awaitingTranslation: ev.awaitingTranslation ?? false,
       });
       return;
@@ -78,8 +89,8 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
         id: ev.claimId, siteId: ev.siteId, contributorId: ev.actorId,
         sourceRecordId: ev.sourceRecordId, evidenceRecordIds: ev.evidenceRecordIds ?? [],
         text: ev.text, sourceLanguage: ev.sourceLanguage,
-        sourceLanguageText: ev.sourceLanguageText, details: ev.details,
-        sourceType: ev.sourceType,
+        sourceLanguageText: ev.sourceLanguageText, sourceWindow: ev.sourceWindow,
+        details: ev.details, sourceType: ev.sourceType,
         createdAt: ev.at, parentClaimId: ev.parentClaimId,
         awaitingTranslation: false,
       });
@@ -160,8 +171,24 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
         id: ev.recordId, siteId: ev.siteId, contributorId: ev.actorId,
         note: ev.note, text: ev.text, language: ev.language,
         capturedAt: ev.capturedAt, capturedLocation: ev.capturedLocation,
-        submission: ev.submission ?? 'submitted', media, createdAt: ev.at,
+        submission: ev.submission ?? 'submitted', media, link: ev.link,
+        collectionId: ev.collectionId,
+        choices: ev.choices ?? FIXTURE_CHOICES,
+        termsVersion: ev.termsVersion ?? FIXTURE_TERMS_VERSION,
+        createdAt: ev.at,
       });
+      if (ev.collectionId) {
+        const existing = acc.collections.get(ev.collectionId);
+        if (existing) {
+          existing.recordIds.push(ev.recordId);
+          if (ev.collectionNote && !existing.note) existing.note = ev.collectionNote;
+        } else {
+          acc.collections.set(ev.collectionId, {
+            id: ev.collectionId, contributorId: ev.actorId, recordIds: [ev.recordId],
+            note: ev.collectionNote, createdAt: ev.at,
+          });
+        }
+      }
       return;
     }
 
@@ -183,7 +210,8 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
     case 'transcript_submitted': {
       acc.transcripts.push({
         id: ev.transcriptId, recordId: ev.recordId, contributorId: ev.actorId,
-        language: ev.language, text: ev.text, method: ev.method, createdAt: ev.at,
+        language: ev.language, text: ev.text, method: ev.method,
+        window: ev.window, createdAt: ev.at,
       });
       const rec = acc.records.get(ev.recordId);
       if (rec && ev.submission) rec.submission = ev.submission;
@@ -272,33 +300,22 @@ function buildClaimState(
       // Nothing is marked accepted and nothing is hidden.
       ;
     const detailExtensions = extensionEdges.filter((e) => e.targetDetailId === detail.id);
-    return { detail, disputes: detailDisputes, extensions: detailExtensions, competingValues };
+    return { detail, disputes: detailDisputes, extensions: detailExtensions, competingValues, weight: 0 };
   });
 
-  const extensionClaims = extensions
-    .map((id) => acc.claims.get(id))
-    .filter((c): c is Claim => c !== undefined);
-  const sourceTypeDiversity = new Set([claim.sourceType, ...extensionClaims.map((c) => c.sourceType)]).size;
-
-  const weight = computeWeight({
-    sourceType: claim.sourceType,
-    independentRecordCount,
-    affirmationCount: passover.sounds_right,
-    extensionCount: extensions.length,
-    disputeCount: disputes.length,
-    sourceTypeDiversity,
-    awaitingTranslation: claim.awaitingTranslation,
+  const score = standInScore({
+    claim, sourceRecord, transcripts: acc.transcripts, disputes,
+    extensions: extensionEdges, independentRecordCount, soundsRight: passover.sounds_right,
   });
+  for (const ds of detailStatuses) {
+    ds.weight = score.details.find((d) => d.detailId === ds.detail.id)?.score ?? 0;
+  }
 
   return {
     claim, contributor, sourceRecord, evidenceRecords, translations, translationDisputes,
     independentRecordCount, extensions, passover, detailStatuses,
-    weight,
-    confidence: classifyConfidence({
-      independentRecordCount,
-      disputeCount: disputes.length,
-      awaitingTranslation: claim.awaitingTranslation,
-    }),
+    score, weight: score.score,
+    confidence: classifyConfidence({ independentRecordCount, disputeCount: disputes.length }),
   };
 }
 
@@ -371,7 +388,7 @@ function buildIntegrity(claimStates: ClaimState[], acc: Accumulator): IntegrityS
     overall: 0,
   };
 
-  // Placeholder rollup for map marker encoding only. The intelligence layer replaces this.
+  // Placeholder rollup for map marker styling only, never shown as a number.
   score.overall = Math.min(100, Math.round(
     Math.min(score.totalClaims, 12) * 3 +
     Math.min(score.independentContributors, 6) * 6 +
@@ -410,6 +427,7 @@ export function reduceToState(
     claims: claimStates,
     contributors: [...acc.contributors.values()],
     records: [...acc.records.values()],
+    collections: [...acc.collections.values()],
     standings: buildStandings(claimStates, acc),
     transcripts: acc.transcripts,
     flags: acc.flags,

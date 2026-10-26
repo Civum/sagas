@@ -1,15 +1,11 @@
 /**
  * What a scorer reads and what it returns.
  *
- * This replaces the list of counts in `../behaviour/scoring-contract.ts`. A
- * count can't say which detail a dispute landed on, whether two claims came
- * from the same record, or who brought what, and those are most of what
- * scoring is about. So the scorer reads the graph itself.
- *
- * It lives here, ahead of the shared contract, on purpose. Two shapes in it
- * are decided and not yet in `@sagas/contracts`: a dispute is a claim with its
- * own text and source record, and an extension targets a detail. The contract
- * catches up in a later release. Build against this.
+ * A list of counts can't say which detail a dispute landed on, whether two
+ * claims came from the same record, or who brought what, and those are most
+ * of what scoring is about. So the scorer reads the graph itself. The shapes
+ * it returns (`claimScore` and its terms) come from `@sagas/contracts`, so the
+ * experience layer renders exactly what a scorer produces.
  *
  * This is the input the intelligence layer can expect to have. How it plugs
  * into a scorer (your own structures, your own tables, things worked out from
@@ -17,6 +13,7 @@
  * comes out.
  */
 import { z } from "zod";
+import { claimScore, detailScore, scoreTerm } from "@sagas/contracts";
 
 const timestamp = z.string().datetime();
 
@@ -24,13 +21,21 @@ const timestamp = z.string().datetime();
 export const recordNode = z.object({
   id: z.string(),
   contributorId: z.string(),
-  kind: z.enum(["audio", "video", "image", "document", "text"]),
+  kind: z.enum(["audio", "video", "image", "document", "text", "link"]),
   createdAt: timestamp,
   /**
    * Audio and video only. False means nobody can read its subject matter yet,
    * so nothing that depends on what it says can come from it.
    */
   transcribed: z.boolean().optional(),
+  /**
+   * Audio and video only: the stretches that have a transcript, in seconds.
+   * A claim citing a window that isn't covered gets nothing yet from the
+   * part of its score that depends on what it says.
+   */
+  transcribedWindows: z
+    .array(z.object({ start: z.number(), end: z.number() }))
+    .optional(),
   /** The same file handed over twice has the same hash. */
   contentHash: z.string().optional(),
   /**
@@ -59,6 +64,14 @@ export const claimNode = z.object({
   text: z.string(),
   /** The record this claim was read out of. */
   sourceRecordId: z.string(),
+  /** The part of a recording the claim comes from, in seconds. Empty means all of it. */
+  sourceWindow: z.object({ start: z.number(), end: z.number() }).optional(),
+  /**
+   * True when the claim was given in another language and rendered. It must
+   * never lower a score; the rules check that. There's no field for where a
+   * contributor lives, so distance can't lower a score either.
+   */
+  translated: z.boolean().optional(),
   details: z.array(detail),
   /**
    * Records attached to back the claim up. `detailId` is optional because
@@ -134,36 +147,11 @@ export type ScoringGraph = z.infer<typeof scoringGraph>;
 /* What comes back                                                      */
 /* ------------------------------------------------------------------ */
 
-/**
- * One ingredient of a score. You name your terms. The rules only read the
- * family and the value. Behaviour is what a profile has done; content is what
- * the claim and its records carry.
- */
-export const term = z.object({
-  family: z.enum(["content", "behaviour"]),
-  name: z.string(),
-  value: z.number(),
-});
+/** The score shapes are the contract's, so a scorer and a page agree. */
+export const term = scoreTerm;
 export type Term = z.infer<typeof term>;
-
-export const detailScore = z.object({
-  detailId: z.string(),
-  score: z.number(),
-  terms: z.array(term),
-});
+export { detailScore, claimScore };
 export type DetailScore = z.infer<typeof detailScore>;
-
-/**
- * A claim's score is a composite: its details, its place in the graph, the
- * evidence it carries, independent support from other branches, and
- * behaviour. Only part of it lives on details. How the parts combine is yours.
- */
-export const claimScore = z.object({
-  claimId: z.string(),
-  score: z.number(),
-  terms: z.array(term),
-  details: z.array(detailScore),
-});
 export type ClaimScore = z.infer<typeof claimScore>;
 
 /**

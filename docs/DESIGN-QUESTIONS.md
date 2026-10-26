@@ -762,6 +762,21 @@ reply agrees, disagrees or adds something.
   layer around a record that carries no weight. That's the same open question
   as whether a conversation becomes a named object.
 
+## How does someone reach a contributor without knowing who they are?
+
+Profiles are anonymous first. The project measures what a profile does, never
+who it is, so nobody is asked to identify themselves before sharing a story.
+That keeps the barrier low for people who are hesitant to share.
+
+It also means an archivist or a researcher who wants a record for their
+collection has no way to find out who brought it. The sponsor's position is
+that identity is handled off the platform: someone with a reason can ask to
+reach a profile with a track record, the contributor decides whether to
+answer, and anything about who they are is exchanged outside the project.
+
+**Open:** how the request reaches the contributor, what stops it being used to
+pester or identify people, and whether a contributor can turn requests off.
+
 ## Do all disagreements matter equally?
 
 A disagreement over whether a shop opened in 1948 or 1952 matters to a

@@ -81,6 +81,14 @@
             "createdAt": "2026-01-12T17:14:00Z"
           }
         ],
+        "choices": {
+          "rightToShare": true,
+          "studentAccess": true,
+          "public": "yes",
+          "location": "keep",
+          "mentionsPeople": "not_sure"
+        },
+        "termsVersion": "fixture-terms-0.1",
         "createdAt": "2026-01-12T17:14:00Z"
       },
       "evidenceRecords": [],
@@ -111,7 +119,8 @@
                 "c-ray"
               ]
             }
-          ]
+          ],
+          "weight": 1
         },
         {
           "detail": {
@@ -130,7 +139,8 @@
                 "c-ray"
               ]
             }
-          ]
+          ],
+          "weight": 1
         },
         {
           "detail": {
@@ -149,10 +159,112 @@
                 "c-ray"
               ]
             }
-          ]
+          ],
+          "weight": 1
         }
       ],
-      "weight": 3.25,
+      "score": {
+        "claimId": "cl-cs-shop",
+        "score": 1.05,
+        "terms": [
+          {
+            "family": "content",
+            "name": "base",
+            "value": 1
+          },
+          {
+            "family": "content",
+            "name": "evidence attached",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "independent support",
+            "value": 0
+          },
+          {
+            "family": "behaviour",
+            "name": "sounds right",
+            "value": 0.05
+          },
+          {
+            "family": "content",
+            "name": "extensions",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "disputes",
+            "value": 0
+          }
+        ],
+        "details": [
+          {
+            "detailId": "dt-cs-place",
+            "score": 1,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "detailId": "dt-cs-year",
+            "score": 1,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "detailId": "dt-cs-owner",
+            "score": 1,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "weight": 1.05,
       "confidence": "single_source"
     }
   ],
@@ -202,9 +314,18 @@
           "createdAt": "2026-01-12T17:14:00Z"
         }
       ],
+      "choices": {
+        "rightToShare": true,
+        "studentAccess": true,
+        "public": "yes",
+        "location": "keep",
+        "mentionsPeople": "not_sure"
+      },
+      "termsVersion": "fixture-terms-0.1",
       "createdAt": "2026-01-12T17:14:00Z"
     }
   ],
+  "collections": [],
   "standings": [
     {
       "contributorId": "c-june",

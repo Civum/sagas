@@ -47,6 +47,8 @@ interface RecordOptions {
   kind?: RecordNode["kind"];
   at?: string;
   transcribed?: boolean;
+  /** Stretches with a transcript, in seconds. */
+  transcribedWindows?: { start: number; end: number }[];
   hash?: string;
   location?: { lat: number; lng: number };
 }
@@ -60,6 +62,10 @@ interface ClaimOptions {
   at?: string;
   /** Record ids, or record id with the detail key it backs. */
   evidence?: (string | { record: string; detail: string })[];
+  /** The part of a recording it comes from, in seconds. */
+  window?: { start: number; end: number };
+  /** Given in another language and rendered. */
+  translated?: boolean;
 }
 
 export class GraphBuilder {
@@ -92,6 +98,9 @@ export class GraphBuilder {
       kind: o.kind ?? "text",
       createdAt: this.tick(o.at),
       ...(o.transcribed !== undefined && { transcribed: o.transcribed }),
+      ...(o.transcribedWindows !== undefined && {
+        transcribedWindows: o.transcribedWindows,
+      }),
       ...(o.hash !== undefined && { contentHash: o.hash }),
       ...(o.location !== undefined && { location: o.location }),
     });
@@ -111,6 +120,8 @@ export class GraphBuilder {
       createdAt: this.tick(o.at),
       text: o.text ?? Object.values(o.details).join(", "),
       sourceRecordId: o.source,
+      ...(o.window !== undefined && { sourceWindow: o.window }),
+      ...(o.translated !== undefined && { translated: o.translated }),
       details,
       evidence: (o.evidence ?? []).map((e) =>
         typeof e === "string"
