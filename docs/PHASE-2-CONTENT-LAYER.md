@@ -27,7 +27,7 @@ Writing claims has moved to the intelligence layer. Your layer is records, and
 later the transcripts and translations attached to them. If you've started
 anything for claims, you can stop.
 
-## What a record is, after contract 2.2.0
+## What a record is, after contract 2.4.0
 
 Contract 2.2.0 settled two things you ran into:
 
@@ -39,7 +39,23 @@ Contract 2.2.0 settled two things you ran into:
   `newSourceRecord`, which has no `id`, and let your database generate one.
   `sourceRecord` is the record once it's stored.
 
-The rest of `sourceRecord` and `mediaRef` in
+Contract 2.4.0 added four things to every record:
+
+- **The contributor's choices** (`choices`): that they have the right to share
+  it, whether the student teams may see it, whether it's public now, later or
+  never, what happens to a photo's location, and whether it mentions other
+  people. Each record keeps its own, and they can change later. A record also
+  keeps the version of the terms it was made under (`termsVersion`).
+- **A web page as a record** (`link`): an address, with no files.
+- **Collections** (`collectionId`): records one profile hands over together
+  stay together.
+- **Recordings published on submission.** There's no waiting for a transcript
+  any more. A transcript covers a time window of a recording (`window`), so
+  "transcribe 0:18 to 1:10" is a task of its own.
+
+`apps/capture-api/migrations/010_record_choices.sql` adds the columns for the
+first three to the scaffold's `records` table, numbered 010 so it doesn't
+collide with your own files. The rest of `sourceRecord` and `mediaRef` in
 `packages/contracts/src/model.ts` is worth reading once. The comments say what
 each field is for.
 

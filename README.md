@@ -96,9 +96,9 @@ correct one.
 
 | Layer | Scope |
 |---|---|
-| **Experience** | Claim rendering and composition: narrative page, component library, map, suggestion interface, and references (how a page shows what each claim rests on). Heritage trails come later. Milestones and score dashboards are cut this semester. |
-| **Intelligence** | Claim graph model and intelligence on claims: weight propagation, trust framework, synthesis engine, exploration |
-| **Content** | Media pipeline, record submission, claim intake, translation workflow, moderation, and the contributing interface |
+| **Experience** | The map and the reading experience: narrative page, component library, map, suggestion interface, and references (how a page shows what each claim rests on). Builds against the fixtures now, and later on the other layers' APIs, replacing their plain screens where polish matters. Heritage trails come later. Milestones and score dashboards are cut this semester. |
+| **Intelligence** | Claims and the graph they form: a plain screen for writing claims, scoring (weight and independence), sections and passages, exploration |
+| **Content** | Records: media pipeline, record submission and the contributor's choices, transcription and translation by time window, moderation of records, and a plain screen for handing things over |
 | **Contracts & fixtures** | `packages/contracts`, `packages/fixtures`, maintained by the sponsor |
 
 Each layer has its own app or apps, so no two teams edit the same files:
@@ -209,9 +209,10 @@ require a key you don't have, that's a bug in the scaffold. Tell us.
   and how they get persisted is the work.
 - **An upload pipeline.** Object storage is running and empty. Presigned
   uploads, transcoding, and metadata extraction are the content layer's build.
-- **A weight propagation algorithm.** `packages/fixtures/src/weight.ts` is
-  arithmetic that exists so claims have an ordering to render. Do not treat it
-  as a baseline to beat. It gets deleted.
+- **A scoring algorithm.** `packages/fixtures/src/stand-in-score.ts` is an
+  invented stand-in, in the shape the real scorer returns, so claims have an
+  order to render. Do not treat it as a baseline to beat. The intelligence
+  layer's scorer replaces it.
 
 If it feels like something is missing, check whether it's on this list before
 assuming it's an oversight.
@@ -231,8 +232,7 @@ Every contributor, family, and event in the fixture data is **invented**. Some s
 exercise the data model.
 
 Do not display it publicly, cite it, or show it to community members as though
-it were testimony. The Euskara sample text has not been reviewed by a speaker
-and is likely imperfect.
+it were testimony. No fixture site stands for a real community.
 
 The point of the project is that what a person says about their own family stays theirs and stays attributed. Synthetic data
 that reads as real testimony cuts against that, so we label it at every level:

@@ -24,6 +24,22 @@ turn it into your own structures, keep your own tables, or work out extra
 things from it before you score. The rules only fix what goes in and what
 comes out. What happens in between is your design.
 
+**Fixed, and yours.** A few things are fixed for every scorer, and the rest is
+your design. These are fixed:
+
+- claims and details, and the graph of what each claim targets, are the input;
+- weight comes from evidence and independent support, never from volume;
+- a disputed detail is never shown as settled;
+- a claim never scores lower for being translated, or for where its
+  contributor lives;
+- nobody's contributions are used to train AI models.
+
+Everything else is yours: whether a conversation becomes its own thing, how
+similarity works, which behaviour counts and how much, the arithmetic of a
+score, and how special words like dates and places get noticed. If something on
+the fixed list looks wrong, say so in a meeting. A nod in passing doesn't change
+it.
+
 The first milestone is a thin frame: `similarity` working, and a first
 `score` that runs on the example graph. In the rules, that's the three tests
 under "what comes back" and the five under "similarity between details". The
@@ -419,13 +435,23 @@ evidence.
 
 ### Decided, and coming to the shared contract
 
+Contract 2.4.0 added three things your scorer can use now:
+
+- **Weight lives on details,** as well as on whole claims. Your result already
+  scores each detail (`claimScore` is now the contract's own shape).
+- **A claim can cite a time window of a recording,** and until that window has
+  a transcript, the part of its score that comes from the claim itself waits.
+  The graph carries `sourceWindow` on a claim and `transcribedWindows` on a
+  record, and there's a rule for it.
+- **Links are records.** A web page is evidence like any other record, weighed
+  by independent people relying on it, never by its domain.
+
 These are decided and not in the contract yet. Build toward them.
 
 - **Resolution is its own kind of edge,** beside dispute and extension: a
   claim that reconciles a disagreement, with weight like any other claim, and
   more than one allowed. What it points at is still open (below), so it isn't
   in your graph yet.
-- **Weight lives on details,** as well as on whole claims.
 - **Evidence records, transcriptions and translations become one kind of
   supporting record,** scored by how they're used rather than by whether
   anyone vouches for them.

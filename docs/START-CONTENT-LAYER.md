@@ -49,7 +49,7 @@ These belong to other teams and nothing you build depends on them.
 
 - `apps/web`, `apps/ui-api`, `packages/read-model`, the reading experience
 - `apps/graph-api`, the scoring and claim-graph work
-- `packages/fixtures/behaviour/` and `packages/fixtures/scoring/`, scoring rules for a different team
+- `packages/fixtures/scoring/`, scoring rules for a different team
 - Anything about corroboration, weights, or trust scores
 
 If a document starts talking about claim graphs, you're in the wrong section.
@@ -212,7 +212,7 @@ different TypeScript from the one the build uses.
 3. `packages/contracts/src/model.ts`. Read the **records and media** section
    first, and you can skip the rest. Claims and edges are written by the
    intelligence layer.
-4. `packages/fixtures/fixtures/example-site/events.ts`, nine example records.
+4. `packages/fixtures/fixtures/freight-depot/events.ts`, eight example records.
    This project treats them as the spec: code that handles all nine handles every case the fixtures know about.
 
 That's about an hour of reading. Everything else can wait until you need it.

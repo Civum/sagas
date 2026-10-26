@@ -165,6 +165,15 @@ export const ACCEPTANCE_CRITERIA: AcceptanceCriterion[] = [
     severity: 'must',
   },
   {
+    id: 'record-shows-who-brought-it',
+    site: 'corner-shop',
+    stateId: 't2',
+    subject: 'rec-cs-directory',
+    situation: 'A scanned directory page, brought by the person disputing the year, carried as evidence on their dispute.',
+    requirement: 'Wherever the record appears, show the profile that brought it and where it is used.',
+    severity: 'should',
+  },
+  {
     id: 'a-link-is-a-record',
     site: 'freight-depot',
     stateId: 't2',

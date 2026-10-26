@@ -648,8 +648,8 @@ export function runScoringRules(name: string, scorer: Scorer): void {
         "lets support travel along extensions, and stops it going round a cycle",
       );
 
-      // Prompted by: "How do you tell whether a reply is about what it
-      // targets?" in docs/DESIGN-QUESTIONS.md. Weight flows through details,
+      // Prompted by: "How do you tell whether a reply is about what it targets?"
+      // in docs/DESIGN-QUESTIONS.md. Weight flows through details,
       // so a reply that touches none of its target's details earns nothing.
       // Open: how a claim's content is marked up, and whether support weakens
       // as it passes through more links.
@@ -763,6 +763,101 @@ export function runScoringRules(name: string, scorer: Scorer): void {
       it.todo(
         "a dispute arriving after its period has closed counts differently",
       );
+    });
+
+    describe("open questions", () => {
+      // Each of these is an open design question with no rule yet. The test
+      // names what a rule would check, so the question shows up in your
+      // focus summary until it's answered.
+      // Prompted by: "Should one claim hold more than one assertion?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: whether a claim with several assertions is split, and by whom.
+      it.todo("scores each assertion in a claim on its own, or treats the claim as one");
+
+      // Prompted by: "How should a resolution be recorded?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Decided: a resolution is its own edge. Open: what it points at.
+      it.todo("lets a resolution raise both branches it reconciles without settling either");
+
+      // Prompted by: "How do you tell a good source from a bad one?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: no tier list of source types; how a source earns weight is the design.
+      it.todo("judges a source by what it carries and who independently relies on it");
+
+      // Prompted by: "How to tell silence from doubt"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: \"don't know\" and \"don't care\" are routing signals, never doubt.
+      it.todo("never treats a claim nobody reacted to as a doubted claim");
+
+      // Prompted by: "How do claims compare across languages?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: matching details across languages without penalising either.
+      it.todo("finds the same detail in claims given in different languages");
+
+      // Prompted by: "How to record disagreement about meaning"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: a disagreement about what words mean, not about facts.
+      it.todo("keeps a disagreement about meaning apart from a dispute about a fact");
+
+      // Prompted by: "How to tell a productive argument from a stuck one"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: how long disagreement goes on is not evidence either way.
+      it.todo("tells a disagreement that is still gaining evidence from one going in circles");
+
+      // Prompted by: "Moderation without majority capture"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: moderation must never become a vote.
+      it.todo("never lets a majority bury a minority claim through reports");
+
+      // Prompted by: "What groups claims together at a site?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: sections are the intelligence layer's to produce; grouping is open.
+      it.todo("groups claims into sections from the graph, not from words alone");
+
+      // Prompted by: "Can standing be inherited through vouching?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: vouching collides with \"the scorer reads what a profile has done\".
+      it.todo("never lets one profile's standing pass to another by vouching alone");
+
+      // Prompted by: "Is the unit of work a task?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: overlaps \"Is every ask in the system one kind of object?\".
+      it.todo("routes an open task to someone able to answer it");
+
+      // Prompted by: "A person named in a claim versus a person with a profile"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: a person mentioned in a claim is not a profile.
+      it.todo("never links a person named in a claim to a profile by name");
+
+      // Prompted by: "What happens when one detail turns out to be two people?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: splitting a detail without losing what was said about it.
+      it.todo("splits a detail that turned out to be two things and keeps its history");
+
+      // Prompted by: "Can a claim be edited?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: whether text can change, and what happens to edges aimed at the old version.
+      it.todo("keeps disputes and extensions attached to the version they answered");
+
+      // Prompted by: "Can a passover point at one detail?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: a detail-level \"sounds right\" overriding the whole-claim one.
+      it.todo("lets a reader agree with part of a claim and not the rest");
+
+      // Prompted by: "Is there a state between visible and hidden?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: quarantine keeps a thing visible and weightless while it is checked.
+      it.todo("gives a quarantined claim no weight while it stays visible");
+
+      // Prompted by: "Where does a record's weight as evidence live?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Decided: on the link between a claim and its evidence. Open: stored or worked out.
+      it.todo("weighs the same record differently as evidence for different claims");
+
+      // Prompted by: "Can someone dispute that two records are independent?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Decided: anyone can, with reasoning and evidence. Open: its shape.
+      it.todo("stops counting two records as independent once that is upheld as wrong");
     });
   });
 }

@@ -19,6 +19,61 @@ going to change.
 Parts 1 to 3 are sorted by how much conversation an answer needs. Part 4 holds
 questions that are not for this project to answer at all, and says why.
 
+**Every question, numbered, by team.**
+
+The number is the question's place in this file. Each open question in parts 1
+to 3 has a placeholder test, in the rules of the team it belongs to, that names
+it: `packages/fixtures/scoring/rules.ts` for the intelligence layer,
+`packages/fixtures/capture/rules.ts` for the content layer, and
+`packages/fixtures/acceptance/open-questions.test.ts` for the experience layer
+and the shared contract.
+
+| # | Question | Whose |
+|---|---|---|
+| 1 | The edge types are copy-pasted | Shared contract |
+| 2 | Every id is just `string` | Shared contract |
+| 3 | `translationDispute` and `disputeEdge` are the same idea | Shared contract |
+| 4 | A transcript and a translation are the same kind of thing | Shared contract |
+| 5 | What does an interface do with "sometime in the fifties, probably"? | Experience |
+| 6 | Does disputing a claim feel like disputing the person who wrote it? | Experience |
+| 7 | Should one claim hold more than one assertion? | Intelligence |
+| 8 | How does a record get a location? | Content |
+| 9 | A profile has no way to say whether anyone can prove it is theirs | Content |
+| 10 | How should a resolution be recorded? | Intelligence |
+| 11 | How does a link become evidence? | Intelligence, content |
+| 12 | What does a collection carry? | Content |
+| 13 | How do you tell a good source from a bad one? | Intelligence |
+| 14 | Can someone take their record back? | Content |
+| 15 | How to tell silence from doubt | Intelligence |
+| 16 | How do claims compare across languages? | Intelligence |
+| 17 | How to record disagreement about meaning | Intelligence |
+| 18 | How to tell a productive argument from a stuck one | Intelligence |
+| 19 | Moderation without majority capture | Intelligence |
+| 20 | What groups claims together at a site? | Intelligence |
+| 21 | Should a contributor see why their claim ranks where it does? | Experience |
+| 22 | Can standing be inherited through vouching? | Intelligence |
+| 23 | Does a late dispute count for less? | Intelligence |
+| 24 | Is the unit of work a task? | Intelligence |
+| 25 | What makes a place significant? | Experience |
+| 26 | A person named in a claim versus a person with a profile | Intelligence |
+| 27 | What happens when one detail turns out to be two people? | Intelligence |
+| 28 | Can a claim be edited? | Intelligence |
+| 29 | How do you tell whether a reply is about what it targets? | Intelligence |
+| 30 | Can a passover point at one detail? | Intelligence |
+| 31 | What happens to a supporting record that stops holding up? | Content |
+| 32 | How are machine-made drafts treated? | Content |
+| 33 | Is every ask in the system one kind of object? | Experience |
+| 34 | Is there a state between visible and hidden? | Intelligence |
+| 35 | Where does a record's weight as evidence live? | Intelligence |
+| 36 | Can someone dispute that two records are independent? | Intelligence |
+| 37 | How does someone reach a contributor without knowing who they are? | Content |
+| 38 | Do all disagreements matter equally? | Intelligence |
+| 39 | Who decides what a place is called? | Not for this project |
+| 40 | Naming people who can't answer | Not for this project |
+| 41 | Is this built for the community, or for people outside it? | Not for this project |
+| 42 | Should all of it be public? | Not for this project |
+| 43 | What should a disagreement look like to the people in it? | Not for this project |
+
 ---
 
 # Part 1 — Answerable with a pull request
@@ -276,8 +331,8 @@ anything is open.
 ## How does a link become evidence?
 
 A link to a web page can be a source. It's one kind of evidence, like a
-photo or a document. That part is decided, though the contract has no place
-for a link yet.
+photo or a document. That part is decided, and contract 2.4.0 gives a record a
+`link` for it.
 
 How a link is weighed is decided too. Its strength comes from what's
 recorded about it (its kind, its date, where it came from) and from how
@@ -304,7 +359,7 @@ An archivist told us that pooling records by place loses who collected them
 and why, and that provenance is what archives care about most. So records
 handed over together stay together.
 
-This part is decided, though it isn't in the contract yet. A collection is the set of records one
+This part is decided, and it's in contract 2.4.0 (`collection`). A collection is the set of records one
 profile hands over together, kept whole. A place page points at records and
 never takes them over, so a record keeps its collection wherever it's shown.
 A collection belongs to a profile, which can be a guest like `guest_25674`,
@@ -391,7 +446,7 @@ about *consent*. If a family contributes a record and decides years later they
 don't want it public, what happens? What happens to the interpretations and
 claims built on top of it?
 
-Part of this is decided, though it isn't in the contract yet. Every record
+Part of this is decided, and it's in contract 2.4.0 (`recordChoices`). Every record
 carries its contributor's privacy choices, including whether it's public
 (yes, ask me later, or no), and those choices can change later. So taking a
 record back means changing its privacy setting, and the record isn't deleted.
@@ -430,7 +485,7 @@ because it looks the same as a real one.
 
 ## How do claims compare across languages?
 
-A claim in Euskara and a claim in English can be about the same building
+A claim in French and a claim in English can be about the same building
 and the same year. Working out that they agree is easy for a person and hard for
 a machine.
 
@@ -592,10 +647,9 @@ with the person they vouched for. If vouching couples two people's standing, the
 a political act, and people decline to vouch across a line they already don't
 cross. The trust graph reproduces the split it was meant to see past.
 
-It also collides with a decision already made. `ScoringInput` is never given an
-author, only counts derived from what people did. Inherited standing is a
-property of a person rather than a derived count, so it cannot be used without
-breaking that. That may still be the right
+It also collides with a decision already made. The scorer reads what a profile
+has done, never who it is. Inherited standing is a property of a person rather
+than a record of what they did, so it cannot be used without breaking that. That may still be the right
 trade. It hasn't been argued.
 
 ## Does a late dispute count for less?
@@ -761,6 +815,93 @@ reply agrees, disagrees or adds something.
 - Where talk that isn't about any detail goes. One option is a conversation
   layer around a record that carries no weight. That's the same open question
   as whether a conversation becomes a named object.
+
+## Can a passover point at one detail?
+
+Somebody who agrees with the first half of a claim and not the second has no
+way to say so: a "sounds right" covers the whole claim. Disputes and
+extensions already point at details, so passovers are the odd one out.
+
+One proposal: a passover on the whole claim covers every detail, and a reader
+can mark one detail differently ("sounds right, except this"), which overrides
+the whole-claim mark for that detail. Put the controls after the claim, so
+people read all of it before reacting.
+
+**Open:** whether to do it, and whether a detail-level passover feeds weight on
+that detail or only routing.
+
+## What happens to a supporting record that stops holding up?
+
+A supporting record (evidence, a transcript, a translation) can stop holding
+up: questions about it go unanswered, the work it depended on fails, or a
+person reports it for breaking the terms.
+
+One proposal is a lock: no new references to the record, while existing links
+stay visible and marked as locked, and claims that relied on it lose that
+support with the trail kept. Two tracks stay separate. Quality could lock and
+unlock automatically. Breaking the terms goes through moderation, with a person
+deciding, and support from the crowd can't undo it. A locked record still exists
+and stays visible, so "a record has no exit" still holds.
+
+**Open:** whether to have a lock at all, what the threshold would be, and how
+the two tracks are kept apart so moderation never becomes a vote.
+
+## How are machine-made drafts treated?
+
+A machine transcript or translation is a draft with a name on it. One proposal:
+machine output is a supporting record like any other, credited to a system
+profile that names the model and its version, so an error traces to a version,
+and a bad version can be marked down everywhere it produced output. A machine
+may propose; a person confirms.
+
+**Open:** the shape of a system profile, and how marking down a version affects
+the claims that relied on its output.
+
+## Is every ask in the system one kind of object?
+
+People will ask for things: a question, a source, a better source, a
+transcription of one window, a translation, a check of a link. One proposal is
+a single request object with a type and a direction: inward (asking
+contributors to work on a claim or record) or outward (to someone outside the
+thread). A claim citing a window with no transcript would open a transcription
+request for that window automatically.
+
+**Open:** the types, whether an open request should put the target's weight at
+risk until it's answered, and whether repeated requests stop adding pressure
+after a cap. It overlaps "Is the unit of work a task?".
+
+## Is there a state between visible and hidden?
+
+Some things need checking before they count: a burst of new profiles posting
+near-identical details, say. One proposal is quarantine: the thing stays in the
+system and stays visible, carries no weight, and is left out of passages while
+it's checked. It's separate from moderation, which hides things that break the
+terms.
+
+**Open:** what puts something into quarantine and what takes it out, whether
+quarantine and a locked record are one state or two, and how long checking can
+take before it becomes a quiet way of burying something.
+
+## Where does a record's weight as evidence live?
+
+How much a record counts as evidence depends on what kind of record it is and
+on the claim it's attached to: a dated photograph backing a year counts for
+more than a typed paragraph backing the same year. The model says that weight
+sits on the link between a claim and its evidence, rather than on the record
+itself.
+
+**Open:** whether that weight is stored on the link or worked out each time,
+and what the link records beyond the two ends.
+
+## Can someone dispute that two records are independent?
+
+Independence counts records. Two records can look independent and not be: two
+cousins' recordings of the same story told once, or the same photograph scanned
+twice by two people. The model says anyone can dispute that two records
+are independent, with reasoning and evidence, like any other dispute.
+
+**Open:** the shape of that dispute (today a dispute can only target a detail
+of a claim), and what an upheld one does to the claims counting both records.
 
 ## How does someone reach a contributor without knowing who they are?
 

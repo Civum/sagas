@@ -227,13 +227,40 @@ export function runCaptureRules(name: string, base: string): void {
         "keeps the records one profile hands over together as one collection",
       );
 
-      // Prompted by: "How does someone reach a contributor without knowing
-      // who they are?" in docs/DESIGN-QUESTIONS.md. Profiles are anonymous
+      // Prompted by: "How does someone reach a contributor without knowing who they are?"
+      // in docs/DESIGN-QUESTIONS.md. Profiles are anonymous
       // first; identity is exchanged off the platform. Open: how a request
       // reaches the contributor, and how it's kept from being misused.
       it.todo(
         "passes a request to reach a contributor without revealing who they are",
       );
+    });
+
+    describe("open questions", () => {
+      // Prompted by: "How does a record get a location?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: precision stored or worked out, and where the contributor's location choice is applied.
+      it.todo("records how a location was arrived at, not only the coordinates");
+
+      // Prompted by: "A profile has no way to say whether anyone can prove it is theirs"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: verified profiles aren't built this semester.
+      it.todo("keeps a guest profile's history when the browser key is lost and found");
+
+      // Prompted by: "Can someone take their record back?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Decided: taking a record back is a privacy setting; deletion is on request. Open: what happens to claims built on it.
+      it.todo("takes a record out of public view when its contributor changes their choice");
+
+      // Prompted by: "What happens to a supporting record that stops holding up?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: a lock with two separate tracks, quality and the terms.
+      it.todo("keeps a locked record visible and marked, with no new references to it");
+
+      // Prompted by: "How are machine-made drafts treated?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: a system profile naming the model and version.
+      it.todo("credits a machine transcript to a system profile with its model and version");
     });
   });
 }

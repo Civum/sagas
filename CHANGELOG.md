@@ -41,6 +41,75 @@ it. This is the most useful field in the entry.
 
 ---
 
+## v2.4.0 — 2026-10-25
+
+**Affects:** content layer · experience layer · intelligence layer
+
+**What:** The contract catches up with decisions made over the last month.
+- **Records** carry the contributor's choices (`choices`: the right to share,
+  whether the student teams may see it, public now, later or never, what
+  happens to a photo's location, whether it mentions people) and the terms
+  version they were made under (`termsVersion`). A profile stores the terms
+  version it accepted (`termsAcceptedVersion`). The provisional terms are in
+  `docs/TERMS.md`.
+- **A web page is a record** (`link`: url, title, when it was seen). It is
+  evidence like any other record, weighed by independent people relying on it,
+  never by its domain.
+- **Collections** (`collection`, `collectionId` on records): records one
+  profile hands over together stay together.
+- **Time windows** (`timeWindow`): a claim can cite part of a recording
+  (`sourceWindow`), and a transcript says which part it covers (`window`).
+- **A recording is published on submission.** `awaiting_transcript` is gone
+  from `submissionState`.
+- **Scores take the scorer's shape.** `claimState.score` is a `claimScore`
+  (a score and its terms, for the claim and each detail), and each
+  `detailStatus` has a `weight`. The fixtures fill them with an invented
+  stand-in, `packages/fixtures/src/stand-in-score.ts`, which replaces
+  `weight.ts`. `scoreTerm`, `detailScore` and `claimScore` now live in the
+  contract, and `packages/fixtures/scoring` uses them.
+- **The old count-based scoring rules are gone** (`packages/fixtures/behaviour`
+  and the `rules` script). The rules a scorer answers to are in
+  `packages/fixtures/scoring/rules.ts`, which gains two running rules: a claim's
+  relations count only once the window it cites is transcribed, and a translated
+  claim never scores lower than the same claim in English.
+- **A new fixture, `freight-depot`,** replaces `example-site`. It carries the
+  translation, rendering, transcript-by-window, link and collection cases, and
+  stands for no real place or community. The corner shop's dispute now carries
+  the directory page it cites as evidence.
+- **Open questions** each have a placeholder test, and `docs/DESIGN-QUESTIONS.md`
+  starts with a numbered index of every question and whose it is. Seven new
+  ones came in, including whether a passover can point at one detail, quarantine,
+  and requests.
+
+**Why:** These shapes are about to be built against: record intake, the place
+page and the scorer. Some placeholder code also still showed an older approach
+than the decisions it stood in for. Building on shapes that were about to change
+would cost more than changing them now.
+
+**You need to:**
+- *content layer* — store `choices` and `termsVersion` on every record and
+  refuse a record without them (the capture guidelines check both); accept a
+  record that is a `link` with no files; keep `collectionId`. The scaffold has
+  `apps/capture-api/migrations/010_record_choices.sql` and an updated worked
+  `POST /records` to compare against. Transcripts carry an optional `window`.
+  Your contributing screen shows `docs/TERMS.md` once per profile.
+- *experience layer* — order claims by `weight` as before; read
+  `claimState.score` and each `detailStatus.weight` if you show which details a
+  claim leans on (never as numbers to a reader). Records can be a `link` (no
+  files), carry `choices`, and belong to a collection (`graphState.collections`).
+  Claims may have a `sourceWindow`. `awaiting_transcript` no longer exists.
+  `freight-depot` replaces `example-site` in the fixtures, and the acceptance
+  cases moved with it. Your open-question placeholders are in
+  `packages/fixtures/acceptance/open-questions.test.ts`.
+- *intelligence layer* — import the score shapes from `@sagas/contracts` if you
+  were using them from `packages/fixtures/scoring`; the names are the same. The
+  graph's records can be `link`, records can list `transcribedWindows`, and
+  claims can have `sourceWindow` and `translated`. Two new rules run against
+  your scorer once you remove the `.skip`. `packages/fixtures/behaviour` is
+  gone; if anything of yours imported it, switch to `packages/fixtures/scoring`.
+
+---
+
 ## 2026-10-22 — new design questions: links, collections, relevance and disputes
 
 **Affects:** intelligence layer · content layer · experience layer (nothing to do)

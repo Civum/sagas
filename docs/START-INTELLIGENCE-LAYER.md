@@ -138,7 +138,7 @@ When your own design moves, that stays with you.
 ```bash
 pnpm install
 pnpm --filter @sagas/graph-api test
-pnpm inspect --site example-site cl-boarding
+pnpm inspect --site freight-depot cl-fd-office
 ```
 
 That is the whole setup for now. The test command runs the scoring rules

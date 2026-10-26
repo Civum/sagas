@@ -24,9 +24,21 @@ what they decide not to say. None of that is visible from a test suite.
 - Choosing photographs and documents, and uploading them
 - The submission form: what happened, where, who said so, in what language
 - Attaching a record to a place on a map
-- Writing a claim, a dispute or an extension about a record
-- Adding a translation or a transcript to somebody else's record
+- The terms, shown once to each profile before its first contribution
+  (`docs/TERMS.md`), with the version accepted stored on the profile and on
+  every record
+- What the contributor chooses for each record: whether the student teams may
+  see it, whether it's public now, later or never, what happens to a photo's
+  location, and whether it mentions other people (`recordChoices` in the
+  contract)
+- Handing over several records together as one collection, with a note
+- A web page as a record of its own
+- Adding a transcript or a translation of part of somebody else's recording,
+  one time window at a time
 - Reporting something, with the reason attached
+
+Writing claims, disputes and extensions belongs to the intelligence layer, which
+has its own plain screen for it.
 
 ## Choosing a framework
 
