@@ -34,7 +34,7 @@ takes over running it, permission to:
 - analyze it to connect and order contributions on Sagas.
 
 We will not sell your contributions or use them in other products, and we will
-not use them to train AI models. We will only send a contribution to an outside
+not use them to train AI models (see "How we use AI"). We will only send a contribution to an outside
 archive if you ask us to and agree to that archive's own release form.
 
 ## Your choices, record by record
@@ -51,6 +51,18 @@ time:
 
 You also tell us whether it mentions other people, living or not, so we can
 take care with it.
+
+## How we use AI
+
+Today Sagas doesn't use AI on anything you contribute. We do not use
+contributions to train AI models, and we won't.
+
+If we start using AI tools to help translate or transcribe, we'll update this
+section before we do, say which outside provider your contribution would be sent
+to, and ask you first, record by record. A machine translation or transcript
+will always be labelled as one, the original stays the record, and a person can
+correct it. We'll only use a provider whose terms don't let it train on what we
+send.
 
 ## What you confirm
 

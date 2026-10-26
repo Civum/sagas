@@ -100,7 +100,9 @@ would cost more than changing them now.
   since `awaiting_transcript` is gone. Transcripts carry an optional `window`.
   Your contributing screen shows the terms in `docs/TERMS.md` once per profile,
   and again whenever the current version differs from the profile's
-  `termsAcceptedVersion`.
+  `termsAcceptedVersion`. Friday 30 October stays as agreed (`POST` and `GET` on main); the new
+  fields are the target for the week after, by Friday 6 November, so the
+  choices and terms guidelines will fail until then.
 - *experience layer* — order claims by `weight` as before; read
   `claimState.score` and each `detailStatus.weight` if you show which details a
   claim leans on (never as numbers to a reader). Records can be a `link` (no
