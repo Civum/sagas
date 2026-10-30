@@ -470,7 +470,7 @@ collection.
 
 **Not in this story.** Anything about who a profile is.
 
-### De4 · Say where people go to have their story kept
+### De4 · Say where people go to have their story kept (Michael)
 
 **Workstream:** Design. **Status:** Ready
 
@@ -490,7 +490,7 @@ and it's on the page.
 **Not in this story.** Naming any archive or organisation. A donation form or
 any way of sending material anywhere.
 
-### De5 · Say how stories are looked after
+### De5 · Say how stories are looked after (Michael)
 
 **Workstream:** Design. **Status:** Ready
 
@@ -507,7 +507,7 @@ it, and it's on the page.
 **Not in this story.** Any claim about moderation, review or verification
 that the project hasn't decided. Scores, rankings or counts.
 
-### De6 · Say who runs the project
+### De6 · Say who runs the project (Michael)
 
 **Workstream:** Design. **Status:** Ready
 
@@ -522,7 +522,7 @@ test's allow-list gains that name on purpose, in the same pull request.
 
 **Not in this story.** Naming any university, course or person.
 
-### De7 · The components the map and a narrative page need
+### De7 · The components the map and a narrative page need (Michael)
 
 **Workstream:** Design. **Status:** Ready
 
@@ -539,7 +539,7 @@ questions issue.
 
 **Not in this story.** Scores, rankings or counts.
 
-### De8 · Readable for an older reader
+### De8 · Readable for an older reader (Michael)
 
 **Workstream:** Design. **Status:** Ready
 
@@ -555,7 +555,7 @@ watched.
 **Not in this story.** A full accessibility audit. The landing page's
 automated checks already cover the basics.
 
-### De9 · From the landing page to the full app
+### De9 · From the landing page to the full app (Michael)
 
 **Workstream:** Design. **Status:** Later. Needs P6 and P7.
 
@@ -566,7 +566,7 @@ app.
 **Done when** the link and its copy are approved by the sponsor and on the
 page.
 
-### De10 · Does the full app have a home page?
+### De10 · Does the full app have a home page? (Michael)
 
 **Workstream:** Design. **Status:** Ready
 
