@@ -579,6 +579,152 @@ and the team has seen it.
 
 ---
 
+## Sprint three, first batch
+
+The map is the next big effort, and the narrative page is the focus after it,
+so this batch starts with the map. Each map story comes with its data work and
+its design, and they're built to run on data shaped like the real thing. The narrative stories take
+the page on to the harder data the fixtures already carry, and narrative work
+carries on alongside the map. The sponsor hasn't assigned anything. Pick owners as you
+finish your current work.
+
+Some of these use the freight depot, which came with contract 2.4.0. Your fork
+is still on 2.3.0, so pull upstream first (issue #32).
+
+### M6 · Neighbourhood shapes on the map
+
+**Workstream:** Map and discovery. **Status:** Later. Needs M1, and the
+boundary data, which the sponsor will provide.
+
+**Goal.** Places sit inside neighbourhood shapes on the map. The sponsor has
+decided that a home is shown at neighbourhood or subdivision level until the people it
+affects choose otherwise, and public places are shown exactly. That part isn't
+in the contract yet. This story draws the boundaries.
+
+**Done when** the shapes draw on the map, the source and licence are credited
+on the map itself, each fixture site falls inside the shape whose boundary
+contains its coordinates, and it works on a phone and with or without a
+Mapbox token, like M1.
+
+**Not in this story.** Moving a home's pin to its neighbourhood. The contract
+doesn't mark a place as a home yet, and that gets its own story once it does.
+
+### Da9 · Neighbourhood shapes in the read model
+
+**Workstream:** Data. **Status:** Later. Needs Da5, and the boundary data.
+Matches M6.
+
+**Goal.** The read model returns the neighbourhood boundaries, and for each
+site, which shape it sits in. The map draws from this rather than from a file
+of its own.
+
+**Done when** M6 draws from it, and every fixture site comes back with the
+neighbourhood whose boundary contains its coordinates.
+
+### De11 · How the map shows neighbourhoods, and a home inside one
+
+**Workstream:** Design. **Status:** Ready.
+
+**Goal.** This is the design half of M6. Design how the shapes look on the
+map, how a place sits inside its shape, how the map credits the source and
+licence, and how a home shown at neighbourhood level looks different from a
+public place shown at its exact spot, so a reader doesn't take a marker inside
+the shape as the home's exact spot.
+
+A home shown at neighbourhood level has to follow three rules, so build them
+into the design:
+
+- It shows in the same place every time. A random offset that moves on each
+  view would give the real spot away to anyone who averaged enough views.
+- The list matches the map: a home in the list names its neighbourhood,
+  never a street address.
+- Nothing on the map or in the list shows a home's address.
+
+**Done when** the mockups are in the fork and the sponsor has seen them.
+
+**Not in this story.** Deciding who can make a home's location exact. That's
+still open.
+
+### N6 · The freight depot as a page
+
+**Workstream:** Narrative page. **Status:** Ready, once you've pulled
+contract 2.4.0.
+
+**Goal.** The freight depot (`packages/fixtures/fixtures/freight-depot/events.ts`)
+is the fixture with the most cases in it: a recording in French, translations
+that disagree, a recording transcribed one part at a time, a link backing an
+extension, an upload still processing, and an open report (somebody flagged a
+record and nobody has looked at it yet). Render it with the page N1 built, and
+find out what the page can't show yet.
+
+**Done when** the freight depot renders at t0 to t3 without errors, and the
+pull request lists what's missing, each item linked to a story below or
+raised in the questions issue.
+
+**Not in this story.** Deciding how a reported record or an unfinished upload
+looks.
+
+### N7 · A claim in another language, with its translations
+
+**Workstream:** Narrative page. **Status:** Later. Needs N6 and contract
+2.5.0, which changes how translations are stored.
+
+**Goal.** The project expects many of its readers to have family history in
+another language. A claim given in French shows its English translation, says
+it's a translation, and the reader can open the original words. When two
+translations disagree, the page shows both, and neither replaces the original.
+
+**Done when:**
+
+- At t1, the French claim shows that it's waiting for a translation.
+- From t2, it shows its translation, labelled, and the reader can open the
+  original.
+- At t3, the claim shows both of its translations side by side, with the
+  dispute on the first one and its reasoning.
+- Nothing on the page ranks a claim lower, or marks it as less reliable,
+  because it was translated.
+
+**Not in this story.** Translating anything, or deciding which translation is
+right.
+
+### N8 · A recording transcribed one part at a time
+
+**Workstream:** Narrative page. **Status:** Later. Needs N6 and contract
+2.5.0, which changes how transcripts are stored.
+
+**Goal.** Contributors transcribe a long recording a piece at a time. The page
+shows which parts can be read, by their start and end times, and marks the
+rest as not transcribed yet. A claim that cites a part with no transcript
+still shows, and says it's waiting for one.
+
+**Done when:**
+
+- At t1, the claim citing the recording shows, and says it's waiting for a
+  transcript.
+- From t2, the recording shows its transcribed part, 0:18 to 1:10, and marks
+  the rest as not transcribed yet.
+- It works from the keyboard.
+
+**Not in this story.** An audio player that follows along with the
+transcript.
+
+### N9 · A link record and its preview
+
+**Workstream:** Narrative page. **Status:** Later. Needs N6 and contract
+2.5.0.
+
+**Goal.** In contract 2.5.0 a link record carries a preview: a title and a
+short summary, both typed by the contributor. Sagas fetches nothing from the
+linked page. The page shows the preview and the link, says the contributor
+wrote the summary, and opens the linked page in a new tab.
+
+**Done when** the freight depot's link, at t2, shows its preview this way.
+
+**Not in this story.** Fetching anything from the linked page, thumbnails, or
+checking whether the link still works.
+
+---
+
 ## Epic A — Foundations (the original first sprint)
 
 Five pieces that can run in parallel, one per person. Together they let
