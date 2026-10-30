@@ -24,10 +24,48 @@ turn it into your own structures, keep your own tables, or work out extra
 things from it before you score. The rules only fix what goes in and what
 comes out. What happens in between is your design.
 
-The first milestone is an initial build: `similarity` working, and a first
-`score` that runs on the example graph. I'll send the date by email. Expect
+A few things are fixed for every scorer:
+
+- claims and details, and the graph of what each claim targets, are the input;
+- weight comes mostly from evidence and independent support. Agreement adds
+  almost nothing and never counts as support, so a crowd can't outweigh one
+  independent record;
+- a disputed detail is never shown as settled;
+- a claim never scores lower for being translated, or for where its
+  contributor lives;
+- nobody's contributions are used to train AI models.
+
+Everything else is yours: whether a conversation becomes its own thing, how
+similarity works, which behaviour counts and how much, the arithmetic of a
+score, and how special words like dates and places get noticed. If something on
+the fixed list looks wrong, say so in a meeting.
+
+The first milestone is a thin frame: `similarity` working, and a first
+`score` that runs on the example graph. In the rules, that's the three tests
+under "what comes back" and the five under "similarity between details". The
+rest can fail for now. The date is Wednesday 28 October. Expect
 the first week to go mostly to getting set up and finding your way around,
 which is normal for a first build.
+
+### Step 0, optional: build the corner shop as a graph
+
+If the model still feels abstract, building the corner shop as a scoring
+graph is a quick way in. It isn't a deliverable, so skip it if you don't need
+it. The corner shop is the worked example in
+`docs/HOW-THE-LAYERS-FIT.md`, and its event log is
+`packages/fixtures/fixtures/corner-shop/events.ts`. The comment at the top of
+that file lists what each moment in it shows.
+
+Write it with the builder in `packages/fixtures/scoring/build.ts`, in a test
+file of your own. For each step you'll have to decide what the record is, who
+handed it over, which claim was read from it, and what each claim points at.
+A photograph that arrives with nothing claimed, the person who reads it, the
+dispute about the year and the extension that adds to the owner are all in
+there.
+
+It's done when the graph builds and you can explain every line of it. Nothing
+scores it yet. Keep it, because it's the first test case you'll have written
+yourselves.
 
 ### Scoring is bigger than it looks
 
@@ -395,15 +433,25 @@ evidence.
 
 ## Where the model is going
 
-### Decided, and coming to the shared contract
+### Decided, and in contract 2.4.0
 
-These are decided and not in the contract yet. Build toward them.
+- **Weight lives on details,** as well as on whole claims. Your result already
+  scores each detail (`claimScore` is now the contract's own shape).
+- **A claim can cite a time window of a recording,** and until that window has
+  a transcript, the part of its score that comes from the claim itself waits.
+  The graph carries `sourceWindow` on a claim and `transcribedWindows` on a
+  record, and there's a rule for it.
+- **Links are records.** A web page is evidence like any other record, weighed
+  by independent people relying on it, never by its domain.
+
+### Decided, and not in the contract yet
+
+Build toward these.
 
 - **Resolution is its own kind of edge,** beside dispute and extension: a
   claim that reconciles a disagreement, with weight like any other claim, and
   more than one allowed. What it points at is still open (below), so it isn't
   in your graph yet.
-- **Weight lives on details,** as well as on whole claims.
 - **Evidence records, transcriptions and translations become one kind of
   supporting record,** scored by how they're used rather than by whether
   anyone vouches for them.
@@ -429,8 +477,6 @@ named by their heading there.
   rules.
 - **Which behaviour shows competence:** what a profile's track record should
   be made of. Also a placeholder in the rules, with ideas to test.
-- **Which terms depend on what a record says,** so you know what an
-  untranscribed recording can't contribute.
 - **How passovers arrive.** Today they come in the graph with everything
   else. They're frequent and light, so they may fit better as a stream to
   their own endpoint that keeps running totals, with scoring reading the

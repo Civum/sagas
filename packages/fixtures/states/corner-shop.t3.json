@@ -81,6 +81,14 @@
             "createdAt": "2026-01-12T17:14:00Z"
           }
         ],
+        "choices": {
+          "rightToShare": true,
+          "studentAccess": true,
+          "public": "yes",
+          "location": "keep",
+          "mentionsPeople": "not_sure"
+        },
+        "termsVersion": "fixture-terms-0.1",
         "createdAt": "2026-01-12T17:14:00Z"
       },
       "evidenceRecords": [],
@@ -113,7 +121,8 @@
                 "c-ray"
               ]
             }
-          ]
+          ],
+          "weight": 1
         },
         {
           "detail": {
@@ -151,7 +160,8 @@
                 "c-owen"
               ]
             }
-          ]
+          ],
+          "weight": 0.5
         },
         {
           "detail": {
@@ -180,11 +190,301 @@
                 "c-ray"
               ]
             }
-          ]
+          ],
+          "weight": 1.75
         }
       ],
-      "weight": 6.25,
+      "score": {
+        "claimId": "cl-cs-shop",
+        "score": 3.3,
+        "terms": [
+          {
+            "family": "content",
+            "name": "base",
+            "value": 1
+          },
+          {
+            "family": "content",
+            "name": "evidence attached",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "independent support",
+            "value": 2
+          },
+          {
+            "family": "behaviour",
+            "name": "sounds right",
+            "value": 0.05
+          },
+          {
+            "family": "content",
+            "name": "extensions",
+            "value": 0.75
+          },
+          {
+            "family": "content",
+            "name": "disputes",
+            "value": -0.5
+          }
+        ],
+        "details": [
+          {
+            "detailId": "dt-cs-place",
+            "score": 1,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "detailId": "dt-cs-year",
+            "score": 0.5,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": -0.5
+              }
+            ]
+          },
+          {
+            "detailId": "dt-cs-owner",
+            "score": 1.75,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0.75
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "weight": 3.3,
       "confidence": "contested"
+    },
+    {
+      "claim": {
+        "id": "cl-cs-uncle",
+        "siteId": "site-corner-shop",
+        "contributorId": "c-mae",
+        "sourceRecordId": "rec-cs-photo",
+        "evidenceRecordIds": [
+          "rec-cs-audio"
+        ],
+        "text": "Mr. Ferris was my uncle. He ran that shop until the sixties.",
+        "sourceLanguage": "en",
+        "details": [
+          {
+            "id": "dt-cs-uncle-until",
+            "kind": "date",
+            "value": "1960s",
+            "excerpt": "until the sixties"
+          }
+        ],
+        "sourceType": "family_oral",
+        "createdAt": "2026-04-19T20:51:00Z",
+        "parentClaimId": "cl-cs-shop",
+        "awaitingTranslation": false
+      },
+      "contributor": {
+        "id": "c-mae",
+        "displayName": "Mae Ferris-Holt",
+        "joinedAt": "2026-04-19T20:40:00Z",
+        "fictional": true,
+        "verification": "guest"
+      },
+      "sourceRecord": {
+        "id": "rec-cs-photo",
+        "siteId": "site-corner-shop",
+        "contributorId": "c-june",
+        "note": "My grandmother's shop, I think. I don't know when this was taken.",
+        "submission": "submitted",
+        "media": [
+          {
+            "id": "med-cs-photo",
+            "recordId": "rec-cs-photo",
+            "kind": "image",
+            "storageKey": "records/rec-cs-photo/shopfront.jpg",
+            "contentType": "image/jpeg",
+            "byteSize": 1912004,
+            "originalFilename": "shopfront.jpg",
+            "processing": "ready",
+            "width": 2400,
+            "height": 1600,
+            "derivatives": [],
+            "createdAt": "2026-01-12T17:14:00Z"
+          }
+        ],
+        "choices": {
+          "rightToShare": true,
+          "studentAccess": true,
+          "public": "yes",
+          "location": "keep",
+          "mentionsPeople": "not_sure"
+        },
+        "termsVersion": "fixture-terms-0.1",
+        "createdAt": "2026-01-12T17:14:00Z"
+      },
+      "evidenceRecords": [
+        {
+          "id": "rec-cs-audio",
+          "siteId": "site-corner-shop",
+          "contributorId": "c-mae",
+          "submission": "submitted",
+          "media": [
+            {
+              "id": "med-cs-audio",
+              "recordId": "rec-cs-audio",
+              "kind": "audio",
+              "storageKey": "records/rec-cs-audio/uncle.m4a",
+              "contentType": "audio/mp4",
+              "byteSize": 1204311,
+              "originalFilename": "uncle.m4a",
+              "processing": "ready",
+              "durationSeconds": 48,
+              "derivatives": [],
+              "createdAt": "2026-04-19T20:44:00Z"
+            }
+          ],
+          "choices": {
+            "rightToShare": true,
+            "studentAccess": true,
+            "public": "yes",
+            "location": "keep",
+            "mentionsPeople": "not_sure"
+          },
+          "termsVersion": "fixture-terms-0.1",
+          "createdAt": "2026-04-19T20:44:00Z"
+        }
+      ],
+      "translations": [],
+      "translationDisputes": [],
+      "independentRecordCount": 0,
+      "extensions": [],
+      "passover": {
+        "sounds_right": 1,
+        "dont_know": 0,
+        "dont_care": 0
+      },
+      "detailStatuses": [
+        {
+          "detail": {
+            "id": "dt-cs-uncle-until",
+            "kind": "date",
+            "value": "1960s",
+            "excerpt": "until the sixties"
+          },
+          "disputes": [],
+          "extensions": [],
+          "competingValues": [
+            {
+              "value": "1960s",
+              "count": 1,
+              "contributorIds": [
+                "c-mae"
+              ]
+            }
+          ],
+          "weight": 1
+        }
+      ],
+      "score": {
+        "claimId": "cl-cs-uncle",
+        "score": 1.55,
+        "terms": [
+          {
+            "family": "content",
+            "name": "base",
+            "value": 1
+          },
+          {
+            "family": "content",
+            "name": "evidence attached",
+            "value": 0.5
+          },
+          {
+            "family": "content",
+            "name": "independent support",
+            "value": 0
+          },
+          {
+            "family": "behaviour",
+            "name": "sounds right",
+            "value": 0.05
+          },
+          {
+            "family": "content",
+            "name": "extensions",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "disputes",
+            "value": 0
+          }
+        ],
+        "details": [
+          {
+            "detailId": "dt-cs-uncle-until",
+            "score": 1,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "weight": 1.55,
+      "confidence": "single_source"
     },
     {
       "claim": {
@@ -192,7 +492,9 @@
         "siteId": "site-corner-shop",
         "contributorId": "c-owen",
         "sourceRecordId": "rec-cs-photo",
-        "evidenceRecordIds": [],
+        "evidenceRecordIds": [
+          "rec-cs-directory"
+        ],
         "text": "It can't be 1950. The awning in the photo went up in 1956. The directory page I uploaded shows the change.",
         "sourceLanguage": "en",
         "details": [
@@ -237,9 +539,48 @@
             "createdAt": "2026-01-12T17:14:00Z"
           }
         ],
+        "choices": {
+          "rightToShare": true,
+          "studentAccess": true,
+          "public": "yes",
+          "location": "keep",
+          "mentionsPeople": "not_sure"
+        },
+        "termsVersion": "fixture-terms-0.1",
         "createdAt": "2026-01-12T17:14:00Z"
       },
-      "evidenceRecords": [],
+      "evidenceRecords": [
+        {
+          "id": "rec-cs-directory",
+          "siteId": "site-corner-shop",
+          "contributorId": "c-owen",
+          "note": "City directory page, 1956 edition. The listing for the corner changes that year, the same year the awning went up.",
+          "submission": "submitted",
+          "media": [
+            {
+              "id": "med-cs-directory",
+              "recordId": "rec-cs-directory",
+              "kind": "document",
+              "storageKey": "records/rec-cs-directory/directory-1956.pdf",
+              "contentType": "application/pdf",
+              "byteSize": 412880,
+              "originalFilename": "directory-1956.pdf",
+              "processing": "ready",
+              "derivatives": [],
+              "createdAt": "2026-04-06T18:12:00Z"
+            }
+          ],
+          "choices": {
+            "rightToShare": true,
+            "studentAccess": true,
+            "public": "yes",
+            "location": "keep",
+            "mentionsPeople": "not_sure"
+          },
+          "termsVersion": "fixture-terms-0.1",
+          "createdAt": "2026-04-06T18:12:00Z"
+        }
+      ],
       "translations": [],
       "translationDisputes": [],
       "independentRecordCount": 0,
@@ -267,10 +608,70 @@
                 "c-owen"
               ]
             }
-          ]
+          ],
+          "weight": 1
         }
       ],
-      "weight": 3,
+      "score": {
+        "claimId": "cl-dsp-cs-year",
+        "score": 1.5,
+        "terms": [
+          {
+            "family": "content",
+            "name": "base",
+            "value": 1
+          },
+          {
+            "family": "content",
+            "name": "evidence attached",
+            "value": 0.5
+          },
+          {
+            "family": "content",
+            "name": "independent support",
+            "value": 0
+          },
+          {
+            "family": "behaviour",
+            "name": "sounds right",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "extensions",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "disputes",
+            "value": 0
+          }
+        ],
+        "details": [
+          {
+            "detailId": "cl-dsp-cs-year-value",
+            "score": 1,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "weight": 1.5,
       "confidence": "single_source"
     },
     {
@@ -329,6 +730,14 @@
             "createdAt": "2026-06-08T16:18:00Z"
           }
         ],
+        "choices": {
+          "rightToShare": true,
+          "studentAccess": true,
+          "public": "yes",
+          "location": "keep",
+          "mentionsPeople": "not_sure"
+        },
+        "termsVersion": "fixture-terms-0.1",
         "createdAt": "2026-06-08T16:18:00Z"
       },
       "evidenceRecords": [],
@@ -359,7 +768,8 @@
                 "c-dev"
               ]
             }
-          ]
+          ],
+          "weight": 1
         },
         {
           "detail": {
@@ -378,122 +788,91 @@
                 "c-dev"
               ]
             }
-          ]
+          ],
+          "weight": 1
         }
       ],
-      "weight": 3,
-      "confidence": "single_source"
-    },
-    {
-      "claim": {
-        "id": "cl-cs-uncle",
-        "siteId": "site-corner-shop",
-        "contributorId": "c-mae",
-        "sourceRecordId": "rec-cs-photo",
-        "evidenceRecordIds": [
-          "rec-cs-audio"
+      "score": {
+        "claimId": "cl-cs-sign",
+        "score": 1,
+        "terms": [
+          {
+            "family": "content",
+            "name": "base",
+            "value": 1
+          },
+          {
+            "family": "content",
+            "name": "evidence attached",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "independent support",
+            "value": 0
+          },
+          {
+            "family": "behaviour",
+            "name": "sounds right",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "extensions",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "disputes",
+            "value": 0
+          }
         ],
-        "text": "Mr. Ferris was my uncle. He ran that shop until the sixties.",
-        "sourceLanguage": "en",
         "details": [
           {
-            "id": "dt-cs-uncle-until",
-            "kind": "date",
-            "value": "1960s",
-            "excerpt": "until the sixties"
-          }
-        ],
-        "sourceType": "family_oral",
-        "createdAt": "2026-04-19T20:51:00Z",
-        "parentClaimId": "cl-cs-shop",
-        "awaitingTranslation": false
-      },
-      "contributor": {
-        "id": "c-mae",
-        "displayName": "Mae Ferris-Holt",
-        "joinedAt": "2026-04-19T20:40:00Z",
-        "fictional": true,
-        "verification": "guest"
-      },
-      "sourceRecord": {
-        "id": "rec-cs-photo",
-        "siteId": "site-corner-shop",
-        "contributorId": "c-june",
-        "note": "My grandmother's shop, I think. I don't know when this was taken.",
-        "submission": "submitted",
-        "media": [
-          {
-            "id": "med-cs-photo",
-            "recordId": "rec-cs-photo",
-            "kind": "image",
-            "storageKey": "records/rec-cs-photo/shopfront.jpg",
-            "contentType": "image/jpeg",
-            "byteSize": 1912004,
-            "originalFilename": "shopfront.jpg",
-            "processing": "ready",
-            "width": 2400,
-            "height": 1600,
-            "derivatives": [],
-            "createdAt": "2026-01-12T17:14:00Z"
-          }
-        ],
-        "createdAt": "2026-01-12T17:14:00Z"
-      },
-      "evidenceRecords": [
-        {
-          "id": "rec-cs-audio",
-          "siteId": "site-corner-shop",
-          "contributorId": "c-mae",
-          "submission": "submitted",
-          "media": [
-            {
-              "id": "med-cs-audio",
-              "recordId": "rec-cs-audio",
-              "kind": "audio",
-              "storageKey": "records/rec-cs-audio/uncle.m4a",
-              "contentType": "audio/mp4",
-              "byteSize": 1204311,
-              "originalFilename": "uncle.m4a",
-              "processing": "ready",
-              "durationSeconds": 48,
-              "derivatives": [],
-              "createdAt": "2026-04-19T20:44:00Z"
-            }
-          ],
-          "createdAt": "2026-04-19T20:44:00Z"
-        }
-      ],
-      "translations": [],
-      "translationDisputes": [],
-      "independentRecordCount": 0,
-      "extensions": [],
-      "passover": {
-        "sounds_right": 1,
-        "dont_know": 0,
-        "dont_care": 0
-      },
-      "detailStatuses": [
-        {
-          "detail": {
-            "id": "dt-cs-uncle-until",
-            "kind": "date",
-            "value": "1960s",
-            "excerpt": "until the sixties"
+            "detailId": "dt-cs-sign-owner",
+            "score": 1,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": 0
+              }
+            ]
           },
-          "disputes": [],
-          "extensions": [],
-          "competingValues": [
-            {
-              "value": "1960s",
-              "count": 1,
-              "contributorIds": [
-                "c-mae"
-              ]
-            }
-          ]
-        }
-      ],
-      "weight": 2.25,
+          {
+            "detailId": "dt-cs-sign-trade",
+            "score": 1,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "weight": 1,
       "confidence": "single_source"
     }
   ],
@@ -564,6 +943,14 @@
           "createdAt": "2026-01-12T17:14:00Z"
         }
       ],
+      "choices": {
+        "rightToShare": true,
+        "studentAccess": true,
+        "public": "yes",
+        "location": "keep",
+        "mentionsPeople": "not_sure"
+      },
+      "termsVersion": "fixture-terms-0.1",
       "createdAt": "2026-01-12T17:14:00Z"
     },
     {
@@ -586,6 +973,14 @@
           "createdAt": "2026-04-06T18:12:00Z"
         }
       ],
+      "choices": {
+        "rightToShare": true,
+        "studentAccess": true,
+        "public": "yes",
+        "location": "keep",
+        "mentionsPeople": "not_sure"
+      },
+      "termsVersion": "fixture-terms-0.1",
       "createdAt": "2026-04-06T18:12:00Z"
     },
     {
@@ -608,6 +1003,14 @@
           "createdAt": "2026-04-19T20:44:00Z"
         }
       ],
+      "choices": {
+        "rightToShare": true,
+        "studentAccess": true,
+        "public": "yes",
+        "location": "keep",
+        "mentionsPeople": "not_sure"
+      },
+      "termsVersion": "fixture-terms-0.1",
       "createdAt": "2026-04-19T20:44:00Z"
     },
     {
@@ -632,9 +1035,18 @@
           "createdAt": "2026-06-08T16:18:00Z"
         }
       ],
+      "choices": {
+        "rightToShare": true,
+        "studentAccess": true,
+        "public": "yes",
+        "location": "keep",
+        "mentionsPeople": "not_sure"
+      },
+      "termsVersion": "fixture-terms-0.1",
       "createdAt": "2026-06-08T16:18:00Z"
     }
   ],
+  "collections": [],
   "standings": [
     {
       "contributorId": "c-june",

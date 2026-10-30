@@ -6,7 +6,6 @@
   "exports": {
     ".": "./src/index.ts",
     "./states/*": "./states/*",
-    "./behaviour": "./behaviour/index.ts",
     "./acceptance": "./acceptance/index.ts",
     "./scoring": "./scoring/index.ts",
     "./scoring/focus-reporter": "./scoring/focus-reporter.ts",
@@ -19,7 +18,6 @@
     "clean": "git clean -xdf .cache .turbo node_modules",
     "typecheck": "tsc --noEmit",
     "lint": "eslint",
-    "rules": "vitest run behaviour",
     "inspect": "tsx scripts/inspect.ts",
     "acceptance": "vitest run acceptance"
   },

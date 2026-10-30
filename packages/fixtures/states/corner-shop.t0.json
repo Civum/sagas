@@ -51,9 +51,18 @@
           "createdAt": "2026-01-12T17:14:00Z"
         }
       ],
+      "choices": {
+        "rightToShare": true,
+        "studentAccess": true,
+        "public": "yes",
+        "location": "keep",
+        "mentionsPeople": "not_sure"
+      },
+      "termsVersion": "fixture-terms-0.1",
       "createdAt": "2026-01-12T17:14:00Z"
     }
   ],
+  "collections": [],
   "standings": [
     {
       "contributorId": "c-june",

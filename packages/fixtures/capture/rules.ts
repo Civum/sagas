@@ -26,6 +26,16 @@ const arriving = () => ({
   language: "en",
   submission: "submitted",
   media: [],
+  // What the contributor chose for this record, and the terms it was made
+  // under (contract 2.4.0). Private unless they say otherwise.
+  choices: {
+    rightToShare: true,
+    studentAccess: false,
+    public: "later",
+    location: "remove",
+    mentionsPeople: "not_sure",
+  },
+  termsVersion: "provisional-0.1",
   createdAt: new Date().toISOString(),
 });
 
@@ -104,6 +114,45 @@ export function runCaptureRules(name: string, base: string): void {
       });
     });
 
+    describe("choices and links", () => {
+      // Prompted by: contract 2.4.0. Every record keeps what its contributor
+      // chose for it (who may see it, whether it's public, what happens to a
+      // photo's location) and the terms version it was made under.
+      it("refuses a record without the contributor's choices, with a 400", async () => {
+        const { choices: _choices, ...body } = arriving();
+        const res = await post(base, body);
+        expect(res.status).toBe(400);
+      });
+
+      it("refuses a record without the terms version, with a 400", async () => {
+        const { termsVersion: _terms, ...body } = arriving();
+        const res = await post(base, body);
+        expect(res.status).toBe(400);
+      });
+
+      it("keeps a record's choices exactly as they were given", async () => {
+        const body = arriving();
+        const stored = (await (await post(base, body)).json()) as {
+          choices?: unknown;
+          termsVersion?: string;
+        };
+        expect(stored.choices).toEqual(body.choices);
+        expect(stored.termsVersion).toBe(body.termsVersion);
+      });
+
+      // Prompted by: "How does a link become evidence?" in
+      // docs/DESIGN-QUESTIONS.md. A web page is a record of its own.
+      it("accepts a web page as a record with no files", async () => {
+        const res = await post(base, {
+          ...arriving(),
+          text: undefined,
+          note: "A newspaper notice about the place.",
+          link: { url: "https://example.org/notice" },
+        });
+        expect(res.status).toBe(201);
+      });
+    });
+
     describe("uploads", () => {
       // Prompted by: "How an upload works" in apps/capture-api/README.md. The
       // browser uploads straight to storage, and your server never handles
@@ -171,6 +220,53 @@ export function runCaptureRules(name: string, base: string): void {
       // default. Whether to accept HEIC as it is, convert it, or ask for JPEG
       // is yours to propose.
       it.todo("handles photos in the format iPhones save by default");
+    });
+
+    describe("collections", () => {
+      // Prompted by: "What does a collection carry?" in
+      // docs/DESIGN-QUESTIONS.md. Decided: records one profile hands over
+      // together stay together as a collection, attributed to the profile
+      // and never to a named person. In contract 2.4.0. Open: what a
+      // collection carries beyond that (who gathered the records, why they
+      // were kept), and whether a record can join one later.
+      it.todo(
+        "keeps the records one profile hands over together as one collection",
+      );
+
+      // Prompted by: "How does someone reach a contributor without knowing who they are?"
+      // in docs/DESIGN-QUESTIONS.md. Profiles are anonymous
+      // first; identity is exchanged off the platform. Open: how a request
+      // reaches the contributor, and how it's kept from being misused.
+      it.todo(
+        "passes a request to reach a contributor without revealing who they are",
+      );
+    });
+
+    describe("open questions", () => {
+      // Prompted by: "How does a record get a location?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: precision stored or worked out, and where the contributor's location choice is applied.
+      it.todo("records how a location was arrived at, not only the coordinates");
+
+      // Prompted by: "A profile has no way to say whether anyone can prove it is theirs"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: verified profiles aren't built this semester.
+      it.todo("keeps a guest profile's history when the browser key is lost and found");
+
+      // Prompted by: "Can someone take their record back?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Decided: taking a record back is a privacy setting; deletion is on request. Open: what happens to claims built on it.
+      it.todo("takes a record out of public view when its contributor changes their choice");
+
+      // Prompted by: "What happens to a supporting record that stops holding up?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: a lock with two separate tracks, quality and the terms.
+      it.todo("keeps a locked record visible and marked, with no new references to it");
+
+      // Prompted by: "How are machine-made drafts treated?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: a system profile naming the model and version.
+      it.todo("credits a machine transcript to a system profile with its model and version");
     });
   });
 }

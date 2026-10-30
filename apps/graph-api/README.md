@@ -71,29 +71,22 @@ Then read, in order:
 
 ## Seeing what your changes do
 
-`pnpm fixtures:build` uses the placeholder in `packages/fixtures/src/weight.ts`,
-not your scorer, so it shows how the fixtures move rather than how your scorer
-scores. To see your scorer, run its tests or send a graph to `POST /score`.
-The rest of this section describes the placeholder.
+`pnpm fixtures:build` uses the invented stand-in in
+`packages/fixtures/src/stand-in-score.ts`, not your scorer, so it shows how the
+fixtures move rather than how your scorer scores. The stand-in returns scores in
+the same shape your scorer does (`claimScore` in the contract), which is why the
+experience layer can build against it now. To see your scorer, run its tests or
+send a graph to `POST /score`.
 
-Change the placeholder, run `pnpm fixtures:build`, then `git diff` on
-`packages/fixtures/states/`. Every claim in the archive that moved shows up in
-the diff: which one now leads the article, how integrity shifted, whether the
-only untranslated claim just got buried.
-
-That works as a regression test and a picture at once, and this project expects
-you to use it on the source-quality question, because "this quietly discounts
-small communities" does not show up in a unit test.
-
-To ask why one claim scores what it does:
+To see what a stand-in score is made of:
 
 ```bash
-pnpm inspect --site example-site cl-boarding
+pnpm inspect --site freight-depot cl-fd-office
 ```
 
-That prints the inputs next to the outputs. A weight on its own is not evidence
-of anything. A weight next to "two independent records and three disputes on
-the date" is.
+That prints each claim's terms and each detail's score. A number on its own is
+not evidence of anything. The terms next to it are where a score explains
+itself.
 
 ## The database
 

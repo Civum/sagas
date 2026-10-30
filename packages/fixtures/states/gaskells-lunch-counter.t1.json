@@ -70,6 +70,14 @@
             "createdAt": "2026-02-03T18:41:00Z"
           }
         ],
+        "choices": {
+          "rightToShare": true,
+          "studentAccess": true,
+          "public": "yes",
+          "location": "keep",
+          "mentionsPeople": "not_sure"
+        },
+        "termsVersion": "fixture-terms-0.1",
         "createdAt": "2026-02-03T18:41:00Z"
       },
       "evidenceRecords": [],
@@ -102,10 +110,70 @@
                 "c-priya"
               ]
             }
-          ]
+          ],
+          "weight": 1
         }
       ],
-      "weight": 5.25,
+      "score": {
+        "claimId": "cl-shift-workers",
+        "score": 1.75,
+        "terms": [
+          {
+            "family": "content",
+            "name": "base",
+            "value": 1
+          },
+          {
+            "family": "content",
+            "name": "evidence attached",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "independent support",
+            "value": 0
+          },
+          {
+            "family": "behaviour",
+            "name": "sounds right",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "extensions",
+            "value": 0.75
+          },
+          {
+            "family": "content",
+            "name": "disputes",
+            "value": 0
+          }
+        ],
+        "details": [
+          {
+            "detailId": "el-gk-hours",
+            "score": 1,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "weight": 1.75,
       "confidence": "single_source"
     },
     {
@@ -164,6 +232,14 @@
             "createdAt": "2026-02-03T18:41:00Z"
           }
         ],
+        "choices": {
+          "rightToShare": true,
+          "studentAccess": true,
+          "public": "yes",
+          "location": "keep",
+          "mentionsPeople": "not_sure"
+        },
+        "termsVersion": "fixture-terms-0.1",
         "createdAt": "2026-02-03T18:41:00Z"
       },
       "evidenceRecords": [],
@@ -194,7 +270,8 @@
                 "c-dolores"
               ]
             }
-          ]
+          ],
+          "weight": 1
         },
         {
           "detail": {
@@ -213,10 +290,91 @@
                 "c-dolores"
               ]
             }
-          ]
+          ],
+          "weight": 1
         }
       ],
-      "weight": 2.25,
+      "score": {
+        "claimId": "cl-closed-1979",
+        "score": 1.05,
+        "terms": [
+          {
+            "family": "content",
+            "name": "base",
+            "value": 1
+          },
+          {
+            "family": "content",
+            "name": "evidence attached",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "independent support",
+            "value": 0
+          },
+          {
+            "family": "behaviour",
+            "name": "sounds right",
+            "value": 0.05
+          },
+          {
+            "family": "content",
+            "name": "extensions",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "disputes",
+            "value": 0
+          }
+        ],
+        "details": [
+          {
+            "detailId": "el-gk-year",
+            "score": 1,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "detailId": "el-gk-place",
+            "score": 1,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "weight": 1.05,
       "confidence": "single_source"
     },
     {
@@ -270,6 +428,14 @@
             "createdAt": "2026-02-03T18:41:00Z"
           }
         ],
+        "choices": {
+          "rightToShare": true,
+          "studentAccess": true,
+          "public": "yes",
+          "location": "keep",
+          "mentionsPeople": "not_sure"
+        },
+        "termsVersion": "fixture-terms-0.1",
         "createdAt": "2026-02-03T18:41:00Z"
       },
       "evidenceRecords": [],
@@ -300,10 +466,70 @@
                 "c-dolores"
               ]
             }
-          ]
+          ],
+          "weight": 1
         }
       ],
-      "weight": 2,
+      "score": {
+        "claimId": "cl-mother-worked",
+        "score": 1,
+        "terms": [
+          {
+            "family": "content",
+            "name": "base",
+            "value": 1
+          },
+          {
+            "family": "content",
+            "name": "evidence attached",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "independent support",
+            "value": 0
+          },
+          {
+            "family": "behaviour",
+            "name": "sounds right",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "extensions",
+            "value": 0
+          },
+          {
+            "family": "content",
+            "name": "disputes",
+            "value": 0
+          }
+        ],
+        "details": [
+          {
+            "detailId": "el-gk-person",
+            "score": 1,
+            "terms": [
+              {
+                "family": "content",
+                "name": "base",
+                "value": 1
+              },
+              {
+                "family": "content",
+                "name": "extensions",
+                "value": 0
+              },
+              {
+                "family": "content",
+                "name": "disputes",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "weight": 1,
       "confidence": "single_source"
     }
   ],
@@ -353,9 +579,18 @@
           "createdAt": "2026-02-03T18:41:00Z"
         }
       ],
+      "choices": {
+        "rightToShare": true,
+        "studentAccess": true,
+        "public": "yes",
+        "location": "keep",
+        "mentionsPeople": "not_sure"
+      },
+      "termsVersion": "fixture-terms-0.1",
       "createdAt": "2026-02-03T18:41:00Z"
     }
   ],
+  "collections": [],
   "standings": [
     {
       "contributorId": "c-dolores",

@@ -21,6 +21,11 @@
  *       "language": "en",
  *       "submission": "submitted",
  *       "media": [],
+ *       "choices": {
+ *         "rightToShare": true, "studentAccess": false, "public": "later",
+ *         "location": "remove", "mentionsPeople": "not_sure"
+ *       },
+ *       "termsVersion": "provisional-0.1",
  *       "createdAt": "2026-09-07T12:00:00Z"
  *     }'
  */
@@ -70,8 +75,9 @@ app.post('/records', async (req, res) => {
 
   const { rows } = await pool.query<Record<string, unknown>>(
     `insert into records
-       (id, site_id, contributor_id, note, "text", language, captured_at, submission, created_at)
-     values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+       (id, site_id, contributor_id, note, "text", language, captured_at, submission,
+        choices, terms_version, link, collection_id, created_at)
+     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
      returning *`,
     [
       record.id,
@@ -82,6 +88,10 @@ app.post('/records', async (req, res) => {
       record.language ?? null,
       record.capturedAt ?? null,
       record.submission,
+      record.choices,
+      record.termsVersion,
+      record.link ?? null,
+      record.collectionId ?? null,
       record.createdAt,
     ],
   );
@@ -110,6 +120,10 @@ function toRecord(row: Record<string, unknown>) {
     capturedAt: date(row.captured_at),
     submission: row.submission as string,
     media: [],
+    link: (row.link as Record<string, unknown> | null) ?? undefined,
+    collectionId: (row.collection_id as string | null) ?? undefined,
+    choices: row.choices as Record<string, unknown>,
+    termsVersion: row.terms_version as string,
     createdAt: date(row.created_at),
   };
 }

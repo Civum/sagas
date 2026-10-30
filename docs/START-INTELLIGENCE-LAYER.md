@@ -138,12 +138,12 @@ When your own design moves, that stays with you.
 ```bash
 pnpm install
 pnpm --filter @sagas/graph-api test
-pnpm inspect --site example-site cl-boarding
+pnpm inspect --site freight-depot cl-fd-office
 ```
 
 That is the whole setup for now. The test command runs the scoring rules
 against your scorer and prints a focus summary at the end. `pnpm inspect`
-prints one claim from the fixtures with its inputs beside its outputs.
+prints one claim from the fixtures with the named parts of its score.
 
 ## The database, when you need it
 
