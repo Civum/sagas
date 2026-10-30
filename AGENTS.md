@@ -85,10 +85,50 @@ own branch and pull request by one person. Do not run `git pull upstream`,
 
 - Node 22 (`.nvmrc`), pnpm 9. Our Postgres is port 5435.
 - Small pull requests, opened early as drafts, into this fork's `main`.
-- Run `pnpm --filter @sagas/web test` before opening a PR.
 - Test behaviour, not markup. "A thin record is never described as failing" is
   worth a test; "this div has this class" is not.
 - When a story says "write down why", it goes in the PR description.
+
+## Before every commit
+
+CI (`.github/workflows/ci.yml`) runs these on every pull request, and a failure
+blocks the merge. Run the same ones from the repo root, in this order, and fix
+every failure before committing:
+
+```sh
+pnpm fixtures:build && git diff --exit-code -- packages/fixtures/states
+pnpm typecheck
+pnpm lint
+pnpm acceptance
+pnpm test
+```
+
+Passing tests are not enough on their own: Vitest strips types without checking
+them, and it does not lint. Do not silence a check with `!`, `any`,
+`@ts-ignore` or `eslint-disable`; fix what it found.
+
+- Stage the files you changed by name. Never `git add -A`, `git add .` or
+  `git commit -a`.
+- Read `git diff --cached --stat --summary` before committing. A `mode change`
+  line means a file gained or lost its executable bit; unstage it unless that
+  is the point of the commit. `.githooks/pre-commit` and `scripts/*.sh` stay
+  executable (100755). If one shows as 100644, run `chmod +x` on it in your
+  working copy, not only in the index.
+- If you changed a `package.json`, commit `pnpm-lock.yaml` with it.
+- Check each "Done when" bullet of the story against every fixture state (t0 to
+  t3), and against merged stories that share the same screen.
+
+## Opening a pull request
+
+- Open it as a draft. The description names the stories it implements
+  ("Implements N2 from `apps/web/BACKLOG.md`", or "Closes #12" for an issue),
+  never the pull request's own number, and says which test or manual check
+  covers each "Done when" bullet.
+- Add a line to `apps/web/CHANGELOG.md` for each story that visibly works, in
+  the form shown at the top of that file, including the pull request number.
+  Never edit the root `CHANGELOG.md`.
+- Wait for CI (`gh pr checks <number> --watch`) and mark the pull request ready
+  for review only when every check is green.
 
 ## Accountability
 
