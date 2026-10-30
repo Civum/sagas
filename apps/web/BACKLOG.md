@@ -281,7 +281,7 @@ you finish your current work, and say in your Friday update who took what.
 There's more here than the team can finish in one sprint, on purpose, so
 nobody runs out.
 
-### P4 · Host the full app, free, and not on Vercel
+### P4 · Host the full app, free, and not on Vercel (Ema)
 
 **Workstream:** Platform. **Status:** Ready
 
@@ -311,7 +311,7 @@ page says what's new, with the copy approved the same way as before.
 
 **Done when** the first published version after P7 shows on the landing page.
 
-### P6 · An address for the full app
+### P6 · An address for the full app (Ema)
 
 **Workstream:** Platform. **Status:** Ready to propose. Setting it up waits
 for P7.
