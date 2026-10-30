@@ -78,6 +78,18 @@ describe('landing page copy', () => {
     expect(copy.how.steps).toHaveLength(3);
   });
 
+  it('tracks design-step approval separately from release approval', () => {
+    expect(content.status).toBe('approved');
+    expect(content.designSteps?.De2.status).toBe('approved');
+    expect(content.designSteps?.De4.status).toBe('draft');
+    expect(content.designSteps?.De5.status).toBe('draft');
+    expect(content.designSteps?.De6.status).toBe('draft');
+    expect(content.designSteps?.De7.status).toBe('draft');
+    expect(content.designSteps?.De4.copy.heading).toContain('archive');
+    expect(content.designSteps?.De5.copy.text).toContain('not a promise');
+    expect(content.designSteps?.De7.components).toHaveLength(5);
+  });
+
   if (content.status === 'draft') {
     it('shows the draft banner while the copy is unapproved', () => {
       expect(html).toContain('data-draft-banner');

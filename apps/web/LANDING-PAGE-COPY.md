@@ -4,6 +4,9 @@
 **Audience:** People who remember a place, community leaders, and archivists
 **Public release:** Approved for sagasproject.org; the product itself is not open yet
 
+**Design-step status:** De4 through De7 are draft additions under review. They are
+not part of the approved page copy until the sponsor approves them.
+
 This copy is for the local landing-page wireframe in
 [`landing-page-wireframe.html`](./landing-page-wireframe.html). It explains the
 idea before the site exists publicly and names no organisation.
@@ -162,3 +165,89 @@ banner alone.
 - [x] Confirm whether the draft banner should be removed before release.
 - [x] Confirm that no organisation name, score, count, or readiness signal has
       slipped into the page.
+
+## Design-step status and approval history
+
+These additions are tracked separately from the approved landing-page copy.
+Changing a design-step status does not change the release status above.
+
+| Step | Status | Approval history |
+| --- | --- | --- |
+| De2 | Approved | Sponsor approval recorded on 19 October 2026 in [Issue #11](https://github.com/byui-cse397/2026.3FallCSE397PCP_sagasCustomer/issues/11#issuecomment-6278318879). |
+| De4 | Draft | Started 27 October 2026; sponsor approval pending. |
+| De5 | Draft | Started 27 October 2026; sponsor approval pending. |
+| De6 | Draft | Started 27 October 2026; sponsor approval pending. |
+| De7 | Draft | Started 27 October 2026; team design review pending. |
+
+### De4 draft — Where a story belongs
+
+**Heading**
+
+> Sagas helps a story stay connected to a place, while an archive can keep it
+> permanently.
+
+**Copy**
+
+> Sagas is built around places, so it can turn up the people, records, and
+> leads connected to a story. If you want material kept permanently, an archive
+> may be the right place to donate it. We plan for contributors to choose what
+> stays public and to be able to take something out of public view.
+
+This is planned product behavior. It does not name an archive or provide a
+donation path.
+
+### De5 draft — How stories are looked after
+
+**Heading**
+
+> Memories stay visible as memories, with the sources behind them.
+
+**Copy**
+
+> Sagas is designed to keep each memory connected to its source. When people
+> remember something differently, the different versions stay visible with
+> their own sources. Contributors choose what is public. These are the
+> project's principles, not a promise that moderation or review is already
+> available.
+
+This describes intended direction; privacy controls, moderation, and review are
+not represented as live features.
+
+### De6 draft — Who runs the project
+
+**Heading**
+
+> Sagas is a free project, and nothing on it is sold.
+
+**Copy**
+
+> Sagas is run by the team building the project as a free public-interest
+> archive. Nothing people contribute is sold. This draft does not name an
+> organization, university, course, or person.
+
+This passage requires sponsor approval before it is added to the approved page
+copy.
+
+### De7 draft — Design components
+
+**Heading**
+
+> The map and narrative page should use the same clear building blocks.
+
+**Copy**
+
+> The first component set covers the map pin, site list item, narrative header,
+> memory with its source, competing detail versions, and a record showing who
+> brought it. Each component needs empty, loading, long-name, and disagreement
+> states.
+
+**Components for team review**
+
+- Map pin and site list item
+- Narrative page header
+- Memory with source
+- Competing detail versions
+- Record with contributor
+
+De7 is a design review item; anything the data cannot support goes to the
+sponsor questions issue.

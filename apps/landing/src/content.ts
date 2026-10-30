@@ -24,6 +24,59 @@ export const content: LandingContent = {
     date: '2026-10-19',
     copySha256: '3c870c03dd60b5e1997086526eb81c776c38dd625c5b50731d0e9c5497c908da',
   },
+  // De4 through De7 copy and design notes are retained here for review, but remain outside
+  // `copy` until sponsor approval makes it eligible for release.
+  designSteps: {
+    De2: {
+      status: 'approved',
+      approvedOn: '2026-10-19',
+      approvalLink:
+        'https://github.com/byui-cse397/2026.3FallCSE397PCP_sagasCustomer/issues/11#issuecomment-6278318879',
+    },
+    De4: {
+      status: 'draft',
+      copy: {
+        id: 'preserve',
+        label: 'Where a story belongs',
+        heading: 'Sagas helps a story stay connected to a place, while an archive can keep it permanently.',
+        text: 'Sagas is built around places, so it can turn up the people, records, and leads connected to a story. If you want material kept permanently, an archive may be the right place to donate it. We plan for contributors to choose what stays public and to be able to take something out of public view.',
+      },
+    },
+    De5: {
+      status: 'draft',
+      copy: {
+        id: 'care',
+        label: 'How stories are looked after',
+        heading: 'Memories stay visible as memories, with the sources behind them.',
+        text: "Sagas is designed to keep each memory connected to its source. When people remember something differently, the different versions stay visible with their own sources. Contributors choose what is public. These are the project's principles, not a promise that moderation or review is already available.",
+      },
+    },
+    De6: {
+      status: 'draft',
+      copy: {
+        id: 'ownership',
+        label: 'Who runs the project',
+        heading: 'Sagas is a free project, and nothing on it is sold.',
+        text: 'Sagas is run by the team building the project as a free public-interest archive. Nothing people contribute is sold. This draft does not name an organization, university, course, or person.',
+      },
+    },
+    De7: {
+      status: 'draft',
+      copy: {
+        id: 'components',
+        label: 'Design components',
+        heading: 'The map and narrative page should use the same clear building blocks.',
+        text: 'The first component set covers the map pin, site list item, narrative header, memory with its source, competing detail versions, and a record showing who brought it. Each component needs empty, loading, long-name, and disagreement states.',
+      },
+      components: [
+        { name: 'Map pin and site list item', states: ['empty', 'loading', 'long name', 'disagreement'] },
+        { name: 'Narrative page header', states: ['empty', 'loading', 'long name', 'disagreement'] },
+        { name: 'Memory with source', states: ['empty', 'loading', 'long name', 'disagreement'] },
+        { name: 'Competing detail versions', states: ['empty', 'loading', 'long name', 'disagreement'] },
+        { name: 'Record with contributor', states: ['empty', 'loading', 'long name', 'disagreement'] },
+      ],
+    },
+  },
   copy: {
     meta: {
       title: 'Sagas',

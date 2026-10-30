@@ -15,6 +15,9 @@ conflict on a later pull.
 
 - What works now, in a sentence a visitor would understand. (#pull request number, who)
 ```
+## 2026-10-30
+
+- Draft design work for De4–De7 now records archive direction, story-care principles, project ownership, and map/narrative components with review states. The drafts remain outside the approved release copy pending sponsor and team review. (#40, Michael)
 
 ## 2026-10-23
 
