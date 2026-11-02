@@ -51,3 +51,61 @@ out before the file is saved.
 
 **Not in this story.** Finding personal details automatically, and PDFs with text
 you can select, which need more than covering the page image.
+
+### C3 · Add a transcript to part of a recording
+
+**Status:** Later, once `POST /records` and `GET /records/:id` work.
+
+**Goal.** A recording is where most of the text in this project comes from, and
+nothing can use what it says until someone writes it down. Somebody can transcribe
+one stretch of a recording without doing the rest, and more than one person can
+transcribe the same stretch.
+
+**Done when:**
+- `POST /records` takes a record with `text` and a `parent` whose `role` is
+  `transcript`, with the recording's `recordId`, an optional `window`, and a `method`.
+  It stores it like any other record.
+- It answers 400 if the parent recording doesn't exist, or if the parent isn't valid
+  (the contract's `recordParent` checks the shape).
+- Two transcripts of the same window both stay, each credited to whoever wrote it.
+- `GET /records/:id/transcripts` returns every transcript of a recording.
+
+**Not in this story.** A screen for typing a transcript, machine transcription, and
+an audio player that follows the text.
+
+### C4 · Say which parts of a recording have a transcript
+
+**Status:** Later, after C3.
+
+**Goal.** Other code needs to know how much of a recording can be read. A claim that
+cites 0:18 to 1:10 only gets the part of its score that depends on what it says once
+that stretch has a transcript, and the scoring graph reads this as `transcribedWindows` in `packages/fixtures/scoring/graph.ts`.
+
+**Done when** `GET /records/:id/coverage` returns the stretches that have a transcript,
+in order, with these cases tested:
+- A recording with no transcripts returns an empty list.
+- A transcript with no `window` covers the whole recording.
+- Overlapping windows, like 0:10 to 0:40 and 0:30 to 1:00, come back as one stretch.
+- Windows with a gap between them come back as two stretches.
+
+**Not in this story.** Deciding how that changes a claim's score. That's the scorer's
+job.
+
+### C5 · Add a translation
+
+**Status:** Later, after C3.
+
+**Goal.** Somebody can translate a written record, a transcript or a claim into another
+language, and more than one translation can exist. Nothing here decides which one is
+right.
+
+**Done when:**
+- `POST /records` takes a record with `text`, a `language`, and a `parent` whose `role`
+  is `translation`, pointing at a `recordId` or a `claimId`.
+- It answers 400 if a translation has no `language`.
+- It answers 400 if the parent `recordId` doesn't exist. A `claimId` is stored as it
+  arrives, because claims live in another layer's database.
+- Two translations of the same thing both stay, each credited.
+
+**Not in this story.** Translating anything automatically, and disputes about a
+translation.

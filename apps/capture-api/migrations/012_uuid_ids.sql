@@ -15,7 +15,9 @@
 --
 -- This changes a column that holds ids already. It fails if a row has an id that
 -- isn't a UUID, which `db:reset` clears because those rows are test data. It also
--- fails if a foreign key of another type points at `records.id`, so change those
--- keys to `uuid` in a migration of your own, numbered before this one.
+-- fails if a foreign key points at `records.id`. If you have those, drop them in a
+-- migration of your own numbered before this one, then add them back as `uuid` in
+-- one numbered after it. This hasn't been run against child tables yet, so tell the
+-- sponsor if it gives you trouble.
 alter table records alter column id type uuid using id::uuid;
 alter table records alter column id set default gen_random_uuid();

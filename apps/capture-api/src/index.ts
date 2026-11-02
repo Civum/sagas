@@ -74,8 +74,8 @@ app.post('/records', async (req, res) => {
   const { rows } = await pool.query<Record<string, unknown>>(
     `insert into records
        (site_id, contributor_id, note, "text", language, captured_at, submission,
-        choices, terms_version, link, collection_id, created_at)
-     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+        choices, terms_version, link, parent, collection_id, created_at)
+     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
      returning *`,
     [
       record.siteId,
@@ -88,6 +88,7 @@ app.post('/records', async (req, res) => {
       record.choices,
       record.termsVersion,
       record.link ?? null,
+      record.parent ?? null,
       record.collectionId ?? null,
       record.createdAt,
     ],
@@ -118,6 +119,7 @@ function toRecord(row: Record<string, unknown>) {
     submission: row.submission as string,
     media: [],
     link: (row.link as Record<string, unknown> | null) ?? undefined,
+    parent: (row.parent as Record<string, unknown> | null) ?? undefined,
     collectionId: (row.collection_id as string | null) ?? undefined,
     choices: row.choices as Record<string, unknown>,
     termsVersion: row.terms_version as string,
