@@ -120,7 +120,7 @@ that's about to change.
   title and a summary, so a link with only an old title should have no preview for now. The new
   rules in `capture/rules.ts` have no date on them. Read your backlog.
 - *experience layer* — pull upstream. `status.detail` now has only `id` and `excerpt`,
-  so `kind` and `value` are gone, and a claim nothing has replied to has an empty
+  so `kind` and `value` are gone, and a claim nothing points at has an empty
   `detailStatuses`. `competingValues` starts with the claim's own words.
   Edges carry `targetExcerpt` in place of `targetDetailId`, and `spans[].detailIds` hold
   the new ids, from `detailId(claimId, excerpt)`, only where something points at the

@@ -295,8 +295,8 @@ pnpm --filter @sagas/graph-api test
 The scorer reads the graph for one place and returns a score for every claim
 and every detail, each with the terms it's made of. A claim's score is a
 composite: its details, its place in the graph, the evidence it carries,
-independent support from other branches, and behaviour. How those combine is
-yours.
+independent support from other branches, and behaviour (out of scope this
+semester, so it's a stretch goal). How those combine is yours.
 
 Almost every rule compares one graph with another, and none pins a score. Some are
 placeholders with their context written above them. The focus summary at the
