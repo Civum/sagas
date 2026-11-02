@@ -1,0 +1,21 @@
+-- Ids are UUIDs the database generates, for every table.
+--
+-- A record's id was text, with a random UUID made in code. Now Postgres makes it.
+-- Give every table you add the same kind of key:
+--
+--   id uuid primary key default gen_random_uuid()
+--
+-- A media reference is its own row with its own UUID, and it points at its record
+-- with a foreign key:
+--
+--   record_id uuid not null references records (id) on delete cascade
+--
+-- A GET handler has to accept a UUID, so check any code that reads the id as a
+-- number, and answer 404 for an id that isn't a UUID.
+--
+-- This changes a column that holds ids already. It fails if a row has an id that
+-- isn't a UUID, which `db:reset` clears because those rows are test data. It also
+-- fails if a foreign key of another type points at `records.id`, so change those
+-- keys to `uuid` in a migration of your own, numbered before this one.
+alter table records alter column id type uuid using id::uuid;
+alter table records alter column id set default gen_random_uuid();

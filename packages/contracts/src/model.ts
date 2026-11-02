@@ -477,8 +477,15 @@ const sourceRecordFields = z.object({
   capturedAt: z.string().optional(),
   capturedLocation: capturedLocation.optional(),
   submission: submissionState,
-  /** What has arrived so far. A record can exist before its files finish uploading. */
-  media: z.array(mediaRef),
+  /**
+   * What has arrived so far. A record can exist before its files finish
+   * uploading, and a written record has none, so this can arrive empty, null or
+   * missing. Whichever it was, it comes out of validation as a list.
+   */
+  media: z
+    .array(mediaRef)
+    .nullish()
+    .transform((m) => m ?? []),
   /** Set when the record is a web page. */
   link: linkSource.optional(),
   /** The collection it was handed over in. See `collection`. */
