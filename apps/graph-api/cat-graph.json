@@ -30,10 +30,9 @@
       "text": "The cat crossed the road.",
       "sourceRecordId": "R",
       "target": {
-        "type": "record",
-        "id": "R"
+        "recordId": "R",
+        "details": []
       },
-      "details": [],
       "references": [],
       "evidence": []
     },
@@ -44,19 +43,18 @@
       "text": "It was a calico.",
       "sourceRecordId": "R",
       "target": {
-        "type": "claim",
-        "id": "A"
+        "claimId": "A",
+        "details": [
+          {
+            "at": {
+              "start": 0,
+              "end": 7,
+              "text": "The cat"
+            }
+          }
+        ]
       },
       "relation": "extension",
-      "details": [
-        {
-          "at": {
-            "start": 0,
-            "end": 7,
-            "text": "The cat"
-          }
-        }
-      ],
       "references": [],
       "evidence": []
     },
@@ -67,19 +65,18 @@
       "text": "To catch a bird.",
       "sourceRecordId": "R",
       "target": {
-        "type": "claim",
-        "id": "A"
+        "claimId": "A",
+        "details": [
+          {
+            "at": {
+              "start": 8,
+              "end": 15,
+              "text": "crossed"
+            }
+          }
+        ]
       },
       "relation": "extension",
-      "details": [
-        {
-          "at": {
-            "start": 8,
-            "end": 15,
-            "text": "crossed"
-          }
-        }
-      ],
       "references": [],
       "evidence": []
     },
@@ -90,25 +87,24 @@
       "text": "It was a fence.",
       "sourceRecordId": "R",
       "target": {
-        "type": "claim",
-        "id": "A"
+        "claimId": "A",
+        "details": [
+          {
+            "at": {
+              "start": 16,
+              "end": 24,
+              "text": "the road"
+            },
+            "to": {
+              "start": 7,
+              "end": 14,
+              "text": "a fence"
+            }
+          }
+        ]
       },
       "relation": "dispute",
       "reasoning": "I lived next door",
-      "details": [
-        {
-          "at": {
-            "start": 16,
-            "end": 24,
-            "text": "the road"
-          },
-          "to": {
-            "start": 7,
-            "end": 14,
-            "text": "a fence"
-          }
-        }
-      ],
       "references": [],
       "evidence": []
     },
@@ -119,19 +115,18 @@
       "text": "A photo of the cat on the road.",
       "sourceRecordId": "R",
       "target": {
-        "type": "claim",
-        "id": "A"
+        "claimId": "A",
+        "details": [
+          {
+            "at": {
+              "start": 16,
+              "end": 24,
+              "text": "the road"
+            }
+          }
+        ]
       },
       "relation": "extension",
-      "details": [
-        {
-          "at": {
-            "start": 16,
-            "end": 24,
-            "text": "the road"
-          }
-        }
-      ],
       "references": [],
       "evidence": [
         {
@@ -146,10 +141,9 @@
       "text": "a cat ran across the road that morning",
       "sourceRecordId": "news",
       "target": {
-        "type": "record",
-        "id": "news"
+        "recordId": "news",
+        "details": []
       },
-      "details": [],
       "references": [],
       "evidence": []
     }

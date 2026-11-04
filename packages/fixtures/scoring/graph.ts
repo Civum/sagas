@@ -1,14 +1,16 @@
 /**
  * The model, in five sentences.
  *
- * A claim is something a person says about one thing, its `target`: a record or
- * another claim. A claim that targets a claim has a `relation`, dispute or extension,
- * and a dispute also gives its `reasoning`. A claim's `details` list where it points
- * inside its target, as an excerpt (some words and their position) or a window of a
- * recording, and an empty list means all of the target. When B points at words in claim
- * A, those words are a detail of A, so `detailsOf(graph, "A")` collects them from every
- * reply to A, and it doesn't return `A.details`. A reply's target, relation and details
- * are its edge, and the graph stores that edge nowhere else.
+ * A claim is something a person says about one thing, its `target`: another claim or
+ * a record, and a transcript or a translation is a record. A claim that targets a claim
+ * has a `relation`, dispute or extension, and a dispute also gives its `reasoning`.
+ * `target.details` lists where it points inside that thing, each with an `at`, and an
+ * empty list means all of it. When B points at words in claim A, those words are a detail
+ * of A, so `detailsOf(graph, "A")` collects them from every reply to A. A reply's target
+ * and relation are its edge, and the graph stores that edge nowhere else.
+ *
+ * `at` is an object: `{ start, end, text }` for words, with positions in characters, or
+ * `{ start, end }` for a window of a recording, in seconds.
  *
  * ---
  *
@@ -41,7 +43,6 @@ import {
   isExcerpt,
   sameExcerpt,
   scoreTerm,
-  targetDetail,
 } from "@sagas/contracts";
 
 const timestamp = z.string().datetime();
@@ -85,14 +86,12 @@ export const claimNode = z
   text: z.string(),
   /** The record this claim's thread starts from. Claims with the same one are one thread. */
   sourceRecordId: z.string(),
-  /** What this claim points into: a record, or another claim. */
+  /** What this claim points into, and where inside it. An empty `details` means all of it. */
   target: claimTarget,
   /** Whether it disputes or extends the claim it targets. Only a claim that targets a claim has one. */
   relation: claimRelation.optional(),
   /** Why, on a dispute. The people who write claims choose these, so the scorer never guesses them from the words. */
   reasoning: z.string().optional(),
-  /** The excerpts or stretches it points at in its target. Empty means all of it. */
-  details: z.array(targetDetail),
   /**
    * True when the claim was given in another language and rendered. It must
    * never lower a score; the rules check that. There's no field for where a
@@ -151,17 +150,18 @@ export const scoringGraph = z
     const problem = (message: string) =>
       ctx.addIssue({ code: z.ZodIssueCode.custom, message });
     for (const c of g.claims) {
-      if (c.target.type === "record") {
-        if (!records.has(c.target.id))
-          problem(`claim ${c.id} targets record ${c.target.id}, which isn't in the graph`);
+      const { claimId, recordId } = c.target;
+      if (recordId !== undefined) {
+        if (!records.has(recordId))
+          problem(`claim ${c.id} targets record ${recordId}, which isn't in the graph`);
         continue;
       }
-      const target = claims.get(c.target.id);
+      const target = claims.get(claimId ?? "");
       if (!target) {
-        problem(`claim ${c.id} targets claim ${c.target.id}, which isn't in the graph`);
+        problem(`claim ${c.id} targets claim ${claimId}, which isn't in the graph`);
         continue;
       }
-      for (const d of c.details) {
+      for (const d of c.target.details) {
         if (isExcerpt(d.at) && !excerptIsIn(target.text, d.at))
           problem(`claim ${c.id} points at "${d.at.text}", which isn't at that position in ${target.id}`);
       }
@@ -171,11 +171,11 @@ export type ScoringGraph = z.infer<typeof scoringGraph>;
 
 /** The claims that dispute or extend this one, in the order they appear in the graph. */
 export const repliesTo = (graph: ScoringGraph, claimId: string): ClaimNode[] =>
-  graph.claims.filter((c) => c.target.type === "claim" && c.target.id === claimId);
+  graph.claims.filter((c) => c.target.claimId === claimId);
 
 /** Whether a reply points at exactly these words of the claim it targets. */
 export const pointsAt = (reply: ClaimNode, e: Excerpt): boolean =>
-  reply.details.some((d) => isExcerpt(d.at) && sameExcerpt(d.at, e));
+  reply.target.details.some((d) => isExcerpt(d.at) && sameExcerpt(d.at, e));
 
 /**
  * A claim's details, worked out from what points at it. The same words in the same
@@ -186,7 +186,7 @@ export const pointsAt = (reply: ClaimNode, e: Excerpt): boolean =>
 export function detailsOf(graph: ScoringGraph, claimId: string): ClaimDetail[] {
   const excerpts: Excerpt[] = [];
   for (const reply of repliesTo(graph, claimId)) {
-    for (const { at } of reply.details) {
+    for (const { at } of reply.target.details) {
       if (isExcerpt(at) && !excerpts.some((e) => sameExcerpt(e, at)))
         excerpts.push(at);
     }

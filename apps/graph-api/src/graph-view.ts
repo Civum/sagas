@@ -56,7 +56,7 @@ function claimCard(
   result: ScoringResult | null,
 ): string {
   const score = result?.claims.find((c) => c.claimId === claim.id);
-  const words = claim.details
+  const words = claim.target.details
     .flatMap(({ at, to }) =>
       isExcerpt(at)
         ? [
@@ -65,7 +65,7 @@ function claimCard(
         : [],
     )
     .join(" and ");
-  const window = claim.details.map((d) => d.at).find((at) => !isExcerpt(at));
+  const window = claim.target.details.map((d) => d.at).find((at) => !isExcerpt(at));
   const pointsAt = claim.relation
     ? `<p class="edge ${claim.relation}">${claim.relation === "dispute" ? "disputes" : "extends"} ${
         words || "the whole claim"
@@ -114,7 +114,7 @@ export function renderGraph(
     .filter((r) => graph.claims.some((c) => c.sourceRecordId === r.id))
     .map((r) => {
       const inThread = graph.claims.filter((c) => c.sourceRecordId === r.id);
-      const tops = inThread.filter((c) => c.target.type === "record");
+      const tops = inThread.filter((c) => c.target.recordId !== undefined);
       return `<section class="thread">
   <h2>${esc(r.id)}</h2>
   <p class="record">${esc(r.kind)}, handed over by ${esc(r.contributorId)}</p>

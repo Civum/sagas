@@ -30,10 +30,9 @@
       "text": "The Hendersons' cat crossed Mill Road in 1950.",
       "sourceRecordId": "r1",
       "target": {
-        "type": "record",
-        "id": "r1"
+        "recordId": "r1",
+        "details": []
       },
-      "details": [],
       "references": [],
       "evidence": []
     },
@@ -44,10 +43,9 @@
       "text": "The Hendersons' cat crossed Mill Road in 1950.",
       "sourceRecordId": "r2",
       "target": {
-        "type": "record",
-        "id": "r2"
+        "recordId": "r2",
+        "details": []
       },
-      "details": [],
       "references": [],
       "evidence": []
     },
@@ -58,25 +56,24 @@
       "text": "It was 1960. Mill Road wasn't built until 1958.",
       "sourceRecordId": "r1",
       "target": {
-        "type": "claim",
-        "id": "c1"
+        "claimId": "c1",
+        "details": [
+          {
+            "at": {
+              "start": 41,
+              "end": 45,
+              "text": "1950"
+            },
+            "to": {
+              "start": 7,
+              "end": 11,
+              "text": "1960"
+            }
+          }
+        ]
       },
       "relation": "dispute",
       "reasoning": "Mill Road wasn't built until 1958",
-      "details": [
-        {
-          "at": {
-            "start": 41,
-            "end": 45,
-            "text": "1950"
-          },
-          "to": {
-            "start": 7,
-            "end": 11,
-            "text": "1960"
-          }
-        }
-      ],
       "references": [],
       "evidence": []
     },
@@ -87,19 +84,18 @@
       "text": "Whiskers on Mill Road, in a photo.",
       "sourceRecordId": "r1",
       "target": {
-        "type": "claim",
-        "id": "c1"
+        "claimId": "c1",
+        "details": [
+          {
+            "at": {
+              "start": 28,
+              "end": 37,
+              "text": "Mill Road"
+            }
+          }
+        ]
       },
       "relation": "extension",
-      "details": [
-        {
-          "at": {
-            "start": 28,
-            "end": 37,
-            "text": "Mill Road"
-          }
-        }
-      ],
       "references": [],
       "evidence": [
         {

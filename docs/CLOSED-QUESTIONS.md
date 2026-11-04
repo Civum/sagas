@@ -17,13 +17,14 @@ Done in contract 2.6.0. The contract used to describe a reply several times:
 `claim.target` said where it pointed, a dispute edge or an extension edge said it again, and
 `parentClaimId` and `disputedClaimId` said it a third way. Every claim has one target, so
 every edge matched one claim, and nothing kept the two in agreement. So a reply's
-`target`, `relation` and `details` are now its edge, and nothing stores it again.
-Anything that wants a list of edges reads them off the claims. Older entries below name
-the edge objects as they were then, and use `claim.details` for a claim's own details,
-which is the opposite direction from today's field.
+`target` and `relation` are now its edge, and nothing stores it again. Anything that wants
+a list of edges reads them off the claims. Older entries below name the edge objects as
+they were then, and `claim.details` for a claim's own details, a field that no longer
+exists.
 
-`details` lists where a claim points inside its target, and no details means all of it.
-A dispute can point at several details, so "Sally bought a pink hat" disputed as
+A target is `{ claimId | recordId, details: [{ at, to? }] }`. A transcript or a translation
+is a record, so a claim about one has `recordId`. `details` lists where a claim points
+inside its target, and no details means all of it. A dispute can point at several details, so "Sally bought a pink hat" disputed as
 "Brandon bought a blue hat" is one claim with one set of evidence. Each entry has `at`,
 the words or the window in the target, and `to`, the words in the dispute's own text
 that replace them. A dispute can also cover a whole claim, because sometimes all of it

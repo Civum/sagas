@@ -1128,6 +1128,11 @@ export function runScoringRules(name: string, scorer: Scorer): void {
         "scores each assertion in a claim on its own, or treats the claim as one",
       );
 
+      // Prompted by: "What should happen when someone repeats what's already here?"
+      // in docs/DESIGN-QUESTIONS.md. Open: where a repeat goes, and whether matching
+      // can suggest the thread a person would have picked.
+      it.todo("suggests the existing thread when a new claim repeats one");
+
       // Prompted by: "How should a resolution be recorded?"
       // in docs/DESIGN-QUESTIONS.md.
       // Decided: a resolution is its own edge. Open: what it points at.

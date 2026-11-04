@@ -50,7 +50,7 @@ test('an untranslated claim is present and readable, and its content terms wait'
 
 test('a claim citing a window of a recording waits for that window to be transcribed', () => {
   const ines = find(t2, 'cl-fd-ines');
-  expect(ines.claim.details[0]?.at).toEqual({ start: 18, end: 70 });
+  expect(ines.claim.target.details[0]?.at).toEqual({ start: 18, end: 70 });
   const transcript = t2.records.find((r) => r.parent?.role === 'transcript' && r.parent.recordId === 'rec-fd-04');
   expect(transcript?.parent?.window).toEqual({ start: 18, end: 70 });
 });

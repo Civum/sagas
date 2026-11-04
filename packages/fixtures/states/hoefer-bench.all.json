@@ -28,10 +28,9 @@
           "sourceRecordId": "rec-plaque",
           "evidence": [],
           "target": {
-            "type": "record",
-            "id": "rec-plaque"
+            "recordId": "rec-plaque",
+            "details": []
           },
-          "details": [],
           "text": "My grandmother walked this stretch every morning for about thirty years. After she died the family put the bench here because it is the spot where she used to stop and look at the water. The plaque was my aunt's idea.",
           "sourceLanguage": "en",
           "references": [
@@ -265,10 +264,9 @@
           "sourceRecordId": "rec-plaque",
           "evidence": [],
           "target": {
-            "type": "record",
-            "id": "rec-plaque"
+            "recordId": "rec-plaque",
+            "details": []
           },
-          "details": [],
           "text": "My grandmother walked this stretch every morning for about thirty years. After she died the family put the bench here because it is the spot where she used to stop and look at the water. The plaque was my aunt's idea.",
           "sourceLanguage": "en",
           "references": [
@@ -497,10 +495,9 @@
           "sourceRecordId": "rec-plaque",
           "evidence": [],
           "target": {
-            "type": "record",
-            "id": "rec-plaque"
+            "recordId": "rec-plaque",
+            "details": []
           },
-          "details": [],
           "text": "My grandmother walked this stretch every morning for about thirty years. After she died the family put the bench here because it is the spot where she used to stop and look at the water. The plaque was my aunt's idea.",
           "sourceLanguage": "en",
           "references": [
@@ -729,10 +726,9 @@
           "sourceRecordId": "rec-plaque",
           "evidence": [],
           "target": {
-            "type": "record",
-            "id": "rec-plaque"
+            "recordId": "rec-plaque",
+            "details": []
           },
-          "details": [],
           "text": "My grandmother walked this stretch every morning for about thirty years. After she died the family put the bench here because it is the spot where she used to stop and look at the water. The plaque was my aunt's idea.",
           "sourceLanguage": "en",
           "references": [

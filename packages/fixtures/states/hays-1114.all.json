@@ -28,10 +28,9 @@
           "sourceRecordId": "rec-hays-shoes",
           "evidence": [],
           "target": {
-            "type": "record",
-            "id": "rec-hays-shoes"
+            "recordId": "rec-hays-shoes",
+            "details": []
           },
-          "details": [],
           "text": "The shoe repair at 1114 was there from the late fifties until it shut. The family lived above the shop.",
           "sourceLanguage": "en",
           "references": [
@@ -228,10 +227,9 @@
           "sourceRecordId": "rec-hays-shoes",
           "evidence": [],
           "target": {
-            "type": "record",
-            "id": "rec-hays-shoes"
+            "recordId": "rec-hays-shoes",
+            "details": []
           },
-          "details": [],
           "text": "The shoe repair at 1114 was there from the late fifties until it shut. The family lived above the shop.",
           "sourceLanguage": "en",
           "references": [
@@ -423,10 +421,9 @@
           "sourceRecordId": "rec-hays-shoes",
           "evidence": [],
           "target": {
-            "type": "record",
-            "id": "rec-hays-shoes"
+            "recordId": "rec-hays-shoes",
+            "details": []
           },
-          "details": [],
           "text": "The shoe repair at 1114 was there from the late fifties until it shut. The family lived above the shop.",
           "sourceLanguage": "en",
           "references": [
@@ -645,10 +642,9 @@
           "sourceRecordId": "rec-hays-shoes",
           "evidence": [],
           "target": {
-            "type": "record",
-            "id": "rec-hays-shoes"
+            "recordId": "rec-hays-shoes",
+            "details": []
           },
-          "details": [],
           "text": "The shoe repair at 1114 was there from the late fifties until it shut. The family lived above the shop.",
           "sourceLanguage": "en",
           "references": [

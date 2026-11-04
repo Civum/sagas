@@ -35,10 +35,9 @@
       "text": "That's the shop on the corner of Fourth and Main, around 1950. The man in the doorway is the owner, Mr. Ferris.",
       "sourceRecordId": "rec-cs-photo",
       "target": {
-        "type": "record",
-        "id": "rec-cs-photo"
+        "recordId": "rec-cs-photo",
+        "details": []
       },
-      "details": [],
       "references": [
         {
           "kind": "place",
@@ -77,19 +76,18 @@
       "text": "Mr. Ferris was my uncle. He ran that shop until the sixties.",
       "sourceRecordId": "rec-cs-photo",
       "target": {
-        "type": "claim",
-        "id": "cl-cs-shop"
+        "claimId": "cl-cs-shop",
+        "details": [
+          {
+            "at": {
+              "start": 89,
+              "end": 110,
+              "text": "the owner, Mr. Ferris"
+            }
+          }
+        ]
       },
       "relation": "extension",
-      "details": [
-        {
-          "at": {
-            "start": 89,
-            "end": 110,
-            "text": "the owner, Mr. Ferris"
-          }
-        }
-      ],
       "references": [
         {
           "kind": "date",
@@ -114,25 +112,24 @@
       "text": "It was 1956 or later.",
       "sourceRecordId": "rec-cs-photo",
       "target": {
-        "type": "claim",
-        "id": "cl-cs-shop"
+        "claimId": "cl-cs-shop",
+        "details": [
+          {
+            "at": {
+              "start": 50,
+              "end": 61,
+              "text": "around 1950"
+            },
+            "to": {
+              "start": 7,
+              "end": 20,
+              "text": "1956 or later"
+            }
+          }
+        ]
       },
       "relation": "dispute",
       "reasoning": "It can't be 1950. The awning in the photo went up in 1956. The directory page I uploaded shows the change.",
-      "details": [
-        {
-          "at": {
-            "start": 50,
-            "end": 61,
-            "text": "around 1950"
-          },
-          "to": {
-            "start": 7,
-            "end": 20,
-            "text": "1956 or later"
-          }
-        }
-      ],
       "references": [],
       "evidence": [
         {
@@ -147,10 +144,9 @@
       "text": "The sign reads FERRIS GROCERY. The previous owner of my house said it came down when the shop closed.",
       "sourceRecordId": "rec-cs-sign",
       "target": {
-        "type": "record",
-        "id": "rec-cs-sign"
+        "recordId": "rec-cs-sign",
+        "details": []
       },
-      "details": [],
       "references": [
         {
           "kind": "person",

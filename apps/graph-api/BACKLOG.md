@@ -42,10 +42,10 @@ a detail of the claim it replies to, and `detailsOf(graph, claimId)` in
 `@sagas/fixtures/scoring` works them out. A claim nothing points at has no details,
 so it has nothing for the scorer to check across threads yet.
 
-Every claim has a `target`, the record or claim it points into, and `details`, the
-excerpts or stretches it points at there, with none meaning all of it. A claim that
-targets a claim has a `relation`, dispute or extension, and those three fields are
-its edge: the link one claim draws to another. `A.details` says where A points, and
+Every claim has a `target`: the claim or record it points into, and `details`, where it
+points inside that, with none meaning all of it. A claim that targets a claim has a
+`relation`, dispute or extension, and those are its edge: the link one claim draws to
+another. `A.target.details` says where A points, and
 `detailsOf(graph, "A")` says what others point at in A. A claim also has `references`, which are typed links inside its own
 text, like a date or a place. The contributor adds them, or the system suggests them
 and the contributor confirms. How they get added is still open, and nothing scores

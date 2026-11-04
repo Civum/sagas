@@ -717,23 +717,21 @@ export const findExcerpt = (text: string, words: string, occurrence = 1): Excerp
 export const sameExcerpt = (a: Excerpt, b: Excerpt): boolean =>
   a.start === b.start && a.end === b.end;
 
-/** What a claim points into: a record, or another claim. Every claim has one. */
-export const claimTarget = z.object({
-  type: z.enum(['record', 'claim']),
-  id: z.string(),
-});
-export type ClaimTarget = z.infer<typeof claimTarget>;
-
 /** How a claim relates to the claim it targets. */
 export const claimRelation = z.enum(['dispute', 'extension']);
 export type ClaimRelation = z.infer<typeof claimRelation>;
 
 /**
- * One place a claim points at, inside what it targets. `claim.details` is a list of
- * these, and it looks outward: `A.details` says where A points in its target. What
- * others point at in A comes from `detailsOf(graph, "A")`.
+ * One place a claim points at, inside what it targets. `claim.target.details` is a
+ * list of these. `A.target.details` says where A points. What others point at in A
+ * comes from `detailsOf(graph, "A")`.
  *
- * `at` is an excerpt of a claim or of a record's text, or a window of a recording.
+ * `at` is an object, and it comes in two forms:
+ *
+ *   at: { start, end, text }    words of a claim, or of a record's text, like a
+ *                               transcript. `start` and `end` are characters.
+ *   at: { start, end }          a window of a recording, in seconds.
+ *
  * `to` is the words in this claim's own text that replace or add to it, so "pink"
  * disputed as "blue" has `at` on "pink" in the target and `to` on "blue" here.
  * Leave `to` out when there are no such words: "not pink, but I don't know what
@@ -750,18 +748,46 @@ export type TargetDetail = z.infer<typeof targetDetail>;
 export const isExcerpt = (at: TargetDetail['at']): at is Excerpt => 'text' in at;
 
 /**
+ * What a claim points into, and where. Every claim has one, and it points into exactly
+ * one thing: another claim, or a record. A transcript or a translation is a record, so
+ * a claim about what a transcript says has `recordId`. `details` lists where it points
+ * inside that thing, and an empty list means all of it. An extension saying "my family
+ * ran it until the war" has none, and neither does a dispute saying a whole claim is
+ * wrong, or a first claim about a photograph.
+ *
+ * One claim can point at several: "Sally bought a pink hat" disputed as "Brandon bought
+ * a blue hat" points at "Sally" and at "pink", and its evidence is cited once.
+ *
+ * When it points at a recording, `at` can name the window: "35:00 to 37:10" of a
+ * two-hour interview, so anyone checking it goes straight to the moment. Until that
+ * window has a transcript, the claim keeps the weight it gets from evidence and
+ * behavior, and the part that comes from the claim itself (its details and its
+ * relations to other claims) isn't counted yet.
+ */
+export const claimTarget = z
+  .object({
+    claimId: z.string().optional(),
+    recordId: z.string().optional(),
+    details: z.array(targetDetail),
+  })
+  .refine((t) => (t.claimId === undefined) !== (t.recordId === undefined), {
+    message: 'A claim points into one claim or one record.',
+  });
+export type ClaimTarget = z.infer<typeof claimTarget>;
+
+/**
  * Whether a reply disputes these words of the claim it targets. It does when it's a
  * dispute of the whole claim, or when it points at these words or a longer excerpt
  * that contains them. Otherwise "1950" would read as settled while the claim it sits
  * in is disputed.
  */
 export const contests = (
-  reply: { relation?: ClaimRelation | undefined; details: TargetDetail[] },
+  reply: { relation?: ClaimRelation | undefined; target: ClaimTarget },
   e: Excerpt,
 ): boolean =>
   reply.relation === 'dispute' &&
-  (reply.details.length === 0 ||
-    reply.details.some((d) => isExcerpt(d.at) && d.at.start <= e.start && d.at.end >= e.end));
+  (reply.target.details.length === 0 ||
+    reply.target.details.some((d) => isExcerpt(d.at) && d.at.start <= e.start && d.at.end >= e.end));
 
 /**
  * An excerpt of a claim that another claim points at.
@@ -818,8 +844,8 @@ export const claimEvidence = z.object({
 export type ClaimEvidence = z.infer<typeof claimEvidence>;
 
 /**
- * What has to hold for a claim's target, relation and details to make sense. The
- * contract's claim and the scoring graph's claim both check it.
+ * What has to hold for a claim's target and relation to make sense. The contract's
+ * claim and the scoring graph's claim both check it.
  */
 export function checkReply(
   c: {
@@ -827,16 +853,15 @@ export function checkReply(
     target: ClaimTarget;
     relation?: ClaimRelation | undefined;
     reasoning?: string | undefined;
-    details: TargetDetail[];
     references: ClaimReference[];
   },
   ctx: z.RefinementCtx,
 ): void {
   const problem = (message: string) => ctx.addIssue({ code: z.ZodIssueCode.custom, message });
-  if (c.target.type === 'claim' && c.relation === undefined) {
+  if (c.target.claimId !== undefined && c.relation === undefined) {
     problem('A claim that targets a claim has to dispute it or extend it.');
   }
-  if (c.target.type === 'record' && c.relation !== undefined) {
+  if (c.target.recordId !== undefined && c.relation !== undefined) {
     problem("A claim about a record doesn't dispute or extend anything, so it has no relation.");
   }
   if (c.relation === 'dispute' && !c.reasoning?.trim()) {
@@ -845,8 +870,8 @@ export function checkReply(
   if (c.relation !== 'dispute' && c.reasoning !== undefined) {
     problem('Only a dispute has reasoning.');
   }
-  for (const d of c.details) {
-    if (!isExcerpt(d.at) && c.target.type !== 'record') {
+  for (const d of c.target.details) {
+    if (!isExcerpt(d.at) && c.target.recordId === undefined) {
       problem('A time window is a stretch of a recording, so only a record has one.');
     }
     if (d.to && !excerptIsIn(c.text, d.to)) {
@@ -863,8 +888,8 @@ export function checkReply(
 /**
  * Something a person says about a record or about another claim.
  *
- * A reply's `target`, `relation` and `details` are its edge. Nothing stores that
- * edge a second time, so anything that wants a list of them reads it off the
+ * A reply's `target` and `relation` are its edge. Nothing stores that edge a second
+ * time, so anything that wants a list of them reads it off the
  * claims.
  */
 export const claim = z.object({
@@ -899,7 +924,7 @@ export const claim = z.object({
    * can be corroborated or disputed on its own.
    */
   sourceRecordId: z.string(),
-  /** What this claim points into: a record, or another claim. */
+  /** What this claim points into, and where. */
   target: claimTarget,
   /** Whether it disputes or extends the claim it targets. Only a claim that targets a claim has one. */
   relation: claimRelation.optional(),
@@ -908,21 +933,6 @@ export const claim = z.object({
    * interface.
    */
   reasoning: z.string().optional(),
-  /**
-   * Where it points inside its target. Empty means all of it. An extension saying
-   * "my family ran it until the war" has none, and neither does a dispute saying a whole
-   * claim is wrong, or a first claim about a photograph.
-   *
-   * One claim can point at several: "Sally bought a pink hat" disputed as "Brandon
-   * bought a blue hat" points at "Sally" and at "pink", and its evidence is cited once.
-   *
-   * When it points at a recording, `at` can name the window: "35:00 to 37:10"
-   * of a two-hour interview, so anyone checking it goes straight to the moment.
-   * Until that window has a transcript, the claim keeps the weight it gets from
-   * evidence and behavior, and the part that comes from the claim itself (its
-   * details and its relations to other claims) isn't counted yet.
-   */
-  details: z.array(targetDetail),
   /**
    * Evidence records: records attached to this claim to back it up. Optional,
    * so often empty.

@@ -155,23 +155,34 @@ describe("time windows and collections (2.4.0)", () => {
     sourceRecordId: "rec-1",
     evidence: [],
     awaitingTranslation: false,
-    target: { type: "record", id: "rec-1" },
-    details: [],
+    target: { recordId: "rec-1", details: [] },
   };
   const parses = (change: object) =>
     claim.safeParse({ ...aClaim, ...change }).success;
-  const reply = { target: { type: "claim", id: "cl-2" } };
+  const reply = { target: { claimId: "cl-2", details: [] } };
 
   it("a claim can target a window of a record, and only a record", () => {
     const details = [{ at: { start: 2100, end: 2230 } }];
-    expect(parses({ details })).toBe(true);
-    expect(parses({ ...reply, relation: "extension", details })).toBe(false);
+    expect(parses({ target: { recordId: "rec-1", details } })).toBe(true);
+    expect(
+      parses({ target: { claimId: "cl-2", details }, relation: "extension" }),
+    ).toBe(false);
   });
 
   it("a claim can target the whole of something", () => {
     expect(parses({})).toBe(true);
     expect(parses({ ...reply, relation: "extension" })).toBe(true);
     expect(parses({ ...reply, relation: "dispute", reasoning: "I was there" })).toBe(true);
+  });
+
+  it("a claim points into one claim or one record", () => {
+    expect(parses({ target: { details: [] } })).toBe(false);
+    expect(
+      parses({
+        target: { claimId: "cl-2", recordId: "rec-1", details: [] },
+        relation: "extension",
+      }),
+    ).toBe(false);
   });
 
   it("a claim that targets a claim has a relation, and a claim about a record has none", () => {
@@ -187,14 +198,18 @@ describe("time windows and collections (2.4.0)", () => {
 
   it("an excerpt's positions land on its words", () => {
     const at = { start: 0, end: 4, text: "1950" };
-    const dispute = { ...reply, relation: "dispute", reasoning: "why" };
+    const dispute = { relation: "dispute", reasoning: "why" };
+    const pointing = (to: object) => ({
+      ...dispute,
+      target: { claimId: "cl-2", details: [{ at, to }] },
+    });
     expect(excerpt.safeParse(at).success).toBe(true);
     expect(excerpt.safeParse({ ...at, end: 5 }).success).toBe(false);
     expect(
-      parses({ ...dispute, details: [{ at, to: { start: 7, end: 11, text: "1956" } }] }),
+      parses(pointing({ start: 7, end: 11, text: "1956" })),
     ).toBe(true);
     expect(
-      parses({ ...dispute, details: [{ at, to: { start: 0, end: 4, text: "1956" } }] }),
+      parses(pointing({ start: 0, end: 4, text: "1956" })),
     ).toBe(false);
   });
 

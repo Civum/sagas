@@ -63,7 +63,7 @@ describe('fixtures satisfy the contract', () => {
         for (const es of c.detailStatuses) {
           for (const d of es.disputes) {
             const dispute = state.claims.find((x) => x.claim.id === d.claimId)?.claim;
-            expect(dispute?.target).toEqual({ type: 'claim', id: c.claim.id });
+            expect(dispute?.target.claimId).toBe(c.claim.id);
             expect(dispute?.relation).toBe('dispute');
             expect(contests(dispute!, es.detail.excerpt)).toBe(true);
           }

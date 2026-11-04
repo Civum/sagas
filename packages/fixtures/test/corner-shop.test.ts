@@ -66,8 +66,8 @@ test('a dispute is a claim of its own, pointed at one detail', () => {
   // Same conversation as the claim it disputes, so the same source record.
   expect(dispute.sourceRecord.id).toBe(shop.sourceRecord.id);
   // It points at the words it disagrees with, and it says what it asserts instead.
-  expect(dispute.claim.target).toEqual({ type: 'claim', id: 'cl-cs-shop' });
-  expect(dispute.claim.details[0]?.at).toEqual(year?.detail.excerpt);
+  expect(dispute.claim.target.claimId).toBe('cl-cs-shop');
+  expect(dispute.claim.target.details[0]?.at).toEqual(year?.detail.excerpt);
   expect(summary?.to?.text).toBe('1956 or later');
 });
 

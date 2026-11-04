@@ -35,7 +35,7 @@ The numbers match the pins in the wireframe.
 5. **The claims behind a phrase.** `spans[].claimIds`, and `detailIds` when the
    phrase is about one detail. Claims are ordered by `weight`, which is never
    shown. Weight is on the claim and on each detail. An
-   extension sits under the claim it adds to (`claim.target.id`). Your page highlights
+   extension sits under the claim it adds to (`claim.target.claimId`). Your page highlights
    the detail's `excerpt` in the claim's own words, from `start` to `end`.
 6. **Two readings of one detail.** `detailStatuses[].competingValues`, in the
    order they arrived, side by side with equal prominence, each with who gave it.

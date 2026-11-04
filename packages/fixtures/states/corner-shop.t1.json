@@ -27,10 +27,9 @@
         "sourceRecordId": "rec-cs-photo",
         "evidence": [],
         "target": {
-          "type": "record",
-          "id": "rec-cs-photo"
+          "recordId": "rec-cs-photo",
+          "details": []
         },
-        "details": [],
         "text": "That's the shop on the corner of Fourth and Main, around 1950. The man in the doorway is the owner, Mr. Ferris.",
         "sourceLanguage": "en",
         "references": [

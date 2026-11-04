@@ -71,7 +71,7 @@ function referencesIn(claimId: string, text: string, references: EventReference[
 
 /** A dispute's summary, with the words that replace `detail` when it names some. */
 function disputeOf(reply: Claim, detail?: Excerpt): ClaimDispute {
-  const to = detail && reply.details.find((d) => isExcerpt(d.at) && sameExcerpt(d.at, detail))?.to;
+  const to = detail && reply.target.details.find((d) => isExcerpt(d.at) && sameExcerpt(d.at, detail))?.to;
   return {
     claimId: reply.id, contributorId: reply.contributorId, reasoning: reply.reasoning ?? '',
     ...(to && { to }), createdAt: reply.createdAt,
@@ -103,8 +103,7 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
       acc.claims.set(ev.claimId, {
         id: ev.claimId, siteId: ev.siteId, contributorId: ev.actorId,
         sourceRecordId: ev.sourceRecordId, evidence: ev.evidence ?? [],
-        target: { type: 'record', id: ev.sourceRecordId },
-        details: ev.window !== undefined ? [{ at: ev.window }] : [],
+        target: { recordId: ev.sourceRecordId, details: ev.window !== undefined ? [{ at: ev.window }] : [] },
         text: ev.text, sourceLanguage: ev.sourceLanguage,
         sourceLanguageText: ev.sourceLanguageText,
         references: referencesIn(ev.claimId, ev.text, ev.references), sourceType: ev.sourceType,
@@ -118,8 +117,8 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
       acc.claims.set(ev.claimId, {
         id: ev.claimId, siteId: ev.siteId, contributorId: ev.actorId,
         sourceRecordId: ev.sourceRecordId, evidence: ev.evidence ?? [],
-        target: { type: 'claim', id: ev.targetClaimId }, relation: 'extension',
-        details: detailsIn(ev.claimId, target, ev.text, ev.details),
+        target: { claimId: ev.targetClaimId, details: detailsIn(ev.claimId, target, ev.text, ev.details) },
+        relation: 'extension',
         text: ev.text, sourceLanguage: ev.sourceLanguage,
         sourceLanguageText: ev.sourceLanguageText,
         references: referencesIn(ev.claimId, ev.text, ev.references), sourceType: ev.sourceType,
@@ -137,8 +136,8 @@ function apply(acc: Accumulator, ev: ContributionEvent): void {
         id: ev.claimId, siteId: target.siteId, contributorId: ev.actorId,
         sourceRecordId: ev.sourceRecordId ?? target.sourceRecordId,
         evidence: ev.evidence ?? [],
-        target: { type: 'claim', id: ev.targetClaimId }, relation: 'dispute', reasoning: ev.reasoning,
-        details: detailsIn(ev.claimId, target, text, ev.details),
+        target: { claimId: ev.targetClaimId, details: detailsIn(ev.claimId, target, text, ev.details) },
+        relation: 'dispute', reasoning: ev.reasoning,
         text, sourceLanguage: 'en',
         references: referencesIn(ev.claimId, text, ev.references),
         sourceType: ev.sourceType ?? target.sourceType,
@@ -281,7 +280,7 @@ function buildClaimState(
   }
   // A claim's target, relation and details are its edge, so its replies are read off
   // the claims, in the order they arrived.
-  const replies = [...acc.claims.values()].filter((c) => c.target.type === 'claim' && c.target.id === claim.id);
+  const replies = [...acc.claims.values()].filter((c) => c.target.claimId === claim.id);
   const disputes = replies.filter((c) => c.relation === 'dispute');
   const extensionClaims = replies.filter((c) => c.relation === 'extension');
   const extensions = extensionClaims.map((c) => c.id);
@@ -309,7 +308,7 @@ function buildClaimState(
   // same place are one detail.
   const excerpts: Excerpt[] = [];
   for (const reply of replies) {
-    for (const { at } of reply.details) {
+    for (const { at } of reply.target.details) {
       if (isExcerpt(at) && !excerpts.some((e) => sameExcerpt(e, at))) excerpts.push(at);
     }
   }
@@ -340,7 +339,7 @@ function buildClaimState(
       // Nothing is marked accepted and nothing is hidden.
       ;
     const detailExtensions = extensionClaims
-      .filter((c) => c.details.some((d) => isExcerpt(d.at) && sameExcerpt(d.at, detail.excerpt)))
+      .filter((c) => c.target.details.some((d) => isExcerpt(d.at) && sameExcerpt(d.at, detail.excerpt)))
       .map((c) => c.id);
     return { detail, disputes: detailDisputes, extensions: detailExtensions, competingValues, weight: 0 };
   });
@@ -400,10 +399,10 @@ function buildStandings(claimStates: ClaimState[], acc: Accumulator): Contributo
       claimsAuthored: theirClaims.length,
       claimsCorroborated: theirClaims.filter((cs) => cs.independentRecordCount > 0).length,
       claimsDisputed: theirClaims.filter((cs) =>
-        allDisputes.some((d) => d.target.id === cs.claim.id),
+        allDisputes.some((d) => d.target.claimId === cs.claim.id),
       ).length,
       disputesRaised: theirDisputes.length,
-      disputesRaisedWithAlternative: theirDisputes.filter((d) => d.details.some((t) => t.to)).length,
+      disputesRaisedWithAlternative: theirDisputes.filter((d) => d.target.details.some((t) => t.to)).length,
       soundsRightGiven: acc.passovers.filter((p) => p.contributorId === c.id && p.kind === 'sounds_right').length,
       translationsContributed: acc.translations.filter((t) => t.contributorId === c.id).length,
       transcriptsContributed: acc.transcripts.filter((t) => t.contributorId === c.id).length,

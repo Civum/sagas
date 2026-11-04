@@ -253,8 +253,8 @@ The tables are yours to design.
 
 A few words first. A **thread** is a source record and the claims built on
 it, which earlier emails called a conversation. A **branch** is one line of claims inside it. An **edge** is the link one
-claim draws to another: a dispute or an extension. A reply's `target`, `relation` and
-`details` are its edge, and nothing stores it a second time, so your own tables don't
+claim draws to another: a dispute or an extension. A reply's `target` and `relation` are
+its edge, and nothing stores it a second time, so your own tables don't
 need an edges table unless you want one. A **passover** is the light
 signal a reader leaves on a claim: "sounds right", "don't know" or "don't
 care".
@@ -268,7 +268,7 @@ when they write a claim, and they become the edges of the graph:
   always gives a reason. It usually points at one detail, like the year, and it can
   point at several: "Sally bought a pink hat" disputed as "Brandon bought a blue hat"
   points at "Sally" and at "pink". With no details it disputes the whole claim, which
-  contests every detail inside it. Each entry in `details` has `at`, the words or the window
+  contests every detail inside it. Each entry in `target.details` has `at`, the words or the window
   in the target, and `to`, the words in the dispute's own text that replace them, if it names
   any.
 - **An extension is a claim with `relation: 'extension'`.** It adds to its target. It
@@ -292,7 +292,7 @@ text to stand in for details.
 
 An excerpt is an object: `start` and `end` are its character positions, and `text` is a
 copy of the words, so the two "1950"s in "built in 1950, rebuilt after the 1950 fire" can be
-two details. `claim.details` and `detailsOf` are different lists. `A.details` says where A
+two details. `target.details` and `detailsOf` are different lists. `A.target.details` says where A
 points in its target, and `detailsOf(graph, "A")` says what others point at in A.
 
 ### Where text matching belongs
@@ -457,13 +457,12 @@ record, so it carries less until someone brings evidence.
   scores each detail (`claimScore` is now the contract's own shape).
 - **A claim can cite a time window of a recording,** and until that window has
   a transcript, the part of its score that comes from the claim itself waits.
-  The graph carries the window in `claim.details` and `transcribedWindows` on a
+  The graph carries the window in `target.details` and `transcribedWindows` on a
   record, and there's a rule for it.
 - **Links are records.** A web page is evidence like any other record, weighed
   by independent people relying on it, never by its domain.
 - **Details come from what points at a claim** (contracts 2.5.0 and 2.6.0). A claim has a
-  `target`, the record or claim it points into, `details`, the excerpts or stretches
-  it points at there, and `references`, typed links in its own text. A claim's details
+  `target`, the claim or record it points into with `details` saying where, and `references`, typed links in its own text. A claim's details
   are the excerpts other claims point at, and each result in `claimScore.details` lists
   the claims and evidence behind that detail.
 - **Supporting records** (contract 2.5.0). A transcript or a translation is a

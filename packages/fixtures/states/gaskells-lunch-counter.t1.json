@@ -28,10 +28,9 @@
         "sourceRecordId": "rec-menu-photo",
         "evidence": [],
         "target": {
-          "type": "record",
-          "id": "rec-menu-photo"
+          "recordId": "rec-menu-photo",
+          "details": []
         },
-        "details": [],
         "text": "The hours on this menu are five in the morning until two in the afternoon. That is a shift pattern, not a lunch trade. Whoever ate here was going to work before dawn.",
         "sourceLanguage": "en",
         "references": [],
@@ -140,10 +139,9 @@
         "sourceRecordId": "rec-menu-photo",
         "evidence": [],
         "target": {
-          "type": "record",
-          "id": "rec-menu-photo"
+          "recordId": "rec-menu-photo",
+          "details": []
         },
-        "details": [],
         "text": "Gaskell's was on the corner of 9th and Bannock and it closed in 1979. My mother took this photograph of the menu on one of the last days it was open. She kept it in the kitchen drawer for the rest of her life.",
         "sourceLanguage": "en",
         "references": [
@@ -269,11 +267,10 @@
         "sourceRecordId": "rec-menu-photo",
         "evidence": [],
         "target": {
-          "type": "claim",
-          "id": "cl-shift-workers"
+          "claimId": "cl-shift-workers",
+          "details": []
         },
         "relation": "extension",
-        "details": [],
         "text": "That is right, and my mother was one of them. She was on the early shift at the laundry two streets over and she ate here before work most days.",
         "sourceLanguage": "en",
         "references": [

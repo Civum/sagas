@@ -46,17 +46,20 @@ it. This is the most useful field in the entry.
 **Affects:** intelligence layer · experience layer
 
 **What:**
-- **A reply is its own edge.** `claim.target` is now just what a claim points into
-  (`{ type, id }`), and two new fields sit beside it: `relation`, dispute or extension,
-  and `reasoning`, required on a dispute. `disputeEdge`, `extensionEdge`, `edge`,
-  `edgeType`, `parentClaimId`, `disputedClaimId` and the scoring graph's `edges` are gone.
-  Anything that wants a list of edges reads them off the claims, and
-  `repliesTo(graph, claimId)` does that for you.
-- **`claim.details` lists where a claim points inside its target.** This is a new field
-  with an old name, and it runs the opposite way from the `claim.details` that 2.5.0
-  removed. `A.details` says where A points. `detailsOf(graph, "A")` says what others point
-  at in A. Each entry has `at`, the words or the window, and optionally `to`, the words in
-  the claim's own text that replace or add to them. `to` replaces `proposedValue`.
+- **A reply is its own edge.** `claim.target` is now `{ claimId | recordId, details }`: what
+  a claim points into, and where inside it. A transcript or a translation is a record, so a
+  claim about one has `recordId`. Two new fields sit beside it: `relation`, dispute or
+  extension, and `reasoning`, required on a dispute. `disputeEdge`, `extensionEdge`, `edge`,
+  `edgeType`, `parentClaimId`, `disputedClaimId` and the scoring graph's `edges` are gone as
+  stored objects. The graph still has edges, and each one lives on the claim that replies.
+  `repliesTo(graph, claimId)` reads them off the claims.
+- **`target.details` lists where a claim points.** Each entry has `at` and optionally `to`.
+  `at` is an object: `{ start, end, text }` for words, with positions in characters, or
+  `{ start, end }` for a window of a recording, in seconds. `to` is the words in the claim's
+  own text that replace or add to it, and it replaces `proposedValue`. It lives on each
+  entry because one dispute can make several changes. With no `to`, the dispute objects
+  without naming a replacement, and its reasoning still shows. `A.target.details` says where
+  A points. `detailsOf(graph, "A")` says what others point at in A.
 - **One claim can point at several details,** so "Sally bought a pink hat" disputed as
   "Brandon bought a blue hat" is one claim, and its evidence is cited once. No details
   means all of the target, and that goes for a dispute too. A dispute of the whole claim
@@ -89,8 +92,8 @@ it now than to let anyone build on the old shape.
 - *experience layer* — pull upstream. If you're coming from 2.4.0, read the 2.5.0 lines
   too, and skip what this entry undoes.
   - Tell a dispute from an extension with `claim.relation`, in place of `disputedClaimId`.
-  - When `claim.target.type` is `'claim'`, `claim.target.id` replaces `parentClaimId`. A first
-    claim's target is a record, so check the type first.
+  - `claim.target.claimId` replaces `parentClaimId`. A first claim has `target.recordId`
+    instead, so it's undefined there.
   - An excerpt is an object, so read `.text` on `detail.excerpt`, `reference.excerpt` and
     `score.details[].excerpt`.
   - In `detailStatuses`, each entry in `disputes` now has `claimId`, `contributorId`,
@@ -108,9 +111,9 @@ it now than to let anyone build on the old shape.
     a claim, `pointsAt` says whether a reply points at exactly these words, and `contests` says
     whether a dispute covers them, which includes whole-claim disputes and longer excerpts. Use
     `contests` for disputes.
-  - `target.sourceType` and `target.sourceId` are `target.type` and `target.id`. An edge's `reason`
-    is `claim.reasoning`. `target.window` is now an entry in `claim.details`, and `isExcerpt`
-    tells words from a window.
+  - `target.sourceType` and `target.sourceId` are gone, and a target has `claimId` or `recordId`.
+    An edge's `reason` is `claim.reasoning`. `target.excerpt` and `target.window` are now entries
+    in `target.details`, and `isExcerpt` tells words from a window.
   - Your scorer's results change. `detailScore.excerpt` is an object, your ids come from
     `detailId(claimId, excerpt)`, and a `behaviour` term's family is now `'behavior'`.
   - The builder still takes words, so `.dispute("C", "A", "1950", "why")` reads the same. It also

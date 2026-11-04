@@ -27,10 +27,9 @@
         "sourceRecordId": "rec-fd-01",
         "evidence": [],
         "target": {
-          "type": "record",
-          "id": "rec-fd-01"
+          "recordId": "rec-fd-01",
+          "details": []
         },
-        "details": [],
         "text": "The depot office opened in 1931, and my grandfather was a clerk there from the start.",
         "sourceLanguage": "en",
         "references": [
@@ -286,19 +285,18 @@
           }
         ],
         "target": {
-          "type": "claim",
-          "id": "cl-fd-office"
+          "claimId": "cl-fd-office",
+          "details": [
+            {
+              "at": {
+                "start": 37,
+                "end": 63,
+                "text": "my grandfather was a clerk"
+              }
+            }
+          ]
         },
         "relation": "extension",
-        "details": [
-          {
-            "at": {
-              "start": 37,
-              "end": 63,
-              "text": "my grandfather was a clerk"
-            }
-          }
-        ],
         "text": "The notice lists the first clerks hired for the office.",
         "sourceLanguage": "en",
         "references": [
@@ -427,10 +425,9 @@
         "sourceRecordId": "rec-fd-01",
         "evidence": [],
         "target": {
-          "type": "record",
-          "id": "rec-fd-01"
+          "recordId": "rec-fd-01",
+          "details": []
         },
-        "details": [],
         "text": "The loading dock ran the length of the tracks, and in winter they kept a stove going on it.",
         "sourceLanguage": "en",
         "references": [
@@ -533,10 +530,9 @@
         "sourceRecordId": "rec-fd-05",
         "evidence": [],
         "target": {
-          "type": "record",
-          "id": "rec-fd-05"
+          "recordId": "rec-fd-05",
+          "details": []
         },
-        "details": [],
         "text": "The office may have opened in 1931 in a back room and moved to the front in 1934.",
         "sourceLanguage": "en",
         "references": [
@@ -648,25 +644,24 @@
         "sourceRecordId": "rec-fd-01",
         "evidence": [],
         "target": {
-          "type": "claim",
-          "id": "cl-fd-office"
+          "claimId": "cl-fd-office",
+          "details": [
+            {
+              "at": {
+                "start": 17,
+                "end": 31,
+                "text": "opened in 1931"
+              },
+              "to": {
+                "start": 42,
+                "end": 46,
+                "text": "1934"
+              }
+            }
+          ]
         },
         "relation": "dispute",
         "reasoning": "My uncle always said the office opened in 1934, the year he started, and he was one of the first.",
-        "details": [
-          {
-            "at": {
-              "start": 17,
-              "end": 31,
-              "text": "opened in 1931"
-            },
-            "to": {
-              "start": 42,
-              "end": 46,
-              "text": "1934"
-            }
-          }
-        ],
         "text": "My uncle always said the office opened in 1934, the year he started, and he was one of the first.",
         "sourceLanguage": "en",
         "references": [],
@@ -759,17 +754,16 @@
         "sourceRecordId": "rec-fd-04",
         "evidence": [],
         "target": {
-          "type": "record",
-          "id": "rec-fd-04"
-        },
-        "details": [
-          {
-            "at": {
-              "start": 18,
-              "end": 70
+          "recordId": "rec-fd-04",
+          "details": [
+            {
+              "at": {
+                "start": 18,
+                "end": 70
+              }
             }
-          }
-        ],
+          ]
+        },
         "text": "My grandfather worked on the dock. For us the depot was a workplace, not a station.",
         "sourceLanguage": "fr",
         "sourceLanguageText": "Mon grand-père travaillait au quai. Pour nous, le dépôt était un lieu de travail, pas une gare.",
@@ -929,25 +923,24 @@
         "sourceRecordId": "rec-fd-03",
         "evidence": [],
         "target": {
-          "type": "claim",
-          "id": "cl-fd-photo"
+          "claimId": "cl-fd-photo",
+          "details": [
+            {
+              "at": {
+                "start": 34,
+                "end": 41,
+                "text": "in 1935"
+              },
+              "to": {
+                "start": 82,
+                "end": 95,
+                "text": "1938 or later"
+              }
+            }
+          ]
         },
         "relation": "dispute",
         "reasoning": "The sign on the door in the photo is the one put up in 1938, so the photo is from 1938 or later.",
-        "details": [
-          {
-            "at": {
-              "start": 34,
-              "end": 41,
-              "text": "in 1935"
-            },
-            "to": {
-              "start": 82,
-              "end": 95,
-              "text": "1938 or later"
-            }
-          }
-        ],
         "text": "The sign on the door in the photo is the one put up in 1938, so the photo is from 1938 or later.",
         "sourceLanguage": "en",
         "references": [],
@@ -1062,25 +1055,24 @@
         "sourceRecordId": "rec-fd-02",
         "evidence": [],
         "target": {
-          "type": "claim",
-          "id": "cl-fd-prelot"
+          "claimId": "cl-fd-prelot",
+          "details": [
+            {
+              "at": {
+                "start": 27,
+                "end": 52,
+                "text": "a lumber yard on that lot"
+              },
+              "to": {
+                "start": 14,
+                "end": 23,
+                "text": "coal yard"
+              }
+            }
+          ]
         },
         "relation": "dispute",
         "reasoning": "The lot was a coal yard, not a lumber yard. The coal chutes are still under the dock.",
-        "details": [
-          {
-            "at": {
-              "start": 27,
-              "end": 52,
-              "text": "a lumber yard on that lot"
-            },
-            "to": {
-              "start": 14,
-              "end": 23,
-              "text": "coal yard"
-            }
-          }
-        ],
         "text": "The lot was a coal yard, not a lumber yard. The coal chutes are still under the dock.",
         "sourceLanguage": "en",
         "references": [],
@@ -1173,10 +1165,9 @@
         "sourceRecordId": "rec-fd-03",
         "evidence": [],
         "target": {
-          "type": "record",
-          "id": "rec-fd-03"
+          "recordId": "rec-fd-03",
+          "details": []
         },
-        "details": [],
         "text": "This photo shows the depot office in 1935, with my uncle standing by the door.",
         "sourceLanguage": "en",
         "references": [
@@ -1391,10 +1382,9 @@
         "sourceRecordId": "rec-fd-02",
         "evidence": [],
         "target": {
-          "type": "record",
-          "id": "rec-fd-02"
+          "recordId": "rec-fd-02",
+          "details": []
         },
-        "details": [],
         "text": "Before the depot there was a lumber yard on that lot, or so I was told.",
         "sourceLanguage": "en",
         "references": [],

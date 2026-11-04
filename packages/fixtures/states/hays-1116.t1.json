@@ -27,10 +27,9 @@
         "sourceRecordId": "rec-hays-bakery",
         "evidence": [],
         "target": {
-          "type": "record",
-          "id": "rec-hays-bakery"
+          "recordId": "rec-hays-bakery",
+          "details": []
         },
-        "details": [],
         "text": "There was a bakery at 1116 before it became a print shop. You could smell it from the end of the block on a Saturday. There was a doorway through to the shop next door, cut through the party wall, and the two of them used it as one premises for a while.",
         "sourceLanguage": "en",
         "references": [

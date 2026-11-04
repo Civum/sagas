@@ -67,13 +67,13 @@ describe("graph builder", () => {
       .claim("B", { by: "p2", source: "r1", text: "It was gravel." })
       .extend("B", "A", "Mill Road")
       .build();
-    expect(g.claims[0]?.target).toEqual({ type: "record", id: "r1" });
+    expect(g.claims[0]?.target).toEqual({ recordId: "r1", details: [] });
     expect(g.claims[0]?.relation).toBeUndefined();
-    expect(g.claims[1]?.target).toEqual({ type: "claim", id: "A" });
+    expect(g.claims[1]?.target).toEqual({
+      claimId: "A",
+      details: [{ at: { start: 6, end: 15, text: "Mill Road" } }],
+    });
     expect(g.claims[1]?.relation).toBe("extension");
-    expect(g.claims[1]?.details).toEqual([
-      { at: { start: 6, end: 15, text: "Mill Road" } },
-    ]);
   });
 
   it("works out a claim's details from what points at it", () => {
@@ -112,8 +112,8 @@ describe("graph builder", () => {
       "Sally",
       "pink",
     ]);
-    expect(g.claims[1]?.details[1]?.to?.text).toBe("blue");
-    expect(g.claims[2]?.details).toEqual([]);
+    expect(g.claims[1]?.target.details[1]?.to?.text).toBe("blue");
+    expect(g.claims[2]?.target.details).toEqual([]);
     expect(g.claims[2]?.reasoning).toBe("I was there");
   });
 

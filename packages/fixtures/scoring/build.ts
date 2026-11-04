@@ -118,8 +118,10 @@ export class GraphBuilder {
       createdAt: this.tick(o.at),
       text: o.text,
       sourceRecordId: o.source,
-      target: { type: "record", id: o.source },
-      details: o.window !== undefined ? [{ at: o.window }] : [],
+      target: {
+        recordId: o.source,
+        details: o.window !== undefined ? [{ at: o.window }] : [],
+      },
       references: (o.references ?? []).map((r) => {
         const excerpt = findExcerpt(o.text, r.excerpt);
         if (!excerpt)
@@ -230,12 +232,14 @@ export class GraphBuilder {
           `${p.relation} ${p.claim.id} -> ${p.targetId}: unknown claim`,
         );
       }
-      p.claim.target = { type: "claim", id: p.targetId };
+      p.claim.target = {
+        claimId: p.targetId,
+        details: p.details.map((d) =>
+          this.resolve(p.claim.id, p.claim.text, target, d),
+        ),
+      };
       p.claim.relation = p.relation;
       if (p.reasoning !== undefined) p.claim.reasoning = p.reasoning;
-      p.claim.details = p.details.map((d) =>
-        this.resolve(p.claim.id, p.claim.text, target, d),
-      );
     }
     return scoringGraph.parse({
       siteId: this.siteId,

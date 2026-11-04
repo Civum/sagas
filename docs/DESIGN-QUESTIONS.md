@@ -71,11 +71,12 @@ and the shared contract.
 | 38 | Can a record be closed until a date? | Content |
 | 39 | How does someone reach a contributor without knowing who they are? | Content |
 | 40 | Do all disagreements matter equally? | Intelligence |
-| 41 | Who decides what a place is called? | Not for this project |
-| 42 | Naming people who can't answer | Not for this project |
-| 43 | Is this built for the community, or for people outside it? | Not for this project |
-| 44 | Should all of it be public? | Not for this project |
-| 45 | What should a disagreement look like to the people in it? | Not for this project |
+| 41 | What should happen when someone repeats what's already here? | Intelligence, experience |
+| 42 | Who decides what a place is called? | Not for this project |
+| 43 | Naming people who can't answer | Not for this project |
+| 44 | Is this built for the community, or for people outside it? | Not for this project |
+| 45 | Should all of it be public? | Not for this project |
+| 46 | What should a disagreement look like to the people in it? | Not for this project |
 
 ---
 
@@ -496,7 +497,7 @@ because it looks the same as a real one.
 
 **Now:** a transcript or a translation is its own record, and `parent` names what it
 supports. A claim can point at words in a transcript, or at a window of a recording,
-in `claim.details`. A contributor's caption is `note` on the record.
+in `claim.target.details`. A contributor's caption is `note` on the record.
 
 **So far:** a translation of a transcript points at the transcript, so if someone corrects the transcript, you can tell which
 translations came from the old one. An interpreter translating straight from the audio
@@ -918,9 +919,19 @@ system and stays visible, carries no weight, and is left out of passages while
 it's checked. It's separate from moderation, which hides things that break the
 terms.
 
+A second proposal, from the sponsor, is suspension by the community. This is a community's
+history, so if the community decides a record doesn't fit, it doesn't. But it can't lock
+the record out forever: a suspension expires and comes back to be decided again as the
+community itself shifts. The record stays stored throughout. A use that isn't permitted
+at all stays out permanently, which is moderation and a separate thing. Two safeguards
+could go with it: a suspension states a reason the contributor can see and answer, and a
+suspended record stays visible in its own collection while it's off the place's page.
+
 **Open:** what puts something into quarantine and what takes it out, whether
-quarantine and a locked record are one state or two, and how long checking can
-take before it becomes a quiet way of burying something.
+quarantine and a locked record are one state or two, how long checking can
+take before it becomes a quiet way of burying something, who counts as the community
+for a suspension, and how that decision avoids what "Moderation without majority capture"
+warns about.
 
 ## Where does a record's weight as evidence live?
 
@@ -981,6 +992,31 @@ shouldn't knock over a well-supported detail.
 
 **Open:** what decides how much a dispute matters, whether it changes
 scoring, display or only what gets suggested to whom, and who gets to say.
+
+---
+
+## What should happen when someone repeats what's already here?
+
+**Now:** a repeat inside one thread adds no weight, and a copy counts once, so the scorer
+already keeps repetition from counting as support. Nothing stops someone re-arguing, in a
+new thread, something another thread has already worked through. Reddit is full of this.
+
+**The options so far:** the scorer can thin it out, people can merge threads or vote to,
+or the system can decide where a claim goes. Merging rewrites who said what and where, and
+a vote over structure is one more thing to fight about. Forced placement can put a new
+point in the wrong place with no way back. The sponsor's direction is that most people
+won't start from a blank box: an explore mode brings them to claims, and each passover
+tunes what they see next. So where something has already been said becomes one input to
+that routing. A person who does start fresh could see the closest matches and choose.
+
+**Open:**
+- Whether showing "this has been said here, and here's where it landed" at write time
+  uses the same matching as scoring, and how a test would check it picked the thread a
+  person would have picked.
+- Whether a page collapses repeats ("eleven more people said this") and links a claim to
+  the thread it repeats.
+- How the intelligence layer's matching and the experience layer's explore mode connect,
+  with passovers as the signal between them.
 
 ---
 
