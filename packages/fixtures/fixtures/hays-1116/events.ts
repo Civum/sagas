@@ -3,7 +3,7 @@
  * =========================================
  *
  * The other half of the pair. Its neighbor at 1114 is a separate site about
- * twelve metres away. See that file for what the pair is for.
+ * twelve meters away. See that file for what the pair is for.
  *
  * THIS CONTENT IS INVENTED, including the business names. The street and the
  * coordinates are real. There were no such shops and there are no such people.

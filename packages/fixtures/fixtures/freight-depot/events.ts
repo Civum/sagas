@@ -115,9 +115,9 @@ export const events: ContributionEvent[] = [
     recordId: 'rec-fd-03',
     siteId: SITE,
     note: 'The depot office, about 1935. My uncle is the one by the door.',
-    // The photo's GPS puts the camera across the street, 55 metres away and
+    // The photo's GPS puts the camera across the street, 55 meters away and
     // good to about 65. That is the camera's position, not what the photo is of.
-    capturedLocation: { coordinates: [-116.2094, 43.6145], method: 'embedded', accuracyMetres: 65 },
+    capturedLocation: { coordinates: [-116.2094, 43.6145], method: 'embedded', accuracyMeters: 65 },
     media: [{
       mediaId: 'med-fd-03', kind: 'image', storageKey: 'records/rec-fd-03/med-fd-03/office.jpg',
       contentType: 'image/jpeg', byteSize: 2_310_000, width: 3024, height: 2016, processing: 'ready',

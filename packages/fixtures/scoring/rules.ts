@@ -1133,9 +1133,14 @@ export function runScoringRules(name: string, scorer: Scorer): void {
       // can suggest the thread a person would have picked.
       it.todo("suggests the existing thread when a new claim repeats one");
 
+      // Prompted by: "Is the unit of work a task?" in docs/DESIGN-QUESTIONS.md. Decided,
+      // and not in the contract yet: someone with only "not X" raises a challenge, and it
+      // opens a task on the detail. Open: what a challenge looks like, and who sees the task.
+      it.todo("opens a task on a detail when someone challenges it");
+
       // Prompted by: "How should a resolution be recorded?"
       // in docs/DESIGN-QUESTIONS.md.
-      // Decided: a resolution is its own edge. Open: what it points at.
+      // Decided: a resolution is its own relation. Open: what it points at.
       it.todo(
         "lets a resolution raise both branches it reconciles without settling either",
       );
@@ -1154,7 +1159,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
 
       // Prompted by: "How do claims compare across languages?"
       // in docs/DESIGN-QUESTIONS.md.
-      // Open: matching details across languages without penalising either.
+      // Open: matching details across languages without penalizing either.
       it.todo("finds the same detail in claims given in different languages");
 
       // Prompted by: "How to record disagreement about meaning"
@@ -1190,11 +1195,6 @@ export function runScoringRules(name: string, scorer: Scorer): void {
         "never lets one profile's standing pass to another by vouching alone",
       );
 
-      // Prompted by: "Is the unit of work a task?"
-      // in docs/DESIGN-QUESTIONS.md.
-      // Open: overlaps \"Is every ask in the system one kind of object?\".
-      it.todo("routes an open task to someone able to answer it");
-
       // Prompted by: "A person named in a claim versus a person with a profile"
       // in docs/DESIGN-QUESTIONS.md.
       // Open: a person mentioned in a claim is not a profile.
@@ -1207,11 +1207,11 @@ export function runScoringRules(name: string, scorer: Scorer): void {
         "splits a detail that turned out to be two things and keeps its history",
       );
 
-      // Prompted by: "Can a claim be edited?"
-      // in docs/DESIGN-QUESTIONS.md.
-      // Open: whether text can change, and what happens to replies aimed at the old version.
+      // Prompted by: "A claim's text doesn't change once it's saved"
+      // in docs/CLOSED-QUESTIONS.md.
+      // Decided: it can't. A correction is a new claim, and it's still one telling.
       it.todo(
-        "keeps disputes and extensions attached to the version they answered",
+        "gives a correction from the same person no independent weight",
       );
 
       // Prompted by: "Can a passover point at one detail?"

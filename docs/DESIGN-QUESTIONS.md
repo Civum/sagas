@@ -59,7 +59,7 @@ and the shared contract.
 | 26 | What makes a place significant? | Experience |
 | 27 | A person named in a claim versus a person with a profile | Intelligence |
 | 28 | What happens when one detail turns out to be two people? | Intelligence |
-| 29 | Can a claim be edited? | Intelligence |
+| 29 | Which text does an excerpt count into? | Intelligence |
 | 30 | How do you tell whether a reply is about what it targets? | Intelligence |
 | 31 | Can a passover point at one detail? | Intelligence |
 | 32 | What happens to a supporting record that stops holding up? | Content |
@@ -104,7 +104,7 @@ nobody knows yet.
 
 **Now:** two separate shapes. Since contract 2.6.0 a claim can dispute a record with a
 `parent`, and a translation is one, so `translationDispute` does a job a dispute claim can
-now do. The sponsor intends to retire it, and it isn't retired yet.
+now do. It can be retired later, and it hasn't been yet.
 
 **Why this is hard:** the fixtures and pages that read `translationDisputes` have to move
 to reading dispute claims, and a dispute claim needs a source record and text of its own,
@@ -189,11 +189,11 @@ A record ends up with a location, and the record says how it got one. That part
 is settled.
 
 **Now:** `capturedLocation` holds coordinates, a `method` of `placed`,
-`geocoded`, `embedded`, or `inherited`, and an optional `accuracyMetres`.
+`geocoded`, `embedded`, or `inherited`, and an optional `accuracyMeters`.
 Separately, `site.coordinatePrecision` is `approximate` or `surveyed`.
 
 **The problem:** `coordinatePrecision` collapses two different things. A photo's
-embedded GPS is precise to a few metres and frequently wrong, because the camera
+embedded GPS is precise to a few meters and frequently wrong, because the camera
 was across the street from the building. A pin dropped by the granddaughter of
 the woman who worked there is imprecise and authoritative. Method and precision
 are separate axes and that enum has one.
@@ -408,7 +408,7 @@ so that I have thought of has a failure mode worse than the problem it solves.
 **What you have to work with.** `contributorStanding` in the contract records
 what each person has done. Records submitted, claims written, claims that
 somebody else backed with a record of their own, claims somebody disputed, disputes raised, how many of
-those disputes proposed an alternative instead of only objecting, "sounds right" passovers given,
+those disputes named a replacement, "sounds right" passovers given,
 translations, transcripts, flags, and when they were first and last active.
 These are counts. There is no score, and that is deliberate.
 
@@ -698,7 +698,7 @@ Open:
 
 - How is distance measured? Period count and elapsed time come apart. A busy
   site might pass through six periods in a year while a quiet one sits in one
-  for three, so damping by period penalises a dispute on the busy site six times
+  for three, so damping by period penalizes a dispute on the busy site six times
   harder for the same calendar gap. That might be right, on the grounds that
   activity means the record was being examined and somebody missed the window.
   It might also be an artifact.
@@ -718,9 +718,10 @@ Working out who to ask is a task. If task were an object, behavioral history
 would be per category by construction instead of tracked separately for each
 activity.
 
-One piece of this is decided and not in the contract yet: a dispute says "not X but Y", so
-someone who only has "not X" raises a challenge, and a challenge opens a task on that
-detail. What a challenge looks like and who sees the task are open.
+The sponsor has decided one piece of this, and it isn't in the contract yet: a dispute says
+"not X but Y", so someone who only has "not X" raises a challenge, and a challenge opens a
+task on that detail. What a challenge looks like and who sees the task are open. The
+direction further down is about a task object in general.
 
 `contributorStanding` is already the accounting half of this. Every field in it
 counts a completed act. What a task object would add is the part missing
@@ -799,29 +800,14 @@ Open:
 - Is a split a new kind of claim, or something the intelligence layer works out?
 - What happens to support already given to the detail before the split?
 
-## Can a claim be edited?
+## Which text does an excerpt count into?
 
-A correction can arrive two ways. Somebody can change their own claim, or they
-can add a new claim that corrects it.
+**Now:** an excerpt counts character positions into `claim.text`, the English rendering,
+because that's what a reader selects from. A claim also carries `sourceLanguageText`, the
+words as they were given, and an excerpt can't point into that yet.
 
-Editing in place keeps the page tidy, but it changes what other people already
-responded to. A dispute aimed at the old wording would then point at words
-that no longer exist. A new claim keeps the history and costs a little
-clutter. Either way, a correction from the same person is not independent
-support for anything, because it comes from one telling.
-
-**Now:** an excerpt counts character positions into `claim.text`, so since contract
-2.6.0 the contract expects a claim's text not to change once it's saved, and a
-correction to be a new claim. The one exception is a claim awaiting translation, whose
-first rendering supplies its text.
-
-Open:
-
-- Whether a person should ever be able to change a claim anyway, and if so, what
-  happens to the disputes, extensions and passovers aimed at the old version.
-- Which text an excerpt counts into when a claim wasn't given in English. Today it's
-  `claim.text`, the English rendering, because that's what a reader selects from. A
-  claim also carries `sourceLanguageText`, which an excerpt can't point into yet.
+**Open:** whether a reply can point at the words a claim was given in, and how that
+reaches a person reading the rendering.
 
 ## How do you tell whether a reply is about what it targets?
 
@@ -928,10 +914,11 @@ could go with it: a suspension states a reason the contributor can see and answe
 suspended record stays visible in its own collection while it's off the place's page.
 
 **Open:** what puts something into quarantine and what takes it out, whether
-quarantine and a locked record are one state or two, how long checking can
-take before it becomes a quiet way of burying something, who counts as the community
-for a suspension, and how that decision avoids what "Moderation without majority capture"
-warns about.
+quarantine and a locked record (see "What happens to a supporting record that stops
+holding up?") are one state or two, how long checking can take before it becomes a quiet
+way of burying something, whether to have suspension at all, who counts as the community
+for one, and how that decision avoids what "Moderation without majority capture" warns
+about.
 
 ## Where does a record's weight as evidence live?
 
@@ -997,16 +984,17 @@ scoring, display or only what gets suggested to whom, and who gets to say.
 
 ## What should happen when someone repeats what's already here?
 
-**Now:** a repeat inside one thread adds no weight, and a copy counts once, so the scorer
-already keeps repetition from counting as support. Nothing stops someone re-arguing, in a
-new thread, something another thread has already worked through. Reddit is full of this.
+**Now:** the rules already ask a scorer to give a repeat inside one thread, or a copy, far
+less than an independent thread. Nothing stops someone re-arguing, in a new thread,
+something another thread has already worked through.
 
 **The options so far:** the scorer can thin it out, people can merge threads or vote to,
 or the system can decide where a claim goes. Merging rewrites who said what and where, and
 a vote over structure is one more thing to fight about. Forced placement can put a new
 point in the wrong place with no way back. The sponsor's direction is that most people
-won't start from a blank box: an explore mode brings them to claims, and each passover
-tunes what they see next. So where something has already been said becomes one input to
+won't start from a blank box. An explore mode, which leads a person from claim to claim
+instead of asking them to read the whole tree, brings them to claims, and each passover
+tunes what they see next. So what a thread has already said would become one input to
 that routing. A person who does start fresh could see the closest matches and choose.
 
 **Open:**

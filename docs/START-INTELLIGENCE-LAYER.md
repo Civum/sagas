@@ -28,8 +28,9 @@ working endpoint:
 - **Site.** A place somebody has designated as meaningful. Records and claims
   attach to a site. A site does not attach to them.
 - **Record.** What somebody hands over. A recording, a video, a photograph, a
-  scanned document, or typed text. Nothing in the graph argues with a record.
-  Disagreement lands on claims instead.
+  scanned document, or typed text. Nothing in the graph argues with a record that
+  stands on its own. Disagreement lands on claims instead, and on a transcript or a translation,
+  which are someone's rendering of a record.
 - **Claim.** Somebody's reading of a record. This is where disagreement lands.
   One record can produce several claims.
 - **Rendering.** A transcript or a translation. One person's version of a

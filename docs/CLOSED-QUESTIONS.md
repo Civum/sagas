@@ -22,22 +22,31 @@ a list of edges reads them off the claims. Older entries below name the edge obj
 they were then, and `claim.details` for a claim's own details, a field that no longer
 exists.
 
-A target is `{ claimId | recordId, details: [{ at, to? }] }`. A transcript or a translation
-is a record, so a claim about one has `recordId`. `details` lists where a claim points
-inside its target, and no details means all of it. A dispute can point at several details, so "Sally bought a pink hat" disputed as
+A target is `{ claimId | recordId, details }`. A transcript or a translation is a record, so
+a claim about one has `recordId`. `details` lists where a claim points inside its target,
+and no details means all of it. An extension's details are `{ at }`, and a dispute's are
+`{ at, to }` with `to` required. A dispute can point at several details, so "Sally bought a pink hat" disputed as
 "Brandon bought a blue hat" is one claim with one set of evidence. Each entry has `at`,
 the words or the window in the target, and `to`, the words in the dispute's own text
 that replace them. A dispute can also cover a whole claim, because sometimes all of it
 is wrong, and then every detail inside it reads as contested. The relation belongs to the claim, so a reply
 that corrects one thing and adds to another is two claims.
 
+## A claim's text doesn't change once it's saved
+
+Done in contract 2.6.0. A correction is a new claim. Editing in place would change what
+other people already responded to, and an excerpt's positions would no longer land on its
+words. The one exception is a claim awaiting translation, whose first rendering supplies
+its text. A correction from the same person still isn't independent support, because it
+comes from one telling.
+
 ## An excerpt is an object with positions
 
 Done in contract 2.6.0. An excerpt is `{ start, end, text }`. Words repeat, so a plain
 string couldn't tell the two "1950"s in "built in 1950, rebuilt after the 1950 fire"
 apart. It also meant searching text to find which references sit inside a detail, which
-is now a comparison of positions. `at`, `to`, a reference and a detail all use this one
-shape.
+is now a comparison of positions. `to`, a reference, a detail, and `at` when it's words all
+use this one shape.
 
 ## A detail is an excerpt that another claim points at
 

@@ -42,6 +42,16 @@ describe('experience layer: open questions', () => {
 });
 
 describe('capture and page: open questions', () => {
+  // Prompted by: "Is the unit of work a task?" in docs/DESIGN-QUESTIONS.md. Routing now
+  // sits with the experience layer. Open: overlaps "Is every ask in the system one kind
+  // of object?".
+  it.todo('routes an open task to someone able to answer it');
+
+  // Prompted by: "What should happen when someone repeats what's already here?" in
+  // docs/DESIGN-QUESTIONS.md. Open: how a page collapses repeats, and how explore mode
+  // uses what a thread has already said.
+  it.todo('shows repeats together and leads a person to the existing thread');
+
   // Prompted by: "How do you tell whether a reply is about what it targets?"
   // in docs/DESIGN-QUESTIONS.md. A detail is an excerpt another claim points at.
   // Open: how a reply selects that excerpt.
@@ -49,7 +59,7 @@ describe('capture and page: open questions', () => {
 });
 
 describe('shared contract: open questions', () => {
-  // Prompted by: "Can a claim be edited?" in docs/DESIGN-QUESTIONS.md.
+  // Prompted by: "Which text does an excerpt count into?" in docs/DESIGN-QUESTIONS.md.
   // Open: which text an excerpt counts into when a claim wasn't given in English.
   it.todo('lets an excerpt point into the text a claim was given in');
 

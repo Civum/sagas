@@ -352,6 +352,11 @@ export function runCaptureRules(name: string, base: string): void {
         "keeps a locked record visible and marked, with no new references to it",
       );
 
+      // Prompted by: "Who can make a home's location exact?"
+      // in docs/DESIGN-QUESTIONS.md.
+      // Open: who can opt in. A residential place is at neighborhood level by default.
+      it.todo("keeps a home at neighborhood level until the people it affects opt in");
+
       // Prompted by: "How do audio and video records hold their text?"
       // in docs/DESIGN-QUESTIONS.md.
       // Open: timestamped transcripts, so words in one map to a window of the recording,

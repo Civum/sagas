@@ -225,6 +225,11 @@ describe("time windows and collections (2.4.0)", () => {
     ).toBe(false);
   });
 
+  it("doesn't let words with bad positions pass as a window of a recording", () => {
+    const at = { start: 0, end: 9, text: "1950" };
+    expect(parses({ target: { recordId: "rec-1", details: [{ at }] } })).toBe(false);
+  });
+
   it("finds a repeat of the same words by its position", () => {
     const text = "built in 1950, rebuilt after the 1950 fire";
     expect(findExcerpt(text, "1950")?.start).toBe(9);

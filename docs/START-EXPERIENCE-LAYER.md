@@ -65,7 +65,8 @@ Beyond the code, the pipeline, hosting and the landing page are yours too. See
 - **Site.** A place somebody has designated as meaningful. Records and claims
   attach to a site. A site does not attach to them.
 - **Record.** What somebody hands over. A recording, a video, a photograph, a
-  scanned document, or typed text. Nothing in the graph argues with a record.
+  scanned document, or typed text. Nothing in the graph argues with a record that
+  stands on its own. A transcript or a translation is someone's rendering, so it can be disputed.
 - **Claim.** Somebody's reading of a record. This is where disagreement lands.
   One record can produce several claims.
 - **Detail.** An excerpt of a claim that another claim points at, such as a year, a
@@ -315,8 +316,8 @@ says what is decided about each, what the first steps are, and what is open:
 
 ## There is no score to show
 
-Scoring belongs to the intelligence layer. It will decide what gets surfaced,
-how the page is ordered, and what somebody is suggested to look at. It is never
+Scoring belongs to the intelligence layer, and it decides how the page is ordered. Routing,
+what somebody is suggested to look at, belongs to this layer as backlog work. Neither is ever
 a number shown to a person.
 
 `contributorStanding` holds counts: records submitted, claims written, disputes

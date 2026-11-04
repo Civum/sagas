@@ -11,9 +11,7 @@ motion are the designer's, and the gray boxes are there so nobody mistakes them
 for a style.
 
 The place, the people and everything they say are invented. The sections and
-passages come from contract 2.1.0, which reaches your fork with the next
-upstream update. Until then, the wireframe is a step ahead of the data you can
-load.
+passages come from contract 2.1.0.
 
 ## The seven regions
 

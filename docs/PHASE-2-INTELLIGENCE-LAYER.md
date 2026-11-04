@@ -265,10 +265,10 @@ The relationships between claims aren't hidden in the text. People state them
 when they write a claim, and they become the edges of the graph:
 
 - **A dispute is a claim with `relation: 'dispute'`,** and it always gives a reason and says
-  "not X but Y". It usually points at one detail, like the year, and it can
+  what it asserts instead. It usually points at one detail, like the year, and it can
   point at several: "Sally bought a pink hat" disputed as "Brandon bought a blue hat"
-  points at "Sally" and at "pink". With no details it disputes the whole claim, which
-  contests every detail inside it. Each entry in `target.details` has `at`, the words or the
+  points at "Sally" and at "pink". With no details it disputes the whole claim, its own text is what it says
+  instead, and that contests every detail inside it. Each entry in `target.details` has `at`, the words or the
   window in the target, and `to`, the words in the dispute's own text that replace them.
 - **An extension is a claim with `relation: 'extension'`.** It adds to its target. It
   usually points at a detail, or at the whole claim when it's about all of it, and it
@@ -417,8 +417,8 @@ Start with a record. Record R is a recorded interview with a neighbor of the
 site, and its transcript says: "There was a cat out front every morning."
 
 - **Claim A** takes R as its source record and says "The cat crossed the
-  road." Replies make "The cat", "crossed" and "the road" its details. Every claim after A
-  targets one of these, or a detail in a claim built on A.
+  road." Replies make "The cat", "crossed" and "the road" its details. Every reply in A's thread
+  points at one of these, or at a detail in a claim built on A.
 - **Claim B** is an extension. It targets "The cat" and adds "it was a calico". It
   replaces nothing, and its target makes "The cat" a detail of A.
 - **Claim C** is an extension. It targets "crossed" and adds "to catch a

@@ -43,8 +43,8 @@ a detail of the claim it replies to, and `detailsOf(graph, claimId)` in
 so it has nothing for the scorer to check across threads yet.
 
 Every claim has a `target`: the claim or record it points into, and `details`, where it
-points inside that, with none meaning all of it. A claim that targets a claim has a
-`relation`, dispute or extension, and those are its edge: the link one claim draws to
+points inside that, with none meaning all of it. Every claim has a
+`relation`, dispute or extension, and its target and relation are its edge: the link one claim draws to
 another. `A.target.details` says where A points, and
 `detailsOf(graph, "A")` says what others point at in A. A claim also has `references`, which are typed links inside its own
 text, like a date or a place. The contributor adds them, or the system suggests them

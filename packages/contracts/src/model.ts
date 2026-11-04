@@ -314,11 +314,11 @@ export const capturedLocation = z.object({
   coordinates: z.tuple([z.number(), z.number()]),
   method: locationMethod,
   /**
-   * Rough radius the point is good for, in metres. A number rather than a
+   * Rough radius the point is good for, in meters. A number rather than a
    * category, because every category list we tried presupposed an answer to the
    * question in DESIGN-QUESTIONS.
    */
-  accuracyMetres: z.number().optional(),
+  accuracyMeters: z.number().optional(),
 });
 export type CapturedLocation = z.infer<typeof capturedLocation>;
 
@@ -717,7 +717,7 @@ export const findExcerpt = (text: string, words: string, occurrence = 1): Excerp
 export const sameExcerpt = (a: Excerpt, b: Excerpt): boolean =>
   a.start === b.start && a.end === b.end;
 
-/** How a claim relates to the claim it targets. */
+/** How a claim relates to what it targets. */
 export const claimRelation = z.enum(['dispute', 'extension']);
 export type ClaimRelation = z.infer<typeof claimRelation>;
 
@@ -732,13 +732,21 @@ export type ClaimRelation = z.infer<typeof claimRelation>;
  *                               transcript. `start` and `end` are characters.
  *   at: { start, end }          a window of a recording, in seconds.
  *
- * An extension points with `at` alone. A dispute also has `to`, the words in its own
- * text that replace what it points at, so "pink" disputed as "blue" has `at` on "pink"
- * in the target and `to` on "blue" here. It's required, because a dispute says "not X
- * but Y". Marking your own words with `to` doesn't make them a detail. They become one
+ * An extension points with `at` alone. A dispute says "not X but Y", so on each detail
+ * it points at it also has `to`, the words in its own text that replace that detail.
+ * "Pink" disputed as "blue" has `at` on "pink" in the target and `to` on "blue" here. A
+ * dispute of the whole claim has no details, and its own text is what it says instead.
+ * Marking your own words with `to` doesn't make them a detail. They become one
  * when someone else points at them.
  */
-const pointedAt = z.union([excerpt, timeWindow]);
+// Strict, so words whose positions don't add up fail here and don't pass as a window.
+const pointedAt = z.union([
+  excerpt,
+  z
+    .object({ start: z.number().min(0), end: z.number().min(0) })
+    .strict()
+    .refine((w) => w.start < w.end, { message: 'A time window has to start before it ends.' }),
+]);
 export const extensionDetail = z.object({ at: pointedAt }).strict();
 export type ExtensionDetail = z.infer<typeof extensionDetail>;
 export const disputeDetail = z.object({ at: pointedAt, to: excerpt });
@@ -802,7 +810,7 @@ export const claimReply = z.discriminatedUnion('relation', [
   z.object({
     relation: z.literal('dispute'),
     reasoning: z.string().refine((r) => r.trim().length > 0, {
-      message: 'A dispute without a reason isn\'t a dispute. "This is wrong" cannot be filed.',
+      message: "A dispute without a reason isn't a dispute.",
     }),
     target: disputeTarget,
   }),
@@ -1172,9 +1180,8 @@ export type ClaimState = z.infer<typeof claimState>;
  *
  * Two of these are worth more than their names suggest:
  *
- * `disputesRaisedWithAlternative` separates "that date is wrong, it was 1914"
- * from "that date is wrong". Both are disputes. Only one of them moves the
- * record forward, and telling them apart needs no reading.
+ * `disputesRaisedWithAlternative` counts the disputes that name a replacement for a
+ * detail, "that date is wrong, it was 1914". A dispute of a whole claim names none.
  *
  * `claimsCorroborated` counts claims of theirs that somebody else backed with a
  * record of their own. That is the one signal here that cannot be produced by a
@@ -1197,7 +1204,7 @@ export const contributorStanding = z.object({
   /** Claims of theirs that somebody has disputed part of. Not a mark against them. */
   claimsDisputed: z.number(),
   disputesRaised: z.number(),
-  /** Of those, the ones that proposed a different value instead of only objecting. */
+  /** Of those, the ones that point at details, each with its replacement. */
   disputesRaisedWithAlternative: z.number(),
   /** "Sounds right" passovers they left. */
   soundsRightGiven: z.number(),

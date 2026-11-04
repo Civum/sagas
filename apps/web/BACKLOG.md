@@ -532,9 +532,10 @@ one, and several, as its own comment describes.
 **Status:** Draft. Starts with a design exercise. Code comes after it.
 
 How a reader is pointed at what to read next and what they could add. The
-routing that decides this belongs to this layer, and it doesn't exist yet. It reads
-profiles, passovers and what someone has seen, and it can run on the fixtures without the
-scorer. This epic designs the interface first. The passover interaction joins this epic once
+routing that decides this now sits with this layer, as backlog work, and your statement of
+work doesn't change. It doesn't exist yet. It reads profiles and each person's passovers, which the scoring graph
+in `packages/fixtures/scoring` carries, so it can run without the scorer. `graphState` only has
+totals. This epic designs the interface first. The passover interaction joins this epic once
 the design exercise is done. The intelligence layer's matching plugs in later as one more
 input.
 

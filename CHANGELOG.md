@@ -43,7 +43,7 @@ it. This is the most useful field in the entry.
 
 ## v2.6.0 — 2026-11-03
 
-**Affects:** intelligence layer · experience layer
+**Affects:** intelligence layer · experience layer · content layer (one field name)
 
 **What:**
 - **A claim's edge lives on the claim.** Every claim now has a `relation` and a `target`, and
@@ -55,9 +55,10 @@ it. This is the most useful field in the entry.
   off the claims.
 - **`target.details` lists where a claim points.** Each entry has `at`, an object: `{ start,
   end, text }` for words, with positions in characters, or `{ start, end }` for a window of a
-  recording, in seconds. An extension has only `at`. A dispute also has `to`, required: the
-  words in its own text that replace what it points at. A dispute says "not X but Y", and
-  `to` replaces `proposedValue`. `A.target.details` says where A points. `detailsOf(graph,
+  recording, in seconds. An extension has only `at`. A dispute says "not X but Y", so on each
+  detail it points at it also has `to`, required: the words in its own text that replace that
+  detail. `to` replaces `proposedValue`. A dispute of the whole claim has no details, and its
+  own text is what it says instead. `A.target.details` says where A points. `detailsOf(graph,
   "A")` says what others point at in A.
 - **A transcript or a translation is a record, and it can be disputed.** A claim about one has
   `recordId`. A record that stands on its own can only be extended, because it stays true
@@ -75,7 +76,8 @@ it. This is the most useful field in the entry.
   one detail, so the two "1950"s in one sentence can be two details. `detailId` now takes an
   excerpt, and an id looks like `claim#9-13`.
 - **A claim's text doesn't change once it's saved,** because the positions count into it.
-  A correction is a new claim.
+  A correction is a new claim. The one exception is a claim awaiting translation, whose first
+  rendering supplies its text.
 - **`claimEvidence` loses `excerpt`.** Evidence backs whatever its claim points at, and
   marking your own words no longer makes a detail. Only another claim pointing at them does.
 - **`detailStatus.disputes` is now a list of `claimDispute`,** a summary worked out from the
@@ -83,6 +85,11 @@ it. This is the most useful field in the entry.
   is a list of claim ids, and `claimState` gains `disputes`.
 - **`scoreTerm.family` is now `'content' | 'behavior'`.** The repository moved to US spelling,
   and this is the one place that reached a value your code can depend on.
+
+- **Routing moves to the experience layer.** Working out what to put in front of whom mostly
+  reads profiles and passovers, so it fits that layer's data, and the intelligence layer's
+  matching plugs in later. No shape changes. It's a backlog item, and no statement of work
+  changes.
 
 **Why:** the contract is the template teams build from, and 2.5.0 said where a reply points
 in several places: `claim.target`, an edge, `parentClaimId` and `disputedClaimId`. Nothing kept
@@ -95,9 +102,11 @@ it now than to let anyone build on the old shape.
 - *experience layer* — pull upstream. If you're coming from 2.4.0, read the 2.5.0 lines
   too, and skip what this entry undoes.
   - Tell a dispute from an extension with `claim.relation`, in place of `disputedClaimId`.
-  - `claim.target.claimId` replaces `parentClaimId`. A first claim has `target.recordId`
-    instead, so it's undefined there. A first claim's `relation` is now `extension`, so check
-    `target.claimId` to tell a reply from a first claim.
+  - `claim.target.claimId` replaces `parentClaimId` when `relation` is `extension`, and
+    `disputedClaimId` when it's `dispute`. A first claim has `target.recordId` instead, and its
+    `relation` is `extension` too, so check `target.claimId` to tell a reply from a first claim.
+  - `claim.target.window` from 2.5.0 is now an entry in `target.details`, and `isExcerpt` tells
+    words from a window.
   - An excerpt is an object, so read `.text` on `detail.excerpt`, `reference.excerpt` and
     `score.details[].excerpt`.
   - In `detailStatuses`, each entry in `disputes` now has `claimId`, `contributorId`,
@@ -106,8 +115,9 @@ it now than to let anyone build on the old shape.
     `competingValues` keeps its shape.
   - Detail ids now look like `cl-cs-shop#50-61`, so compare them with `detail.id` and don't
     build them by hand. `spans[].detailIds` uses the new ids.
-  - The fixtures have the same counts of claims, details and disputes as before, and none has a
-    dispute of a whole claim yet. When one exists on a claim with no details, it shows only in
+  - The fixtures have the same counts of claims, details and disputes as 2.5.0. If you're coming
+    from 2.4.0 you'll see far fewer details, because a detail now exists only once a claim points
+    at it. None has a dispute of a whole claim yet. When one exists on a claim with no details, it shows only in
     `claimState.disputes`. A dispute of a detail now always names its replacement, so
     `disputes[].to` is only empty when the dispute covers more than that detail.
 - *intelligence layer* — pull upstream. If you're coming from 2.4.0, read the 2.5.0 lines
@@ -125,11 +135,12 @@ it now than to let anyone build on the old shape.
     reads the same. `.dispute` now takes `{ at, to }`, like `.dispute("C", "A", { at: "1950", to:
     "1960" }, "why")`, or a list of them, or `undefined` for the whole claim. `to` has to be words
     in the reply's own text.
-  - A claim's own evidence no longer names an excerpt, so "evidence naming an excerpt raises that
-    detail" is now "a reply's evidence raises the detail it points at", under "evidence and
-    volume". "targets" has three new rules: a dispute of the whole claim, one dispute pointing at
+  - A claim's own evidence no longer names an excerpt, so the rule "lets evidence naming an excerpt raise that
+    detail and leave the others alone" is now "lets a reply's evidence raise the detail it targets
+    and leave the others alone", under "evidence and volume". "targets" has three new rules: a dispute of the whole claim, one dispute pointing at
     several details, and repeated words. Those count toward S3 and S4 being done.
-- *content layer* — nothing. `apps/capture-api` doesn't store claims.
+- *content layer* — `capturedLocation.accuracyMeters` is now `accuracyMeters`, the one spelling
+  change in your fields. Nothing else, because `apps/capture-api` doesn't store claims.
 
 ## v2.5.0 — 2026-11-02
 
@@ -815,7 +826,7 @@ prove it is theirs", and nobody should build linking until it has an answer.
 **Why:** `docs/START-CONTENT-LAYER.md` used "account" for a contribution on one
 line and for a login twenty lines later. It said "there are no user accounts and
 you should not build any" a few paragraphs before asking "what accounts are
-within two kilometres of this building". Anybody reading it carefully would come
+within two kilometers of this building". Anybody reading it carefully would come
 away with two meanings for the same word, and no way to tell which was intended.
 The word was also a leftover from an earlier framing of this project as an oral
 history archive, and it sits badly on a photograph or a deed.

@@ -2,13 +2,13 @@
  * The model, in five sentences.
  *
  * A claim is something a person says about one thing, its `target`: another claim or
- * a record, and a transcript or a translation is a record. Every claim has a `relation`.
- * It extends its target, or it disputes it, and a dispute gives its `reasoning`.
- * `target.details` lists where it points inside that thing, each with an `at`, plus a
- * `to` on a dispute, and an empty list means all of it. When B points at words in claim
- * A, those words are a detail of A, so `detailsOf(graph, "A")` collects them from every
- * reply to A. A claim's target and relation are its edge, and the graph stores that edge
- * nowhere else.
+ * a record, and a transcript or a translation is a record. Every claim has a `relation`:
+ * it extends its target or disputes it, and a dispute gives its `reasoning`.
+ * `target.details` lists where it points inside that thing, each with an `at`, plus on a
+ * dispute a `to`, the words in its own text that replace what it points at, and an empty
+ * list means all of it. When B points at words in claim A, those words are a detail of A,
+ * so `detailsOf(graph, "A")` collects them from every reply to A. A claim's target and
+ * relation are its edge, and the graph stores that edge nowhere else.
  *
  * `at` is an object: `{ start, end, text }` for words, with positions in characters, or
  * `{ start, end }` for a window of a recording, in seconds.

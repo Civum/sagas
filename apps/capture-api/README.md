@@ -229,7 +229,7 @@ the endpoints are the same subject rather than two.
 Two rules come with it. Use `$1`, `$2`, `$3` placeholders and pass values
 as the second argument, never string concatenation, so nothing somebody typed is
 ever read as SQL. And use the shared `Pool` from `src/db.ts` rather than making a
-`Client`, because a single client serialises every request behind the one before
+`Client`, because a single client serializes every request behind the one before
 it and you find out the first time two people submit at once.
 
 **Numbered SQL files for migrations**, applied by `scripts/migrate.ts`. There

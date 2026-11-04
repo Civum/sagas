@@ -511,7 +511,7 @@
               43.6145
             ],
             "method": "embedded",
-            "accuracyMetres": 65
+            "accuracyMeters": 65
           },
           "submission": "published",
           "media": [
@@ -1279,7 +1279,7 @@
             43.6145
           ],
           "method": "embedded",
-          "accuracyMetres": 65
+          "accuracyMeters": 65
         },
         "submission": "published",
         "media": [
@@ -1916,7 +1916,7 @@
               43.6145
             ],
             "method": "embedded",
-            "accuracyMetres": 65
+            "accuracyMeters": 65
           },
           "submission": "published",
           "media": [
@@ -2535,7 +2535,7 @@
             43.6145
           ],
           "method": "embedded",
-          "accuracyMetres": 65
+          "accuracyMeters": 65
         },
         "submission": "published",
         "media": [
@@ -3775,7 +3775,7 @@
               43.6145
             ],
             "method": "embedded",
-            "accuracyMetres": 65
+            "accuracyMeters": 65
           },
           "submission": "published",
           "media": [
@@ -4022,7 +4022,7 @@
               43.6145
             ],
             "method": "embedded",
-            "accuracyMetres": 65
+            "accuracyMeters": 65
           },
           "submission": "published",
           "media": [
@@ -4454,7 +4454,7 @@
             43.6145
           ],
           "method": "embedded",
-          "accuracyMetres": 65
+          "accuracyMeters": 65
         },
         "submission": "published",
         "media": [

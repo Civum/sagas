@@ -104,7 +104,7 @@ one interesting way. Finding out which one is part of this too.
 What it needs to grow:
 
 - A schema for places, records, contributions, and the people who made them
-- Spatial indexing, so "everything within two kilometres of here" is fast. Read
+- Spatial indexing, so "everything within two kilometers of here" is fast. Read
   [`docs/GIS.md`](../../docs/GIS.md) first
 - Migrations, so the schema can change without anyone losing data
 - A seed script that loads the fixtures into a running database

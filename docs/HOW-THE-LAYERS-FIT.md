@@ -10,7 +10,7 @@ The three layers:
   the transcripts and translations of them, and the contributor's choices for
   each one. It has a plain screen for handing things over.
 - **The intelligence layer** owns claims: the graph they form, and the scoring
-  that works out weight, independence and what needs attention. It has a plain
+  that works out weight and independence. It has a plain
   screen for writing claims, and later it composes the sections and passages a page
   shows.
 - **The experience layer** builds the map and the reading experience: what a
@@ -138,9 +138,8 @@ The intelligence layer's main focus is claims. From the graph it can see:
   doorway?", has an answer, and the other, the year, is in dispute.
 
 From that it works out a **score** for each claim and each detail, made of
-named parts, which decides the order on the page, and what needs attention,
-which decides what gets suggested. Neither is ever shown to a person as a
-number.
+named parts, which decides the order on the page. The experience layer's routing
+decides what gets suggested. Neither is ever shown to a person as a number.
 
 How independence is worked out, and the exact weighting, is the intelligence
 layer's design work, apart from the counting in S5 of its backlog.
