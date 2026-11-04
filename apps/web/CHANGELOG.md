@@ -16,6 +16,11 @@ conflict on a later pull.
 - What works now, in a sentence a visitor would understand. (#pull request number, who)
 ```
 
+## 2026-10-28
+
+- Selecting an underlined phrase in a corner shop passage shows the claims behind it, strongest first, with extensions under the claim they add to and the phrase's words highlighted. (#33, Canon)
+- The `/dev` fixture history control marks the selected state and lets you step through t0 to t3 while the page updates. (#33, Canon)
+
 ## 2026-10-23
 
 - The corner shop page shows its sections, its records, and both readings of the disputed date side by side. (#31, Canon)

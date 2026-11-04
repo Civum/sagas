@@ -166,10 +166,9 @@ documented, without a number. This replaces the pin band in B1.
 **Done when:** a small set of icons, in the style the design workstream is
 working toward, used on the map and the list.
 
-### N1 · The corner shop at t3 as a page
+### N1 · The corner shop at t3 as a page (Canon)
 
-**Workstream:** Narrative page. **Status:** Ready. Your fork already has the
-contract it needs.
+**Workstream:** Narrative page. **Status:** Ready.
 
 **Goal.** The site page from `PAGE-MODEL.md`, built in the app.
 
@@ -183,9 +182,9 @@ contract it needs.
 
 **Read first.** `PAGE-MODEL.md`, then open `page-model.html`.
 
-### N2 · A phrase opens the claims behind it
+### N2 · A phrase opens the claims behind it (Canon)
 
-**Workstream:** Narrative page. **Status:** Later. Needs N1.
+**Workstream:** Narrative page. **Status:** Ready.
 
 **Goal.** Selecting a phrase in a passage shows the claims it rests on.
 
@@ -196,9 +195,9 @@ contract it needs.
 - When the span names details, the detail's words are highlighted in the claim.
 - It works from the keyboard, and the reader can get back to where they were.
 
-### N3 · Step from t0 to t3
+### N3 · Step from t0 to t3 (Canon)
 
-**Workstream:** Narrative page. **Status:** Later. Needs N1.
+**Workstream:** Narrative page. **Status:** Ready.
 
 **Goal.** Watch the page change as the site's history arrives.
 
@@ -434,7 +433,7 @@ the list reachable without fighting the map.
 **Done when** someone who hasn't seen the app can find a named site on a phone
 without help.
 
-### N5 · How a narrative page reads the graph
+### N5 · How a narrative page reads the graph (Canon)
 
 **Workstream:** Narrative page. **Status:** Ready
 
@@ -455,7 +454,7 @@ it and treats it as open.
 
 **Not in this story.** Showing scores, counts or rankings to readers.
 
-### N4 · Show where a record came from
+### N4 · Show where a record came from (Canon)
 
 **Workstream:** Narrative page. **Status:** Later. Needs N1, De7, and
 collections in the contract (see "What does a collection carry?" in
