@@ -538,6 +538,20 @@ questions issue.
 
 **Not in this story.** Scores, rankings or counts.
 
+### De12 · Show the terms
+
+**Workstream:** Design. **Status:** Draft.
+
+**Goal.** Anyone can read the terms before they hand anything over. The landing page and the
+full app both lead to them.
+
+**Done when:**
+- A page shows `docs/TERMS.md`, read from that file so the two can't drift apart.
+- The landing page and the full app both link to it.
+
+**Not in this story.** Accepting the terms, which is on the capture screen. The wording,
+which is the sponsor's.
+
 ### De8 · Readable for an older reader (Michael)
 
 **Workstream:** Design. **Status:** Ready
