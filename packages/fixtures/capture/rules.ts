@@ -354,7 +354,8 @@ export function runCaptureRules(name: string, base: string): void {
 
       // Prompted by: "How do audio and video records hold their text?"
       // in docs/DESIGN-QUESTIONS.md.
-      // Open: timestamped transcripts, so words in one map to a window of the recording.
+      // Open: timestamped transcripts, so words in one map to a window of the recording,
+      // and whether the API returns a record together with its texts.
       it.todo(
         "maps words in a transcript to the window of the recording they came from",
       );

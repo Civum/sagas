@@ -67,7 +67,7 @@ const EPSILON = 1e-9;
 
 /**
  * The claim most rules start from: one person, one recording. A detail only exists
- * once something points at it, so two plain replies make "1950" and "Mill Road"
+ * once another claim points at it, so two plain replies make "1950" and "Mill Road"
  * details of A.
  */
 const base = (): GraphBuilder =>
@@ -377,7 +377,12 @@ export function runScoringRules(name: string, scorer: Scorer): void {
           results.find((d) => d.detailId === id)?.contested;
         expect(contested(second?.id)).toBe(true);
         expect(contested(first?.id)).toBe(false);
-      });
+  
+      // Prompted by: "How do audio and video records hold their text?" in
+      // docs/DESIGN-QUESTIONS.md. Open: whether what a claim points at in a record
+      // counts the way a detail of a claim does.
+      it.todo("treats what a claim points at in a record like a detail of a claim, or doesn't");
+    });
     });
 
     describe("evidence and volume", () => {

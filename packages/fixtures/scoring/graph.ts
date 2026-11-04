@@ -1,15 +1,14 @@
 /**
  * The model, in five sentences.
  *
- * A claim is something a person says about a record or about another claim. It
- * targets exactly one thing, a record or a claim. A claim that targets a claim
- * either disputes it or extends it, and a dispute also carries its reasoning. A
- * claim's `details` are the excerpts of its target it points at, and with none it's
- * about all of it. A detail is an excerpt of a claim that another claim points at,
- * so `detailsOf` works them out and nothing else makes one.
- *
- * So a claim's target, relation and details are its edge, and the graph stores that
- * edge nowhere else. `repliesTo` reads the replies to a claim off the claims.
+ * A claim is something a person says about one thing, its `target`: a record or
+ * another claim. A claim that targets a claim has a `relation`, dispute or extension,
+ * and a dispute also gives its `reasoning`. A claim's `details` list where it points
+ * inside its target, as an excerpt (some words and their position) or a window of a
+ * recording, and an empty list means all of the target. When B points at words in claim
+ * A, those words are a detail of A, so `detailsOf(graph, "A")` collects them from every
+ * reply to A, and it doesn't return `A.details`. A reply's target, relation and details
+ * are its edge, and the graph stores that edge nowhere else.
  *
  * ---
  *

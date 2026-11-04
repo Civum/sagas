@@ -253,8 +253,9 @@ The tables are yours to design.
 
 A few words first. A **thread** is a source record and the claims built on
 it, which earlier emails called a conversation. A **branch** is one line of claims inside it. An **edge** is the link one
-claim draws to another: a dispute or an extension. A claim's `target`, `relation` and
-`details` are its edge, and nothing stores it a second time. A **passover** is the light
+claim draws to another: a dispute or an extension. A reply's `target`, `relation` and
+`details` are its edge, and nothing stores it a second time, so your own tables don't
+need an edges table unless you want one. A **passover** is the light
 signal a reader leaves on a claim: "sounds right", "don't know" or "don't
 care".
 
@@ -267,8 +268,8 @@ when they write a claim, and they become the edges of the graph:
   always gives a reason. It usually points at one detail, like the year, and it can
   point at several: "Sally bought a pink hat" disputed as "Brandon bought a blue hat"
   points at "Sally" and at "pink". With no details it disputes the whole claim, which
-  contests every detail inside it. Each entry in `details` has `at`, the words in the
-  target, and `to`, the words in the dispute's own text that replace them, if it names
+  contests every detail inside it. Each entry in `details` has `at`, the words or the window
+  in the target, and `to`, the words in the dispute's own text that replace them, if it names
   any.
 - **An extension is a claim with `relation: 'extension'`.** It adds to its target. It
   usually points at a detail, or at the whole claim when it's about all of it, and it
@@ -282,15 +283,17 @@ the replies to a claim off the list of claims.
 
 ### Details aren't keywords
 
-A detail is an excerpt of a claim that another claim points at. An excerpt is an
-object: `start` and `end` are its character positions in `claim.text`, and `text` is
-a copy of the words, so the two "1950"s in "built in 1950, rebuilt after the 1950 fire"
-are two details. It exists so people can
+A detail is an excerpt of a claim that another claim points at. A detail exists so people can
 disagree about the year without disagreeing about the building. Nobody lists a
 claim's details in advance: they're worked out from what targets it, and `detailsOf`
 in `@sagas/fixtures/scoring` does that for you. A date or a place inside a claim's
 text is a reference, which is a separate thing. Don't extract keywords from claim
 text to stand in for details.
+
+An excerpt is an object: `start` and `end` are its character positions, and `text` is a
+copy of the words, so the two "1950"s in "built in 1950, rebuilt after the 1950 fire" can be
+two details. `claim.details` and `detailsOf` are different lists. `A.details` says where A
+points in its target, and `detailsOf(graph, "A")` says what others point at in A.
 
 ### Where text matching belongs
 
@@ -369,7 +372,7 @@ from the same origin isn't support:
 
 ### Disputes
 
-- A dispute lands on one detail and leaves the claim's other details alone.
+- A dispute of one detail leaves the claim's other details alone.
 - One dispute without evidence shouldn't knock over a detail that has
   independent support.
 - A reason backed by a record can be checked. A reason about who someone is
@@ -458,7 +461,7 @@ record, so it carries less until someone brings evidence.
   record, and there's a rule for it.
 - **Links are records.** A web page is evidence like any other record, weighed
   by independent people relying on it, never by its domain.
-- **Details come from what points at a claim** (contract 2.5.0). A claim has a
+- **Details come from what points at a claim** (contracts 2.5.0 and 2.6.0). A claim has a
   `target`, the record or claim it points into, `details`, the excerpts or stretches
   it points at there, and `references`, typed links in its own text. A claim's details
   are the excerpts other claims point at, and each result in `claimScore.details` lists

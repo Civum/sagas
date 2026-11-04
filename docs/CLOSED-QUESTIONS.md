@@ -11,22 +11,23 @@ without raising it causes trouble.
 
 ---
 
-## A claim is its own edge
+## Why `disputeEdge` and `extensionEdge` are gone
 
 Done in contract 2.6.0. The contract used to describe a reply several times:
 `claim.target` said where it pointed, a dispute edge or an extension edge said it again, and
 `parentClaimId` and `disputedClaimId` said it a third way. Every claim has one target, so
-every edge matched one claim, and nothing kept the two in agreement. So a claim's
+every edge matched one claim, and nothing kept the two in agreement. So a reply's
 `target`, `relation` and `details` are now its edge, and nothing stores it again.
 Anything that wants a list of edges reads them off the claims. Older entries below name
-the edge objects as they were then.
+the edge objects as they were then, and use `claim.details` for a claim's own details,
+which is the opposite direction from today's field.
 
-`details` lists what a claim points at in its target, and no details means all of it. A
-dispute can point at several details, so "Sally bought a pink hat" disputed as "Brandon
-bought a blue hat" is one claim with one set of evidence. Each entry has `at`, the words
-in the target, and `to`, the words in the dispute's own text that replace them. A
-dispute can also be of a whole claim, because sometimes all of it is wrong, and then
-every detail inside it reads as contested. The relation belongs to the claim, so a reply
+`details` lists where a claim points inside its target, and no details means all of it.
+A dispute can point at several details, so "Sally bought a pink hat" disputed as
+"Brandon bought a blue hat" is one claim with one set of evidence. Each entry has `at`,
+the words or the window in the target, and `to`, the words in the dispute's own text
+that replace them. A dispute can also cover a whole claim, because sometimes all of it
+is wrong, and then every detail inside it reads as contested. The relation belongs to the claim, so a reply
 that corrects one thing and adds to another is two claims.
 
 ## An excerpt is an object with positions
@@ -34,15 +35,15 @@ that corrects one thing and adds to another is two claims.
 Done in contract 2.6.0. An excerpt is `{ start, end, text }`. Words repeat, so a plain
 string couldn't tell the two "1950"s in "built in 1950, rebuilt after the 1950 fire"
 apart. It also meant searching text to find which references sit inside a detail, which
-is now a comparison of positions. `claim.details`, `claim.references` and a detail's
-own `excerpt` all use this one shape.
+is now a comparison of positions. `at`, `to`, a reference and a detail all use this one
+shape.
 
 ## A detail is an excerpt that another claim points at
 
 Done in contract 2.6.0, and started in 2.5.0. Nobody lists a claim's details in advance,
 because asking someone to break what they said into assertions is too hard an ask, in
 the sponsor's view. `detailsOf` works out a claim's details from what other claims point
-at in it. Older entries below name `targetDetailId` and `sourceWindow` as they were then.
+at in it. Older entries below name `targetDetailId` as it was then.
 
 A date, a place or a person inside a claim's text is a different thing: a reference,
 in `claim.references`. Evidence is a record on the claim, and it backs what the claim

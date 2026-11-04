@@ -192,7 +192,7 @@ TypeScript rather than the bundled one when it prompts.
    part, because your first task is a diagram of the whole thing. The media and
    processing fields on a record belong to another team and you can skim those.
 
-   `edgeType` has two values, dispute and extension.
+   `claimRelation` has two values, dispute and extension.
 3. `packages/fixtures/src/reduce.ts`, which calculates a snapshot in memory with
    no database at all. It recomputes everything from scratch every time, which
    is fine for the fixture data and useless at any real size. That gap is your
@@ -212,7 +212,7 @@ answers to the rules in `packages/fixtures/scoring`. No database work yet.
 problems under it, against the rules in `packages/fixtures/scoring`.
 `docs/PHASE-2-INTELLIGENCE-LAYER.md` is the guide.
 
-**When the foundation needs it, the schema.** Design the tables for claims, edges
+**When the foundation needs it, the schema.** Design the tables for claims
 and contributors, write the migrations, and move the graph out of memory and
 into Postgres. Spatial indexing lives here too.
 

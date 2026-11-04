@@ -68,7 +68,7 @@ Beyond the code, the pipeline, hosting and the landing page are yours too. See
   scanned document, or typed text. Nothing in the graph argues with a record.
 - **Claim.** Somebody's reading of a record. This is where disagreement lands.
   One record can produce several claims.
-- **Detail.** An excerpt of a claim that something points at, such as a year, a
+- **Detail.** An excerpt of a claim that another claim points at, such as a year, a
   name or a street. A dispute points at a detail, and the rest of the claim stands. An extension
   points at a detail too. Either can point at the whole claim when it's about all of it.
 - **Rendering.** A transcript or a translation. One person's version of a record

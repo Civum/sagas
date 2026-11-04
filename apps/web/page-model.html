@@ -63,7 +63,7 @@ aside.notes{display:grid;gap:12px;min-width:0}
 .rules ul{margin:0;padding-left:1.1rem;display:grid;gap:4px}
 @media (prefers-reduced-motion:no-preference){.tree{animation:in .18s ease-out}@keyframes in{from{opacity:.4;transform:translateY(-3px)}to{opacity:1;transform:none}}}
 </style>
-<!-- Outdated since contract 2.5.0. This page has its own copy of the data, from before a detail became an excerpt something points at. Its layout still applies. For the data, use packages/fixtures/states and CHANGELOG.md. -->
+<!-- Outdated since contract 2.5.0. This page has its own copy of the data, from before a detail became an excerpt another claim points at. Its layout still applies. For the data, use packages/fixtures/states and CHANGELOG.md. -->
 <p style="background:#fff3c4;color:#222;margin:0;padding:8px 16px;font:14px system-ui">Outdated data: this page was made before contract 2.5.0. Its layout still applies, but its details, ids and agreement counts are the old shape. Use <code>packages/fixtures/states</code> for the data.</p>
 <div class="wrap">
   <header class="top">
@@ -78,7 +78,7 @@ aside.notes{display:grid;gap:12px;min-width:0}
       <div class="note"><h3><span class="pin">2</span>What people handed over</h3><p><code>records[]</code>. Whether a record is a source or evidence comes from the claims that use it (<code>sourceRecordId</code>, <code>evidenceRecordIds</code>). A record with nothing claimed about it is complete. Uploading is not part of this page.</p></div>
       <div class="note"><h3><span class="pin">3</span>Section heading</h3><p><code>sections[].heading</code>. Invented for now. What a heading is derived from is open, and it should not change every time a claim arrives.</p></div>
       <div class="note"><h3><span class="pin">4</span>The passage</h3><p><code>compositions[].text</code>, with <code>spans[]</code> marking the phrases that lead somewhere. When a detail is disputed the passage uses wording both readings fit. It never picks one.</p></div>
-      <div class="note"><h3><span class="pin">5</span>The claims behind a phrase</h3><p><code>spans[].claimIds</code>, and <code>detailIds</code> when the phrase is about one detail. Claims are ordered by <code>weight</code>, which is never shown. An extension sits under the claim it adds to (<code>claim.target</code>). The detail's <code>excerpt</code> is highlighted in the claim's own words.</p></div>
+      <div class="note"><h3><span class="pin">5</span>The claims behind a phrase</h3><p><code>spans[].claimIds</code>, and <code>detailIds</code> when the phrase is about one detail. Claims are ordered by <code>weight</code>, which is never shown. An extension sits under the claim it adds to (<code>claim.target.id</code>). The detail's <code>excerpt</code> is highlighted in the claim's own words.</p></div>
       <div class="note"><h3><span class="pin">6</span>Two readings of one detail</h3><p><code>detailStatuses[].competingValues</code>, in the order they arrived, side by side with the same weight, each with who gave it and the reasoning. No winner and no count.</p></div>
       <div class="note"><h3><span class="pin">7</span>Leaving a passover</h3><p>Sounds right, don't know, don't care. Three equal choices with no counts. How to offer them without nudging people toward what others chose is an open design question.</p></div>
       <div class="rules"><h3>The rules every design keeps</h3><ul>

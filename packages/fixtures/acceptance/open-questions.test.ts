@@ -43,19 +43,23 @@ describe('experience layer: open questions', () => {
 
 describe('capture and page: open questions', () => {
   // Prompted by: "How do you tell whether a reply is about what it targets?"
-  // in docs/DESIGN-QUESTIONS.md. A detail is an excerpt something points at.
+  // in docs/DESIGN-QUESTIONS.md. A detail is an excerpt another claim points at.
   // Open: how a reply selects that excerpt.
   it.todo('lets a reply select the excerpt of a claim it targets');
 });
 
 describe('shared contract: open questions', () => {
+  // Prompted by: "Can a claim be edited?" in docs/DESIGN-QUESTIONS.md.
+  // Open: which text an excerpt counts into when a claim wasn't given in English.
+  it.todo('lets an excerpt point into the text a claim was given in');
+
   // Prompted by: "Every id is just `string`"
   // in docs/DESIGN-QUESTIONS.md. Answerable with a pull request.
   it.todo('a claim id cannot be passed where a contributor id belongs');
 
   // Prompted by: "`translationDispute` and a dispute claim are the same idea"
   // in docs/DESIGN-QUESTIONS.md. Answerable with a pull request.
-  it.todo('a translation dispute and a dispute edge share one shape');
+  it.todo('a translation dispute and a dispute claim share one shape');
 
   // Prompted by: "Can a web page be the record a conversation starts from?"
   // in docs/DESIGN-QUESTIONS.md. Links are decided as evidence; contract

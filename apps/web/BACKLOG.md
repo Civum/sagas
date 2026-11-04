@@ -499,7 +499,7 @@ at that detail and the rest of the claim reads as undisputed.
 - The claim's own reading stays in place in the sentence, and the competing
   readings sit visibly beside it. Nothing marks either as the answer, and there
   is no vote count.
-- A dispute with reasoning but no proposed value still shows, as an objection
+- A dispute with reasoning that names no replacement words still shows, as an objection
   to the detail with its reasoning.
 
 See "Disagreement lands on one detail" in

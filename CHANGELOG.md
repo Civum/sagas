@@ -46,54 +46,79 @@ it. This is the most useful field in the entry.
 **Affects:** intelligence layer · experience layer
 
 **What:**
-- **A claim is its own edge.** `claim.target` is now just what it points into
+- **A reply is its own edge.** `claim.target` is now just what a claim points into
   (`{ type, id }`), and two new fields sit beside it: `relation`, dispute or extension,
   and `reasoning`, required on a dispute. `disputeEdge`, `extensionEdge`, `edge`,
-  `parentClaimId`, `disputedClaimId` and the scoring graph's `edges` are gone. Anything
-  that wants a list of edges reads them off the claims, and `repliesTo(graph, claimId)`
-  does that for you.
-- **`claim.details` lists what a claim points at in its target.** Each entry has `at`,
-  the words or the window, and optionally `to`, the words in the claim's own text that
-  replace or add to them. `to` replaces `proposedValue`. One claim can point at several
-  details, so "Sally bought a pink hat" disputed as "Brandon bought a blue hat" is one
-  claim, and its evidence is cited once. No details means all of it, and that goes for
-  a dispute too: a dispute of the whole claim contests every detail inside it, and so
-  does a dispute of a stretch that contains a detail.
-- **An excerpt is now an object,** `{ start, end, text }`, with character positions into
-  the claim's text. It's used for `claimDetail.excerpt`, `detailScore.excerpt`,
-  `claimReference.excerpt`, `at` and `to`. `findExcerpt(text, words, occurrence)` makes
-  one. The same words in the same place are one detail, so the two "1950"s in one
-  sentence are two details. `detailId` now takes an excerpt.
-- **`claimEvidence` loses `excerpt`.** Evidence backs what its claim targets, and marking
-  your own words no longer makes a detail. Only another claim pointing at them does.
-- **`detailStatus`:** `disputes` is a list of `claimDispute`, a summary worked out from
-  the dispute's own claim, and it includes disputes of the whole claim. `extensions` is a
-  list of claim ids. `claimState` gains `disputes`.
-- **`scoreTerm.family` is now `'content' | 'behavior'`,** part of moving the repository to
-  US spelling.
+  `edgeType`, `parentClaimId`, `disputedClaimId` and the scoring graph's `edges` are gone.
+  Anything that wants a list of edges reads them off the claims, and
+  `repliesTo(graph, claimId)` does that for you.
+- **`claim.details` lists where a claim points inside its target.** This is a new field
+  with an old name, and it runs the opposite way from the `claim.details` that 2.5.0
+  removed. `A.details` says where A points. `detailsOf(graph, "A")` says what others point
+  at in A. Each entry has `at`, the words or the window, and optionally `to`, the words in
+  the claim's own text that replace or add to them. `to` replaces `proposedValue`.
+- **One claim can point at several details,** so "Sally bought a pink hat" disputed as
+  "Brandon bought a blue hat" is one claim, and its evidence is cited once. No details
+  means all of the target, and that goes for a dispute too. A dispute of the whole claim
+  contests every detail inside it, and so does a dispute of a longer excerpt that contains
+  a detail.
+- **An excerpt is now an object,** `{ start, end, text }`, with character positions. `at`
+  counts into the target's text, and `to` and a reference count into the claim's own text.
+  `claimDetail.excerpt`, `detailScore.excerpt` and `claimReference.excerpt` all use it.
+  `findExcerpt(text, words, occurrence)` makes one. The same words in the same place are
+  one detail, so the two "1950"s in one sentence can be two details. `detailId` now takes an
+  excerpt, and an id looks like `claim#9-13`.
+- **A claim's text doesn't change once it's saved,** because the positions count into it.
+  A correction is a new claim.
+- **`claimEvidence` loses `excerpt`.** Evidence backs whatever its claim points at, and
+  marking your own words no longer makes a detail. Only another claim pointing at them does.
+- **`detailStatus.disputes` is now a list of `claimDispute`,** a summary worked out from the
+  dispute's own claim, and it includes disputes of the whole claim. `detailStatus.extensions`
+  is a list of claim ids, and `claimState` gains `disputes`.
+- **`scoreTerm.family` is now `'content' | 'behavior'`.** The repository moved to US spelling,
+  and this is the one place that reached a value your code can depend on.
 
-**Why:** the contract is the template teams build from, and 2.5.0 said one thing up to
-five ways. `claim.target` said where a reply pointed, an edge said it again, and
-`parentClaimId` and `disputedClaimId` said it a third way, with nothing keeping them in
-agreement. Plain-string excerpts also couldn't tell repeated words apart, and a dispute
-with two changes had nowhere to put the second. The sponsor said 2.5.0 was the last big
-change expected this semester, and this one came sooner than that. The sponsor decided it
-was better to change it now than to let anyone build on the old shape.
+**Why:** the contract is the template teams build from, and 2.5.0 said where a reply points
+in several places: `claim.target`, an edge, `parentClaimId` and `disputedClaimId`. Nothing kept
+them in agreement. Plain-string excerpts also couldn't tell repeated words apart, and a
+dispute with two changes had nowhere to put the second. 2.5.0 was meant to be the last big
+change this semester and it turned out not to be. The sponsor decided it was better to change
+it now than to let anyone build on the old shape.
 
 **You need to:**
-- *experience layer* — pull upstream. Tell disputes apart with `claim.relation` in place
-  of `disputedClaimId`, and find what a claim replies to with `claim.target` in place of
-  `parentClaimId`. `detail.excerpt` is an object, so read `.text`. In `detailStatuses`,
-  `disputes[].to?.text` replaces `proposedValue`, `extensions` is claim ids, and
-  `competingValues` hasn't changed. No fixture counts changed, and your screens don't need
-  anything new.
-- *intelligence layer* — pull upstream. Read replies with `repliesTo`, `pointsAt` and
-  `contests` in place of `graph.edges`. `detailsOf` returns excerpts as objects, and a
-  claim's own evidence no longer names one. The builder still takes words, so
-  `.dispute("C", "A", "1950", "why")` reads the same, and it also takes
-  `{ at, to, occurrence }`, a list, or `undefined` for the whole claim. The rules gain
-  three, and one is replaced: evidence on a reply now raises the detail it targets. If you
-  have saved a copy of `first-place-claims.json`, replace it with the new one.
+- *experience layer* — pull upstream. If you're coming from 2.4.0, read the 2.5.0 lines
+  too, and skip what this entry undoes.
+  - Tell a dispute from an extension with `claim.relation`, in place of `disputedClaimId`.
+  - When `claim.target.type` is `'claim'`, `claim.target.id` replaces `parentClaimId`. A first
+    claim's target is a record, so check the type first.
+  - An excerpt is an object, so read `.text` on `detail.excerpt`, `reference.excerpt` and
+    `score.details[].excerpt`.
+  - In `detailStatuses`, each entry in `disputes` now has `claimId`, `contributorId`,
+    `reasoning`, `to` and `createdAt`. `disputes[].claimId` replaces `fromClaimId`,
+    `disputes[].to?.text` replaces `proposedValue`, and `extensions` is claim ids.
+    `competingValues` keeps its shape.
+  - Detail ids now look like `cl-cs-shop#50-61`, so compare them with `detail.id` and don't
+    build them by hand. `spans[].detailIds` uses the new ids.
+  - The fixtures have the same counts of claims, details and disputes as before, and none has a
+    dispute of a whole claim yet. When one exists on a claim with no details, it shows only in
+    `claimState.disputes`.
+- *intelligence layer* — pull upstream. If you're coming from 2.4.0, read the 2.5.0 lines
+  too, and skip what this entry undoes.
+  - Stop reading `graph.edges`. From `@sagas/fixtures/scoring`, `repliesTo` gives the replies to
+    a claim, `pointsAt` says whether a reply points at exactly these words, and `contests` says
+    whether a dispute covers them, which includes whole-claim disputes and longer excerpts. Use
+    `contests` for disputes.
+  - `target.sourceType` and `target.sourceId` are `target.type` and `target.id`. An edge's `reason`
+    is `claim.reasoning`. `target.window` is now an entry in `claim.details`, and `isExcerpt`
+    tells words from a window.
+  - Your scorer's results change. `detailScore.excerpt` is an object, your ids come from
+    `detailId(claimId, excerpt)`, and a `behaviour` term's family is now `'behavior'`.
+  - The builder still takes words, so `.dispute("C", "A", "1950", "why")` reads the same. It also
+    takes `{ at, to, occurrence }`, a list, or `undefined` for the whole claim.
+  - A claim's own evidence no longer names an excerpt, so "evidence naming an excerpt raises that
+    detail" is now "a reply's evidence raises the detail it points at", under "evidence and
+    volume". "targets" has three new rules: a dispute of the whole claim, one dispute pointing at
+    several details, and repeated words. Those count toward S3 and S4 being done.
 - *content layer* — nothing. `apps/capture-api` doesn't store claims.
 
 ## v2.5.0 — 2026-11-02
@@ -218,7 +243,7 @@ that's about to change.
   stand-in, `packages/fixtures/src/stand-in-score.ts`, which replaces
   `weight.ts`. `scoreTerm`, `detailScore` and `claimScore` now live in the
   contract, and `packages/fixtures/scoring` uses them.
-- **The old count-based scoring rules are gone** (`packages/fixtures/behavior`
+- **The old count-based scoring rules are gone** (`packages/fixtures/behaviour`
   and the `rules` script). The rules a scorer answers to are in
   `packages/fixtures/scoring/rules.ts`, which gains two running rules: until the
   window a claim cites is transcribed, the part of its score that comes from the
@@ -272,7 +297,7 @@ would cost more than changing them now.
   claims can have `sourceWindow` and `translated`. When you remove the `.skip` in
   `apps/graph-api/src/scorer.test.ts`, every rule runs, including two new ones;
   the target for Wednesday is still the eight thin-frame tests in the guide.
-  `packages/fixtures/behavior` is
+  `packages/fixtures/behaviour` is
   gone; if anything of yours imported it, switch to `packages/fixtures/scoring`.
 
 ---
@@ -443,7 +468,7 @@ summary at the end of each run shows which areas of the rules are thin.
 `apps/graph-api` gets a scorer stub, a rewritten test file, and a working `POST /score`
 endpoint with an example graph. `docs/PHASE-2-INTELLIGENCE-LAYER.md` is new: the
 guide for the build phase, with the model in one place. The count-based rules in
-`packages/fixtures/behavior` are being retired; several no longer match the
+`packages/fixtures/behaviour` are being retired; several no longer match the
 model.
 
 **Why:** A list of counts can't say which detail a dispute landed on, whether

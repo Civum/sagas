@@ -4,7 +4,7 @@
  * of a scorer can build on: start at a detail, follow what points at it, and look
  * everything up by id.
  *
- * A detail is an excerpt of a claim that something points at, and `detailsOf` in
+ * A detail is an excerpt of a claim that another claim points at, and `detailsOf` in
  * `@sagas/fixtures/scoring` works out a claim's details for you.
  *
  * Copy the pattern, change it, or replace it. How support is weighed is your

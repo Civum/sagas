@@ -1,7 +1,8 @@
 # Page model: the corner shop
 
 `page-model.html`, beside this file, is a gray-box wireframe of one site page,
-built from the corner shop fixture. Open it in a browser. Pick a moment from t0
+built from the corner shop fixture. Its layout still applies, and its data is out of
+date since contract 2.5.0, so read the data from `packages/fixtures/states`. Open it in a browser. Pick a moment from t0
 to t3, then select a dotted phrase in the passage to see the claims behind it.
 
 It shows what information appears on a site page and where each part comes from
@@ -34,8 +35,8 @@ The numbers match the pins in the wireframe.
 5. **The claims behind a phrase.** `spans[].claimIds`, and `detailIds` when the
    phrase is about one detail. Claims are ordered by `weight`, which is never
    shown. Weight is on the claim and on each detail. An
-   extension sits under the claim it adds to (`claim.target`). The detail's
-   `excerpt` is highlighted in the claim's own words, at its `start` and `end`.
+   extension sits under the claim it adds to (`claim.target.id`). Your page highlights
+   the detail's `excerpt` in the claim's own words, from `start` to `end`.
 6. **Two readings of one detail.** `detailStatuses[].competingValues`, in the
    order they arrived, side by side with equal prominence, each with who gave it.
    The reasoning comes from `detailStatuses[].disputes`. No winner and no count.

@@ -20,7 +20,7 @@ describe("renderGraph", () => {
     expect(page).toContain("the road came later");
   });
 
-  it("highlights the words something points at, and escapes the text", () => {
+  it("highlights the words a reply points at, and escapes the text", () => {
     expect(renderGraph(shop(), null)).toContain("<mark>&lt;1950&gt;</mark>");
   });
 

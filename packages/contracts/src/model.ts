@@ -31,8 +31,7 @@
  *   SHARED · Vocabularies         the fixed lists: languages, source types
  *   SHARED · Places and people    sites and contributors
  *   CONTENT LAYER · Records       what people hand over, and their files
- *   SHARED · Claims               somebody's reading of a record
- *   SHARED · Edges                disputes and extensions
+ *   SHARED · Claims               what people say, and what they point at
  *   SHARED · Signals              low-effort reactions
  *   CALCULATED                    what a consumer actually receives
  *
@@ -146,10 +145,6 @@ export const confidence = z.enum([
   'contested',
 ]);
 export type Confidence = z.infer<typeof confidence>;
-
-/** What kind of relationship one thing has to another. */
-export const edgeType = z.enum(['dispute', 'extension']);
-export type EdgeType = z.infer<typeof edgeType>;
 
 /* ================================================================== */
 /* SHARED · Places and people                                          */
@@ -688,8 +683,10 @@ export type Flag = z.infer<typeof flag>;
  * a copy of the words, so a page can show them without slicing the claim, and so
  * anyone can check the positions still land on them.
  *
- * In a claim, these count into `claim.text`, which doesn't change once it's saved.
- * A correction is a new claim.
+ * A reference and `to` count into their own claim's `text`, and `at` counts into the
+ * text of what the claim targets. A claim's text doesn't change once it's saved, so
+ * the positions stay true, and a correction is a new claim. The one exception is a claim
+ * awaiting translation, whose first rendering supplies its text.
  */
 export const excerpt = z
   .object({
@@ -732,9 +729,11 @@ export const claimRelation = z.enum(['dispute', 'extension']);
 export type ClaimRelation = z.infer<typeof claimRelation>;
 
 /**
- * One detail a claim points at, in what it targets.
+ * One place a claim points at, inside what it targets. `claim.details` is a list of
+ * these, and it looks outward: `A.details` says where A points in its target. What
+ * others point at in A comes from `detailsOf(graph, "A")`.
  *
- * `at` is an excerpt of a claim or of a record's text, or a stretch of a recording.
+ * `at` is an excerpt of a claim or of a record's text, or a window of a recording.
  * `to` is the words in this claim's own text that replace or add to it, so "pink"
  * disputed as "blue" has `at` on "pink" in the target and `to` on "blue" here.
  * Leave `to` out when there are no such words: "not pink, but I don't know what
@@ -747,13 +746,14 @@ export const targetDetail = z.object({
 });
 export type TargetDetail = z.infer<typeof targetDetail>;
 
-/** Whether `at` is words, as opposed to a stretch of a recording. */
+/** Whether `at` is words, as opposed to a window of a recording. */
 export const isExcerpt = (at: TargetDetail['at']): at is Excerpt => 'text' in at;
 
 /**
  * Whether a reply disputes these words of the claim it targets. It does when it's a
- * dispute of the whole claim, or when it points at a stretch that contains them.
- * Otherwise "1950" would read as settled while the claim it sits in is disputed.
+ * dispute of the whole claim, or when it points at these words or a longer excerpt
+ * that contains them. Otherwise "1950" would read as settled while the claim it sits
+ * in is disputed.
  */
 export const contests = (
   reply: { relation?: ClaimRelation | undefined; details: TargetDetail[] },
@@ -769,7 +769,8 @@ export const contests = (
  * This is what lets someone disagree about the year without disagreeing about
  * the building. Nobody lists a claim's details in advance, and there's no
  * complete list. A claim's details are worked out from what points at it, so a
- * claim nothing points at has none. Marking your own words never makes a detail.
+ * claim nothing points at has none, and neither does one only replied to as a whole.
+ * Marking your own words never makes a detail.
  *
  * The same words in the same place are one detail. "1948" and "opened in 1948" are
  * two for now, and whether they should count as one is a question for later.
@@ -860,9 +861,9 @@ export function checkReply(
 }
 
 /**
- * An assertion somebody reads out of a record.
+ * Something a person says about a record or about another claim.
  *
- * A claim's `target`, `relation` and `details` are its edge. Nothing stores that
+ * A reply's `target`, `relation` and `details` are its edge. Nothing stores that
  * edge a second time, so anything that wants a list of them reads it off the
  * claims.
  */
@@ -908,14 +909,14 @@ export const claim = z.object({
    */
   reasoning: z.string().optional(),
   /**
-   * The details it points at in its target. Empty means all of it, so "my family ran
-   * it until the war" and "a girl played baseball" disputed as a whole have none, and
-   * a first claim about a photograph targets the photograph.
+   * Where it points inside its target. Empty means all of it. An extension saying
+   * "my family ran it until the war" has none, and neither does a dispute saying a whole
+   * claim is wrong, or a first claim about a photograph.
    *
    * One claim can point at several: "Sally bought a pink hat" disputed as "Brandon
    * bought a blue hat" points at "Sally" and at "pink", and its evidence is cited once.
    *
-   * When it points at a recording, `at` can name the stretch: "35:00 to 37:10"
+   * When it points at a recording, `at` can name the window: "35:00 to 37:10"
    * of a two-hour interview, so anyone checking it goes straight to the moment.
    * Until that window has a transcript, the claim keeps the weight it gets from
    * evidence and behavior, and the part that comes from the claim itself (its

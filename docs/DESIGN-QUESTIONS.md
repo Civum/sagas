@@ -45,8 +45,8 @@ and the shared contract.
 | 12 | What does a collection carry? | Content |
 | 13 | How do you tell a good source from a bad one? | Intelligence |
 | 14 | Can someone take their record back? | Content |
-| 15 | How do audio and video records hold their text? | Content |
-| 16 | How to tell silence from doubt | Intelligence |
+| 15 | How to tell silence from doubt | Intelligence |
+| 16 | How do audio and video records hold their text? | Content, intelligence |
 | 17 | How do claims compare across languages? | Intelligence |
 | 18 | How to record disagreement about meaning | Intelligence |
 | 19 | How to tell a productive argument from a stuck one | Intelligence |
@@ -171,7 +171,7 @@ family accepts a stranger writing the claims about their record.
 
 ## Should one claim hold more than one assertion?
 
-**Now:** a claim is a paragraph, and a detail is an excerpt of it that something
+**Now:** a claim is a paragraph, and a detail is an excerpt of it that another claim
 points at. Disagreement points at those words. The sponsor decided on this because
 breaking a claim into assertions is too hard an ask.
 
@@ -277,26 +277,23 @@ everything the archive already said on the strength of the old counts.
 
 ## How should a resolution be recorded?
 
-**Now:** a claim's `relation` is dispute or extension. When a claim
-settles an earlier disagreement it is filed as an extension, and nothing records
-that it was written to settle anything. The fixture has one at t3 and the only
-place it is called a reconciliation candidate is a comment.
+**Now:** a claim's `relation` is dispute or extension, and neither one says a person
+wrote the claim to settle something. The fixture has one at t3, `cl-fd-both`, an ordinary
+claim about a record, and only its label calls it a reconciliation candidate.
 
 **The problem:** the archive cannot tell somebody adding context apart from
 somebody proposing that two conflicting readings were both true. Those are
 different acts and a reader should be able to see which one happened.
 
-**The cheap version:** an optional field on an extension listing the disputes
-it claims to resolve. Whether resolution becomes a third `relation` or a field on an
-extension is open.
+**Decided, and not in the contract yet:** resolution is its own relation, beside
+dispute and extension. A resolution is a claim that reconciles a disagreement, with
+weight like any other claim, and more than one allowed.
 
-A resolution, on this reading, is not a new kind of thing. It is a claim
-that extends another and names what it settles, which is the same shape everything
-else has.
+**Open:** what it points at, the detail, the disputes it reconciles or both, and what
+happens to the disagreement once a resolution exists.
 
-**A system can propose here. It cannot decide.** Disputes already target
-specific details, so the set of open conflicts at a node is computable without
-reading anything. Showing somebody "these two readings disagree on the date and
+**A system can propose here. It cannot decide.** Disputes already say what they point
+at, so the set of open conflicts at a claim is computable without reading anything. Showing somebody "these two readings disagree on the date and
 on the owner, do you want to write something that covers both" is the same
 pattern as proposing cross-language matches for a person to confirm.
 
@@ -497,12 +494,11 @@ because it looks the same as a real one.
 
 ## How do audio and video records hold their text?
 
-**Now:** a transcript or a translation is its own record, with `parent` saying what it
+**Now:** a transcript or a translation is its own record, and `parent` names what it
 supports. A claim can point at words in a transcript, or at a window of a recording,
 in `claim.details`. A contributor's caption is `note` on the record.
 
-**So far:** `parent` names what someone made the record from. A translation of a transcript
-points at the transcript, so if someone corrects the transcript, you can tell which
+**So far:** a translation of a transcript points at the transcript, so if someone corrects the transcript, you can tell which
 translations came from the old one. An interpreter translating straight from the audio
 points at the recording.
 
@@ -510,8 +506,8 @@ points at the recording.
 - Whether the content layer stores a transcript in timestamped pieces, so that words in
   it map to a window of the recording, and a claim about the words can take a reader to
   the moment.
-- Whether something should return a record together with its texts, so nobody chases
-  `parent` by hand.
+- Whether the content layer's API should return a record together with its texts, so
+  nobody chases `parent` by hand.
 - Whether the scorer treats what a claim points at in a record the way it treats a
   detail of a claim. A record is a source, and the claims about it are its thread.
 
@@ -735,8 +731,8 @@ under three names.
 There is one constraint. Some acts close and some do not. `flag` has a status.
 A dispute has none, on purpose. A dispute is a task that completes the
 moment it is filed and never gets resolved, and a task model that cannot express
-that will start asking interfaces to close disagreements. The shape of a dispute
-is also changing (see "A dispute should be a claim" in `CLOSED-QUESTIONS.md`).
+that will start asking interfaces to close disagreements. A dispute is a claim (see "A
+dispute should be a claim" in `CLOSED-QUESTIONS.md`).
 
 This is logged as a direction rather than a decision, and it is not for this
 semester.
@@ -805,7 +801,7 @@ Open:
 ## Can a claim be edited?
 
 A correction can arrive two ways. Somebody can change their own claim, or they
-can add a new claim that corrects it. The model does not say which is allowed.
+can add a new claim that corrects it.
 
 Editing in place keeps the page tidy, but it changes what other people already
 responded to. A dispute aimed at the old wording would then point at words
@@ -815,8 +811,8 @@ support for anything, because it comes from one telling.
 
 **Now:** an excerpt counts character positions into `claim.text`, so since contract
 2.6.0 the contract expects a claim's text not to change once it's saved, and a
-correction to be a new claim. A claim awaiting translation gets its text when its
-first rendering arrives.
+correction to be a new claim. The one exception is a claim awaiting translation, whose
+first rendering supplies its text.
 
 Open:
 
@@ -824,8 +820,7 @@ Open:
   happens to the disputes, extensions and passovers aimed at the old version.
 - Which text an excerpt counts into when a claim wasn't given in English. Today it's
   `claim.text`, the English rendering, because that's what a reader selects from. A
-  claim also carries `sourceLanguageText`, and a record's translation is a separate
-  record while a claim's sits inline.
+  claim also carries `sourceLanguageText`, which an excerpt can't point into yet.
 
 ## How do you tell whether a reply is about what it targets?
 
@@ -843,7 +838,7 @@ agrees, disagrees or adds something.
 
 **Open:**
 - How a reply selects the excerpt of a claim it targets. A detail is an excerpt
-  that something points at, so nobody lists details in advance. This part is about
+  that another claim points at, so nobody lists details in advance. This part is about
   the screen a reply is written on, whichever layer builds it.
 - Whether "1948" and "opened in 1948" are one detail. For now the same words in the
   same place are one detail, and anything else is two.

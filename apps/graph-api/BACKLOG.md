@@ -31,7 +31,7 @@ a claim is authentic.
 Support comes from the graph: the records behind a claim, who handed them
 over, whether they're independent of each other, and the disputes and
 extensions people attached. The people who write claims choose what each one
-points at, so those links are already there. Read them before you reach for the
+points at, so the edges are already there, on the claims. Read them before you reach for the
 text.
 
 ## What a detail and a reference are
@@ -45,7 +45,8 @@ so it has nothing for the scorer to check across threads yet.
 Every claim has a `target`, the record or claim it points into, and `details`, the
 excerpts or stretches it points at there, with none meaning all of it. A claim that
 targets a claim has a `relation`, dispute or extension, and those three fields are
-its edge. A claim also has `references`, which are typed links inside its own
+its edge: the link one claim draws to another. `A.details` says where A points, and
+`detailsOf(graph, "A")` says what others point at in A. A claim also has `references`, which are typed links inside its own
 text, like a date or a place. The contributor adds them, or the system suggests them
 and the contributor confirms. How they get added is still open, and nothing scores
 them yet.
@@ -115,7 +116,7 @@ information.
 
 **Status:** Later
 
-**Goal.** A dispute lands on one detail and leaves the rest of the claim
+**Goal.** A dispute of one detail leaves the rest of the claim
 alone.
 
 **Done when** the rules under "targets" pass.

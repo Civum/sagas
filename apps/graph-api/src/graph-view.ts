@@ -6,7 +6,7 @@
  *
  * It reads a graph file and writes `graph-view.html` beside it, with no dependencies.
  * Each column is a thread, and each claim sits under what it points at. The words
- * something points at are highlighted, because those are the claim's details. Once
+ * other claims point at are highlighted, because those are the claim's details. Once
  * your `score` returns something, the scores and matches show too.
  */
 import { readFileSync, writeFileSync } from "node:fs";
@@ -32,7 +32,7 @@ const esc = (s: string): string =>
 const number = (n: number): string =>
   Number.isInteger(n) ? `${n}` : n.toFixed(2);
 
-/** The claim's text, with each excerpt something points at highlighted. */
+/** The claim's text, with each excerpt another claim points at highlighted. */
 function highlighted(graph: ScoringGraph, claim: ClaimNode): string {
   const excerpts = detailsOf(graph, claim.id)
     .map((d) => d.excerpt)
