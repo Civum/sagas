@@ -37,7 +37,7 @@ algorithm can possibly be good at.
 - `flags` — reports, with reasoning, open and resolved together.
 - `standings` — what every contributor has actually done, as counts.
 
-That last one is yours. It records behaviour and judges none of it, and turning
+That last one is yours. It records behavior and judges none of it, and turning
 it into something that means anything is the deliverable. Read the comment on
 `contributorStanding` in `packages/contracts/src/model.ts` and then the entry in
 `docs/DESIGN-QUESTIONS.md` called "How do you tell a good source from a bad
@@ -125,7 +125,7 @@ This app is yours alone. `apps/capture-api` belongs to the content layer and
 teams edit the same files, and so each can be deployed on its own terms.
 
 There are three databases, one per layer, and none of them reads another's tables. Yours
-is the store for claims, edges, contributors and the graph derived from them,
+is the store for claims, contributors and the graph derived from them,
 and designing it is your deliverable. The content layer runs its own for what
 people hand over: records, media, transcripts, translations, flags. The
 experience layer runs a small Postgres seeded from the fixtures, shaped for map

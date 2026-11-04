@@ -31,21 +31,21 @@ and the shared contract.
 
 | # | Question | Whose |
 |---|---|---|
-| 1 | The edge types are copy-pasted | Shared contract |
-| 2 | Every id is just `string` | Shared contract |
-| 3 | `translationDispute` and `disputeEdge` are the same idea | Shared contract |
-| 4 | What does an interface do with "sometime in the fifties, probably"? | Experience |
-| 5 | Does disputing a claim feel like disputing the person who wrote it? | Experience |
-| 6 | Should one claim hold more than one assertion? | Intelligence |
-| 7 | How does a record get a location? | Content |
-| 8 | Who can make a home's location exact? | Content, experience |
-| 9 | A profile has no way to say whether anyone can prove it is theirs | Content |
-| 10 | How should a resolution be recorded? | Intelligence |
-| 11 | How does a link become evidence? | Intelligence, content |
-| 12 | Can a web page be the record a conversation starts from? | Shared contract |
-| 13 | What does a collection carry? | Content |
-| 14 | How do you tell a good source from a bad one? | Intelligence |
-| 15 | Can someone take their record back? | Content |
+| 1 | Every id is just `string` | Shared contract |
+| 2 | `translationDispute` and a dispute claim are the same idea | Shared contract |
+| 3 | What does an interface do with "sometime in the fifties, probably"? | Experience |
+| 4 | Does disputing a claim feel like disputing the person who wrote it? | Experience |
+| 5 | Should one claim hold more than one assertion? | Intelligence |
+| 6 | How does a record get a location? | Content |
+| 7 | Who can make a home's location exact? | Content, experience |
+| 8 | A profile has no way to say whether anyone can prove it is theirs | Content |
+| 9 | How should a resolution be recorded? | Intelligence |
+| 10 | How does a link become evidence? | Intelligence, content |
+| 11 | Can a web page be the record a conversation starts from? | Shared contract |
+| 12 | What does a collection carry? | Content |
+| 13 | How do you tell a good source from a bad one? | Intelligence |
+| 14 | Can someone take their record back? | Content |
+| 15 | How do audio and video records hold their text? | Content |
 | 16 | How to tell silence from doubt | Intelligence |
 | 17 | How do claims compare across languages? | Intelligence |
 | 18 | How to record disagreement about meaning | Intelligence |
@@ -84,25 +84,6 @@ and the shared contract.
 These are local changes and you don't need permission for them. Open a pull
 request with your reasoning and bring it to a check-in.
 
-## The edge types are copy-pasted
-
-**Now:** `disputeEdge` and `extensionEdge` in
-`packages/contracts/src/model.ts` each declare their own `id`,
-`contributorId`, and `createdAt`. So does `passover`.
-
-**Why:** so the whole model reads top to bottom without following an
-inheritance chain, and because it was written to the requirements rather than
-to the pattern behind them.
-
-**The problem:** three places to change when the shared part changes, and nothing
-stops them drifting. It also hides something true, which is that every one of
-these is a person doing something to something at a time.
-
-**Why this is hard:** a shared base type removes the duplication and makes the
-file harder to read straight through. Zod's `.extend()` handles this cleanly, but
-inferred types get harder to follow in editor tooltips, which matters when
-you're learning the model.
-
 ## Every id is just `string`
 
 **Now:** `SiteId`, `ClaimId`, `ContributorId` and the rest are all aliases for
@@ -118,10 +99,11 @@ plain string, which is often. Zod supports `.brand()`. Whether the friction is
 worth the safety depends on how much id-juggling the code ends up doing, which
 nobody knows yet.
 
-## `translationDispute` and `disputeEdge` are the same idea
+## `translationDispute` and a dispute claim are the same idea
 
-**Now:** two separate shapes. One objects to a claim, the other objects to a
-translation. Both carry a contributor, a target, reasoning, and a timestamp.
+**Now:** two separate shapes. A claim with `relation: 'dispute'` objects to a claim,
+and a `translationDispute` objects to a translation. Both carry a contributor, a
+target, reasoning, and a timestamp.
 
 **The problem:** they will keep diverging. A third kind of objection is already
 foreseeable (see Part 2), and it'll be a third copy.
@@ -146,7 +128,7 @@ to [`CLOSED-QUESTIONS.md`](./CLOSED-QUESTIONS.md).
 **Now:** what somebody said about time is kept in their words, as the `excerpt`
 on a date reference. `1963-1964` sits next to "this would be 1963, 1964".
 `before boarding house` sits next to "Before the boarding house". Nothing
-normalises those into a year, and there is no period field on a claim.
+normalizes those into a year, and there is no period field on a claim.
 
 **Why:** a period field (a bucket like `depression_war_1930_1945`) was removed
 because it was a coarser copy of what the excerpt already held, and nothing
@@ -155,7 +137,7 @@ read it.
 **The problem:** you cannot sort or filter on a phrase. "During the war" and
 "1943" belong near each other on a timeline and no code can currently tell.
 
-**Why this is hard:** normalising into a range makes filtering work and implies
+**Why this is hard:** normalizing into a range makes filtering work and implies
 precision nobody has. Showing the raw phrase is honest and unsortable. Doing
 both may be clutter, and doing neither means the archive has no way to answer "what
 do we know about the fifties".
@@ -199,7 +181,7 @@ assertion.
 
 **What that buys:** a date claim compares directly against a date claim from
 another source, with no digging into a paragraph. Disputes point at a claim and
-need no excerpt. The two edge types become one shape.
+need no excerpt.
 
 **What it costs:** more work at entry time. And `1943` on its own means nothing,
 so something has to group atomic claims back into a readable statement.
@@ -223,7 +205,7 @@ are separate axes and that enum has one.
 
 - *A pin on a map.* No external dependency, no credentials, and the person
   placing it usually knows the building. It works badly on a phone and for
-  somebody who doesn't recognise the street layout from above, and it can't
+  somebody who doesn't recognize the street layout from above, and it can't
   place a building that isn't there any more.
 - *Geocoding an address.* An address is familiar to type and can be copied from
   a letterhead. It needs an external service with credentials, it gets vague
@@ -250,13 +232,13 @@ is. If an existing vocabulary fits, use it rather than inventing one.
 
 ## Who can make a home's location exact?
 
-A place where people live is shown at neighbourhood or subdivision level by
+A place where people live is shown at neighborhood or subdivision level by
 default, and never as a point on a house. Public places, like a church, a park
 or a business, are shown exactly. The people a home affects can choose to show
 the exact spot. That much is decided, and it isn't in the contract yet.
 
 This project expects the blur to be the same every time, for example by snapping
-to the neighbourhood's boundary, because a location that moves randomly on each
+to the neighborhood's boundary, because a location that moves randomly on each
 view can be averaged back to the real spot.
 
 **The open part:** who counts as the people a home affects, and how Sagas
@@ -295,7 +277,7 @@ everything the archive already said on the strength of the old counts.
 
 ## How should a resolution be recorded?
 
-**Now:** there are two edge types, dispute and extension. When a claim
+**Now:** a claim's `relation` is dispute or extension. When a claim
 settles an earlier disagreement it is filed as an extension, and nothing records
 that it was written to settle anything. The fixture has one at t3 and the only
 place it is called a reconciliation candidate is a comment.
@@ -304,14 +286,13 @@ place it is called a reconciliation candidate is a comment.
 somebody proposing that two conflicting readings were both true. Those are
 different acts and a reader should be able to see which one happened.
 
-**The cheap version:** an optional field on `extensionEdge` listing the disputes
-it claims to resolve. The contract has two edge types, and "The edge types are copy-pasted" in Part 1
-already asks whether they should share a base. Whether resolution becomes a
-third type or a field on an extension is open.
+**The cheap version:** an optional field on an extension listing the disputes
+it claims to resolve. Whether resolution becomes a third `relation` or a field on an
+extension is open.
 
 A resolution, on this reading, is not a new kind of thing. It is a claim
-attached by an extension edge that names what it settles, which is the same
-node-and-edge shape everything else has.
+that extends another and names what it settles, which is the same shape everything
+else has.
 
 **A system can propose here. It cannot decide.** Disputes already target
 specific details, so the set of open conflicts at a node is computable without
@@ -514,6 +495,26 @@ tired now has to pick one of your categories, and what comes back is partly an
 artifact of having asked. A manufactured signal is worse than a missing one,
 because it looks the same as a real one.
 
+## How do audio and video records hold their text?
+
+**Now:** a transcript or a translation is its own record, with `parent` saying what it
+supports. A claim can point at words in a transcript, or at a window of a recording,
+in `claim.details`. A contributor's caption is `note` on the record.
+
+**So far:** `parent` names what someone made the record from. A translation of a transcript
+points at the transcript, so if someone corrects the transcript, you can tell which
+translations came from the old one. An interpreter translating straight from the audio
+points at the recording.
+
+**Open:**
+- Whether the content layer stores a transcript in timestamped pieces, so that words in
+  it map to a window of the recording, and a claim about the words can take a reader to
+  the moment.
+- Whether something should return a record together with its texts, so nobody chases
+  `parent` by hand.
+- Whether the scorer treats what a claim points at in a record the way it treats a
+  detail of a claim. A record is a source, and the claims about it are its thread.
+
 ## How do claims compare across languages?
 
 A claim in French and a claim in English can be about the same building
@@ -574,7 +575,7 @@ weighs is the tempting option and probably the dangerous one.
 
 ## Moderation without majority capture
 
-Flags need prioritising or the queue is useless. The obvious approach weights
+Flags need prioritizing or the queue is useless. The obvious approach weights
 them by the standing of whoever flagged, so a report from a well-known person is
 looked at first every time.
 
@@ -720,7 +721,7 @@ Open:
 ## Is the unit of work a task?
 
 Transcribing is a task. Translating is a task. Writing a claim is a task.
-Working out who to ask is a task. If task were an object, behavioural history
+Working out who to ask is a task. If task were an object, behavioral history
 would be per category by construction instead of tracked separately for each
 activity.
 
@@ -732,7 +733,7 @@ the transcript queue and the moderation queue are the same want, three times,
 under three names.
 
 There is one constraint. Some acts close and some do not. `flag` has a status.
-`disputeEdge` has none, on purpose. A dispute is a task that completes the
+A dispute has none, on purpose. A dispute is a task that completes the
 moment it is filed and never gets resolved, and a task model that cannot express
 that will start asking interfaces to close disagreements. The shape of a dispute
 is also changing (see "A dispute should be a claim" in `CLOSED-QUESTIONS.md`).
@@ -760,7 +761,7 @@ mechanism covers both, which is one feature instead of two.
 
 A person is two entities though. Maria as the subject of a record is archival.
 She is what the claim is about, and she may have died in 1961. Maria as a
-contributor is a platform actor with behaviour and standing.
+contributor is a platform actor with behavior and standing.
 
 I expect most person references will never have a profile behind them. Most of
 the people an oral history archive talks about are probably dead, so the subject is the normal
@@ -812,11 +813,19 @@ that no longer exist. A new claim keeps the history and costs a little
 clutter. Either way, a correction from the same person is not independent
 support for anything, because it comes from one telling.
 
+**Now:** an excerpt counts character positions into `claim.text`, so since contract
+2.6.0 the contract expects a claim's text not to change once it's saved, and a
+correction to be a new claim. A claim awaiting translation gets its text when its
+first rendering arrives.
+
 Open:
 
-- Can a claim's text change after it is submitted?
-- If it can, what happens to the disputes, extensions and passovers aimed at
-  the old version?
+- Whether a person should ever be able to change a claim anyway, and if so, what
+  happens to the disputes, extensions and passovers aimed at the old version.
+- Which text an excerpt counts into when a claim wasn't given in English. Today it's
+  `claim.text`, the English rendering, because that's what a reader selects from. A
+  claim also carries `sourceLanguageText`, and a record's translation is a separate
+  record while a claim's sits inline.
 
 ## How do you tell whether a reply is about what it targets?
 
@@ -836,8 +845,8 @@ agrees, disagrees or adds something.
 - How a reply selects the excerpt of a claim it targets. A detail is an excerpt
   that something points at, so nobody lists details in advance. This part is about
   the screen a reply is written on, whichever layer builds it.
-- Whether "1948" and "opened in 1948" are one detail. For now the same words are
-  one detail, and anything else is two.
+- Whether "1948" and "opened in 1948" are one detail. For now the same words in the
+  same place are one detail, and anything else is two.
 - How references get added. A reference is a typed link inside a claim's own
   text: a date, a place, a person, a record. The contributor adds it, possibly
   prompted, or the system suggests it and the contributor confirms. This part
@@ -967,7 +976,7 @@ pester or identify people, and whether a contributor can turn requests off.
 
 A disagreement over whether a shop opened in 1948 or 1952 matters to a
 business historian and to almost nobody else. A disagreement over whether a
-family was forced out of a neighbourhood matters to everyone. If every
+family was forced out of a neighborhood matters to everyone. If every
 dispute gets the same weight and the same space on a page, the small ones
 crowd out the ones that matter.
 

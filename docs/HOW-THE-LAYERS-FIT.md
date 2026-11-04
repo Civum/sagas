@@ -47,7 +47,7 @@ checked and resized.
 
 **Intelligence layer**, which takes claims in and models them.
 
-A second contributor recognises the shop and writes: "That's the shop on the
+A second contributor recognizes the shop and writes: "That's the shop on the
 corner of Fourth and Main, around 1950. The man in the doorway is the owner,
 Mr. Ferris."
 
@@ -87,9 +87,9 @@ evidence like any other claim. It carries reasoning, which a
 dispute always has to. The directory scan is an **evidence record**, attached to
 the dispute to back it up.
 
-Event: `claim_disputed`. A dispute is a claim of its own, with a dispute edge
-pointing from it to the detail it disagrees with, so it can hold an evidence
-record, and the fixture attaches the directory page that way.
+Event: `claim_disputed`. A dispute is a claim of its own that points at the detail it
+disagrees with, so it can hold an evidence record, and the fixture attaches the
+directory page that way.
 
 ## 4. A fourth person adds to another part
 
@@ -101,7 +101,7 @@ that shop until the sixties."
 
 That is an **extension**. It targets the words "the owner, Mr. Ferris", which makes
 them a detail too, and it adds to them without contradicting anything. An extension
-leaves out its excerpt when it's about the whole claim. The new information lives in the extension's own record, the audio
+points at no details when it's about the whole claim. The new information lives in the extension's own record, the audio
 clip, which is its evidence. The conversation's source record is still the
 photograph.
 
@@ -162,7 +162,7 @@ sections in the fixtures are invented. `apps/web/PAGE-MODEL.md` walks through
 them.
 
 The suggestion interface might also show this conversation to a reader who has
-contributed about the same neighbourhood before, because the year is still in
+contributed about the same neighborhood before, because the year is still in
 dispute. Which signals drive suggestions is open.
 
 ---

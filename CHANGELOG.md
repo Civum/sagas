@@ -41,6 +41,61 @@ it. This is the most useful field in the entry.
 
 ---
 
+## v2.6.0 — 2026-11-03
+
+**Affects:** intelligence layer · experience layer
+
+**What:**
+- **A claim is its own edge.** `claim.target` is now just what it points into
+  (`{ type, id }`), and two new fields sit beside it: `relation`, dispute or extension,
+  and `reasoning`, required on a dispute. `disputeEdge`, `extensionEdge`, `edge`,
+  `parentClaimId`, `disputedClaimId` and the scoring graph's `edges` are gone. Anything
+  that wants a list of edges reads them off the claims, and `repliesTo(graph, claimId)`
+  does that for you.
+- **`claim.details` lists what a claim points at in its target.** Each entry has `at`,
+  the words or the window, and optionally `to`, the words in the claim's own text that
+  replace or add to them. `to` replaces `proposedValue`. One claim can point at several
+  details, so "Sally bought a pink hat" disputed as "Brandon bought a blue hat" is one
+  claim, and its evidence is cited once. No details means all of it, and that goes for
+  a dispute too: a dispute of the whole claim contests every detail inside it, and so
+  does a dispute of a stretch that contains a detail.
+- **An excerpt is now an object,** `{ start, end, text }`, with character positions into
+  the claim's text. It's used for `claimDetail.excerpt`, `detailScore.excerpt`,
+  `claimReference.excerpt`, `at` and `to`. `findExcerpt(text, words, occurrence)` makes
+  one. The same words in the same place are one detail, so the two "1950"s in one
+  sentence are two details. `detailId` now takes an excerpt.
+- **`claimEvidence` loses `excerpt`.** Evidence backs what its claim targets, and marking
+  your own words no longer makes a detail. Only another claim pointing at them does.
+- **`detailStatus`:** `disputes` is a list of `claimDispute`, a summary worked out from
+  the dispute's own claim, and it includes disputes of the whole claim. `extensions` is a
+  list of claim ids. `claimState` gains `disputes`.
+- **`scoreTerm.family` is now `'content' | 'behavior'`,** part of moving the repository to
+  US spelling.
+
+**Why:** the contract is the template teams build from, and 2.5.0 said one thing up to
+five ways. `claim.target` said where a reply pointed, an edge said it again, and
+`parentClaimId` and `disputedClaimId` said it a third way, with nothing keeping them in
+agreement. Plain-string excerpts also couldn't tell repeated words apart, and a dispute
+with two changes had nowhere to put the second. The sponsor said 2.5.0 was the last big
+change expected this semester, and this one came sooner than that. The sponsor decided it
+was better to change it now than to let anyone build on the old shape.
+
+**You need to:**
+- *experience layer* — pull upstream. Tell disputes apart with `claim.relation` in place
+  of `disputedClaimId`, and find what a claim replies to with `claim.target` in place of
+  `parentClaimId`. `detail.excerpt` is an object, so read `.text`. In `detailStatuses`,
+  `disputes[].to?.text` replaces `proposedValue`, `extensions` is claim ids, and
+  `competingValues` hasn't changed. No fixture counts changed, and your screens don't need
+  anything new.
+- *intelligence layer* — pull upstream. Read replies with `repliesTo`, `pointsAt` and
+  `contests` in place of `graph.edges`. `detailsOf` returns excerpts as objects, and a
+  claim's own evidence no longer names one. The builder still takes words, so
+  `.dispute("C", "A", "1950", "why")` reads the same, and it also takes
+  `{ at, to, occurrence }`, a list, or `undefined` for the whole claim. The rules gain
+  three, and one is replaced: evidence on a reply now raises the detail it targets. If you
+  have saved a copy of `first-place-claims.json`, replace it with the new one.
+- *content layer* — nothing. `apps/capture-api` doesn't store claims.
+
 ## v2.5.0 — 2026-11-02
 
 **Affects:** content layer · experience layer · intelligence layer
@@ -163,7 +218,7 @@ that's about to change.
   stand-in, `packages/fixtures/src/stand-in-score.ts`, which replaces
   `weight.ts`. `scoreTerm`, `detailScore` and `claimScore` now live in the
   contract, and `packages/fixtures/scoring` uses them.
-- **The old count-based scoring rules are gone** (`packages/fixtures/behaviour`
+- **The old count-based scoring rules are gone** (`packages/fixtures/behavior`
   and the `rules` script). The rules a scorer answers to are in
   `packages/fixtures/scoring/rules.ts`, which gains two running rules: until the
   window a claim cites is transcribed, the part of its score that comes from the
@@ -217,7 +272,7 @@ would cost more than changing them now.
   claims can have `sourceWindow` and `translated`. When you remove the `.skip` in
   `apps/graph-api/src/scorer.test.ts`, every rule runs, including two new ones;
   the target for Wednesday is still the eight thin-frame tests in the guide.
-  `packages/fixtures/behaviour` is
+  `packages/fixtures/behavior` is
   gone; if anything of yours imported it, switch to `packages/fixtures/scoring`.
 
 ---
@@ -360,7 +415,7 @@ The comment on `sourceRecord` that called a record a bundle is rewritten.
 `newSourceRecord` is new: a record as it arrives, without an `id`, so whoever
 stores it can generate the id.
 
-**Why:** The content layer's schema already modelled one record per artifact,
+**Why:** The content layer's schema already modeled one record per artifact,
 which turned out to be the model; the contract still described a bundle. And
 the contract required the client to send an id while a database that
 generates ids refuses one from outside, so every version of a record upload
@@ -388,7 +443,7 @@ summary at the end of each run shows which areas of the rules are thin.
 `apps/graph-api` gets a scorer stub, a rewritten test file, and a working `POST /score`
 endpoint with an example graph. `docs/PHASE-2-INTELLIGENCE-LAYER.md` is new: the
 guide for the build phase, with the model in one place. The count-based rules in
-`packages/fixtures/behaviour` are being retired; several no longer match the
+`packages/fixtures/behavior` are being retired; several no longer match the
 model.
 
 **Why:** A list of counts can't say which detail a dispute landed on, whether
@@ -761,7 +816,7 @@ history archive, and it sits badly on a photograph or a deed.
   disagreeing is a check-in conversation.
 
 **Why:** The suite was over-specified. It constrained the shape of the input as
-well as the behaviour of the output, which meant a team designing independence
+well as the behavior of the output, which meant a team designing independence
 differently would have been fighting the tests rather than the problem. The
 algorithm is the intelligence layer's deliverable and the rules should be a floor
 rather than a design.
@@ -856,7 +911,7 @@ not the interesting part. The parts that are interesting stay yours.
   for this project to answer". Four new entries on inherited trust, reference
   edges, the split between a person as record subject and as platform profile,
   and naming people who can't consent.
-- Root README notes the licence and how contributions are credited.
+- Root README notes the license and how contributions are credited.
 
 **Why:** The content team started, and the repo had a domain description without
 an ordering. Everything here is about making the first week smaller.

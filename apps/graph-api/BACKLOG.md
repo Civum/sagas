@@ -31,19 +31,21 @@ a claim is authentic.
 Support comes from the graph: the records behind a claim, who handed them
 over, whether they're independent of each other, and the disputes and
 extensions people attached. The people who write claims choose what each one
-points at, so the edges are already there. Read them before you reach for the
+points at, so those links are already there. Read them before you reach for the
 text.
 
 ## What a detail and a reference are
 
-A detail is an excerpt of a claim that something points at. Nobody lists a
-claim's details in advance. When a reply targets "opened in 1948", those words are
+A detail is an excerpt of a claim that another claim points at. Nobody lists a
+claim's details in advance. When a reply points at "opened in 1948", those words are
 a detail of the claim it replies to, and `detailsOf(graph, claimId)` in
 `@sagas/fixtures/scoring` works them out. A claim nothing points at has no details,
 so it has nothing for the scorer to check across threads yet.
 
-Every claim has a `target`: the excerpt or stretch it points at, in a record or in
-another claim. A claim also has `references`, which are typed links inside its own
+Every claim has a `target`, the record or claim it points into, and `details`, the
+excerpts or stretches it points at there, with none meaning all of it. A claim that
+targets a claim has a `relation`, dispute or extension, and those three fields are
+its edge. A claim also has `references`, which are typed links inside its own
 text, like a date or a place. The contributor adds them, or the system suggests them
 and the contributor confirms. How they get added is still open, and nothing scores
 them yet.
@@ -80,7 +82,7 @@ you need into `apps/graph-api` and point your code at the copy.
 **Status:** Optional. This is Step 0 in the guide, so skip it if you don't
 need it.
 
-**Goal.** Read the graph by its edges, starting from a worked example.
+**Goal.** Read the graph by what points at what, starting from a worked example.
 
 **Done when:**
 - You build the corner shop as a scoring graph in a test file of your own,

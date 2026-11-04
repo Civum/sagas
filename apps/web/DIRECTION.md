@@ -12,7 +12,7 @@ proposal from you is useful input even when it turns out to be wrong.
 
 ## The narrative page
 
-The page a person reads about a place. It is the centre of this layer.
+The page a person reads about a place. It is the center of this layer.
 
 ### What is decided
 

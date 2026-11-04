@@ -85,7 +85,7 @@ problems that look like real bugs.
 
 **One fork for the whole team.**
 
-1. **Create a GitHub organisation for the team** to hold the fork. If the
+1. **Create a GitHub organization for the team** to hold the fork. If the
    repository lives in one person's GitHub account and that person drops the
    class, the team loses everything, and your instructor needs access for grading.
 2. **One person forks `Civum/sagas` into it, once.**
@@ -295,7 +295,7 @@ pnpm --filter @sagas/graph-api test
 The scorer reads the graph for one place and returns a score for every claim
 and every detail, each with the terms it's made of. A claim's score is a
 composite: its details, its place in the graph, the evidence it carries,
-independent support from other branches, and behaviour (out of scope this
+independent support from other branches, and behavior (out of scope this
 semester, so it's a stretch goal). How those combine is yours.
 
 Almost every rule compares one graph with another, and none pins a score. Some are
@@ -310,8 +310,8 @@ commands and the model.
 ## What the scorer reads about people
 
 The scorer reads what a profile has done, never who they are. A profile's
-track record and the groups it has joined are behaviour, and behaviour can be
-scored. A name, a credential or a family can't. Which behaviour shows that
+track record and the groups it has joined are behavior, and behavior can be
+scored. A name, a credential or a family can't. Which behavior shows that
 someone knows a subject is one of your design questions, and the `profiles`
 block in the rules has ideas to test.
 

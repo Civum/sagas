@@ -83,7 +83,7 @@ build. P2 is approved. Deploying waits for the copy to be approved.
   merging to the main branch deploys it.
 - The copy is the one the sponsor approved (De2), and nobody outside the team
   sees it before that.
-- No organisation is named, and anything invented is marked as invented.
+- No organization is named, and anything invented is marked as invented.
 
 **Not in this story.** A sign-up form or a changelog section. Both come later.
 
@@ -210,7 +210,7 @@ live on `/dev`.
 - Wireframes, sketched or in a design tool, for the landing page and the map
   with search, each with a short note on what a person sees when there is
   almost nothing at a place.
-- A first set of design tokens (colours, spacing, type sizes) that the
+- A first set of design tokens (colors, spacing, type sizes) that the
   components use (from story A1).
 
 **Read first.** `PAGE-MODEL.md`, and "Design direction" in
@@ -223,7 +223,7 @@ live on `/dev`.
 **Goal.** The words on the landing page, ready for the sponsor to approve.
 
 **Done when:** a draft goes to the sponsor in the questions issue. It names no
-organisation and marks anything invented.
+organization and marks anything invented.
 
 ### De3 · What is missing and what would be nice
 
@@ -283,10 +283,10 @@ same page from the same parts.
 - `src/components/ui` holds the generic pieces the first views need: at least
   text styles, a button, a card or panel, a tag or label, a tooltip, and a
   dialog.
-- Colours, spacing and type sizes are defined once, as design tokens (named
+- Colors, spacing and type sizes are defined once, as design tokens (named
   values like `--space-2` or `text-muted`), and components use the tokens rather
   than raw values.
-- Every component meets the colour contrast level of the Web Content
+- Every component meets the color contrast level of the Web Content
   Accessibility Guidelines (WCAG) 2.1, level AA, and every interactive one works
   from the keyboard.
 - Nothing in `src/components/ui` imports from `@sagas/contracts`. If it needs to
@@ -404,7 +404,7 @@ components.
 
 **Done when:**
 - With `NEXT_PUBLIC_MAPBOX_TOKEN` set, the map renders every site from
-  `listSites()` as a pin, centred on the sites.
+  `listSites()` as a pin, centered on the sites.
 - With no token, `MapUnavailable` still renders the list. Both paths work.
 - Pins show at a glance whether a place is thinly or well documented, using the
   band from `IntegrityBadge`. No number is shown.

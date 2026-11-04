@@ -7,7 +7,7 @@ for the data itself (site, record, claim, detail, rendering, profile) are in
 
 ## Narrative page
 
-The page for one site. It is what a reader comes for, and it is the centre of
+The page for one site. It is what a reader comes for, and it is the center of
 this layer.
 
 It is made of **sections**. Each section has a heading and a passage, and the

@@ -132,7 +132,7 @@ almost certainly do not need a directions API.
 **Reprojection.** Everything is 4326. If you find yourself converting between
 coordinate systems, stop and check why.
 
-**Polygons.** Everything here is a point. Neighbourhood boundaries would be
+**Polygons.** Everything here is a point. Neighborhood boundaries would be
 polygons and they are not in the contract, so if you want them that is a
 conversation first.
 

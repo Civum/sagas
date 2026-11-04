@@ -37,8 +37,8 @@ describe("renderGraph", () => {
           terms: [],
           details: [
             {
-              detailId: "A#<1950>",
-              excerpt: "<1950>",
+              detailId: "A#13-19",
+              excerpt: { start: 13, end: 19, text: "<1950>" },
               score: 1.5,
               terms: [{ family: "content", name: "base", value: 1.5 }],
               contested: true,
@@ -51,7 +51,7 @@ describe("renderGraph", () => {
       matches: [
         {
           claimId: "A",
-          detailId: "A#1950",
+          detailId: "A#13-19",
           matchesClaimId: "F",
           similarity: 1,
         },

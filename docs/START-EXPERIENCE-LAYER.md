@@ -70,7 +70,7 @@ Beyond the code, the pipeline, hosting and the landing page are yours too. See
   One record can produce several claims.
 - **Detail.** An excerpt of a claim that something points at, such as a year, a
   name or a street. A dispute points at a detail, and the rest of the claim stands. An extension
-  points at a detail too, or at the whole claim when it is about all of it.
+  points at a detail too. Either can point at the whole claim when it's about all of it.
 - **Rendering.** A transcript or a translation. One person's version of a record
   or a claim, credited to them, with more than one allowed to exist.
 - **Profile.** Who a contributor is to the software. This semester a profile is
@@ -141,7 +141,7 @@ alongside the map either way (story M1).
 
 **One fork for the whole team.**
 
-1. **Create a GitHub organisation for the team** to hold the fork. If the
+1. **Create a GitHub organization for the team** to hold the fork. If the
    repository lives in one person's GitHub account and that person drops the
    class, the team loses it, and your instructor needs access for grading.
 2. **One person forks `Civum/sagas` into it.** Once.

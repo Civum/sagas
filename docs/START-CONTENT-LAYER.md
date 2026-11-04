@@ -107,10 +107,10 @@ is unclear.
 **One fork for the whole team.** Three personal forks means three
 diverging copies and no single place your work lives.
 
-1. **Create a free GitHub organisation for the team, rather than using a personal account.**
+1. **Create a free GitHub organization for the team, rather than using a personal account.**
    If the repo lives in one person's GitHub account and that person drops the class,
    the team loses everything, and your instructor needs access for grading.
-2. **One person forks `Civum/sagas` into that organisation, once.** That fork is
+2. **One person forks `Civum/sagas` into that organization, once.** That fork is
    now the team's repository.
 3. **Everyone clones that fork, including whoever created it.** Nobody forks
    again.

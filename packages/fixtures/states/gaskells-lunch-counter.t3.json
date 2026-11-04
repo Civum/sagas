@@ -28,9 +28,10 @@
         "sourceRecordId": "rec-menu-photo",
         "evidence": [],
         "target": {
-          "sourceType": "record",
-          "sourceId": "rec-menu-photo"
+          "type": "record",
+          "id": "rec-menu-photo"
         },
+        "details": [],
         "text": "The hours on this menu are five in the morning until two in the afternoon. That is a shift pattern, not a lunch trade. Whoever ate here was going to work before dawn.",
         "sourceLanguage": "en",
         "references": [],
@@ -81,6 +82,7 @@
       "translations": [],
       "translationDisputes": [],
       "independentRecordCount": 0,
+      "disputes": [],
       "extensions": [
         "cl-mother-worked"
       ],
@@ -110,7 +112,7 @@
             "value": 0
           },
           {
-            "family": "behaviour",
+            "family": "behavior",
             "name": "sounds right",
             "value": 0.05
           },
@@ -138,21 +140,26 @@
         "sourceRecordId": "rec-menu-photo",
         "evidence": [],
         "target": {
-          "sourceType": "claim",
-          "sourceId": "cl-shift-workers"
+          "type": "claim",
+          "id": "cl-shift-workers"
         },
+        "relation": "extension",
+        "details": [],
         "text": "That is right, and my mother was one of them. She was on the early shift at the laundry two streets over and she ate here before work most days.",
         "sourceLanguage": "en",
         "references": [
           {
             "kind": "person",
-            "excerpt": "my mother was one of them",
+            "excerpt": {
+              "start": 19,
+              "end": 44,
+              "text": "my mother was one of them"
+            },
             "status": "confirmed"
           }
         ],
         "sourceType": "family_oral",
         "createdAt": "2026-03-22T11:15:00Z",
-        "parentClaimId": "cl-shift-workers",
         "awaitingTranslation": false
       },
       "contributor": {
@@ -198,6 +205,7 @@
       "translations": [],
       "translationDisputes": [],
       "independentRecordCount": 0,
+      "disputes": [],
       "extensions": [],
       "passover": {
         "sounds_right": 0,
@@ -225,7 +233,7 @@
             "value": 0
           },
           {
-            "family": "behaviour",
+            "family": "behavior",
             "name": "sounds right",
             "value": 0
           },
@@ -253,16 +261,30 @@
         "sourceRecordId": "rec-menu-photo",
         "evidence": [],
         "target": {
-          "sourceType": "claim",
-          "sourceId": "cl-closed-1979",
-          "excerpt": "it closed in 1979"
+          "type": "claim",
+          "id": "cl-closed-1979"
         },
+        "relation": "dispute",
+        "reasoning": "The 1981 city directory still lists the business at this address. A directory is compiled the year before it is printed, so the business was trading in 1980 at the latest. It did not close in 1979.",
+        "details": [
+          {
+            "at": {
+              "start": 51,
+              "end": 68,
+              "text": "it closed in 1979"
+            },
+            "to": {
+              "start": 4,
+              "end": 8,
+              "text": "1981"
+            }
+          }
+        ],
         "text": "The 1981 city directory still lists the business at this address. A directory is compiled the year before it is printed, so the business was trading in 1980 at the latest. It did not close in 1979.",
         "sourceLanguage": "en",
         "references": [],
         "sourceType": "family_oral",
         "createdAt": "2026-06-02T13:51:00Z",
-        "disputedClaimId": "cl-closed-1979",
         "awaitingTranslation": false
       },
       "contributor": {
@@ -309,6 +331,7 @@
       "translations": [],
       "translationDisputes": [],
       "independentRecordCount": 0,
+      "disputes": [],
       "extensions": [],
       "passover": {
         "sounds_right": 0,
@@ -336,7 +359,7 @@
             "value": 0
           },
           {
-            "family": "behaviour",
+            "family": "behavior",
             "name": "sounds right",
             "value": 0
           },
@@ -364,20 +387,29 @@
         "sourceRecordId": "rec-menu-photo",
         "evidence": [],
         "target": {
-          "sourceType": "record",
-          "sourceId": "rec-menu-photo"
+          "type": "record",
+          "id": "rec-menu-photo"
         },
+        "details": [],
         "text": "Gaskell's was on the corner of 9th and Bannock and it closed in 1979. My mother took this photograph of the menu on one of the last days it was open. She kept it in the kitchen drawer for the rest of her life.",
         "sourceLanguage": "en",
         "references": [
           {
             "kind": "date",
-            "excerpt": "it closed in 1979",
+            "excerpt": {
+              "start": 51,
+              "end": 68,
+              "text": "it closed in 1979"
+            },
             "status": "confirmed"
           },
           {
             "kind": "place",
-            "excerpt": "on the corner of 9th and Bannock",
+            "excerpt": {
+              "start": 14,
+              "end": 46,
+              "text": "on the corner of 9th and Bannock"
+            },
             "status": "confirmed"
           }
         ],
@@ -428,6 +460,14 @@
       "translations": [],
       "translationDisputes": [],
       "independentRecordCount": 0,
+      "disputes": [
+        {
+          "claimId": "cl-de-gk-year",
+          "contributorId": "c-arlen",
+          "reasoning": "The 1981 city directory still lists the business at this address. A directory is compiled the year before it is printed, so the business was trading in 1980 at the latest. It did not close in 1979.",
+          "createdAt": "2026-06-02T13:51:00Z"
+        }
+      ],
       "extensions": [],
       "passover": {
         "sounds_right": 2,
@@ -437,19 +477,23 @@
       "detailStatuses": [
         {
           "detail": {
-            "id": "cl-closed-1979#it closed in 1979",
-            "excerpt": "it closed in 1979"
+            "id": "cl-closed-1979#51-68",
+            "excerpt": {
+              "start": 51,
+              "end": 68,
+              "text": "it closed in 1979"
+            }
           },
           "disputes": [
             {
-              "id": "de-gk-year",
-              "type": "dispute",
-              "fromClaimId": "cl-de-gk-year",
-              "targetClaimId": "cl-closed-1979",
-              "targetExcerpt": "it closed in 1979",
-              "reasoning": "The 1981 city directory still lists the business at this address. A directory is compiled the year before it is printed, so the business was trading in 1980 at the latest. It did not close in 1979.",
-              "proposedValue": "1981",
+              "claimId": "cl-de-gk-year",
               "contributorId": "c-arlen",
+              "reasoning": "The 1981 city directory still lists the business at this address. A directory is compiled the year before it is printed, so the business was trading in 1980 at the latest. It did not close in 1979.",
+              "to": {
+                "start": 4,
+                "end": 8,
+                "text": "1981"
+              },
               "createdAt": "2026-06-02T13:51:00Z"
             }
           ],
@@ -493,7 +537,7 @@
             "value": 0
           },
           {
-            "family": "behaviour",
+            "family": "behavior",
             "name": "sounds right",
             "value": 0.1
           },
@@ -510,8 +554,12 @@
         ],
         "details": [
           {
-            "detailId": "cl-closed-1979#it closed in 1979",
-            "excerpt": "it closed in 1979",
+            "detailId": "cl-closed-1979#51-68",
+            "excerpt": {
+              "start": 51,
+              "end": 68,
+              "text": "it closed in 1979"
+            },
             "score": 0.5,
             "terms": [
               {

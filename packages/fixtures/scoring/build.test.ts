@@ -67,27 +67,19 @@ describe("graph builder", () => {
       .claim("B", { by: "p2", source: "r1", text: "It was gravel." })
       .extend("B", "A", "Mill Road")
       .build();
-    expect(g.claims[0]?.target).toEqual({
-      sourceType: "record",
-      sourceId: "r1",
-    });
-    expect(g.claims[1]?.target).toEqual({
-      sourceType: "claim",
-      sourceId: "A",
-      excerpt: "Mill Road",
-    });
+    expect(g.claims[0]?.target).toEqual({ type: "record", id: "r1" });
+    expect(g.claims[0]?.relation).toBeUndefined();
+    expect(g.claims[1]?.target).toEqual({ type: "claim", id: "A" });
+    expect(g.claims[1]?.relation).toBe("extension");
+    expect(g.claims[1]?.details).toEqual([
+      { at: { start: 6, end: 15, text: "Mill Road" } },
+    ]);
   });
 
   it("works out a claim's details from what points at it", () => {
     const g = graph()
       .record("r1", { by: "p1" })
-      .record("photo", { by: "p3", kind: "image" })
-      .claim("A", {
-        by: "p1",
-        source: "r1",
-        text: "1950, Mill Road",
-        evidence: [{ record: "photo", excerpt: "1950" }],
-      })
+      .claim("A", { by: "p1", source: "r1", text: "1950, Mill Road" })
       .claim("B", { by: "p2", source: "r1", text: "It was gravel." })
       .extend("B", "A", "Mill Road")
       .claim("C", { by: "p4", source: "r1", text: "Also gravel." })
@@ -95,11 +87,56 @@ describe("graph builder", () => {
       .claim("D", { by: "p5", source: "r1", text: "My family ran it." })
       .extend("D", "A")
       .build();
-    expect(detailsOf(g, "A").map((d) => d.excerpt)).toEqual([
-      "Mill Road",
-      "1950",
-    ]);
+    expect(detailsOf(g, "A").map((d) => d.excerpt.text)).toEqual(["Mill Road"]);
     expect(detailsOf(g, "B")).toEqual([]);
+  });
+
+  it("lets one dispute point at several details, or at the whole claim", () => {
+    const g = graph()
+      .record("r1", { by: "p1" })
+      .claim("A", { by: "p1", source: "r1", text: "Sally bought a pink hat" })
+      .claim("D", { by: "p2", source: "r1", text: "Brandon bought a blue hat" })
+      .dispute(
+        "D",
+        "A",
+        [
+          { at: "Sally", to: "Brandon" },
+          { at: "pink", to: "blue" },
+        ],
+        "I have the receipt",
+      )
+      .claim("W", { by: "p3", source: "r1", text: "It never happened." })
+      .dispute("W", "A", undefined, "I was there")
+      .build();
+    expect(detailsOf(g, "A").map((d) => d.excerpt.text)).toEqual([
+      "Sally",
+      "pink",
+    ]);
+    expect(g.claims[1]?.details[1]?.to?.text).toBe("blue");
+    expect(g.claims[2]?.details).toEqual([]);
+    expect(g.claims[2]?.reasoning).toBe("I was there");
+  });
+
+  it("refuses a dispute with no reasoning", () => {
+    expect(() =>
+      graph()
+        .record("r1", { by: "p1" })
+        .claim("A", { by: "p1", source: "r1", text: "1950" })
+        .claim("B", { by: "p2", source: "r1", text: "1960" })
+        .dispute("B", "A", "1950", "  ")
+        .build(),
+    ).toThrow(/without a reason/);
+  });
+
+  it("refuses replacement words that aren't in the reply", () => {
+    expect(() =>
+      graph()
+        .record("r1", { by: "p1" })
+        .claim("A", { by: "p1", source: "r1", text: "1950" })
+        .claim("B", { by: "p2", source: "r1", text: "It was later." })
+        .dispute("B", "A", { at: "1950", to: "1960" }, "why")
+        .build(),
+    ).toThrow(/isn't in the text of B/);
   });
 
   it("refuses a target whose words aren't in the claim it points at", () => {

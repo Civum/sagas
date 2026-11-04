@@ -35,10 +35,10 @@ describe('experience layer: open questions', () => {
   it.todo('shows an open request on the claim or record it asks about');
 
   // Prompted by: "Who can make a home's location exact?"
-  // in docs/DESIGN-QUESTIONS.md. Homes show at neighbourhood level by
+  // in docs/DESIGN-QUESTIONS.md. Homes show at neighborhood level by
   // default; who may opt a home in to its exact spot is open. The content
   // layer's side is who can ask; this side is what the map draws.
-  it.todo("shows a home at neighbourhood level until its people opt in");
+  it.todo("shows a home at neighborhood level until its people opt in");
 });
 
 describe('capture and page: open questions', () => {
@@ -49,15 +49,11 @@ describe('capture and page: open questions', () => {
 });
 
 describe('shared contract: open questions', () => {
-  // Prompted by: "The edge types are copy-pasted"
-  // in docs/DESIGN-QUESTIONS.md. Answerable with a pull request.
-  it.todo('the edge types share one base shape');
-
   // Prompted by: "Every id is just `string`"
   // in docs/DESIGN-QUESTIONS.md. Answerable with a pull request.
   it.todo('a claim id cannot be passed where a contributor id belongs');
 
-  // Prompted by: "`translationDispute` and `disputeEdge` are the same idea"
+  // Prompted by: "`translationDispute` and a dispute claim are the same idea"
   // in docs/DESIGN-QUESTIONS.md. Answerable with a pull request.
   it.todo('a translation dispute and a dispute edge share one shape');
 

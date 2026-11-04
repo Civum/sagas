@@ -1,4 +1,18 @@
 /**
+ * The model, in five sentences.
+ *
+ * A claim is something a person says about a record or about another claim. It
+ * targets exactly one thing, a record or a claim. A claim that targets a claim
+ * either disputes it or extends it, and a dispute also carries its reasoning. A
+ * claim's `details` are the excerpts of its target it points at, and with none it's
+ * about all of it. A detail is an excerpt of a claim that another claim points at,
+ * so `detailsOf` works them out and nothing else makes one.
+ *
+ * So a claim's target, relation and details are its edge, and the graph stores that
+ * edge nowhere else. `repliesTo` reads the replies to a claim off the claims.
+ *
+ * ---
+ *
  * What a scorer reads and what it returns.
  *
  * A list of counts can't say which detail a dispute landed on, whether two
@@ -14,15 +28,21 @@
  */
 import { z } from "zod";
 
-import type { ClaimDetail } from "@sagas/contracts";
+import type { ClaimDetail, Excerpt } from "@sagas/contracts";
 import {
+  checkReply,
   claimEvidence,
   claimReference,
+  claimRelation,
   claimScore,
   claimTarget,
   detailId,
   detailScore,
+  excerptIsIn,
+  isExcerpt,
+  sameExcerpt,
   scoreTerm,
+  targetDetail,
 } from "@sagas/contracts";
 
 const timestamp = z.string().datetime();
@@ -58,15 +78,22 @@ export const recordNode = z.object({
 });
 export type RecordNode = z.infer<typeof recordNode>;
 
-export const claimNode = z.object({
+export const claimNode = z
+  .object({
   id: z.string(),
   contributorId: z.string(),
   createdAt: timestamp,
   text: z.string(),
   /** The record this claim's thread starts from. Claims with the same one are one thread. */
   sourceRecordId: z.string(),
-  /** What this claim points at: part of a record, or part of another claim. */
+  /** What this claim points into: a record, or another claim. */
   target: claimTarget,
+  /** Whether it disputes or extends the claim it targets. Only a claim that targets a claim has one. */
+  relation: claimRelation.optional(),
+  /** Why, on a dispute. The people who write claims choose these, so the scorer never guesses them from the words. */
+  reasoning: z.string().optional(),
+  /** The excerpts or stretches it points at in its target. Empty means all of it. */
+  details: z.array(targetDetail),
   /**
    * True when the claim was given in another language and rendered. It must
    * never lower a score; the rules check that. There's no field for where a
@@ -76,37 +103,14 @@ export const claimNode = z.object({
   /** Typed links inside the claim's text. Nothing scores them yet. */
   references: z.array(claimReference),
   /**
-   * Records attached to back the claim up. `excerpt` is for evidence that backs
-   * particular words in this claim's own text, and naming one makes those words a
-   * detail. If a claim targets an evidence record, that starts a new thread with
-   * that record as its source.
+   * Records attached to back the claim up. They back what the claim targets. If a
+   * claim targets an evidence record, that starts a new thread with that record as
+   * its source.
    */
   evidence: z.array(claimEvidence),
-});
+  })
+  .superRefine(checkReply);
 export type ClaimNode = z.infer<typeof claimNode>;
-
-/**
- * A claim pointing at an excerpt of another claim. The people who write claims
- * choose these targets, so the scorer never has to guess them from the words.
- * Resolution is left out until what it points at is decided.
- */
-export const edge = z.discriminatedUnion("type", [
-  z.object({
-    type: z.literal("dispute"),
-    fromClaimId: z.string(),
-    toClaimId: z.string(),
-    excerpt: z.string().min(1),
-    reason: z.string().min(1),
-  }),
-  z.object({
-    type: z.literal("extension"),
-    fromClaimId: z.string(),
-    toClaimId: z.string(),
-    /** Optional only for an extension about the whole claim. */
-    excerpt: z.string().min(1).optional(),
-  }),
-]);
-export type Edge = z.infer<typeof edge>;
 
 /**
  * A light signal a reader leaves on a claim. Not a vote. These are frequent
@@ -132,32 +136,63 @@ export const profile = z.object({
 });
 export type Profile = z.infer<typeof profile>;
 
-export const scoringGraph = z.object({
+export const scoringGraph = z
+  .object({
   siteId: z.string(),
   /** "Now", for anything measured in time. */
   asOf: timestamp,
   records: z.array(recordNode),
   claims: z.array(claimNode),
-  edges: z.array(edge),
   passovers: z.array(passover),
   profiles: z.array(profile),
-});
+  })
+  .superRefine((g, ctx) => {
+    const claims = new Map(g.claims.map((c) => [c.id, c]));
+    const records = new Set(g.records.map((r) => r.id));
+    const problem = (message: string) =>
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message });
+    for (const c of g.claims) {
+      if (c.target.type === "record") {
+        if (!records.has(c.target.id))
+          problem(`claim ${c.id} targets record ${c.target.id}, which isn't in the graph`);
+        continue;
+      }
+      const target = claims.get(c.target.id);
+      if (!target) {
+        problem(`claim ${c.id} targets claim ${c.target.id}, which isn't in the graph`);
+        continue;
+      }
+      for (const d of c.details) {
+        if (isExcerpt(d.at) && !excerptIsIn(target.text, d.at))
+          problem(`claim ${c.id} points at "${d.at.text}", which isn't at that position in ${target.id}`);
+      }
+    }
+  });
 export type ScoringGraph = z.infer<typeof scoringGraph>;
 
+/** The claims that dispute or extend this one, in the order they appear in the graph. */
+export const repliesTo = (graph: ScoringGraph, claimId: string): ClaimNode[] =>
+  graph.claims.filter((c) => c.target.type === "claim" && c.target.id === claimId);
+
+/** Whether a reply points at exactly these words of the claim it targets. */
+export const pointsAt = (reply: ClaimNode, e: Excerpt): boolean =>
+  reply.details.some((d) => isExcerpt(d.at) && sameExcerpt(d.at, e));
+
 /**
- * A claim's details, worked out from what points at it: the excerpts other claims
- * target, and any excerpt its own evidence names. The same words are the same
- * detail, and a claim nothing points at has none. Your score has one result for
- * each of these, with this id.
+ * A claim's details, worked out from what points at it. The same words in the same
+ * place are one detail, and a claim nothing points at has none. A reply about the
+ * whole claim points at nothing in particular, so it makes none. Your score has one
+ * result for each of these, with this id.
  */
 export function detailsOf(graph: ScoringGraph, claimId: string): ClaimDetail[] {
-  const fromEdges = graph.edges.flatMap((e) =>
-    e.toClaimId === claimId && e.excerpt !== undefined ? [e.excerpt] : [],
-  );
-  const fromEvidence = (
-    graph.claims.find((c) => c.id === claimId)?.evidence ?? []
-  ).flatMap((e) => (e.excerpt !== undefined ? [e.excerpt] : []));
-  return [...new Set([...fromEdges, ...fromEvidence])].map((excerpt) => ({
+  const excerpts: Excerpt[] = [];
+  for (const reply of repliesTo(graph, claimId)) {
+    for (const { at } of reply.details) {
+      if (isExcerpt(at) && !excerpts.some((e) => sameExcerpt(e, at)))
+        excerpts.push(at);
+    }
+  }
+  return excerpts.map((excerpt) => ({
     id: detailId(claimId, excerpt),
     excerpt,
   }));
@@ -171,6 +206,7 @@ export function detailsOf(graph: ScoringGraph, claimId: string): ClaimDetail[] {
 export const term = scoreTerm;
 export type Term = z.infer<typeof term>;
 export { detailScore, claimScore, detailId };
+export { contests, findExcerpt, isExcerpt, sameExcerpt } from "@sagas/contracts";
 export type DetailScore = z.infer<typeof detailScore>;
 export type ClaimScore = z.infer<typeof claimScore>;
 
