@@ -31,7 +31,7 @@ a claim is authentic.
 Support comes from the graph: the records behind a claim, who handed them
 over, whether they're independent of each other, and the disputes and
 extensions people attached. The people who write claims choose what each one
-points at, so the edges are already there, on the claims. Read them before you reach for the
+points at, so each reply already carries its edge. Read those before you reach for the
 text.
 
 ## What a detail and a reference are

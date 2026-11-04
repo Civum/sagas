@@ -377,12 +377,12 @@ export function runScoringRules(name: string, scorer: Scorer): void {
           results.find((d) => d.detailId === id)?.contested;
         expect(contested(second?.id)).toBe(true);
         expect(contested(first?.id)).toBe(false);
-  
+      });
+
       // Prompted by: "How do audio and video records hold their text?" in
       // docs/DESIGN-QUESTIONS.md. Open: whether what a claim points at in a record
       // counts the way a detail of a claim does.
       it.todo("treats what a claim points at in a record like a detail of a claim, or doesn't");
-    });
     });
 
     describe("evidence and volume", () => {
