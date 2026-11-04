@@ -666,7 +666,7 @@ looks.
 ### N7 · A claim in another language, with its translations
 
 **Workstream:** Narrative page. **Status:** Later. Needs N6 and contract
-2.5.0, which changes how translations are stored.
+2.6.0, which includes the change to how translations are stored.
 
 **Goal.** The project expects many of its readers to have family history in
 another language. A claim given in French shows its English translation, says
@@ -689,7 +689,7 @@ right.
 ### N8 · A recording transcribed one part at a time
 
 **Workstream:** Narrative page. **Status:** Later. Needs N6 and contract
-2.5.0, which changes how transcripts are stored.
+2.6.0, which includes the change to how transcripts are stored.
 
 **Goal.** Contributors transcribe a long recording a piece at a time. The page
 shows which parts can be read, by their start and end times, and marks the
@@ -710,7 +710,7 @@ transcript.
 ### N9 · A link record and its preview
 
 **Workstream:** Narrative page. **Status:** Later. Needs N6 and contract
-2.5.0.
+2.6.0.
 
 **Goal.** In contract 2.5.0 a link record carries a preview: a title and a
 short summary, both typed by the contributor. Sagas fetches nothing from the
@@ -1023,6 +1023,29 @@ add it?
 
 **Done when:** mockups plus a page of reasoning, brought to a specification
 meeting. Stories to build it come out of that meeting.
+
+### D2 · Suggest what to read next, from what someone has already done
+
+**Workstream:** Data. **Status:** Draft. Needs contract 2.6.0. It's a starting point for
+the specification meeting D1 leads to, and that meeting can change it. It's backlog work,
+and your statement of work doesn't change.
+
+**Goal.** Given one person and one site, a function returns the claims to show them next,
+in order, each with a reason.
+
+**Done when:**
+- A function takes a scoring graph (`ScoringGraph` in `packages/fixtures/scoring`, which has
+  each person's passovers) and a profile, and returns an ordered list of claims, each with
+  a reason.
+- It follows rules, with no learning. Which rules are yours to choose. Some examples are not
+  showing a claim again after `dont_care`, offering the next claim in that thread after
+  `sounds_right`, and favoring contested details or details with few replies, because that's
+  where help is needed.
+- Tests read as scenarios: given these passovers, the next suggestion is this claim, for
+  this reason.
+
+**Not in this story.** Learned tuning, which needs real passover data. The intelligence
+layer's matching, which plugs in later as one more input.
 
 ---
 
