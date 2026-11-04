@@ -226,12 +226,9 @@ passage is written are yours to work out. The fixtures carry invented sections
 for the corner shop in the meantime, and the open parts are in
 `docs/DESIGN-QUESTIONS.md` under "What groups claims together at a site?".
 
-Scoring is the bounded half of your layer. The other half is routing: working
-out which claim to put in front of which person, and why. That is spring work.
-This project does not have an answer for it, and it will need signals the
-contract does not record yet, such as what somebody tends to contribute and
-where they keep coming back to. Asking for those is expected rather than a sign
-something went wrong.
+Routing, working out which claim to put in front of which person, belongs to the
+experience layer, because it mostly reads profiles and passovers. Your matching plugs into
+it later as one more input, which is spring work.
 
 ## Your first task, and it is not code
 
@@ -273,8 +270,8 @@ counting part of independence from the graph myself. S5 in
 This project treats the edges as the strong signals. An extension pushes a claim up, a dispute
 pushes it down, and a resolution would lift both branches it reconciles, so a
 claim's weight moves in both directions over time. Passovers (`sounds_right`,
-`dont_know`, `dont_care`) are soft signals, and they matter most for routing:
-what gets suggested to whom.
+`dont_know`, `dont_care`) are soft signals, and they matter most for routing,
+which the experience layer owns: what gets suggested to whom.
 
 There are more gaps than those three. Bring the diagram and the reasoning. Where
 you diverge from what is in the repository, say why.

@@ -132,6 +132,7 @@
           "contributorId": "c-ray",
           "sourceRecordId": "rec-cs-photo",
           "evidence": [],
+          "relation": "extension",
           "target": {
             "recordId": "rec-cs-photo",
             "details": []
@@ -459,6 +460,7 @@
           "contributorId": "c-ray",
           "sourceRecordId": "rec-cs-photo",
           "evidence": [],
+          "relation": "extension",
           "target": {
             "recordId": "rec-cs-photo",
             "details": []
@@ -1376,6 +1378,7 @@
           "contributorId": "c-ray",
           "sourceRecordId": "rec-cs-photo",
           "evidence": [],
+          "relation": "extension",
           "target": {
             "recordId": "rec-cs-photo",
             "details": []
@@ -1977,6 +1980,7 @@
           "contributorId": "c-dev",
           "sourceRecordId": "rec-cs-sign",
           "evidence": [],
+          "relation": "extension",
           "target": {
             "recordId": "rec-cs-sign",
             "details": []

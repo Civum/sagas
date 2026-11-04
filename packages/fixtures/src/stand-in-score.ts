@@ -21,7 +21,7 @@
  */
 import type {
   Claim, ClaimDetail, ClaimScore, DetailScore, ScoreTerm,
-  SourceRecord, SupportingRecord, TimeWindow,
+  SourceRecord, SupportingRecord, TargetDetail, TimeWindow,
 } from '@sagas/contracts';
 import { contests, isExcerpt, sameExcerpt } from '@sagas/contracts';
 
@@ -50,7 +50,7 @@ function covered(window: TimeWindow | undefined, transcripts: SupportingRecord[]
 export function contentReadable(i: Pick<StandInInputs, 'claim' | 'sourceRecord' | 'transcripts'>): boolean {
   if (i.claim.awaitingTranslation) return false;
   const isRecording = i.sourceRecord.media.some((m) => m.kind === 'audio' || m.kind === 'video');
-  const windows = i.claim.target.details.flatMap((d) => (isExcerpt(d.at) ? [] : [d.at]));
+  const windows = (i.claim.target.details as TargetDetail[]).flatMap((d) => (isExcerpt(d.at) ? [] : [d.at]));
   if (!isRecording || windows.length === 0) return true;
   const own = i.transcripts.filter((t) => t.parent.recordId === i.sourceRecord.id);
   return windows.every((w) => covered(w, own));
@@ -77,7 +77,7 @@ export function standInScore(i: StandInInputs): ClaimScore {
   const details: DetailScore[] = i.details.map((d) => {
     const dTerms: ScoreTerm[] = [t('content', 'base', 1)];
     const extensions = i.extensions.filter((e) =>
-      e.target.details.some((x) => isExcerpt(x.at) && sameExcerpt(x.at, d.excerpt)),
+      (e.target.details as TargetDetail[]).some((x) => isExcerpt(x.at) && sameExcerpt(x.at, d.excerpt)),
     );
     const disputes = i.disputes.filter((e) => contests(e, d.excerpt));
     if (readable) {

@@ -6,7 +6,7 @@
 import { describe, expect, it } from "vitest";
 
 import { graph } from "./build";
-import { detailsOf, scoringGraph } from "./graph";
+import { detailsOf, scoringGraph, toOf } from "./graph";
 
 describe("graph builder", () => {
   it("builds a graph that matches the schema", () => {
@@ -20,7 +20,7 @@ describe("graph builder", () => {
         evidence: ["photo"],
       })
       .claim("C", { by: "p3", source: "r1", text: "It was 1960." })
-      .dispute("C", "A", "1950", "the road came later")
+      .dispute("C", "A", { at: "1950", to: "1960" }, "the road came later")
       .passovers("A", 2)
       .build();
     expect(() => scoringGraph.parse(g)).not.toThrow();
@@ -55,7 +55,7 @@ describe("graph builder", () => {
       graph()
         .record("r1", { by: "p1" })
         .claim("A", { by: "p1", source: "r1", text: "1950" })
-        .dispute("A", "nobody", "1950", "why")
+        .dispute("A", "nobody", { at: "1950", to: "1950" }, "why")
         .build(),
     ).toThrow(/unknown claim/);
   });
@@ -68,7 +68,7 @@ describe("graph builder", () => {
       .extend("B", "A", "Mill Road")
       .build();
     expect(g.claims[0]?.target).toEqual({ recordId: "r1", details: [] });
-    expect(g.claims[0]?.relation).toBeUndefined();
+    expect(g.claims[0]?.relation).toBe("extension");
     expect(g.claims[1]?.target).toEqual({
       claimId: "A",
       details: [{ at: { start: 6, end: 15, text: "Mill Road" } }],
@@ -112,9 +112,30 @@ describe("graph builder", () => {
       "Sally",
       "pink",
     ]);
-    expect(g.claims[1]?.target.details[1]?.to?.text).toBe("blue");
+    expect(g.claims[1]?.target.details.map((d) => toOf(d)?.text)[1]).toBe("blue");
     expect(g.claims[2]?.target.details).toEqual([]);
     expect(g.claims[2]?.reasoning).toBe("I was there");
+  });
+
+  it("lets a transcript be disputed, and refuses a dispute of a record with no parent", () => {
+    const disputing = (parent?: { role: "transcript"; recordId: string }) =>
+      graph()
+        .record("r1", { by: "p1", kind: "audio" })
+        .record("t1", {
+          by: "p2",
+          ...(parent !== undefined && { parent }),
+        })
+        .claim("D", { by: "p3", source: "r1", text: "It says Hays." })
+        .disputeRecord(
+          "D",
+          "t1",
+          { at: "Hayes", to: "Hays" },
+          "the name is misheard",
+          "Mr. Hayes ran it",
+        )
+        .build();
+    expect(disputing({ role: "transcript", recordId: "r1" }).claims[0]?.relation).toBe("dispute");
+    expect(() => disputing()).toThrow(/can only be extended/);
   });
 
   it("refuses a dispute with no reasoning", () => {
@@ -123,7 +144,7 @@ describe("graph builder", () => {
         .record("r1", { by: "p1" })
         .claim("A", { by: "p1", source: "r1", text: "1950" })
         .claim("B", { by: "p2", source: "r1", text: "1960" })
-        .dispute("B", "A", "1950", "  ")
+        .dispute("B", "A", { at: "1950", to: "1960" }, "  ")
         .build(),
     ).toThrow(/without a reason/);
   });

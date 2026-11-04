@@ -27,6 +27,7 @@
         "contributorId": "c-priya",
         "sourceRecordId": "rec-menu-photo",
         "evidence": [],
+        "relation": "extension",
         "target": {
           "recordId": "rec-menu-photo",
           "details": []
@@ -138,6 +139,7 @@
         "contributorId": "c-dolores",
         "sourceRecordId": "rec-menu-photo",
         "evidence": [],
+        "relation": "extension",
         "target": {
           "recordId": "rec-menu-photo",
           "details": []

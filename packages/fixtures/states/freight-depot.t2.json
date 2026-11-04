@@ -26,6 +26,7 @@
         "contributorId": "c-ana",
         "sourceRecordId": "rec-fd-01",
         "evidence": [],
+        "relation": "extension",
         "target": {
           "recordId": "rec-fd-01",
           "details": []
@@ -424,6 +425,7 @@
         "contributorId": "c-luis",
         "sourceRecordId": "rec-fd-03",
         "evidence": [],
+        "relation": "extension",
         "target": {
           "recordId": "rec-fd-03",
           "details": []
@@ -560,6 +562,7 @@
         "contributorId": "c-ana",
         "sourceRecordId": "rec-fd-01",
         "evidence": [],
+        "relation": "extension",
         "target": {
           "recordId": "rec-fd-01",
           "details": []
@@ -665,6 +668,7 @@
         "contributorId": "c-ana",
         "sourceRecordId": "rec-fd-02",
         "evidence": [],
+        "relation": "extension",
         "target": {
           "recordId": "rec-fd-02",
           "details": []
@@ -870,6 +874,7 @@
         "contributorId": "c-ines",
         "sourceRecordId": "rec-fd-04",
         "evidence": [],
+        "relation": "extension",
         "target": {
           "recordId": "rec-fd-04",
           "details": [

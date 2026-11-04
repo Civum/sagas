@@ -254,7 +254,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
       const disputed = (): GraphBuilder =>
         base()
           .claim("C", { by: "p3", source: "r1", text: "It was 1960." })
-          .dispute("C", "A", "1950", "Mill Road wasn't built until 1958");
+          .dispute("C", "A", { at: "1950", to: "1960" }, "Mill Road wasn't built until 1958");
 
       it("leaves the other details alone when one detail is disputed", () => {
         const before = detailScore(score(base().build()), "A", "Mill Road");
@@ -743,7 +743,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
         const r = score(
           wellSupported()
             .claim("D", { by: "p9", source: "r1", text: "It was 1960." })
-            .dispute("D", "A", "1950", "I lived next door")
+            .dispute("D", "A", { at: "1950", to: "1960" }, "I lived next door")
             .claim("askD", { by: "pc", source: "r1", text: "Are you sure?" })
             .extend("askD", "D", "1960")
             .build(),
@@ -764,7 +764,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
                 source: "r1",
                 text: `It was 196${i}.`,
               })
-              .dispute(`D${i}`, "A", "1950", "that is wrong");
+              .dispute(`D${i}`, "A", { at: "1950", to: `196${i}` }, "that is wrong");
           }
           const s = detailScore(score(b.build()), "A", "1950");
           expect(
@@ -788,7 +788,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
               source: "r1",
               text: `It was 196${i}.`,
             })
-            .dispute(`D${i}`, "A", "1950", "that is wrong");
+            .dispute(`D${i}`, "A", { at: "1950", to: `196${i}` }, "that is wrong");
         }
         const r = score(b.build());
         expect(detailScore(r, "A", "1950")).toBeGreaterThan(
@@ -803,7 +803,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
         const reasonOnly = score(
           base()
             .claim("D", { by: "p9", source: "r1", text: "It was a fence." })
-            .dispute("D", "A", "Mill Road", "I lived next door")
+            .dispute("D", "A", { at: "Mill Road", to: "a fence" }, "I lived next door")
             .build(),
         );
         const withRecord = score(
@@ -818,7 +818,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
             .dispute(
               "D",
               "A",
-              "Mill Road",
+              { at: "Mill Road", to: "a fence" },
               "a letter addressed there in 1950 mentions the fence",
             )
             .build(),
@@ -957,7 +957,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
             source: "r1",
             text: "It was 1960. Mill Road wasn't built until 1958.",
           })
-          .dispute("c3", "c1", "1950", "Mill Road wasn't built until 1958");
+          .dispute("c3", "c1", { at: "1950", to: "1960" }, "Mill Road wasn't built until 1958");
       const four = (b: GraphBuilder): GraphBuilder =>
         b
           .record("photo", { by: "p4", kind: "image" })
@@ -1015,7 +1015,7 @@ export function runScoringRules(name: string, scorer: Scorer): void {
       const withD = (g: GraphBuilder): GraphBuilder =>
         g
           .claim("D", { by: "p4", source: "R", text: "It was a fence." })
-          .dispute("D", "A", "the road", "I lived next door");
+          .dispute("D", "A", { at: "the road", to: "a fence" }, "I lived next door");
       const withE = (g: GraphBuilder): GraphBuilder =>
         g
           .record("photo", { by: "p5", kind: "image" })

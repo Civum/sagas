@@ -34,7 +34,8 @@
         "details": []
       },
       "references": [],
-      "evidence": []
+      "evidence": [],
+      "relation": "extension"
     },
     {
       "id": "B",
@@ -145,7 +146,8 @@
         "details": []
       },
       "references": [],
-      "evidence": []
+      "evidence": [],
+      "relation": "extension"
     }
   ],
   "passovers": [],

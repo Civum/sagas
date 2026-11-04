@@ -18,7 +18,8 @@ import type {
   ScoringGraph,
   ScoringResult,
 } from "@sagas/fixtures/scoring";
-import { detailsOf, isExcerpt, repliesTo, scoringGraph } from "@sagas/fixtures/scoring";
+import { detailsOf, isExcerpt, repliesTo, scoringGraph, toOf } from "@sagas/fixtures/scoring";
+import type { TargetDetail } from "@sagas/contracts";
 
 import { scorer } from "./scorer";
 
@@ -56,17 +57,19 @@ function claimCard(
   result: ScoringResult | null,
 ): string {
   const score = result?.claims.find((c) => c.claimId === claim.id);
-  const words = claim.target.details
-    .flatMap(({ at, to }) =>
-      isExcerpt(at)
+  const targetDetails: TargetDetail[] = claim.target.details;
+  const words = targetDetails
+    .flatMap((d) => {
+      const to = toOf(d);
+      return isExcerpt(d.at)
         ? [
-            `&ldquo;${esc(at.text)}&rdquo;${to ? ` with &ldquo;${esc(to.text)}&rdquo;` : ""}`,
+            `&ldquo;${esc(d.at.text)}&rdquo;${to ? ` with &ldquo;${esc(to.text)}&rdquo;` : ""}`,
           ]
-        : [],
-    )
+        : [];
+    })
     .join(" and ");
-  const window = claim.target.details.map((d) => d.at).find((at) => !isExcerpt(at));
-  const pointsAt = claim.relation
+  const window = targetDetails.map((d) => d.at).find((at) => !isExcerpt(at));
+  const pointsAt = claim.target.claimId !== undefined || claim.relation === "dispute"
     ? `<p class="edge ${claim.relation}">${claim.relation === "dispute" ? "disputes" : "extends"} ${
         words || "the whole claim"
       }${claim.reasoning ? ` because ${esc(claim.reasoning)}` : ""}</p>`

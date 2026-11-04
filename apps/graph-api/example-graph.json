@@ -34,7 +34,8 @@
         "details": []
       },
       "references": [],
-      "evidence": []
+      "evidence": [],
+      "relation": "extension"
     },
     {
       "id": "c2",
@@ -47,7 +48,8 @@
         "details": []
       },
       "references": [],
-      "evidence": []
+      "evidence": [],
+      "relation": "extension"
     },
     {
       "id": "c3",

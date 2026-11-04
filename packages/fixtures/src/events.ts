@@ -21,13 +21,13 @@ import type {
 export type EventReference = Omit<ClaimReference, 'excerpt'> & { excerpt: string };
 
 /**
- * A detail a reply points at, as a fixture writes it. `at` is words in the claim it
- * targets, and `to` is words in this claim's own text. `occurrence` picks a repeat
- * of `at`, counting from 1.
+ * A detail a dispute points at, as a fixture writes it. `at` is words in the claim it
+ * targets, and `to` is the words in this claim's own text that replace them. `occurrence`
+ * picks a repeat of `at`, counting from 1.
  */
 export interface EventDetail {
   at: string;
-  to?: string;
+  to: string;
   occurrence?: number;
 }
 
@@ -89,7 +89,7 @@ export interface ClaimExtended extends BaseEvent {
   evidence?: ClaimEvidence[];
   targetClaimId: ClaimId;
   /** The details it adds to. Omitted when it's about the whole claim. */
-  details?: EventDetail[];
+  details?: { at: string; occurrence?: number }[];
   siteId: SiteId;
   text: string;
   sourceLanguage: LanguageCode;

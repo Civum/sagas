@@ -26,6 +26,7 @@
         "contributorId": "c-ray",
         "sourceRecordId": "rec-cs-photo",
         "evidence": [],
+        "relation": "extension",
         "target": {
           "recordId": "rec-cs-photo",
           "details": []

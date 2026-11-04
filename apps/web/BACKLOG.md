@@ -499,8 +499,8 @@ at that detail and the rest of the claim reads as undisputed.
 - The claim's own reading stays in place in the sentence, and the competing
   readings sit visibly beside it. Nothing marks either as the answer, and there
   is no vote count.
-- A dispute with reasoning that names no replacement words still shows, as an objection
-  to the detail with its reasoning.
+- A dispute of the whole claim names no replacement for this detail, and it still shows,
+  as an objection with its reasoning.
 
 See "Disagreement lands on one detail" in
 `packages/fixtures/README.md`. The corner shop site at `t2` has a clean example.
@@ -532,9 +532,11 @@ one, and several, as its own comment describes.
 **Status:** Draft. Starts with a design exercise. Code comes after it.
 
 How a reader is pointed at what to read next and what they could add. The
-routing that decides this belongs to the intelligence layer and does not exist
-yet, so this epic designs the interface against invented signals first. The
-passover interaction joins this epic once the design exercise is done.
+routing that decides this belongs to this layer, and it doesn't exist yet. It reads
+profiles, passovers and what someone has seen, and it can run on the fixtures without the
+scorer. This epic designs the interface first. The passover interaction joins this epic once
+the design exercise is done. The intelligence layer's matching plugs in later as one more
+input.
 
 ### D1 · Design exercise: the suggestion interface
 

@@ -26,6 +26,7 @@
         "contributorId": "c-ana",
         "sourceRecordId": "rec-fd-01",
         "evidence": [],
+        "relation": "extension",
         "target": {
           "recordId": "rec-fd-01",
           "details": []
@@ -140,6 +141,7 @@
         "contributorId": "c-ana",
         "sourceRecordId": "rec-fd-01",
         "evidence": [],
+        "relation": "extension",
         "target": {
           "recordId": "rec-fd-01",
           "details": []
@@ -245,6 +247,7 @@
         "contributorId": "c-ana",
         "sourceRecordId": "rec-fd-02",
         "evidence": [],
+        "relation": "extension",
         "target": {
           "recordId": "rec-fd-02",
           "details": []

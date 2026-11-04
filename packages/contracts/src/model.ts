@@ -732,20 +732,24 @@ export type ClaimRelation = z.infer<typeof claimRelation>;
  *                               transcript. `start` and `end` are characters.
  *   at: { start, end }          a window of a recording, in seconds.
  *
- * `to` is the words in this claim's own text that replace or add to it, so "pink"
- * disputed as "blue" has `at` on "pink" in the target and `to` on "blue" here.
- * Leave `to` out when there are no such words: "not pink, but I don't know what
- * color". Marking your own words with `to` doesn't make them a detail. They become
- * one when someone else points at them.
+ * An extension points with `at` alone. A dispute also has `to`, the words in its own
+ * text that replace what it points at, so "pink" disputed as "blue" has `at` on "pink"
+ * in the target and `to` on "blue" here. It's required, because a dispute says "not X
+ * but Y". Marking your own words with `to` doesn't make them a detail. They become one
+ * when someone else points at them.
  */
-export const targetDetail = z.object({
-  at: z.union([excerpt, timeWindow]),
-  to: excerpt.optional(),
-});
-export type TargetDetail = z.infer<typeof targetDetail>;
+const pointedAt = z.union([excerpt, timeWindow]);
+export const extensionDetail = z.object({ at: pointedAt }).strict();
+export type ExtensionDetail = z.infer<typeof extensionDetail>;
+export const disputeDetail = z.object({ at: pointedAt, to: excerpt });
+export type DisputeDetail = z.infer<typeof disputeDetail>;
+export type TargetDetail = ExtensionDetail | DisputeDetail;
 
 /** Whether `at` is words, as opposed to a window of a recording. */
 export const isExcerpt = (at: TargetDetail['at']): at is Excerpt => 'text' in at;
+
+/** The replacement words on a detail a dispute points at. An extension's have none. */
+export const toOf = (d: TargetDetail): Excerpt | undefined => ('to' in d ? d.to : undefined);
 
 /**
  * What a claim points into, and where. Every claim has one, and it points into exactly
@@ -764,16 +768,46 @@ export const isExcerpt = (at: TargetDetail['at']): at is Excerpt => 'text' in at
  * behavior, and the part that comes from the claim itself (its details and its
  * relations to other claims) isn't counted yet.
  */
-export const claimTarget = z
-  .object({
-    claimId: z.string().optional(),
-    recordId: z.string().optional(),
-    details: z.array(targetDetail),
-  })
-  .refine((t) => (t.claimId === undefined) !== (t.recordId === undefined), {
-    message: 'A claim points into one claim or one record.',
-  });
-export type ClaimTarget = z.infer<typeof claimTarget>;
+const targetOf = <D extends z.ZodTypeAny>(detail: D) =>
+  z
+    .object({
+      claimId: z.string().optional(),
+      recordId: z.string().optional(),
+      details: z.array(detail),
+    })
+    .refine((t) => (t.claimId === undefined) !== (t.recordId === undefined), {
+      message: 'A claim points into one claim or one record.',
+    });
+export const extensionTarget = targetOf(extensionDetail);
+export const disputeTarget = targetOf(disputeDetail);
+export type ClaimTarget = z.infer<typeof extensionTarget> | z.infer<typeof disputeTarget>;
+
+/**
+ * How a claim relates to what it targets. Every claim has a relation, and its edge is
+ * its `target` and `relation` together. A first claim about a photo extends the photo.
+ * A dispute carries its reasoning, required and checked here rather than left to the
+ * interface.
+ *
+ * A record that stands on its own can only be extended: it stays true as evidence that
+ * someone said something, even if what it says is wrong. A record with a `parent`, like
+ * a transcript or a translation, is someone's rendering, so it can be disputed too. The
+ * scoring graph checks that, because it takes the record to know.
+ */
+export const claimReply = z.discriminatedUnion('relation', [
+  z.object({
+    relation: z.literal('extension'),
+    reasoning: z.undefined().optional(),
+    target: extensionTarget,
+  }),
+  z.object({
+    relation: z.literal('dispute'),
+    reasoning: z.string().refine((r) => r.trim().length > 0, {
+      message: 'A dispute without a reason isn\'t a dispute. "This is wrong" cannot be filed.',
+    }),
+    target: disputeTarget,
+  }),
+]);
+export type ClaimReply = z.infer<typeof claimReply>;
 
 /**
  * Whether a reply disputes these words of the claim it targets. It does when it's a
@@ -782,12 +816,14 @@ export type ClaimTarget = z.infer<typeof claimTarget>;
  * in is disputed.
  */
 export const contests = (
-  reply: { relation?: ClaimRelation | undefined; target: ClaimTarget },
+  reply: { relation: ClaimRelation; target: ClaimTarget },
   e: Excerpt,
 ): boolean =>
   reply.relation === 'dispute' &&
   (reply.target.details.length === 0 ||
-    reply.target.details.some((d) => isExcerpt(d.at) && d.at.start <= e.start && d.at.end >= e.end));
+    reply.target.details.some(
+      (d: TargetDetail) => isExcerpt(d.at) && d.at.start <= e.start && d.at.end >= e.end,
+    ));
 
 /**
  * An excerpt of a claim that another claim points at.
@@ -844,38 +880,21 @@ export const claimEvidence = z.object({
 export type ClaimEvidence = z.infer<typeof claimEvidence>;
 
 /**
- * What has to hold for a claim's target and relation to make sense. The contract's
- * claim and the scoring graph's claim both check it.
+ * What has to hold for a claim beyond its shape. The contract's claim and the scoring
+ * graph's claim both check it.
  */
-export function checkReply(
-  c: {
-    text: string;
-    target: ClaimTarget;
-    relation?: ClaimRelation | undefined;
-    reasoning?: string | undefined;
-    references: ClaimReference[];
-  },
+export function checkClaim(
+  c: { text: string; target: ClaimTarget; references: ClaimReference[] },
   ctx: z.RefinementCtx,
 ): void {
   const problem = (message: string) => ctx.addIssue({ code: z.ZodIssueCode.custom, message });
-  if (c.target.claimId !== undefined && c.relation === undefined) {
-    problem('A claim that targets a claim has to dispute it or extend it.');
-  }
-  if (c.target.recordId !== undefined && c.relation !== undefined) {
-    problem("A claim about a record doesn't dispute or extend anything, so it has no relation.");
-  }
-  if (c.relation === 'dispute' && !c.reasoning?.trim()) {
-    problem("A dispute without a reason isn't a dispute. \"This is wrong\" cannot be filed.");
-  }
-  if (c.relation !== 'dispute' && c.reasoning !== undefined) {
-    problem('Only a dispute has reasoning.');
-  }
-  for (const d of c.target.details) {
+  for (const d of c.target.details as TargetDetail[]) {
     if (!isExcerpt(d.at) && c.target.recordId === undefined) {
       problem('A time window is a stretch of a recording, so only a record has one.');
     }
-    if (d.to && !excerptIsIn(c.text, d.to)) {
-      problem(`"${d.to.text}" isn't at that position in this claim's own text.`);
+    const to = toOf(d);
+    if (to && !excerptIsIn(c.text, to)) {
+      problem(`"${to.text}" isn't at that position in this claim's own text.`);
     }
   }
   for (const r of c.references) {
@@ -892,7 +911,7 @@ export function checkReply(
  * time, so anything that wants a list of them reads it off the
  * claims.
  */
-export const claim = z.object({
+const claimFields = z.object({
   id: z.string(),
   siteId: z.string(),
   contributorId: z.string(),
@@ -924,15 +943,6 @@ export const claim = z.object({
    * can be corroborated or disputed on its own.
    */
   sourceRecordId: z.string(),
-  /** What this claim points into, and where. */
-  target: claimTarget,
-  /** Whether it disputes or extends the claim it targets. Only a claim that targets a claim has one. */
-  relation: claimRelation.optional(),
-  /**
-   * Why, on a dispute. Required there, and checked here rather than left to the
-   * interface.
-   */
-  reasoning: z.string().optional(),
   /**
    * Evidence records: records attached to this claim to back it up. Optional,
    * so often empty.
@@ -951,7 +961,8 @@ export const claim = z.object({
    * gets from evidence and behavior.
    */
   awaitingTranslation: z.boolean(),
-}).superRefine(checkReply);
+});
+export const claim = z.intersection(claimFields, claimReply).superRefine(checkClaim);
 export type Claim = z.infer<typeof claim>;
 
 /** Someone saying a rendering gets something wrong. Kept permanently. */
@@ -1054,7 +1065,7 @@ export const claimDispute = z.object({
   claimId: z.string(),
   contributorId: z.string(),
   reasoning: z.string().min(1),
-  /** The words in the dispute's own text that replace this detail, if it names any. */
+  /** The words in the dispute's own text that replace this detail, when it points at exactly this detail. */
   to: excerpt.optional(),
   createdAt: z.string(),
 });
@@ -1333,9 +1344,12 @@ export const schemas = {
   claim,
   excerpt,
   claimDetail,
-  claimTarget,
   claimRelation,
-  targetDetail,
+  extensionDetail,
+  disputeDetail,
+  extensionTarget,
+  disputeTarget,
+  claimReply,
   claimReference,
   claimEvidence,
   claimDispute,

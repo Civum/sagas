@@ -46,20 +46,23 @@ it. This is the most useful field in the entry.
 **Affects:** intelligence layer · experience layer
 
 **What:**
-- **A reply is its own edge.** `claim.target` is now `{ claimId | recordId, details }`: what
-  a claim points into, and where inside it. A transcript or a translation is a record, so a
-  claim about one has `recordId`. Two new fields sit beside it: `relation`, dispute or
-  extension, and `reasoning`, required on a dispute. `disputeEdge`, `extensionEdge`, `edge`,
-  `edgeType`, `parentClaimId`, `disputedClaimId` and the scoring graph's `edges` are gone as
-  stored objects. The graph still has edges, and each one lives on the claim that replies.
-  `repliesTo(graph, claimId)` reads them off the claims.
-- **`target.details` lists where a claim points.** Each entry has `at` and optionally `to`.
-  `at` is an object: `{ start, end, text }` for words, with positions in characters, or
-  `{ start, end }` for a window of a recording, in seconds. `to` is the words in the claim's
-  own text that replace or add to it, and it replaces `proposedValue`. It lives on each
-  entry because one dispute can make several changes. With no `to`, the dispute objects
-  without naming a replacement, and its reasoning still shows. `A.target.details` says where
-  A points. `detailsOf(graph, "A")` says what others point at in A.
+- **A claim's edge lives on the claim.** Every claim now has a `relation` and a `target`, and
+  those two are its edge. `target` is `{ claimId | recordId, details }`: what a claim points
+  into, and where inside it. `relation` is `extension` or `dispute`, and a dispute also has
+  `reasoning`, required. A first claim about a photo extends the photo. `disputeEdge`,
+  `extensionEdge`, `edge`, `edgeType`, `parentClaimId`, `disputedClaimId` and the scoring
+  graph's `edges` are gone as stored objects, and `repliesTo(graph, claimId)` reads the edges
+  off the claims.
+- **`target.details` lists where a claim points.** Each entry has `at`, an object: `{ start,
+  end, text }` for words, with positions in characters, or `{ start, end }` for a window of a
+  recording, in seconds. An extension has only `at`. A dispute also has `to`, required: the
+  words in its own text that replace what it points at. A dispute says "not X but Y", and
+  `to` replaces `proposedValue`. `A.target.details` says where A points. `detailsOf(graph,
+  "A")` says what others point at in A.
+- **A transcript or a translation is a record, and it can be disputed.** A claim about one has
+  `recordId`. A record that stands on its own can only be extended, because it stays true
+  as evidence that someone said something. A record with a `parent` is someone's rendering, so
+  it can be disputed too. The scoring graph checks this, and `recordNode` gains `parent`.
 - **One claim can point at several details,** so "Sally bought a pink hat" disputed as
   "Brandon bought a blue hat" is one claim, and its evidence is cited once. No details
   means all of the target, and that goes for a dispute too. A dispute of the whole claim
@@ -93,7 +96,8 @@ it now than to let anyone build on the old shape.
   too, and skip what this entry undoes.
   - Tell a dispute from an extension with `claim.relation`, in place of `disputedClaimId`.
   - `claim.target.claimId` replaces `parentClaimId`. A first claim has `target.recordId`
-    instead, so it's undefined there.
+    instead, so it's undefined there. A first claim's `relation` is now `extension`, so check
+    `target.claimId` to tell a reply from a first claim.
   - An excerpt is an object, so read `.text` on `detail.excerpt`, `reference.excerpt` and
     `score.details[].excerpt`.
   - In `detailStatuses`, each entry in `disputes` now has `claimId`, `contributorId`,
@@ -104,7 +108,8 @@ it now than to let anyone build on the old shape.
     build them by hand. `spans[].detailIds` uses the new ids.
   - The fixtures have the same counts of claims, details and disputes as before, and none has a
     dispute of a whole claim yet. When one exists on a claim with no details, it shows only in
-    `claimState.disputes`.
+    `claimState.disputes`. A dispute of a detail now always names its replacement, so
+    `disputes[].to` is only empty when the dispute covers more than that detail.
 - *intelligence layer* — pull upstream. If you're coming from 2.4.0, read the 2.5.0 lines
   too, and skip what this entry undoes.
   - Stop reading `graph.edges`. From `@sagas/fixtures/scoring`, `repliesTo` gives the replies to
@@ -116,8 +121,10 @@ it now than to let anyone build on the old shape.
     in `target.details`, and `isExcerpt` tells words from a window.
   - Your scorer's results change. `detailScore.excerpt` is an object, your ids come from
     `detailId(claimId, excerpt)`, and a `behaviour` term's family is now `'behavior'`.
-  - The builder still takes words, so `.dispute("C", "A", "1950", "why")` reads the same. It also
-    takes `{ at, to, occurrence }`, a list, or `undefined` for the whole claim.
+  - The builder still takes words, and finds the positions for you. `.extend("B", "A", "1950")`
+    reads the same. `.dispute` now takes `{ at, to }`, like `.dispute("C", "A", { at: "1950", to:
+    "1960" }, "why")`, or a list of them, or `undefined` for the whole claim. `to` has to be words
+    in the reply's own text.
   - A claim's own evidence no longer names an excerpt, so "evidence naming an excerpt raises that
     detail" is now "a reply's evidence raises the detail it points at", under "evidence and
     volume". "targets" has three new rules: a dispute of the whole claim, one dispute pointing at

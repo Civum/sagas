@@ -264,13 +264,12 @@ care".
 The relationships between claims aren't hidden in the text. People state them
 when they write a claim, and they become the edges of the graph:
 
-- **A dispute is a claim that targets another claim,** with `relation: 'dispute'`, and
-  always gives a reason. It usually points at one detail, like the year, and it can
+- **A dispute is a claim with `relation: 'dispute'`,** and it always gives a reason and says
+  "not X but Y". It usually points at one detail, like the year, and it can
   point at several: "Sally bought a pink hat" disputed as "Brandon bought a blue hat"
   points at "Sally" and at "pink". With no details it disputes the whole claim, which
-  contests every detail inside it. Each entry in `target.details` has `at`, the words or the window
-  in the target, and `to`, the words in the dispute's own text that replace them, if it names
-  any.
+  contests every detail inside it. Each entry in `target.details` has `at`, the words or the
+  window in the target, and `to`, the words in the dispute's own text that replace them.
 - **An extension is a claim with `relation: 'extension'`.** It adds to its target. It
   usually points at a detail, or at the whole claim when it's about all of it, and it
   replaces nothing.
@@ -473,6 +472,9 @@ record, so it carries less until someone brings evidence.
 
 These are for later, and they're outside this semester's minimum.
 
+- **A challenge opens a task on the detail.** Someone who only has "not X" isn't disputing,
+  because a dispute says what replaces it. How a challenge works is open, so nothing here
+  needs it yet.
 - **Resolution is its own kind of relation,** beside dispute and extension: a
   claim that reconciles a disagreement, with weight like any other claim, and
   more than one allowed. What it points at is still open (below), so it isn't

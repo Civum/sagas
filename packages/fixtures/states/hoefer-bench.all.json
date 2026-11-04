@@ -27,6 +27,7 @@
           "contributorId": "c-nadia",
           "sourceRecordId": "rec-plaque",
           "evidence": [],
+          "relation": "extension",
           "target": {
             "recordId": "rec-plaque",
             "details": []
@@ -263,6 +264,7 @@
           "contributorId": "c-nadia",
           "sourceRecordId": "rec-plaque",
           "evidence": [],
+          "relation": "extension",
           "target": {
             "recordId": "rec-plaque",
             "details": []
@@ -494,6 +496,7 @@
           "contributorId": "c-nadia",
           "sourceRecordId": "rec-plaque",
           "evidence": [],
+          "relation": "extension",
           "target": {
             "recordId": "rec-plaque",
             "details": []
@@ -725,6 +728,7 @@
           "contributorId": "c-nadia",
           "sourceRecordId": "rec-plaque",
           "evidence": [],
+          "relation": "extension",
           "target": {
             "recordId": "rec-plaque",
             "details": []

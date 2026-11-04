@@ -9,7 +9,7 @@ const shop = () =>
     .record("photo", { by: "ana", kind: "image" })
     .claim("A", { by: "ana", source: "photo", text: "It opened in <1950>." })
     .claim("D", { by: "omar", source: "photo", text: "It was 1956." })
-    .dispute("D", "A", "<1950>", "the road came later")
+    .dispute("D", "A", { at: "<1950>", to: "1956" }, "the road came later")
     .build();
 
 describe("renderGraph", () => {

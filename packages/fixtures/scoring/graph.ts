@@ -2,12 +2,13 @@
  * The model, in five sentences.
  *
  * A claim is something a person says about one thing, its `target`: another claim or
- * a record, and a transcript or a translation is a record. A claim that targets a claim
- * has a `relation`, dispute or extension, and a dispute also gives its `reasoning`.
- * `target.details` lists where it points inside that thing, each with an `at`, and an
- * empty list means all of it. When B points at words in claim A, those words are a detail
- * of A, so `detailsOf(graph, "A")` collects them from every reply to A. A reply's target
- * and relation are its edge, and the graph stores that edge nowhere else.
+ * a record, and a transcript or a translation is a record. Every claim has a `relation`.
+ * It extends its target, or it disputes it, and a dispute gives its `reasoning`.
+ * `target.details` lists where it points inside that thing, each with an `at`, plus a
+ * `to` on a dispute, and an empty list means all of it. When B points at words in claim
+ * A, those words are a detail of A, so `detailsOf(graph, "A")` collects them from every
+ * reply to A. A claim's target and relation are its edge, and the graph stores that edge
+ * nowhere else.
  *
  * `at` is an object: `{ start, end, text }` for words, with positions in characters, or
  * `{ start, end }` for a window of a recording, in seconds.
@@ -29,18 +30,18 @@
  */
 import { z } from "zod";
 
-import type { ClaimDetail, Excerpt } from "@sagas/contracts";
+import type { ClaimDetail, Excerpt, TargetDetail } from "@sagas/contracts";
 import {
-  checkReply,
+  checkClaim,
   claimEvidence,
   claimReference,
-  claimRelation,
+  claimReply,
   claimScore,
-  claimTarget,
   detailId,
   detailScore,
   excerptIsIn,
   isExcerpt,
+  recordParent,
   sameExcerpt,
   scoreTerm,
 } from "@sagas/contracts";
@@ -66,6 +67,11 @@ export const recordNode = z.object({
   transcribedWindows: z
     .array(z.object({ start: z.number(), end: z.number() }))
     .optional(),
+  /**
+   * What this record supports, when it's a transcript or a translation of something.
+   * A record with a parent can be disputed. One without can only be extended.
+   */
+  parent: recordParent.optional(),
   /** The same file handed over twice has the same hash. */
   contentHash: z.string().optional(),
   /**
@@ -78,20 +84,13 @@ export const recordNode = z.object({
 });
 export type RecordNode = z.infer<typeof recordNode>;
 
-export const claimNode = z
-  .object({
+const claimNodeFields = z.object({
   id: z.string(),
   contributorId: z.string(),
   createdAt: timestamp,
   text: z.string(),
   /** The record this claim's thread starts from. Claims with the same one are one thread. */
   sourceRecordId: z.string(),
-  /** What this claim points into, and where inside it. An empty `details` means all of it. */
-  target: claimTarget,
-  /** Whether it disputes or extends the claim it targets. Only a claim that targets a claim has one. */
-  relation: claimRelation.optional(),
-  /** Why, on a dispute. The people who write claims choose these, so the scorer never guesses them from the words. */
-  reasoning: z.string().optional(),
   /**
    * True when the claim was given in another language and rendered. It must
    * never lower a score; the rules check that. There's no field for where a
@@ -106,8 +105,16 @@ export const claimNode = z
    * its source.
    */
   evidence: z.array(claimEvidence),
-  })
-  .superRefine(checkReply);
+});
+
+/**
+ * A claim, with its `target`, `relation` and, on a dispute, `reasoning`. See `claimReply`
+ * in the contract. The people who write claims choose these, so the scorer never guesses
+ * them from the words.
+ */
+export const claimNode = z
+  .intersection(claimNodeFields, claimReply)
+  .superRefine(checkClaim);
 export type ClaimNode = z.infer<typeof claimNode>;
 
 /**
@@ -146,14 +153,17 @@ export const scoringGraph = z
   })
   .superRefine((g, ctx) => {
     const claims = new Map(g.claims.map((c) => [c.id, c]));
-    const records = new Set(g.records.map((r) => r.id));
+    const records = new Map(g.records.map((r) => [r.id, r]));
     const problem = (message: string) =>
       ctx.addIssue({ code: z.ZodIssueCode.custom, message });
     for (const c of g.claims) {
       const { claimId, recordId } = c.target;
       if (recordId !== undefined) {
-        if (!records.has(recordId))
+        const record = records.get(recordId);
+        if (!record)
           problem(`claim ${c.id} targets record ${recordId}, which isn't in the graph`);
+        else if (c.relation === "dispute" && !record.parent)
+          problem(`claim ${c.id} disputes record ${recordId}, which has no parent. A record that stands on its own can only be extended.`);
         continue;
       }
       const target = claims.get(claimId ?? "");
@@ -175,7 +185,9 @@ export const repliesTo = (graph: ScoringGraph, claimId: string): ClaimNode[] =>
 
 /** Whether a reply points at exactly these words of the claim it targets. */
 export const pointsAt = (reply: ClaimNode, e: Excerpt): boolean =>
-  reply.target.details.some((d) => isExcerpt(d.at) && sameExcerpt(d.at, e));
+  (reply.target.details as TargetDetail[]).some(
+    (d) => isExcerpt(d.at) && sameExcerpt(d.at, e),
+  );
 
 /**
  * A claim's details, worked out from what points at it. The same words in the same
@@ -186,7 +198,7 @@ export const pointsAt = (reply: ClaimNode, e: Excerpt): boolean =>
 export function detailsOf(graph: ScoringGraph, claimId: string): ClaimDetail[] {
   const excerpts: Excerpt[] = [];
   for (const reply of repliesTo(graph, claimId)) {
-    for (const { at } of reply.target.details) {
+    for (const { at } of reply.target.details as TargetDetail[]) {
       if (isExcerpt(at) && !excerpts.some((e) => sameExcerpt(e, at)))
         excerpts.push(at);
     }
@@ -205,7 +217,7 @@ export function detailsOf(graph: ScoringGraph, claimId: string): ClaimDetail[] {
 export const term = scoreTerm;
 export type Term = z.infer<typeof term>;
 export { detailScore, claimScore, detailId };
-export { contests, findExcerpt, isExcerpt, sameExcerpt } from "@sagas/contracts";
+export { contests, findExcerpt, isExcerpt, sameExcerpt, toOf } from "@sagas/contracts";
 export type DetailScore = z.infer<typeof detailScore>;
 export type ClaimScore = z.infer<typeof claimScore>;
 

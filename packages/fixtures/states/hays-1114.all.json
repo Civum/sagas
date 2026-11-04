@@ -27,6 +27,7 @@
           "contributorId": "c-tomas",
           "sourceRecordId": "rec-hays-shoes",
           "evidence": [],
+          "relation": "extension",
           "target": {
             "recordId": "rec-hays-shoes",
             "details": []
@@ -226,6 +227,7 @@
           "contributorId": "c-tomas",
           "sourceRecordId": "rec-hays-shoes",
           "evidence": [],
+          "relation": "extension",
           "target": {
             "recordId": "rec-hays-shoes",
             "details": []
@@ -420,6 +422,7 @@
           "contributorId": "c-tomas",
           "sourceRecordId": "rec-hays-shoes",
           "evidence": [],
+          "relation": "extension",
           "target": {
             "recordId": "rec-hays-shoes",
             "details": []
@@ -641,6 +644,7 @@
           "contributorId": "c-tomas",
           "sourceRecordId": "rec-hays-shoes",
           "evidence": [],
+          "relation": "extension",
           "target": {
             "recordId": "rec-hays-shoes",
             "details": []

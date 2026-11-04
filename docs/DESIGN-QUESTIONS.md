@@ -102,17 +102,13 @@ nobody knows yet.
 
 ## `translationDispute` and a dispute claim are the same idea
 
-**Now:** two separate shapes. A claim with `relation: 'dispute'` objects to a claim,
-and a `translationDispute` objects to a translation. Both carry a contributor, a
-target, reasoning, and a timestamp.
+**Now:** two separate shapes. Since contract 2.6.0 a claim can dispute a record with a
+`parent`, and a translation is one, so `translationDispute` does a job a dispute claim can
+now do. The sponsor intends to retire it, and it isn't retired yet.
 
-**The problem:** they will keep diverging. A third kind of objection is already
-foreseeable (see Part 2), and it'll be a third copy.
-
-**Why this is hard:** merging them means a target that can point at different
-kinds of thing, which is either a discriminated union or a polymorphic
-reference. Both are more complex than what is there now. The question is whether
-that complexity is worth paying for today or once there are three.
+**Why this is hard:** the fixtures and pages that read `translationDisputes` have to move
+to reading dispute claims, and a dispute claim needs a source record and text of its own,
+which a `translationDispute` never asked for.
 
 ---
 
@@ -722,6 +718,10 @@ Working out who to ask is a task. If task were an object, behavioral history
 would be per category by construction instead of tracked separately for each
 activity.
 
+One piece of this is decided and not in the contract yet: a dispute says "not X but Y", so
+someone who only has "not X" raises a challenge, and a challenge opens a task on that
+detail. What a challenge looks like and who sees the task are open.
+
 `contributorStanding` is already the accounting half of this. Every field in it
 counts a completed act. What a task object would add is the part missing
 everywhere else: an addressable piece of open work with a state, which is what
@@ -1015,8 +1015,8 @@ that routing. A person who does start fresh could see the closest matches and ch
   person would have picked.
 - Whether a page collapses repeats ("eleven more people said this") and links a claim to
   the thread it repeats.
-- How the intelligence layer's matching and the experience layer's explore mode connect,
-  with passovers as the signal between them.
+- How the intelligence layer's matching plugs into the experience layer's routing, with
+  passovers as the signal between them.
 
 ---
 

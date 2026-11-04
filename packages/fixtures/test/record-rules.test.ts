@@ -155,6 +155,7 @@ describe("time windows and collections (2.4.0)", () => {
     sourceRecordId: "rec-1",
     evidence: [],
     awaitingTranslation: false,
+    relation: "extension",
     target: { recordId: "rec-1", details: [] },
   };
   const parses = (change: object) =>
@@ -185,9 +186,20 @@ describe("time windows and collections (2.4.0)", () => {
     ).toBe(false);
   });
 
-  it("a claim that targets a claim has a relation, and a claim about a record has none", () => {
-    expect(parses(reply)).toBe(false);
-    expect(parses({ relation: "extension" })).toBe(false);
+  it("every claim has a relation, and a first claim extends its record", () => {
+    expect(parses({ relation: undefined })).toBe(false);
+    expect(parses({ relation: "extension" })).toBe(true);
+  });
+
+  it("a dispute says what replaces the words, and an extension has no replacement", () => {
+    const at = { start: 0, end: 4, text: "1950" };
+    const to = { start: 7, end: 11, text: "1956" };
+    const dispute = { relation: "dispute", reasoning: "why" };
+    const target = (details: object[]) => ({ claimId: "cl-2", details });
+    expect(parses({ ...dispute, target: target([{ at, to }]) })).toBe(true);
+    expect(parses({ ...dispute, target: target([{ at }]) })).toBe(false);
+    expect(parses({ relation: "extension", target: target([{ at }]) })).toBe(true);
+    expect(parses({ relation: "extension", target: target([{ at, to }]) })).toBe(false);
   });
 
   it("a dispute has reasoning, and nothing else does", () => {

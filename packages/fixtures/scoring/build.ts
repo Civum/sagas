@@ -8,21 +8,21 @@
  *     .dispute('C', 'A', { at: '1950', to: '1960' }, "Mill Road wasn't built until 1958")
  *     .build();
  *
- * `extend` and `dispute` take the words they point at: one, or a list for a reply
- * that points at several. Give `{ at, to }` to name the words in the reply's own text
- * that replace them, and `occurrence` to pick a repeat. Leave them out for a reply
- * about the whole claim. The builder finds the positions, so you never count characters.
+ * `extend` takes the words it points at, as a string or a list. `dispute` takes
+ * `{ at, to }`, or a list of them, because a dispute says what replaces those words: `to`
+ * is words in the reply's own text. Add `occurrence` to pick a repeat of `at`. Leave them
+ * out for a reply about the whole claim. The builder finds the positions, so you never
+ * count characters.
  *
  * Profiles are created as guests the first time someone is named with `by`.
  * Every event gets its own minute, in the order it was written, unless you
  * give it a time. Records named as a source or as evidence must be added with
  * `.record` first.
  */
-import type { ClaimReference, TargetDetail } from "@sagas/contracts";
+import type { ClaimReference, RecordParent, TargetDetail } from "@sagas/contracts";
 import { findExcerpt } from "@sagas/contracts";
 
 import type {
-  ClaimNode,
   Passover,
   Profile,
   RecordNode,
@@ -41,6 +41,8 @@ interface RecordOptions {
   /** Stretches with a transcript, in seconds. */
   transcribedWindows?: { start: number; end: number }[];
   hash?: string;
+  /** What it supports, for a transcript or a translation. It can then be disputed. */
+  parent?: RecordParent;
   location?: { lat: number; lng: number };
 }
 
@@ -59,21 +61,42 @@ interface ClaimOptions {
   references?: (Omit<ClaimReference, "excerpt"> & { excerpt: string })[];
 }
 
-/** Words in the target, optionally with the words in the reply that replace them. */
-export type DetailOption =
-  | string
-  | { at: string; to?: string; occurrence?: number };
-type DetailOptions = DetailOption | DetailOption[];
+/** Words in the target an extension points at. */
+export type ExtensionOption = string | { at: string; occurrence?: number };
+/** Words in the target a dispute points at, and the words in the reply that replace them. */
+export interface DisputeOption {
+  at: string;
+  to: string;
+  occurrence?: number;
+}
+
+const listOf = <T>(x: T | T[] | undefined): T[] =>
+  x === undefined ? [] : Array.isArray(x) ? x : [x];
+
+/** A claim while it's being built. `build` checks it against the schema. */
+interface Draft {
+  id: string;
+  contributorId: string;
+  createdAt: string;
+  text: string;
+  sourceRecordId: string;
+  target: { claimId?: string; recordId?: string; details: TargetDetail[] };
+  relation: "dispute" | "extension";
+  reasoning?: string;
+  references: ClaimReference[];
+  translated?: boolean;
+  evidence: { recordId: string }[];
+}
 
 export class GraphBuilder {
   private minute = 0;
   private readonly records: RecordNode[] = [];
-  private readonly claims: ClaimNode[] = [];
+  private readonly claims: Draft[] = [];
   private readonly pending: {
-    claim: ClaimNode;
+    claim: Draft;
     relation: "dispute" | "extension";
     targetId: string;
-    details: DetailOption[];
+    details: (ExtensionOption | DisputeOption)[];
     reasoning?: string;
   }[] = [];
   private readonly passoverList: Passover[] = [];
@@ -105,6 +128,7 @@ export class GraphBuilder {
         transcribedWindows: o.transcribedWindows,
       }),
       ...(o.hash !== undefined && { contentHash: o.hash }),
+      ...(o.parent !== undefined && { parent: o.parent }),
       ...(o.location !== undefined && { location: o.location }),
     });
     return this;
@@ -118,6 +142,7 @@ export class GraphBuilder {
       createdAt: this.tick(o.at),
       text: o.text,
       sourceRecordId: o.source,
+      relation: "extension",
       target: {
         recordId: o.source,
         details: o.window !== undefined ? [{ at: o.window }] : [],
@@ -138,7 +163,7 @@ export class GraphBuilder {
     replyId: string,
     targetId: string,
     relation: "dispute" | "extension",
-    details: DetailOptions | undefined,
+    details: (ExtensionOption | DisputeOption)[],
     reasoning?: string,
   ): this {
     const claim = this.claims.find((c) => c.id === replyId);
@@ -147,7 +172,7 @@ export class GraphBuilder {
       claim,
       relation,
       targetId,
-      details: details === undefined ? [] : [details].flat(),
+      details,
       ...(reasoning !== undefined && { reasoning }),
     });
     return this;
@@ -157,35 +182,61 @@ export class GraphBuilder {
   dispute(
     replyId: string,
     targetId: string,
-    details: DetailOptions | undefined,
+    details: DisputeOption | DisputeOption[] | undefined,
     reasoning: string,
   ): this {
-    return this.reply(replyId, targetId, "dispute", details, reasoning);
+    return this.reply(replyId, targetId, "dispute", listOf(details), reasoning);
+  }
+
+  /** Dispute a transcript or a translation, which is a record with a parent. */
+  disputeRecord(
+    replyId: string,
+    recordId: string,
+    details: DisputeOption | DisputeOption[] | undefined,
+    reasoning: string,
+    text: string,
+  ): this {
+    const claim = this.claims.find((c) => c.id === replyId);
+    if (!claim) throw new Error(`dispute from unknown claim ${replyId}`);
+    const at = (d: DisputeOption): TargetDetail => {
+      const words = findExcerpt(text, d.at, d.occurrence);
+      const to = findExcerpt(claim.text, d.to);
+      if (!words) throw new Error(`reply ${replyId}: "${d.at}" isn't in the text of ${recordId}`);
+      if (!to) throw new Error(`reply ${replyId}: "${d.to}" isn't in the text of ${replyId}`);
+      return { at: words, to };
+    };
+    claim.target = {
+      recordId,
+      details: listOf(details).map(at),
+    };
+    claim.relation = "dispute";
+    claim.reasoning = reasoning;
+    return this;
   }
 
   /** Leave out `details` for an extension about the whole claim. */
   extend(
     replyId: string,
     targetId: string,
-    details?: DetailOptions,
+    details?: ExtensionOption | ExtensionOption[],
   ): this {
-    return this.reply(replyId, targetId, "extension", details);
+    return this.reply(replyId, targetId, "extension", listOf(details));
   }
 
   private resolve(
-    replyId: string,
-    replyText: string,
-    target: ClaimNode,
-    option: DetailOption,
+    reply: Draft,
+    target: Draft,
+    option: ExtensionOption | DisputeOption,
   ): TargetDetail {
-    const o = typeof option === "string" ? { at: option } : option;
+    const o: { at: string; to?: string; occurrence?: number } =
+      typeof option === "string" ? { at: option } : option;
     const at = findExcerpt(target.text, o.at, o.occurrence);
     if (!at)
-      throw new Error(`reply ${replyId}: "${o.at}" isn't in the text of ${target.id}`);
+      throw new Error(`reply ${reply.id}: "${o.at}" isn't in the text of ${target.id}`);
     if (o.to === undefined) return { at };
-    const to = findExcerpt(replyText, o.to);
+    const to = findExcerpt(reply.text, o.to);
     if (!to)
-      throw new Error(`reply ${replyId}: "${o.to}" isn't in the text of ${replyId}`);
+      throw new Error(`reply ${reply.id}: "${o.to}" isn't in the text of ${reply.id}`);
     return { at, to };
   }
 
@@ -234,9 +285,7 @@ export class GraphBuilder {
       }
       p.claim.target = {
         claimId: p.targetId,
-        details: p.details.map((d) =>
-          this.resolve(p.claim.id, p.claim.text, target, d),
-        ),
+        details: p.details.map((d) => this.resolve(p.claim, target, d)),
       };
       p.claim.relation = p.relation;
       if (p.reasoning !== undefined) p.claim.reasoning = p.reasoning;

@@ -26,6 +26,7 @@
         "contributorId": "c-esther",
         "sourceRecordId": "rec-hays-bakery",
         "evidence": [],
+        "relation": "extension",
         "target": {
           "recordId": "rec-hays-bakery",
           "details": []
