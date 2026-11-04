@@ -173,3 +173,23 @@ detail, so independent support from that thread can count.
 
 **Done when** the rules under "worked example: four claims" and "worked example:
 the cat" pass.
+
+### S9 · Suggest the references in a claim's text
+
+**Status:** Later
+
+**Goal.** What you've been calling keywords are references: a date, a place, a person or a
+record named in a claim's own text. These are yours now. Given a claim's text, your code
+suggests the ones it finds, so the person who wrote it can confirm them.
+
+**Done when:**
+- `findReferences(text)` in `apps/graph-api/src` returns a list in the contract's
+  `claimReference` shape, each with its `kind`, its `excerpt` from `findExcerpt`, and
+  `status: "suggested"`.
+- Tests read as scenarios: given this text, these references. "It opened in 1948 on Mill Road"
+  suggests the date "1948" and the place "Mill Road". The same words twice give two references,
+  each at its own position. Text with nothing to find returns an empty list.
+
+**Not in this story.** Scoring references, because nothing scores them yet. Reference objects,
+where "A House" and "Alison's Ale House" are one thing, which are spring work. The screen where
+someone confirms a suggestion.

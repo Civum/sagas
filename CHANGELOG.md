@@ -41,6 +41,20 @@ it. This is the most useful field in the entry.
 
 ---
 
+## 2026-11-05 — a story for references, and two placeholder rules
+
+**Affects:** intelligence layer
+
+**What:** Your backlog gains S9, `findReferences(text)`. "matching across branches" and "targets"
+each gain a placeholder rule: a denial in another thread isn't support, and whether context
+about a longer excerpt supports the details inside it.
+
+**Why:** the sponsor's email of 3 November made references yours, and no story said what that
+means. Reviewing the independence pull request found the two refinements, and they're here so
+you can see them coming.
+
+**You need to:** nothing yet. Placeholders don't fail, and S9 is further down the order.
+
 ## v2.6.0 — 2026-11-03
 
 **Affects:** intelligence layer · experience layer · content layer (one field name)
