@@ -142,8 +142,9 @@ Record title or media          [loading record]
 Brought by contributor         [loading attribution]
 
 long name                      empty
-Record title from the          No source records are attached yet.
-Community Historical Society   The memory remains attributed.
+Record title from the          No additional evidence records yet.
+Community Historical           The memory remains attributed.
+Society (invented)
 collection
 ```
 

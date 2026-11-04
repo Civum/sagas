@@ -24,8 +24,9 @@ export const content: LandingContent = {
     date: '2026-10-19',
     copySha256: '3c870c03dd60b5e1997086526eb81c776c38dd625c5b50731d0e9c5497c908da',
   },
-  // De4 through De6 copy is retained here for review, but remains outside
-  // `copy` until sponsor approval makes it eligible for release.
+  // De4 through De6 are sponsor-approved design passages, but remain outside
+  // `copy` until the separate publication follow-up updates PageCopy, the
+  // fingerprint, and the release record.
   designSteps: {
     De2: {
       status: 'approved',
@@ -34,31 +35,22 @@ export const content: LandingContent = {
         'https://github.com/byui-cse397/2026.3FallCSE397PCP_sagasCustomer/issues/11#issuecomment-6278318879',
     },
     De4: {
-      status: 'draft',
-      copy: {
-        id: 'preserve',
-        label: 'Where a story belongs',
-        heading: 'Sagas helps a story stay connected to a place, while an archive can keep it permanently.',
-        text: 'Sagas is built around places, so it can turn up the people, records, and leads connected to a story. If you want material kept permanently, an archive may be the right place to donate it. We plan for contributors to choose what stays public and to be able to take something out of public view.',
-      },
+      status: 'approved',
+      approvedOn: '2026-11-02',
+      approvalLink:
+        'https://github.com/byui-cse397/2026.3FallCSE397PCP_sagasCustomer/issues/11#issuecomment-6572631996',
     },
     De5: {
-      status: 'draft',
-      copy: {
-        id: 'care',
-        label: 'How stories are looked after',
-        heading: 'Memories stay visible as memories, with the sources behind them.',
-        text: 'Sagas is designed to keep each memory connected to its source. When people remember something differently, the different versions stay visible with their own sources. Contributors choose what is public.',
-      },
+      status: 'approved',
+      approvedOn: '2026-11-02',
+      approvalLink:
+        'https://github.com/byui-cse397/2026.3FallCSE397PCP_sagasCustomer/issues/11#issuecomment-6572631996',
     },
     De6: {
-      status: 'draft',
-      copy: {
-        id: 'ownership',
-        label: 'Who runs the project',
-        heading: 'Sagas is an open source project run by Civum, Inc.',
-        text: 'Sagas is a map of community history: people share what they know about places, and others add to it, question it, or bring evidence. It is free to read, and nothing people contribute is sold.',
-      },
+      status: 'approved',
+      approvedOn: '2026-11-02',
+      approvalLink:
+        'https://github.com/byui-cse397/2026.3FallCSE397PCP_sagasCustomer/issues/11#issuecomment-6572631996',
     },
   },
   copy: {

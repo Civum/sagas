@@ -85,17 +85,13 @@ describe('landing page copy', () => {
   it('tracks design-step approval separately from release approval', () => {
     expect(content.status).toBe('approved');
     expect(content.designSteps?.De2.status).toBe('approved');
-    expect(content.designSteps?.De4.status).toBe('draft');
-    expect(content.designSteps?.De5.status).toBe('draft');
-    expect(content.designSteps?.De6.status).toBe('draft');
-    if (content.designSteps?.De4.status === 'draft') {
-      expect(content.designSteps.De4.copy.heading).toContain('archive');
-    }
-    if (content.designSteps?.De5.status === 'draft') {
-      expect(content.designSteps.De5.copy.text).not.toMatch(/moderation|review/i);
-    }
-    if (content.designSteps?.De6.status === 'draft') {
-      expect(content.designSteps.De6.copy.heading).toContain('Civum, Inc.');
+    for (const key of ['De4', 'De5', 'De6'] as const) {
+      const step = content.designSteps?.[key];
+      expect(step?.status).toBe('approved');
+      if (step?.status === 'approved') {
+        expect(step.approvedOn).toBe('2026-11-02');
+        expect(step.approvalLink).toContain('issuecomment-6572631996');
+      }
     }
   });
 

@@ -53,7 +53,7 @@ function header(copy: PageCopy): string {
   return `<header class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 pt-6 sm:px-6">
   <p class="font-serif text-xl font-semibold">${e(copy.nav.wordmark)}</p>
   <nav aria-label="${e(FIXED_TEXT.navLabel)}">
-    ${link(copy.nav.link, 'rounded-full border border-border px-4 py-1.5 text-sm font-medium hover:bg-muted')}
+    ${link(copy.nav.link, 'inline-flex min-h-11 items-center rounded-full border border-border px-4 text-sm font-medium hover:bg-muted')}
   </nav>
 </header>`;
 }

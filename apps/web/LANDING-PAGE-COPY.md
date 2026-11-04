@@ -4,12 +4,12 @@
 **Audience:** People who remember a place, community leaders, and archivists
 **Public release:** Approved for sagasproject.org; the product itself is not open yet
 
-**Design-step status:** De4 through De6 are draft additions under review. They are
-not part of the approved page copy until the sponsor approves them.
+**Design-step status:** De4 through De6 are approved design passages, but they
+are not part of the approved page copy. Publishing them is a follow-up requiring
+a new `PageCopy` update, copy hash, approval record, and changelog entry.
 
-**Review route:** Post De4–De6 in [Questions for the sponsor](https://github.com/byui-cse397/2026.3FallCSE397PCP_sagasCustomer/issues/11)
-with an `@7ujh6` mention. De7 is reviewed by the Experience team in its
-separate design document.
+**Review route:** De4–De6 approval is recorded in [Questions for the sponsor](https://github.com/byui-cse397/2026.3FallCSE397PCP_sagasCustomer/issues/11#issuecomment-6572631996).
+De7 is reviewed by the Experience team in its separate design document.
 
 This copy is for the local landing-page wireframe in
 [`landing-page-wireframe.html`](./landing-page-wireframe.html). It explains the
@@ -178,12 +178,12 @@ Changing a design-step status does not change the release status above.
 | Step | Status | Approval history |
 | --- | --- | --- |
 | De2 | Approved | Sponsor approval recorded on 19 October 2026 in [Issue #11](https://github.com/byui-cse397/2026.3FallCSE397PCP_sagasCustomer/issues/11#issuecomment-6278318879). |
-| De4 | Draft | Started 27 October 2026; sponsor approval pending. |
-| De5 | Draft | Started 27 October 2026; sponsor approval pending. |
-| De6 | Draft | Started 27 October 2026; sponsor approval pending. |
+| De4 | Approved design passage | Sponsor approval recorded on 2 November 2026 in [Issue #11](https://github.com/byui-cse397/2026.3FallCSE397PCP_sagasCustomer/issues/11#issuecomment-6572631996); publication follow-up pending. |
+| De5 | Approved design passage | Sponsor approval recorded on 2 November 2026 in [Issue #11](https://github.com/byui-cse397/2026.3FallCSE397PCP_sagasCustomer/issues/11#issuecomment-6572631996); publication follow-up pending. |
+| De6 | Approved design passage | Sponsor approval recorded on 2 November 2026 in [Issue #11](https://github.com/byui-cse397/2026.3FallCSE397PCP_sagasCustomer/issues/11#issuecomment-6572631996); publication follow-up pending. |
 | De7 | Draft | Component design moved to [`DE7-COMPONENT-DESIGN.md`](./DE7-COMPONENT-DESIGN.md); team review pending. |
 
-### De4 draft — Where a story belongs
+### De4 approved design passage — Where a story belongs
 
 **Heading**
 
@@ -200,7 +200,7 @@ Changing a design-step status does not change the release status above.
 This is planned product behavior. It does not name an archive or provide a
 donation path.
 
-### De5 draft — How stories are looked after
+### De5 approved design passage — How stories are looked after
 
 **Heading**
 
@@ -210,15 +210,15 @@ donation path.
 
 > Sagas is designed to keep each memory connected to its source. When people
 > remember something differently, the different versions stay visible with
-> their own sources. Contributors choose what is public.
+> their own sources. Contributors will choose what is public.
 
 This describes intended direction and does not add a live feature claim.
 
-### De6 draft — Who runs the project
+### De6 approved design passage — Who runs the project
 
 **Heading**
 
-> Sagas is an open source project run by Civum, Inc.
+> The core of Sagas is open source, and Civum, Inc. runs it.
 
 **Copy**
 
@@ -226,5 +226,5 @@ This describes intended direction and does not add a live feature claim.
 > question it, or bring evidence. It is free to read, and nothing people
 > contribute is sold.
 
-This passage requires sponsor approval before it is added to the approved page
-copy.
+This passage is sponsor-approved but requires a separate publication change
+before it is added to the approved page copy.
