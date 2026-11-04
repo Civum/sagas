@@ -3,7 +3,7 @@
 
 CREATE TABLE IF NOT EXISTS experience_read_model (
   slug        text NOT NULL,
-  state_id    text NOT NULL CHECK (state_id IN ('t0', 't1', 't2', 't3')),
+  state_id    text NOT NULL,
   position    integer NOT NULL DEFAULT 0,
   site        jsonb NOT NULL,
   graph_state jsonb NOT NULL,
