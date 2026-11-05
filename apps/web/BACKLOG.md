@@ -601,8 +601,7 @@ the page on to the harder data the fixtures already carry, and narrative work
 carries on alongside the map. The sponsor hasn't assigned anything. Pick owners as you
 finish your current work.
 
-Some of these use the freight depot, which came with contract 2.4.0. Your fork
-is still on 2.3.0, so pull upstream first (issue #32).
+Some of these use the freight depot, which came with contract 2.4.0. Your fork has it.
 
 ### M6 · Neighbourhood shapes on the map
 
@@ -660,8 +659,7 @@ still open.
 
 ### N6 · The freight depot as a page
 
-**Workstream:** Narrative page. **Status:** Ready, once you've pulled
-contract 2.4.0.
+**Workstream:** Narrative page. **Status:** Ready.
 
 **Goal.** The freight depot (`packages/fixtures/fixtures/freight-depot/events.ts`)
 is the fixture with the most cases in it: a recording in French, translations
@@ -983,7 +981,7 @@ at that detail and the rest of the claim reads as undisputed.
 - A dispute of the whole claim names no replacement for this detail, and it still shows,
   as an objection with its reasoning.
 
-See "Disagreement lands on one detail" in
+See "Disagreement usually lands on one detail" in
 `packages/fixtures/README.md`. The corner shop site at `t2` has a clean example.
 
 ### C3 · Where a claim comes from
@@ -1038,18 +1036,34 @@ add it?
 **Done when:** mockups plus a page of reasoning, brought to a specification
 meeting. Stories to build it come out of that meeting.
 
+### Da10 · Each reader's passovers, for routing
+
+**Workstream:** Data. **Status:** Ready.
+
+**Goal.** Routing needs to know what each person has passed over and how, and the fixture
+states only carry totals per claim. Give the data layer a way to read one profile's passovers at
+a site and a state.
+
+**Done when:**
+- The read model returns a profile's passovers at a site and state: each with its claim, its kind
+  (`sounds_right`, `dont_know` or `dont_care`) and its time. It reads them from the fixture event
+  logs in `packages/fixtures/fixtures`, which have them, until the contract carries them.
+- A test checks it against a fixture site that has passovers from more than one person.
+
+**Not in this story.** Recording a new passover, which comes with the passover interaction.
+
 ### D2 · Suggest what to read next, from what someone has already done
 
-**Workstream:** Data. **Status:** Draft. Needs contract 2.6.0. It's a starting point for
-the specification meeting D1 leads to, and that meeting can change it. It's backlog work,
-and your statement of work doesn't change.
+**Workstream:** Data. **Status:** Ready. Needs Da10. It's backlog work, and your statement of
+work doesn't change. D1 designs what the reader sees, and this decides what goes in it, so the
+two can run side by side.
 
 **Goal.** Given one person and one site, a function returns the claims to show them next,
 in order, each with a reason.
 
 **Done when:**
-- A function takes a scoring graph (`ScoringGraph` in `packages/fixtures/scoring`, which has
-  each person's passovers) and a profile, and returns an ordered list of claims, each with
+- A function takes a site's claims, a profile and that profile's passovers from Da10, and
+  returns an ordered list of claims, each with
   a reason.
 - It follows rules, with no learning. Which rules are yours to choose. Some examples are not
   showing a claim again after `dont_care`, offering the next claim in that thread after
