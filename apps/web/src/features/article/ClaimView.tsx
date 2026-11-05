@@ -29,13 +29,23 @@ export function ClaimView({ claim, detailIds }: { claim: ClaimState; detailIds?:
   );
 }
 
-/** Highlight the literal excerpts of selected details, merging overlaps. */
+/**
+ * Highlight the selected details, merging overlaps.
+ *
+ * Since contract 2.6.0 a detail's excerpt carries its own positions in the claim
+ * text, so repeated words ("1950" twice) are told apart. An excerpt whose words
+ * aren't at those positions in the text shown (an untranslated claim showing its
+ * original words, say) is left unmarked rather than marking the wrong words.
+ */
 function highlightDetails(text: string, claim: ClaimState, detailIds: string[] = []): ReactNode {
   const ranges = detailIds
     .flatMap((id) => {
-      const excerpt = claim.claim.details.find((detail) => detail.id === id)?.excerpt;
-      const start = excerpt ? text.indexOf(excerpt) : -1;
-      return excerpt && start >= 0 ? [{ start, end: start + excerpt.length }] : [];
+      const excerpt = claim.detailStatuses.find((status) => status.detail.id === id)?.detail
+        .excerpt;
+      if (!excerpt) return [];
+      return text.slice(excerpt.start, excerpt.end) === excerpt.text
+        ? [{ start: excerpt.start, end: excerpt.end }]
+        : [];
     })
     .sort((a, b) => a.start - b.start);
 
