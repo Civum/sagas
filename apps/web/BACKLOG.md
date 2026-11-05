@@ -1042,7 +1042,8 @@ meeting. Stories to build it come out of that meeting.
 
 **Goal.** Routing needs to know what each person has passed over and how, and the fixture
 states only carry totals per claim. Give the data layer a way to read one profile's passovers at
-a site and a state.
+a site (a place, like the corner shop) and a state (one moment in that site's fixture history,
+t0 to t3, the same ones N3 steps through).
 
 **Done when:**
 - The read model returns a profile's passovers at a site and state: each with its claim, its kind
@@ -1065,14 +1066,14 @@ in order, each with a reason.
 - A function takes a site's claims, a profile and that profile's passovers from Da10, and
   returns an ordered list of claims, each with
   a reason.
-- It follows rules, with no learning. Which rules are yours to choose. Some examples are not
+- It follows rules you write. Which rules are yours to choose. Some examples are not
   showing a claim again after `dont_care`, offering the next claim in that thread after
   `sounds_right`, and favoring contested details or details with few replies, because that's
   where help is needed.
 - Tests read as scenarios: given these passovers, the next suggestion is this claim, for
   this reason.
 
-**Not in this story.** Learned tuning, which needs real passover data. The intelligence
+**Not in this story.** Tuning the rules from real passover data, which doesn't exist yet. The intelligence
 layer's matching, which plugs in later as one more input.
 
 ---
