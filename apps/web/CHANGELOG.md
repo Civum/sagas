@@ -16,6 +16,10 @@ conflict on a later pull.
 - What works now, in a sentence a visitor would understand. (#pull request number, who)
 ```
 
+## 2026-11-03
+
+- The landing page’s “How it works” link is taller and easier to tap on a phone. (#47, Michael)
+
 ## 2026-10-28
 
 - Selecting an underlined phrase in a corner shop passage shows the claims behind it, strongest first, with extensions under the claim they add to and the phrase's words highlighted. (#33, Canon)
