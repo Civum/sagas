@@ -29,7 +29,8 @@ describe('ArticleView', () => {
   it('shows both disputed date readings with attribution and the supplied reasoning', () => {
     const page = renderArticle('t2');
 
-    expect(page).toContain('c. 1950');
+    // Contract 2.6.0: the first reading is the claim's own words, not a normalized value.
+    expect(page).toContain('Different readings of “around 1950”');
     expect(page).toContain('1956 or later');
     expect(page).toContain('Ray Okafor (invented)');
     expect(page).toContain('Owen Pike (invented)');

@@ -69,16 +69,17 @@ function NarrativeSection({
       {[...details.values()].map((status) => (
         <aside
           key={status.detail.id}
-          aria-label={`Different readings of ${status.detail.kind}: ${status.detail.excerpt}`}
+          aria-label={`Different readings of “${status.detail.excerpt.text}”`}
           className="space-y-2 rounded border border-neutral-300 p-3"
         >
           <h3 className="text-sm font-medium">
-            Different readings of “{status.detail.excerpt}”
+            Different readings of “{status.detail.excerpt.text}”
           </h3>
           <ul className="grid gap-3 sm:grid-cols-2">
             {status.competingValues.map((reading) => {
+              // Contract 2.6.0: a dispute names the words that replace this detail in `to`.
               const reason = status.disputes.find(
-                (dispute) => dispute.proposedValue === reading.value,
+                (dispute) => dispute.to?.text === reading.value,
               )?.reasoning;
               const names = reading.contributorIds
                 .map((id) => {
@@ -120,7 +121,7 @@ function RecordsSection({
     sourceRoles.add('Source record');
     recordRoles.set(claim.sourceRecordId, sourceRoles);
 
-    for (const recordId of claim.evidenceRecordIds) {
+    for (const { recordId } of claim.evidence) {
       const evidenceRoles = recordRoles.get(recordId) ?? new Set<string>();
       evidenceRoles.add('Evidence record');
       recordRoles.set(recordId, evidenceRoles);
