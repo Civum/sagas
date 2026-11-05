@@ -41,11 +41,12 @@ it. This is the most useful field in the entry.
 
 ---
 
-## 2026-11-05 — a story for references, and two placeholder rules
+## 2026-11-05 — stories for references and the terms screen, and two placeholder rules
 
-**Affects:** intelligence layer
+**Affects:** intelligence layer · content layer
 
-**What:** Your backlog gains S9, `findReferences(text)`. "matching across branches" and "targets"
+**What:** The content layer's backlog gains C6, the terms screen, split out of C1 so it stands on
+its own. The intelligence layer's backlog gains S9, `findReferences(text)`. "matching across branches" and "targets"
 each gain a placeholder rule: a denial in another thread isn't support, and whether context
 about a longer excerpt supports the details inside it.
 
@@ -53,7 +54,8 @@ about a longer excerpt supports the details inside it.
 means. Reviewing the independence pull request found the two refinements, and they're here so
 you can see them coming.
 
-**You need to:** nothing yet. Placeholders don't fail, and S9 is further down the order.
+**You need to:** nothing yet. Placeholders don't fail, S9 is further down the order, and C6 asks
+for what C1 already did.
 
 ## v2.6.0 — 2026-11-03
 
