@@ -83,7 +83,7 @@ export function listSites(stateId: FixtureStateId = 't3'): Site[] {
 export const DEFAULT_SITE = 'corner-shop';
 
 /**
- * Everything known about one place, as of one moment.
+ * Everything known about one site, as of a time. The fixtures answer for their four test moments.
  *
  * With a database this becomes a join across places, records, claims and
  * contributions, then the scoring pass. Watch the query count. The obvious
