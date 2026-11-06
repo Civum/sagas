@@ -1054,7 +1054,7 @@ a site, as of a time.
 
 ### Da11 · A site as of any time
 
-**Workstream:** Data. **Status:** Ready.
+**Workstream:** Data. **Status:** Ready. Needs contract 2.7.0.
 
 **Goal.** The claim is the model's central object, and every claim, record and passover carries
 its own time. So the read model stores the contributions, and answers "this site as of this
@@ -1065,8 +1065,9 @@ holding one snapshot per moment.
 - The database holds each site's contributions, the fixture events, with their times, and no
   row per state.
 - `getSiteState(slug, asOf)` returns the site as of any time, by folding the contributions up to
-  it with `reduceToState` from `@sagas/fixtures`. At each fixture moment's `asOf` time it matches
-  the fixture state for that moment.
+  it with `reduceToState(events, asOf)` from `@sagas/fixtures`. At each fixture moment's `asOf`
+  time, its claims, records and passovers match the fixture state for that moment. The sections
+  and the list of what changed since the previous moment still come from the fixture files.
 - N3's control steps through times, starting with the four fixture moments.
 
 **Not in this story.** Contributions from the other layers. They arrive with integration, in
