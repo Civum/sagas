@@ -41,6 +41,27 @@ it. This is the most useful field in the entry.
 
 ---
 
+## v2.7.0 — 2026-11-05
+
+**Affects:** experience layer
+
+**What:** `graphState` no longer has `stateId` or `label`. It keeps `asOf`, the time the state
+reflects. `reduceToState(events, asOf)` now takes a time where it took a fixture moment. The
+fixtures still have t0 to t3. Their state files and `reduceToStates` keep each moment's id and
+label on `FixtureState`, a fixtures-only type that isn't in the contract.
+
+**Why:** every claim, record and passover carries its own time, so a site as of a time can be
+worked out from them. The named moments are something the fixtures need for testing, and the
+model doesn't. The sponsor decided this on 5 November.
+
+**You need to:**
+- *experience layer* — pull upstream. `state.stateId` and `state.label` are gone, so use the moment
+  you asked for, or `state.asOf`. If your `ArticleView.tsx` keys sections on `state.stateId`, change
+  it to `state.asOf`, because the old key won't typecheck. Da11, in the backlog pull request #51,
+  moves the read model to answering by time.
+- *intelligence layer* — nothing. The scoring graph already uses `asOf`.
+- *content layer* — nothing.
+
 ## 2026-11-05 — stories for references and the terms screen, and two placeholder rules
 
 **Affects:** intelligence layer · content layer
