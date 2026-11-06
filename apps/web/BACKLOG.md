@@ -1042,16 +1042,35 @@ meeting. Stories to build it come out of that meeting.
 
 **Goal.** Routing needs to know what each person has passed over and how, and the fixture
 states only carry totals per claim. Give the data layer a way to read one profile's passovers at
-a site (a place, like the corner shop) and a state (one moment in that site's fixture history,
-t0 to t3, the same ones N3 steps through).
+a site, as of a time.
 
 **Done when:**
-- The read model returns a profile's passovers at a site and state: each with its claim, its kind
+- The read model returns a profile's passovers at a site as of a time: each with its claim, its kind
   (`sounds_right`, `dont_know` or `dont_care`) and its time. It reads them from the fixture event
   logs in `packages/fixtures/fixtures`, which have them, until the contract carries them.
 - A test checks it against a fixture site that has passovers from more than one person.
 
 **Not in this story.** Recording a new passover, which comes with the passover interaction.
+
+### Da11 · A site as of any time
+
+**Workstream:** Data. **Status:** Ready.
+
+**Goal.** The claim is the model's central object, and every claim, record and passover carries
+its own time. So the read model stores the contributions, and answers "this site as of this
+time" from them. The fixtures' t0 to t3 stay as moments to test against, and the database stops
+holding one snapshot per moment.
+
+**Done when:**
+- The database holds each site's contributions, the fixture events, with their times, and no
+  row per state.
+- `getSiteState(slug, asOf)` returns the site as of any time, by folding the contributions up to
+  it with `reduceToState` from `@sagas/fixtures`. At each fixture moment's `asOf` time it matches
+  the fixture state for that moment.
+- N3's control steps through times, starting with the four fixture moments.
+
+**Not in this story.** Contributions from the other layers. They arrive with integration, in
+the same shape.
 
 ### D2 · Suggest what to read next, from what someone has already done
 
