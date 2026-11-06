@@ -46,7 +46,8 @@ it. This is the most useful field in the entry.
 **Affects:** intelligence layer · content layer
 
 **What:** The content layer's backlog gains C6, the terms screen, split out of C1 so it stands on
-its own. The intelligence layer's backlog gains S9, `findReferences(text)`. "matching across branches" and "targets"
+its own. The intelligence layer's backlog gains S9, `findReferences(text)`, and
+`apps/graph-api/cases-graph.json` shows the newer cases as a graph you can open in `graph:view`. "matching across branches" and "targets"
 each gain a placeholder rule: a denial in another thread isn't support, and whether context
 about a longer excerpt supports the details inside it.
 

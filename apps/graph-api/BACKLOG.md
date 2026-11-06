@@ -68,7 +68,7 @@ the match, and the match itself adds nothing.
 | A builder for test graphs | `packages/fixtures/scoring/build.ts`, and `build.test.ts` beside it shows how to use it |
 | A worked example of walking the graph | `apps/graph-api/src/walk.ts` |
 | Example places, as event logs | `packages/fixtures/fixtures/` (`docs/HOW-THE-LAYERS-FIT.md` walks through the corner shop) |
-| Whole graphs as JSON | `apps/graph-api/example-graph.json`, `cat-graph.json` and `corner-shop-graph.json` |
+| Whole graphs as JSON | `apps/graph-api/example-graph.json`, `cat-graph.json`, `cases-graph.json` (the newer cases: one dispute with two changes, a whole-claim dispute, the same words twice, and a disputed transcript) and `corner-shop-graph.json` |
 | A page for seeing a graph, with scores once your scorer returns them | `pnpm --filter @sagas/graph-api graph:view`, written up in `apps/graph-api/src/graph-view.ts` |
 | The guide, with the list of what's fixed for every scorer | `docs/PHASE-2-INTELLIGENCE-LAYER.md` |
 
