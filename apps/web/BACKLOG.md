@@ -538,6 +538,20 @@ questions issue.
 
 **Not in this story.** Scores, rankings or counts.
 
+### De12 · Show the terms
+
+**Workstream:** Design. **Status:** Draft.
+
+**Goal.** Anyone can read the terms before they hand anything over. The landing page and the
+full app both lead to them.
+
+**Done when:**
+- A page shows `docs/TERMS.md`, read from that file so the two can't drift apart.
+- The landing page and the full app both link to it.
+
+**Not in this story.** Accepting the terms, which is on the capture screen. The wording,
+which is the sponsor's.
+
 ### De8 · Readable for an older reader (Michael)
 
 **Workstream:** Design. **Status:** Ready
@@ -587,8 +601,7 @@ the page on to the harder data the fixtures already carry, and narrative work
 carries on alongside the map. The sponsor hasn't assigned anything. Pick owners as you
 finish your current work.
 
-Some of these use the freight depot, which came with contract 2.4.0. Your fork
-is still on 2.3.0, so pull upstream first (issue #32).
+Some of these use the freight depot, which came with contract 2.4.0. Your fork has it.
 
 ### M6 · Neighbourhood shapes on the map
 
@@ -646,8 +659,7 @@ still open.
 
 ### N6 · The freight depot as a page
 
-**Workstream:** Narrative page. **Status:** Ready, once you've pulled
-contract 2.4.0.
+**Workstream:** Narrative page. **Status:** Ready.
 
 **Goal.** The freight depot (`packages/fixtures/fixtures/freight-depot/events.ts`)
 is the fixture with the most cases in it: a recording in French, translations
@@ -666,7 +678,7 @@ looks.
 ### N7 · A claim in another language, with its translations
 
 **Workstream:** Narrative page. **Status:** Later. Needs N6 and contract
-2.5.0, which changes how translations are stored.
+2.6.0, which includes the change to how translations are stored.
 
 **Goal.** The project expects many of its readers to have family history in
 another language. A claim given in French shows its English translation, says
@@ -689,7 +701,7 @@ right.
 ### N8 · A recording transcribed one part at a time
 
 **Workstream:** Narrative page. **Status:** Later. Needs N6 and contract
-2.5.0, which changes how transcripts are stored.
+2.6.0, which includes the change to how transcripts are stored.
 
 **Goal.** Contributors transcribe a long recording a piece at a time. The page
 shows which parts can be read, by their start and end times, and marks the
@@ -710,7 +722,7 @@ transcript.
 ### N9 · A link record and its preview
 
 **Workstream:** Narrative page. **Status:** Later. Needs N6 and contract
-2.5.0.
+2.6.0.
 
 **Goal.** In contract 2.5.0 a link record carries a preview: a title and a
 short summary, both typed by the contributor. Sagas fetches nothing from the
@@ -969,7 +981,7 @@ at that detail and the rest of the claim reads as undisputed.
 - A dispute of the whole claim names no replacement for this detail, and it still shows,
   as an objection with its reasoning.
 
-See "Disagreement lands on one detail" in
+See "Disagreement usually lands on one detail" in
 `packages/fixtures/README.md`. The corner shop site at `t2` has a clean example.
 
 ### C3 · Where a claim comes from
@@ -1023,6 +1035,66 @@ add it?
 
 **Done when:** mockups plus a page of reasoning, brought to a specification
 meeting. Stories to build it come out of that meeting.
+
+### Da10 · Each reader's passovers, for routing
+
+**Workstream:** Data. **Status:** Ready.
+
+**Goal.** Routing needs to know what each person has passed over and how, and the fixture
+states only carry totals per claim. Give the data layer a way to read one profile's passovers at
+a site, as of a time.
+
+**Done when:**
+- The read model returns a profile's passovers at a site as of a time: each with its claim, its kind
+  (`sounds_right`, `dont_know` or `dont_care`) and its time. It reads them from the fixture event
+  logs in `packages/fixtures/fixtures`, which have them, until the contract carries them.
+- A test checks it against a fixture site that has passovers from more than one person.
+
+**Not in this story.** Recording a new passover, which comes with the passover interaction.
+
+### Da11 · A site as of any time
+
+**Workstream:** Data. **Status:** Ready. Needs contract 2.7.0.
+
+**Goal.** The claim is the model's central object, and every claim, record and passover carries
+its own time. So the read model stores the contributions, and answers "this site as of this
+time" from them. The fixtures' t0 to t3 stay as moments to test against, and the database stops
+holding one snapshot per moment.
+
+**Done when:**
+- The database holds each site's contributions, the fixture events, with their times, and no
+  row per state.
+- `getSiteState(slug, asOf)` returns the site as of any time, by folding the contributions up to
+  it with `reduceToState(events, asOf)` from `@sagas/fixtures`. At each fixture moment's `asOf`
+  time, its claims, records and passovers match the fixture state for that moment. The sections
+  and the list of what changed since the previous moment still come from the fixture files.
+- N3's control steps through times, starting with the four fixture moments.
+
+**Not in this story.** Contributions from the other layers. They arrive with integration, in
+the same shape.
+
+### D2 · Suggest what to read next, from what someone has already done
+
+**Workstream:** Data. **Status:** Ready. Needs Da10. It's backlog work, and your statement of
+work doesn't change. D1 designs what the reader sees, and this decides what goes in it, so the
+two can run side by side.
+
+**Goal.** Given one person and one site, a function returns the claims to show them next,
+in order, each with a reason.
+
+**Done when:**
+- A function takes a site's claims, a profile and that profile's passovers from Da10, and
+  returns an ordered list of claims, each with
+  a reason.
+- It follows rules you write. Which rules are yours to choose. Some examples are not
+  showing a claim again after `dont_care`, offering the next claim in that thread after
+  `sounds_right`, and favoring contested details or details with few replies, because that's
+  where help is needed.
+- Tests read as scenarios: given these passovers, the next suggestion is this claim, for
+  this reason.
+
+**Not in this story.** Tuning the rules from real passover data, which doesn't exist yet. The intelligence
+layer's matching, which plugs in later as one more input.
 
 ---
 
