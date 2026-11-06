@@ -178,9 +178,9 @@ the cat" pass.
 
 **Status:** Later
 
-**Goal.** What you've been calling keywords are references: a date, a place, a person or a
-record named in a claim's own text. These are yours now. Given a claim's text, your code
-suggests the ones it finds, so the person who wrote it can confirm them.
+**Goal.** A reference is a date, a place, a person or a record named in a claim's own text.
+It looks close to the `Keyword` object in your `docs/Pseudo_Code_Model.md`. Given a claim's text,
+your code suggests the references it finds, so the person who wrote it can confirm them.
 
 **Done when:**
 - `findReferences(text)` in `apps/graph-api/src` returns a list in the contract's
