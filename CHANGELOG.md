@@ -62,6 +62,21 @@ model doesn't. The sponsor decided this on 5 November.
 - *intelligence layer* — nothing. The scoring graph already uses `asOf`.
 - *content layer* — nothing.
 
+## 2026-11-09 — terms `provisional-0.2`
+
+**Affects:** content layer · experience layer
+
+**What:** `docs/TERMS.md` is now version `provisional-0.2`. "What we keep about you" says that
+if someone marks contributions as they read ("sounds right", "don't know" or "don't care"), Sagas
+keeps those choices with their profile, to suggest what to show them next.
+
+**Why:** passovers are kept with a profile, and the terms didn't say so.
+
+**You need to:**
+- *content layer* — show `provisional-0.2` where your terms screen shows a version, and store it
+  as `termsVersion` on new records. Records made under `provisional-0.1` keep that version.
+- *experience layer* — nothing beyond your terms page (De12) showing the current file.
+
 ## 2026-11-08 — stories for the minimum scorer
 
 **Affects:** intelligence layer
