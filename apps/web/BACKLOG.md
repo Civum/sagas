@@ -1073,9 +1073,31 @@ holding one snapshot per moment.
 **Not in this story.** Contributions from the other layers. They arrive with integration, in
 the same shape.
 
-### D2 · Suggest what to read next, from what someone has already done
+### D2 · Explore a place one claim at a time
 
-**Workstream:** Data. **Status:** Ready. Needs Da10. It's backlog work, and your statement of
+**Workstream:** Design, with Data. **Status:** Ready. It's a stretch goal, and your statement of
+work doesn't change.
+
+**Goal.** In explore mode, a reader sees one claim at a time from a site's story and answers it
+with a passover: "sounds right", "don't know" or "don't care". Then the next claim comes up. This
+story is the screen. For now the next claim can come in a simple order, like the order the claims
+were made. Choosing it well, from what someone has passed over, is D3, and part of it depends on
+the intelligence layer.
+
+**Done when:**
+- From a site's page, a reader can switch to explore mode and step through its claims one at a
+  time, from the fixture data.
+- Each claim shows what it says and what it points at, with the three passover choices. Choosing
+  one moves on to the next claim.
+- The reader's passovers last for the visit, in the contract's `passover` shape. Saving them for
+  good comes with Da8's tables.
+
+**Not in this story.** Choosing the next claim from someone's passovers (D3). Showing anyone
+else's passovers, counts or scores.
+
+### D3 · Suggest what to read next, from what someone has already done
+
+**Workstream:** Data. **Status:** Later. Needs Da10, and comes after D2. It's backlog work, and your statement of
 work doesn't change. D1 designs what the reader sees, and this decides what goes in it, so the
 two can run side by side.
 
