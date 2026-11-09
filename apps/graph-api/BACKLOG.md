@@ -97,6 +97,53 @@ Your design notes are in `docs/Pseudo_Code_Model.md`, and `Swarm.ts` on `Test-Sc
 go at counting repeats for less. S1 is optional. S9, suggesting references, is yours as well,
 further down the order.
 
+## What you've already done
+
+This work counts toward the list above.
+
+### Your design notes
+
+**Status:** Done.
+
+`docs/Pseudo_Code_Model.md` on your fork's `main` is your model of the scorer, including the
+`Keyword` shape that S9 builds on.
+
+### A first scorer
+
+**Status:** Done. The starter scorer below replaced it.
+
+Your first scorer, pushed to `Test-Scorer` on 3 November, set out the terms a score is made of:
+evidence, passovers, corroboration, extensions and disputes.
+
+### The starter scorer
+
+**Status:** Done as a first version. It counts toward items 2, 3 and 5.
+
+`packages/fixtures/scoring/Scorer-2.6.ts` on `Test-Scorer`, pushed on 6 November, reads the current
+graph.
+- Its `similarity` compares two texts by the longest common subsequence of their words, divided by
+  the length of the shorter one.
+- It walks the graph with `detailsOf`, `repliesTo` and `pointsAt`.
+- It returns a result for every claim and every detail in the contract's shape: whether a detail
+  is contested, the claims that point at it, and their evidence. The scores are placeholders for
+  now.
+- `Scorer.test.ts` runs every rule against it.
+
+Its next step is S2, which moves it into `apps/graph-api/src/scorer.ts`.
+
+### Counting repeats for less
+
+**Status:** A first version. It counts toward the independence rules in item 5.
+
+`Swarm.ts` on `Test-Scorer` counts a claim that repeats an earlier one within ten minutes as a
+tenth.
+
+### Keeping up with the contract
+
+**Status:** Done.
+
+You merged contracts 2.6.0 and 2.7.0 into your fork.
+
 ---
 
 ### S1 · Walk the corner shop graph
