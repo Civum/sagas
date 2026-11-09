@@ -62,6 +62,19 @@ model doesn't. The sponsor decided this on 5 November.
 - *intelligence layer* — nothing. The scoring graph already uses `asOf`.
 - *content layer* — nothing.
 
+## 2026-11-08 — neighbourhood boundaries
+
+**Affects:** experience layer · content layer
+
+**What:** `packages/fixtures/geo/` holds the city's neighbourhood boundaries as GeoJSON, with a
+README saying where they come from, how to credit them, and how to refresh them. Every fixture
+site falls inside one of them.
+
+**Why:** the map's shapes (M6) need them, and so does anything that places a point within a
+neighbourhood. Keeping one copy upstream means every team works from the same boundaries.
+
+**You need to:** nothing yet. Pull upstream when a story needs the boundaries.
+
 ## 2026-11-05 — stories for references and the terms screen, and two placeholder rules
 
 **Affects:** intelligence layer · content layer
