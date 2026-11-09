@@ -78,21 +78,24 @@ you need into `apps/graph-api` and point your code at the copy.
 
 ## What the scorer does this semester, and where each part stands
 
-By the end of the semester, your layer does the eight things below. At Monday's meeting we'll
-decide who takes what, and I'll take some too.
+By the end of the semester, your layer does the eight things below. They pick up from the first
+milestone in the guide, and S1 to S9 stay as they were. At Monday's meeting we'll decide who
+takes what, and I'll take some too.
 
 | # | What the scorer does | Stories | Where it stands |
 |---|---|---|---|
 | 1 | Stores claims and takes them in, with a plain screen for writing them | S10, S11 | Not started |
-| 2 | Scores from the graph | S2 to S8 | Upstream has the graph's shape (`scoringGraph`) and a worked example of walking it (`src/walk.ts`). I've built S5's counting, in pull request #1 on your fork, waiting on your review. Your first scorer is on the `Test-Scorer` branch, written against an earlier graph, and it isn't in `src/scorer.ts` yet. |
-| 3 | Returns results for claims and details | S2 ("what comes back") | The contract has the result types, `claimScore` and `detailScore`. |
+| 2 | Scores from the graph | S2 to S8 | Your starter scorer, `Scorer-2.6.ts` on the `Test-Scorer` branch (6 November), reads the current graph with `detailsOf`, `repliesTo` and `pointsAt`. Its next step is moving into `src/scorer.ts` (S2). I've built S5's counting, in pull request #1 on your fork, waiting on your review. |
+| 3 | Returns results for claims and details | S2 ("what comes back") | Your starter scorer already returns both levels, with placeholder numbers. |
 | 4 | Explains any score | S12 | Not started |
-| 5 | Passes the rule groups | S2 to S8 | The rules are in `rules.ts`. `src/scorer.ts` doesn't pass any yet. |
+| 5 | Passes the rule groups | S2 to S8 | The guide's first milestone is the five rules under "what comes back" and the five under "similarity between details". Your starter scorer aims at those, and I haven't run it, so we'll see on Monday how many pass. |
 | 6 | Runs on the examples and the first real place | S13 | The example graphs are in `apps/graph-api`, and the real place is `first-place-claims.json`, from 3 November. |
 | 7 | Runs behind `POST /score` | S14 | The endpoint is in `src/index.ts` and answers 501 until the scorer returns results. |
 | 8 | The experience layer can call it | S15 | The package already exports the scorer. |
 
-S1 is optional. S9, suggesting references, is yours as well, further down the order.
+Your design notes are in `docs/Pseudo_Code_Model.md`, and `Swarm.ts` on `Test-Scorer` has a first
+go at counting repeats for less. S1 is optional. S9, suggesting references, is yours as well,
+further down the order.
 
 ---
 
@@ -122,8 +125,9 @@ need it.
 
 **Goal.** A scorer that can't be pushed up by repeating words.
 
-**Done when** these two rules pass, along with the ten from the first milestone
-(the five under "what comes back" and the five under "similarity between details"):
+**Done when** your starter scorer from `Test-Scorer` is in `apps/graph-api/src/scorer.ts`, where
+`scorer.test.ts` runs the rules against it, and these two rules pass, along with the ten from the
+first milestone (the five under "what comes back" and the five under "similarity between details"):
 - "never raises a claim for repeating its own words";
 - "adds nothing for extra words in the claim text".
 
