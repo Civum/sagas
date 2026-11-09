@@ -62,6 +62,20 @@ model doesn't. The sponsor decided this on 5 November.
 - *intelligence layer* — nothing. The scoring graph already uses `asOf`.
 - *content layer* — nothing.
 
+## 2026-11-08 — stories for the minimum scorer
+
+**Affects:** intelligence layer
+
+**What:** `apps/graph-api/BACKLOG.md` gains a table of the eight things the scorer does this
+semester, the stories for each and where each stands, and six new stories: S10 stores claims, S11 is a plain screen for writing
+them, S12 explains a score, S13 runs on the examples and the first real place, S14 scores live
+with `POST /score`, and S15 lets the experience layer call the scorer.
+
+**Why:** the minimum scorer was a list in an email. As stories, each of you can pick one and see
+what done looks like.
+
+**You need to:** nothing before Monday. We'll go through them together at the meeting.
+
 ## 2026-11-08 — neighbourhood boundaries
 
 **Affects:** experience layer · content layer
