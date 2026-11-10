@@ -1115,6 +1115,10 @@ in order, each with a reason.
 - Tests read as scenarios: given these passovers, the next suggestion is this claim, for
   this reason.
 
+**Worth knowing.** D2 is the screen, and this is the logic behind it. Keeping "what to show
+next" in order as passovers come in is the kind of job a priority queue is built for, though the
+structure is your choice.
+
 **Not in this story.** Tuning the rules from real passover data, which doesn't exist yet. The intelligence
 layer's matching, which plugs in later as one more input.
 
