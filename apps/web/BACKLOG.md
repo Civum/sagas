@@ -538,7 +538,7 @@ questions issue.
 
 **Not in this story.** Scores, rankings or counts.
 
-### De12 · Show the terms
+### De12 · Show the terms (Michael)
 
 **Workstream:** Design. **Status:** Draft.
 
