@@ -339,26 +339,37 @@ and its reason are in a one-page decision record, and the README says how to
 roll back. Publishing can run from GitHub Actions on every merge, or one
 person can manage releases for everyone. Either is fine.
 
-### Da8 · What each screen needs, from the people building it
+### P8 · Keep the hosted database awake
+
+**Workstream:** Platform. **Status:** Ready once you have database access.
+
+**Goal.** A free Supabase project pauses after a week with no activity, and between semesters or
+in a quiet week, nobody would notice until the site stopped loading. Write a small scheduled job
+that queries the hosted database every few days. Where it runs is your choice. If it's a
+scheduled GitHub Actions workflow in a public repository, GitHub turns it off after 60 days with
+no commits, so check that before choosing it. The connection details stay in a secret.
+
+**Done when** the job has run on its schedule at least twice, and the README where it lives says
+what it does and how to turn it off.
+
+**Not in this story.** Anything else to do with keeping the database up, like backups or
+monitoring.
+
+### Da8 · A schema for what the site saves
 
 **Workstream:** Data. **Status:** Ready. Replaces Da3.
 
-**Goal.** The data workstream holds the data behind every screen the team
-builds: the state a screen keeps while someone uses it, and the storage
-behind it. So each map and narrative page story has a matching data story,
-done with whoever is building that screen. Da5 to Da7 are the first ones. This
-story starts it: sit with the people working on the components (De7), the map
-and the narrative page, and write down, for each screen, the data it shows and
-the state it keeps.
+**Goal.** The site has to save some of what people do, starting with passovers, and later
+whatever the other layers produce that the live site keeps. Find what each layer produces that
+the site has to save, and write a first migration in `apps/ui-api` with tables for it, starting with
+passovers. The shared model is the one in `packages/contracts/src/model.ts`, so take shapes from
+its Zod types and don't write your own copies of them. Tables only your layer needs go in a
+Postgres schema of your own, beside the shared tables. If the contract is missing something you
+need, send it to me as a proposal in the questions issue, because a change to the shared contract
+goes to every team.
 
-How state is managed (hooks, providers, a store library or something else) is
-the data workstream's choice. Write down why in a one-page decision record.
-Shapes come from the contract's Zod types. Don't write your own copies of
-them.
-
-**Done when** the list is in the fork, each item names its screen, and
-anything the fixtures don't have is asked in the questions issue, with the
-reason.
+**Done when** the migration runs against the local database from `pnpm db:up`, it has a table for
+passovers, and the list of what else needs saving, by layer, is in the fork.
 
 ### Da5 · The map's data and state
 
