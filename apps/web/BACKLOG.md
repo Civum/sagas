@@ -158,13 +158,20 @@ and the list follows the area the map shows. It works from the keyboard.
 
 ### M3 · Site icons
 
-**Workstream:** Map and discovery. **Status:** Ready
+**Workstream:** Map and discovery, with Design. **Status:** Ready. Expanded 12 November.
 
-**Goal.** A pin says at a glance what kind of place it is, and roughly how well
-documented, without a number. This replaces the pin band in B1.
+**Goal.** A pin says at a glance what kind of place it is, and roughly how well documented,
+without a number. This replaces the pin band in B1. The sponsor's picture: small illustrated map
+assets with their own character, like a little church, a bank or a farm, and nothing generic. Draw
+them yourselves. Icons collected from a package or a website each need their licence checked, and
+that work stays with the sponsor. They follow the brand's colours and type once the sponsor has
+them ready; until then, propose two or three styles to choose from.
 
-**Done when:** a small set of icons, in the style the design workstream is
-working toward, used on the map and the list.
+**Done when:** a small set of icons, in that style, used on the map and the list.
+
+**Stretch goal.** Small animations: the barnyard wiggles, the bank bounces. Phones don't hover, so
+give them a moment too, like when a pin first appears. Respect the reader's setting for reduced
+motion.
 
 ### N1 · The corner shop at t3 as a page (Canon)
 
@@ -423,7 +430,8 @@ time.
 
 ### M4 · A pin opens its site
 
-**Workstream:** Map and discovery. **Status:** Later. Needs M1 and N1.
+**Workstream:** Map and discovery. **Status:** Ready, and next (12 November): today every pin and
+every place in the list opens a page that doesn't exist yet.
 
 **Goal.** M1, from sprint one, is the map story to start with. It works with
 your own free Mapbox token, as `SETUP.md` describes, and without one. After
@@ -746,6 +754,64 @@ wrote the summary, and opens the linked page in a new tab.
 checking whether the link still works.
 
 ---
+
+## Sprint three, third batch
+
+Added 12 November, after the sponsor saw the app running for the first time. Tag me on any of
+them in your issues.
+
+### M7 · Keep the map on Boise
+
+**Workstream:** Map and discovery. **Status:** Ready. Needs M1.
+
+**Goal.** The map opens fitted to the places. Today it opens so far out that
+every fixture site sits on one dot, and it can pan and zoom out past Idaho.
+
+**Done when** the map opens fitted to the places, and someone can't pan or zoom out far beyond the
+Boise area.
+
+### D4 · A section's claims as a graph
+
+**Workstream:** Design, with Data. **Status:** Ready. A stretch goal, after D2.
+
+**Goal.** A reader can see the claims behind a section of a site's story as a small graph: what
+points at what, and where people extend or dispute each other. Choosing a claim in the graph opens
+the same explore screen as D2. Today nothing lets a reader see the graph at all; the narrative is
+one way in, and this is the other. `pnpm --filter @sagas/graph-api graph:view` draws a developer's
+version, if you want to see the shape.
+
+**Done when** a section on a site's page can switch to its graph, every claim behind it shows with
+its links, and choosing one opens D2's screen.
+
+**Not in this story.** A graph of a whole site, or of everything.
+
+### De13 · Colour and type from the brand
+
+**Workstream:** Design. **Status:** Later. Needs the sponsor's logo, colours and font, which he's
+making.
+
+**Goal.** The site and the map stop being grey. The landing page, the app and the map share the
+brand's colours and type, through your design tokens, so a change happens in one place.
+
+**Done when** the tokens carry the brand, the map and the pages use them, and the contrast still
+meets your accessibility rule.
+
+### H1 · A handoff note for your work
+
+**Status:** Ready, for the end of the semester.
+
+**Goal.** Whoever picks up your work next, in spring or later, starts from your note instead of
+from scratch. Write it in your own words, in `apps/web/HANDOFF.md`.
+
+**Done when** the note says:
+- which stories in this backlog you finished, and where the work for each one is;
+- which ones you started, and where each one stopped;
+- which ones nobody started;
+- how to run your app and its tests, and how the site is deployed and run;
+- anything the next team should know that isn't written down anywhere else, like known problems,
+  or a choice you made and why.
+
+**Not in this story.** Finishing the stories that are left, or rewriting this backlog.
 
 ## Epic A — Foundations (the original first sprint)
 
@@ -1087,24 +1153,43 @@ the same shape.
 ### D2 · Explore a place one claim at a time
 
 **Workstream:** Design, with Data. **Status:** Ready. It's a stretch goal, and your statement of
-work doesn't change.
+work doesn't change. Revised 12 November with the sponsor's picture of it, so tag me on anything
+here you'd change.
 
-**Goal.** In explore mode, a reader sees one claim at a time from a site's story and answers it
-with a passover: "sounds right", "don't know" or "don't care". Then the next claim comes up. This
-story is the screen. For now the next claim can come in a simple order, like the order the claims
-were made. Choosing it well, from what someone has passed over, is D3, and part of it depends on
-the intelligence layer.
+**Goal.** In explore mode, a reader meets one claim at a time from a site's story and decides what
+to do with it. The picture so far:
+- The claim sits in the middle of a circle. The references in its text (a date, a place, a person,
+  a record) stand out, each kind in its own colour, with a label or icon too, so colour isn't the
+  only cue.
+- The reader can extend the claim or dispute it. How those two look is the design challenge here:
+  find an artistic, conceptual way to show "I can add to this" and "I see it differently", rather
+  than two plain buttons.
+- The reader can move on to the next claim: dragging on a phone, a carousel or arrows on a wider
+  screen. Tell the reader which one works where they are.
+- Moving on opens a passover screen: the reader picks a reason ("sounds right", "don't know" or
+  "don't care"), goes back to the claim, or leaves explore mode. If they close the app or leave
+  without choosing, nothing is recorded.
+
+For now the next claim can come in a simple order, like the order the claims were made. Choosing
+it well is D3.
 
 **Done when:**
-- From a site's page, a reader can switch to explore mode and step through its claims one at a
-  time, from the fixture data.
-- Each claim shows what it says and what it points at, with the three passover choices. Choosing
-  one moves on to the next claim.
-- The reader's passovers last for the visit, in the contract's `passover` shape. Saving them for
-  good comes with Da8's tables.
+- From a site's page, a reader can switch to explore mode and move through its claims, from the
+  fixture data.
+- Each claim shows its text with its references marked, what it points at, and ways to extend,
+  dispute and move on.
+- Moving on asks for a reason, and only a chosen reason becomes a passover, in the contract's
+  `passover` shape. Passovers last for the visit; saving them for good comes with Da8's tables.
+- Extending or disputing opens a way to write the new claim, and the new claim always has a
+  target: the claim it answers (or a record), and the words in it that it points at. An extension
+  or a dispute without a target isn't valid. A dispute also needs the words that replace the ones
+  it points at, and a reason, because that's what the contract's `claim` holds.
+  Writing claims belongs to the intelligence layer, so this calls their endpoint; until it exists,
+  mock it.
 
 **Not in this story.** Choosing the next claim from someone's passovers (D3). Showing anyone
-else's passovers, counts or scores.
+else's passovers, counts or scores. The fixtures have few references, so ask in the questions
+issue if you need more to design with.
 
 ### D3 · Suggest what to read next, from what someone has already done
 
