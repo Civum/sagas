@@ -19,7 +19,8 @@
     "next": "^16.4.6",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
-    "@sagas/read-model": "workspace:*"
+    "@sagas/read-model": "workspace:*",
+    "@sagas/terms": "workspace:*"
   },
   "devDependencies": {
     "@sagas/eslint-config": "workspace:*",

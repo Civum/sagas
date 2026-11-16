@@ -1,0 +1,25 @@
+{
+  "name": "@sagas/terms",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@sagas/eslint-config": "workspace:*",
+    "@sagas/prettier-config": "workspace:*",
+    "@sagas/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "prettier": "@sagas/prettier-config"
+}

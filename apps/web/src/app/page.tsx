@@ -62,7 +62,11 @@ export default function Page() {
 
       <ArticleView state={state} />
 
-      <footer className="border-t border-neutral-200 pt-5 text-xs text-neutral-600">
+      <footer className="border-t border-neutral-200 pt-5 text-sm text-neutral-600">
+        <Link href="/terms" className="underline">
+          Contributor terms
+        </Link>{' '}
+        ·{' '}
         <Link href="/dev" className="underline">
           /dev
         </Link>{' '}

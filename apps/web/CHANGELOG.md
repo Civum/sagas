@@ -16,6 +16,10 @@ conflict on a later pull.
 - What works now, in a sentence a visitor would understand. (#pull request number, who)
 ```
 
+## 2026-11-14
+
+- Visitors to the web app can open the shared contributor terms from its footer. ([#64](https://github.com/byui-cse397/2026.3FallCSE397PCP_sagasCustomer/pull/64), Michael)
+
 ## 2026-11-03
 
 - The landing page’s “How it works” link is taller and easier to tap on a phone. (#47, Michael)

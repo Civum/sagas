@@ -277,6 +277,9 @@ importers:
       '@sagas/read-model':
         specifier: workspace:*
         version: link:../../packages/read-model
+      '@sagas/terms':
+        specifier: workspace:*
+        version: link:../../packages/terms
       mapbox-gl:
         specifier: 'catalog:'
         version: 3.28.1
@@ -428,6 +431,33 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
+
+  packages/terms:
+    devDependencies:
+      '@sagas/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@sagas/prettier-config':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@sagas/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/typescript
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.20.1
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.5(jiti@1.21.7)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.9.6
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.7(@types/node@22.20.1)(happy-dom@21.0.4)(jiti@1.21.7)(tsx@4.23.12)
 
   tooling/eslint:
     dependencies:

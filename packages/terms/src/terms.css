@@ -1,0 +1,52 @@
+.terms-prose h1,
+.terms-prose h2,
+.terms-prose h3,
+.terms-prose h4,
+.terms-prose h5,
+.terms-prose h6 {
+  margin-top: 2rem;
+  font-family: ui-serif, Georgia, serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.terms-prose h1 {
+  margin-top: 0;
+  font-size: 2.25rem;
+}
+
+.terms-prose h2 {
+  font-size: 1.5rem;
+}
+
+.terms-prose h3 {
+  font-size: 1.25rem;
+}
+
+.terms-prose h4,
+.terms-prose h5,
+.terms-prose h6 {
+  font-size: 1.125rem;
+}
+
+.terms-prose p,
+.terms-prose ul {
+  margin-top: 1rem;
+  line-height: 1.7;
+}
+
+.terms-prose ul {
+  padding-left: 1.5rem;
+  list-style: disc;
+}
+
+.terms-prose a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.terms-prose code {
+  border-radius: 0.25rem;
+  background: hsl(var(--muted, 0 0% 96%));
+  padding: 0.1rem 0.25rem;
+}
