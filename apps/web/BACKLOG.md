@@ -389,6 +389,28 @@ same files while building. Once their screens are done, bringing them in is your
 
 **Not in this story.** Changing what the screens do. Hosting the content layer's API.
 
+### P10 · Find out whether the two Express APIs run on Workers Free
+
+**Workstream:** Platform. **Status:** Ready. Added 18 November.
+
+**Goal.** The content layer's `capture-api` and the intelligence layer's `graph-api` are both
+Express 5 apps, written for an ordinary Node server. You'll host both on Cloudflare with
+everything else, and whether Express runs on Workers Free as it is decides whether that's a
+small deploy or a rewrite. Find out before either team is finished, so there's time to adjust.
+
+**Done when** a short write-up on #34 answers:
+- Does an Express 5 app run on Workers Free, and what does it need (a compatibility setting, an
+  adapter, changes to the code)? Link the Cloudflare page that says so.
+- Does the Postgres connection go through Hyperdrive, the same as the full app's?
+- Does one small request fit inside the free plan's CPU limit?
+- If Express doesn't run, what's the smallest change that gets each API hosted?
+
+A tiny Express app with one route, deployed to a test Worker and removed afterwards, is the
+clearest proof, using the same conditions as P4: the `workers.dev` address only and fixture data
+only.
+
+**Not in this story.** Hosting either API for real. Changing either team's code.
+
 ### Da8 · A schema for what the site saves
 
 **Workstream:** Data. **Status:** Ready. Replaces Da3.
