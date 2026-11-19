@@ -369,6 +369,26 @@ what it does and how to turn it off.
 **Not in this story.** Anything else to do with keeping the database up, like backups or
 monitoring.
 
+### P9 · Bring the contributing screens into the site
+
+**Workstream:** Platform. **Status:** Later. Needs the content layer's screens upstream in
+`apps/capture-web`. Added 18 November.
+
+**Goal.** The live site is one app. The content layer is building the screens for handing
+something over (`apps/capture-web`, React with Vite), and they need to live inside `apps/web` so
+there's one thing to host. React components move into Next.js as client components: add
+`'use client'` at the top of each file and place them in the app's routes. The content layer's
+README says I kept the two apps apart on purpose, and that was so two teams didn't edit the
+same files while building. Once their screens are done, bringing them in is yours.
+
+**Done when:**
+- The contributing screens open at their own route in `apps/web`, look the way they did in
+  `apps/capture-web`, and use the brand like the rest of the site.
+- They call the content layer's API the same way they did before, with its address as a setting.
+- The site builds and deploys with them, and `apps/capture-web` no longer needs hosting of its own.
+
+**Not in this story.** Changing what the screens do. Hosting the content layer's API.
+
 ### Da8 · A schema for what the site saves
 
 **Workstream:** Data. **Status:** Ready. Replaces Da3.
