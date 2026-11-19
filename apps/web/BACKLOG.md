@@ -1185,6 +1185,27 @@ holding one snapshot per moment.
 **Not in this story.** Contributions from the other layers. They arrive with integration, in
 the same shape.
 
+### Da12 · Mock what another layer hasn't delivered yet
+
+**Workstream:** Data. **Status:** Ready. Added 18 November.
+
+**Goal.** Your pages shouldn't wait on another layer. Where the site needs something another
+layer will provide, like a claim written through the intelligence layer or a place created in
+the content layer's capture app, mock it on your side in the shape `model.ts` gives it. Then,
+when the real thing arrives, only the mock changes. The fixtures already mock scores. They
+fill `claimState.score` with invented numbers in the `claimScore` shape.
+
+**Done when:**
+- A short list in the fork says what the site needs from the other two layers, which `model.ts`
+  shape each one has, and whether it's real or mocked today.
+- Each mocked item has a mock in your app that returns that shape, in one place, so swapping in
+  the real call later is a small change.
+- If the site needs something `model.ts` doesn't have, you open an issue upstream, tagging me,
+  and don't make up a shape locally. Three layers build on the contract, so a shape only one of
+  them knows about drifts.
+
+**Not in this story.** Changing `packages/fixtures` or `packages/contracts`. Those go upstream.
+
 ### D2 · Explore a place one claim at a time
 
 **Workstream:** Design, with Data. **Status:** Ready. It's a stretch goal, and your statement of
