@@ -153,8 +153,15 @@ Mapbox token.
 **Goal.** Somebody can find a site by typing part of its name, or by moving the
 map.
 
-**Done when:** a search field filters sites by name, other names and address,
-and the list follows the area the map shows. It works from the keyboard.
+**Done when:** a search field filters sites by name and other names, and the
+list follows the area the map shows. It works from the keyboard.
+
+**Never search by address** (changed 18 November). This story used to say
+"and address", which was wrong. Matching on an address would tell anyone who
+types a street address that a place sits there, and some of these places are
+homes. For the same reason, don't show a site's address on the map, the list or
+a place's page, and show the neighbourhood instead (M8). The `address` field is
+still in the contract until a coming change deals with it.
 
 ### M3 · Site icons (Sam)
 
@@ -624,8 +631,8 @@ Some of these use the freight depot, which came with contract 2.4.0. Your fork h
 
 ### M6 · Neighbourhood shapes on the map
 
-**Workstream:** Map and discovery. **Status:** Later. Needs M1, and the
-boundary data, which the sponsor will provide.
+**Workstream:** Map and discovery. **Status:** Ready. Needs M1. The boundary
+data is in `packages/fixtures/geo/`.
 
 **Goal.** Places sit inside neighbourhood shapes on the map. The sponsor has
 decided that a home is shown at neighbourhood or subdivision level until the people it
@@ -637,8 +644,34 @@ on the map itself, each fixture site falls inside the shape whose boundary
 contains its coordinates, and it works on a phone and with or without a
 Mapbox token, like M1.
 
-**Not in this story.** Moving a home's pin to its neighbourhood. The contract
-doesn't mark a place as a home yet, and that gets its own story once it does.
+**Not in this story.** Moving a place's pin into its neighbourhood, which is
+M8. The boundary data is in `packages/fixtures/geo/`.
+
+### M8 · Show each place inside its neighbourhood
+
+**Workstream:** Map and discovery. **Status:** Ready. Added 18 November. Goes
+with M6 and De11.
+
+**Goal.** For now, the map never puts a pin on a place's real coordinates. It
+shows each place inside the neighbourhood it's in, with the places in one
+neighbourhood spaced evenly inside its shape. A reader learns the neighbourhood
+and nothing more precise. This is a stopgap I've chosen so you aren't waiting on
+anyone. Later the content layer may give each place a safe area to draw
+instead, and we'll decide then whether the map draws from that.
+
+**Done when:**
+- Each pin sits inside its place's neighbourhood, at a spot worked out from the
+  neighbourhood's shape and the places in it, never from the place's own
+  coordinates. How you space them is your choice.
+- A pin sits in the same spot every time the map loads. A random offset would
+  give the real spot away to anyone who loads the map enough times.
+- Zooming in shows nothing more precise.
+- The list and a place's page name the neighbourhood, never an address.
+- If a place falls outside every neighbourhood, tell me rather than guess.
+
+**Not in this story.** Showing a public place, like a park or a library, at its
+exact spot. The contract doesn't say which places are public yet. Drawing from
+an area the content layer supplies.
 
 ### Da9 · Neighbourhood shapes in the read model
 
@@ -997,8 +1030,10 @@ is not part of this layer's work.
 
 - A list view shows every site the map shows, and it is reachable whether or not
   a Mapbox token is set. `MapUnavailable` is where it starts.
-- A search field filters the list by site name, other names (`aka`) and address.
-  This searches the fixture data, so it works with no Mapbox token.
+- A search field filters the list by site name and other names (`aka`). This
+  searches the fixture data, so it works with no Mapbox token. It never matches
+  on an address, and the list doesn't show one. M2 says why (changed 18
+  November).
 - Each entry says in words how well documented the place is.
 
 ### B4 · Only load the sites in view
