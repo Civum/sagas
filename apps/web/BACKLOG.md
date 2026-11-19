@@ -146,7 +146,7 @@ pins, and a list view that has everything the map has.
 **Done when:** see B1 and B3 below. Both have to work, with and without a
 Mapbox token.
 
-### M2 · Search by name and by map area
+### M2 · Search by name and by map area (Sam)
 
 **Workstream:** Map and discovery. **Status:** Later. Needs M1.
 
@@ -156,7 +156,7 @@ map.
 **Done when:** a search field filters sites by name, other names and address,
 and the list follows the area the map shows. It works from the keyboard.
 
-### M3 · Site icons
+### M3 · Site icons (Sam)
 
 **Workstream:** Map and discovery, with Design. **Status:** Ready. Expanded 12 November.
 
@@ -966,7 +966,7 @@ components.
 `[longitude, latitude]`. Each person registers their own free token, and nobody
 commits one.
 
-### B2 · Search bar that finds an address and drops a pin
+### B2 · Search bar that finds an address and drops a pin (Sam)
 
 **Status:** Later. Needs B1.
 

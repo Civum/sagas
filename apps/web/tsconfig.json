@@ -2,6 +2,7 @@
   "extends": "@sagas/tsconfig/base.json",
   "compilerOptions": {
     "jsx": "preserve",
+    "ignoreDeprecations": "5.0",
     "baseUrl": ".",
     "paths": {
       "@/*": [

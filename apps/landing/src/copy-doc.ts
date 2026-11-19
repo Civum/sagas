@@ -39,10 +39,11 @@ function plain(markdown: string): string {
  */
 export function parseCopyDoc(markdown: string): Map<string, string> {
   const fields = new Map<string, string>();
-  const start = markdown.indexOf('## Draft page');
+  const normalized = markdown.replace(/\r\n?/g, '\n');
+  const start = normalized.indexOf('## Draft page');
   if (start === -1) return fields;
-  const end = markdown.indexOf('\n## ', start + 1);
-  const lines = markdown.slice(start, end === -1 ? undefined : end).split('\n');
+  const end = normalized.indexOf('\n## ', start + 1);
+  const lines = normalized.slice(start, end === -1 ? undefined : end).split('\n');
 
   let section = '';
   let field = '';

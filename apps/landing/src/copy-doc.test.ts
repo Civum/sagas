@@ -130,6 +130,13 @@ const FIXTURE_DOC = `# Copy
 Anything after the Draft page section is ignored.
 `;
 
+describe('parseCopyDoc', () => {
+  it('parses Windows-style line endings', () => {
+    const windowsDoc = FIXTURE_DOC.replace(/\n/g, '\r\n');
+    expect(parseCopyDoc(windowsDoc).get('Hero / Headline')).toBe('Headline text.');
+  });
+});
+
 const FIXTURE_COPY: PageCopy = {
   meta: { title: 'Brand', description: 'Not in the copy document.' },
   draftBanner: 'Banner text.',

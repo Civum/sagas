@@ -1,5 +1,5 @@
 import { renderToStaticMarkup } from 'react-dom/server';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/queries', async () => {
   const { loadSiteState } = await import('@sagas/fixtures/acceptance');
@@ -13,6 +13,9 @@ vi.mock('@/lib/queries', async () => {
 });
 
 import DevPage from './page';
+
+beforeEach(() => vi.stubEnv('NEXT_PUBLIC_MAPBOX_TOKEN', undefined));
+afterEach(() => vi.unstubAllEnvs());
 
 async function renderDevPage(state: string) {
   const page = await DevPage({
@@ -34,6 +37,21 @@ async function renderDevPage(state: string) {
  * Verify: Check each state link and current-state marker in the rendered page.
  */
 describe('/dev fixture history', () => {
+  it('shows selected fixture integrity in the real no-token map list', async () => {
+    // Corner Shop fixtures: t0 overall 0, t3 overall 50.
+    const t0 = await renderDevPage('t0');
+    const t3 = await renderDevPage('t3');
+    const listAt = (html: string) =>
+      /<nav aria-label="Places in the archive">([\s\S]*?)<\/nav>/.exec(html)?.[1];
+
+    expect(listAt(t0)).toContain('href="/sites/corner-shop"');
+    expect(listAt(t3)).toContain('href="/sites/corner-shop"');
+    expect(listAt(t0)).toContain('Thin record');
+    expect(listAt(t0)).not.toContain('Growing record');
+    expect(listAt(t3)).toContain('Growing record');
+    expect(listAt(t3)).not.toContain('Thin record');
+  });
+
   it('provides navigation to all four states and marks the active one', async () => {
     for (const state of ['t0', 't1', 't2', 't3']) {
       const html = await renderDevPage(state);

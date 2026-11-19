@@ -1,21 +1,25 @@
-import type { Site } from '@sagas/contracts';
-import { MapUnavailable } from './MapUnavailable';
+import { bandFor } from '@/features/site/IntegrityBadge';
 
-/**
- * The map.
- *
- * TODO: build it with Mapbox GL. Markers are styled by integrity score, so a well-documented
- * place looks different from a thin one at a glance. Clustering when markers
- * overlap. A transition into the article view that doesn't feel like a page
- * load.
- *
- * Note what happens with no token: it renders the list instead. Keep that
- * working. See MapUnavailable for why.
- */
-export function MapView({ sites }: { sites: Site[] }) {
-  const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+import type { IntegrityScore, Site } from '@sagas/contracts';
 
-  if (!token) return <MapUnavailable sites={sites} />;
+import type { SiteListEntry } from './siteDiscovery';
+import { MapDiscovery } from './MapDiscovery';
 
-  return <div>TODO: Mapbox map with {sites.length} marker(s).</div>;
+/** One site and its integrity. Pages read the data and components take props. */
+export function summariseSite(
+  site: Site,
+  integrity: IntegrityScore,
+): SiteListEntry {
+  const band = bandFor(integrity.overall);
+  return {
+    site,
+    integrityLabel: band.label,
+    integrityInvitation: band.invitation,
+  };
+}
+
+export function MapView({ sites }: { sites: SiteListEntry[] }) {
+  return (
+    <MapDiscovery sites={sites} token={process.env.NEXT_PUBLIC_MAPBOX_TOKEN} />
+  );
 }

@@ -4,7 +4,7 @@ import type { FixtureStateId } from '@/lib/queries';
 import { DEFAULT_SITE, FIXTURE_STATES, getSiteState, listSites } from '@/lib/queries';
 import { loadIndex } from '@sagas/fixtures/acceptance';
 import { ArticleView } from '@/features/article/ArticleView';
-import { MapView } from '@/features/map/MapView';
+import { MapView, summariseSite } from '@/features/map/MapView';
 
 /**
  * A sandbox for looking at your components against every fixture state.
@@ -36,7 +36,9 @@ export default async function DevPage({
   const slug = entry?.slug ?? DEFAULT_SITE;
 
   const state = getSiteState(slug, stateId);
-  const sites = listSites(stateId);
+  const sites = listSites(stateId).map((site) =>
+    summariseSite(site, getSiteState(site.slug, stateId).integrity),
+  );
   const cases = ACCEPTANCE_CRITERIA.filter((c) => c.stateId === stateId && c.site === entry?.key);
   const stateIndex = FIXTURE_STATES.indexOf(stateId);
   const previousState = stateIndex > 0 ? FIXTURE_STATES[stateIndex - 1] : undefined;
