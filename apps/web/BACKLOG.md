@@ -1080,6 +1080,10 @@ commits one.
 - The fixture sites in view stay visible as pins after the search, so a site
   near the result is one click away.
 - It works from the keyboard and with a screen reader.
+- The search only moves the map. It never looks a site up by its address or its
+  stored location, so the sites you see afterwards are the pins the map already
+  shows (sponsor, 19 November). A search that matched a site's real location
+  would let anyone try homes one at a time until one turned out to be a site.
 
 **Part of the story:** find out which Mapbox service does address search, what
 its free allowance is, and whether results may be stored. Write down what you
