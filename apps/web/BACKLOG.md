@@ -1351,3 +1351,32 @@ layer's matching, which plugs in later as one more input.
 How claims, records and renderings cite each other on the page, and how
 somebody links to one claim. See `apps/web/DIRECTION.md`. Stories get written
 once C1 and C3 exist.
+
+### E1 · Mark the references in a claim's text
+
+**Workstream:** Design. **Status:** Ready. Added 19 November.
+
+**Goal.** A claim can mark words in its text as a reference: a date, a place, a person or a
+record (`claimReference` in `model.ts`). Wherever the site shows a claim's text, a reader should
+see which words are references.
+
+**The picture so far** (sponsor, 19 November):
+- Underline each reference in its kind's colour, and put a small magnifying glass at its upper
+  right. Colour isn't the only cue, so the kind also shows as a label or icon, the way D2
+  describes.
+- For now the magnifying glass only marks the words as a reference. Choosing it does nothing yet.
+- References look different from details, the passages other claims point at, which the place
+  page already highlights.
+
+**Done when:**
+- Every page that shows a claim's text marks every reference this way: the place page now, and
+  explore mode once D2 exists. A reference always gets a magnifying glass, whatever its status.
+- It works from the keyboard, and a screen reader reads out each reference's kind.
+
+**Worth knowing.** The fixtures already have date, person and place references, all confirmed.
+The contract also allows a `suggested` status. For now, show a suggested reference exactly like a
+confirmed one (sponsor, 19 November).
+
+**Not in this story.** A page for a reference that shows how it's used across Sagas, which may
+come later. Adding or confirming references while writing a claim. Changing `packages/fixtures`
+or `packages/contracts`.
