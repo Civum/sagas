@@ -407,7 +407,10 @@ keeps working in their folder as usual, and can still run it on its own with Vit
 
 **Not in this story.** Moving or rewriting their screens, or turning each of their routes into a
 Next.js page of its own, which can come later. Hosting the content layer's API, which is P10's
-question.
+question. Combining creating a place and reading it into one flow. For now there are two
+screens: theirs for creating a place and handing over a record, and yours for reading. Their place
+screens overlap your map and place page, so bringing the two together would be better, and it's
+an open stretch goal for both teams (sponsor, 19 November).
 
 ### P10 · Find out whether the two Express APIs run on Workers Free
 
@@ -636,6 +639,9 @@ full app both lead to them.
 **Done when:**
 - A page shows `docs/TERMS.md`, read from that file so the two can't drift apart.
 - The landing page and the full app both link to it.
+- Every page of the full app has a footer that links to the terms, so anyone who types into the site
+  or hands something over can find them (sponsor, 19 November). That includes the contributing
+  screens once P9 brings them in.
 
 **Not in this story.** Accepting the terms, which is on the capture screen. The wording,
 which is the sponsor's.
