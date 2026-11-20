@@ -353,6 +353,13 @@ and its reason are in a one-page decision record, and the README says how to
 roll back. Publishing can run from GitHub Actions on every merge, or one
 person can manage releases for everyone. Either is fine.
 
+**The Mapbox token** (added 19 November). The published map uses a Mapbox
+token from one of you. Give it to the build as a GitHub Actions setting and
+never commit it. Anything named `NEXT_PUBLIC_` ends up in the page anyone can
+load, so use a public token with no secret scopes, and limit it to the preview
+address if Mapbox lets you. When the work moves upstream, the sponsor puts his
+own token there, and you keep using yours.
+
 ### P8 · Keep the hosted database awake
 
 **Workstream:** Platform. **Status:** Ready once you have database access.
